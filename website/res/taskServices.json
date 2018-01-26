@@ -1,0 +1,17 @@
+﻿{
+  "proxy": [
+    {
+      "name": "proxy",
+      "url": "http://172.19.1.246:8080/proxy/proxy.jsp",
+      "desc": "支持费JSONP代理"
+    }
+  ],
+  "service": [
+    {
+      "name": "sojson",
+      "description": "第三方开源接口",
+      "url": "http://www.sojson.com/open/api",
+      "proxy": "proxy"
+    }
+  ]
+}

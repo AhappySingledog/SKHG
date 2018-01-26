@@ -1,0 +1,16 @@
+{
+  "presets": [
+    "react",
+    "stage-0", 
+    ["env", {
+      "targets": {
+        "node": "current",
+        "browsers": "ie >= 10"
+      },
+      "useBuiltIns": true
+    }]
+  ],
+  "plugins": [
+    "transform-class-properties"
+  ]
+}

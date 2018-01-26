@@ -1,0 +1,156 @@
+.content {
+    border: 1px solid #53A2F1;
+    position: relative;
+    overflow: hidden;
+}
+
+.content ul {
+    top: -50px;
+    display: block;
+    width: 8000px;
+    height: 100%;
+    float:left;
+    position: absolute;
+    z-index: 0;
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    transition: all 0.5s;
+}
+
+.boxStyleLi {
+    display: inline-block;
+    float: left;
+}
+
+.boxStyleLi img {
+    width: 100%;
+    height: 100%;
+}
+
+.leftIcon {
+    width: 5%;
+    height: 10%;
+    background: url('../images/arrowl.png') no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    left: 10px;
+    top: 40%;
+    text-align: center;
+    line-height: 35px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.rightIcon {
+    width: 5%;
+    height: 10%;
+    background: url('../images/arrowr.png') no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    right: 10px;
+    top: 40%;
+    text-align: center;
+    line-height: 35px;
+    z-index: 999;
+    cursor: pointer;
+}
+
+.changeImg {
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    bottom: 10%;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+
+    &-item {
+        width: 14px;
+        height: 14px;
+        background: url('../images/圆形.png');
+        z-index: 999;
+        margin: 10px;
+        cursor: pointer;
+    }
+
+    &-item:hover {
+        opacity: 1;
+    }
+}
+
+.tip {
+    &-top {
+        height: 122px;
+        background: url('../images/上.png') no-repeat;
+        background-size: 100% 100%;
+        padding-left: 71px;
+
+        &-title {
+            text-align: center;
+            line-height: 122px;
+            color: white;
+            font-size: 50px;
+        }
+    }
+
+    &-center {
+        background: url('../images/中.png') no-repeat;
+        background-size: 100% 100%;
+        padding-left: 71px;
+
+        &-content {
+            padding: 30px 30px 5px 30px;
+        }
+    }
+
+    &-bottom {
+        height: 25px;
+        background: url('../images/下.png') no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.mtable {
+    display: flex;
+    flex-direction: column;
+    background: url('../images/面板底框.png') no-repeat;
+    background-size: 100% 100%;
+    width: fit-content;
+    height: fit-content;
+    padding: 0 1px;
+
+    > div {
+        flex-grow: 1;
+
+        > table {
+            width: 100%;
+            > thead {
+                > tr {
+                    > td {
+                        height: 92px;
+                        background: rgba(255, 255, 255, 0);
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                        color: #5caeff;
+                        font-size: 40px;
+                    }
+                }
+            }
+            > tbody {
+                > tr > td {
+                    height: 92px;
+                    color: white;
+                    font-size: 45px;
+                }
+                > tr:nth-of-type(2n) {
+                    background: #002e73;
+                    > td:nth-of-type(1) {
+                        width: 225px;
+                        background: #0a6ec8;
+                    }
+                }
+            }
+        }
+    }
+}

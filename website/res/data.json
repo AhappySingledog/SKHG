@@ -1,0 +1,312 @@
+[
+    {
+        "name": "GIS管网",
+        "data": [
+            {
+                "name": "管线总长",
+                "key": "gxzc",
+                "value": 7936136
+            },
+            {
+                "name": "管网新增",
+                "key": "gwxz",
+                "value": 341563
+            },
+            {
+                "name": "高压总长",
+                "key": "gyzck",
+                "value": 153538
+            },
+            {
+                "name": "中压总长",
+                "key": "zyzck",
+                "value": 1890856
+            },
+            {
+                "name": "低压总长",
+                "key": "dyzck",
+                "value": 5891742
+            },
+            {
+                "name": "设备与数量",
+                "key": "sb_count",
+                "value": [
+                    {
+                        "name": "阀门",
+                        "value": 20274
+                    },
+                    {
+                        "name": "调压器",
+                        "value": 11268
+                    },
+                    {
+                        "name": "凝水缸",
+                        "value": 8891
+                    }
+                ]
+            },
+            {
+                "name": "设备统计",
+                "key": "sb_statitc",
+                "value": [
+                    {
+                        "name": "管线",
+                        "key": "gx",
+                        "value": [
+                            {
+                                "name": "年",
+                                "key": "year",
+                                "value": [
+                                    {
+                                        "year": 2017,
+                                        "value": 341563
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "月",
+                                "key": "month",
+                                "value": [
+                                    {
+                                        "month": "1月",
+                                        "value": 45648
+                                    },
+                                    {
+                                        "month": "2月",
+                                        "value": 20095
+                                    },
+                                    {
+                                        "month": "3月",
+                                        "value": 43679
+                                    },
+                                    {
+                                        "month": "4月",
+                                        "value": 20815
+                                    },
+                                    {
+                                        "month": "5月",
+                                        "value": 34824
+                                    },
+                                    {
+                                        "month": "6月",
+                                        "value": 55390
+                                    },
+                                    {
+                                        "month": "7月",
+                                        "value": 26399
+                                    },
+                                    {
+                                        "month": "8月",
+                                        "value": 19780
+                                    },
+                                    {
+                                        "month": "9月",
+                                        "value": 57868
+                                    },
+                                    {
+                                        "month": "10月",
+                                        "value": 17065
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "阀门",
+                        "key": "fm",
+                        "value": [
+                            {
+                                "name": "年",
+                                "key": "year",
+                                "value": [
+                                    {
+                                        "year": 2017,
+                                        "value": 575
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "月",
+                                "key": "month",
+                                "value": [
+                                    {
+                                        "month": "1月",
+                                        "value": 122
+                                    },
+                                    {
+                                        "month": "2月",
+                                        "value": 28
+                                    },
+                                    {
+                                        "month": "3月",
+                                        "value": 59
+                                    },
+                                    {
+                                        "month": "4月",
+                                        "value": 42
+                                    },
+                                    {
+                                        "month": "5月",
+                                        "value": 68
+                                    },
+                                    {
+                                        "month": "6月",
+                                        "value": 76
+                                    },
+                                    {
+                                        "month": "7月",
+                                        "value": 35
+                                    },
+                                    {
+                                        "month": "8月",
+                                        "value": 40
+                                    },
+                                    {
+                                        "month": "9月",
+                                        "value": 53
+                                    },
+                                    {
+                                        "month": "10月",
+                                        "value": 52
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "name": "调压器",
+                        "key": "tyq",
+                        "value": [
+                            {
+                                "name": "年",
+                                "key": "year",
+                                "value": [
+                                    {
+                                        "year": 2017,
+                                        "value": 406
+                                    }
+                                ]
+                            },
+                            {
+                                "name": "月",
+                                "key": "month",
+                                "value": [
+                                    {
+                                        "month": "1月",
+                                        "value": 51
+                                    },
+                                    {
+                                        "month": "2月",
+                                        "value": 20
+                                    },
+                                    {
+                                        "month": "3月",
+                                        "value": 173
+                                    },
+                                    {
+                                        "month": "4月",
+                                        "value": 12
+                                    },
+                                    {
+                                        "month": "5月",
+                                        "value": 64
+                                    },
+                                    {
+                                        "month": "6月",
+                                        "value": 27
+                                    },
+                                    {
+                                        "month": "7月",
+                                        "value": 21
+                                    },
+                                    {
+                                        "month": "8月",
+                                        "value": 17
+                                    },
+                                    {
+                                        "month": "9月",
+                                        "value": 17
+                                    },
+                                    {
+                                        "month": "10月",
+                                        "value": 4
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "name": "管径分析",
+                "key": "gjfx",
+                "value": [
+                    {
+                        "name": 63,
+                        "value": 968
+                    },
+                    {
+                        "name": 50,
+                        "value": 524
+                    },
+                    {
+                        "name": 160,
+                        "value": 391
+                    },
+                    {
+                        "name": 200,
+                        "value": 379
+                    },
+                    {
+                        "name": 90,
+                        "value": 365
+                    },
+                    {
+                        "name": 110,
+                        "value": 336
+                    }
+                ]
+            },
+            {
+                "name": "管材分析",
+                "key": "gcfx",
+                "value": [
+                    {
+                        "value": 204,
+                        "name": "铸铁"
+                    },
+                    {
+                        "value": 2979,
+                        "name": "复合管"
+                    },
+                    {
+                        "value": 1809,
+                        "name": "钢"
+                    }
+                ]
+            },
+            {
+                "name": "测试图",
+                "key": "demo",
+                "data": [
+                    {
+                        "name": "测试地图",
+                        "key": "demos",
+                        "mapServer": [
+                            {
+                                "name": "天地图影像",
+                                "type": "tiled",
+                                "url": "http://10.1.0.177:8080/ServiceEngine/ecity/rest/services/tianimage/MapServer"
+                            },
+                            {
+                                "name": "测绘图",
+                                "type": "tiled",
+                                "url": "http://10.1.0.178:6080/arcgis/rest/services/sckjzx/SCT_NEW/MapServer"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+]
