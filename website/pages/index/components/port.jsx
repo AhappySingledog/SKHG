@@ -8,9 +8,13 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
+import { ViwePager, Tip, Table, Panel } from '../../../frame/componets/index';
+import HomeRightEcharts from './homeRightEcharts';
 
 // 地图操作组件
 class MapOperation extends React.Component {
+    state = {}
+
     componentDidMount() {
         console.log(this.props.map);
         // this.props.map.mapOper.centerAt({x: 113.8662306010001, y: 22.457914536000033});
@@ -34,49 +38,21 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.image(param);
     }
     render() {
+        let { flds = [], datas = [] } = this.state;
         return (
-            <div style={{ position: 'absolute', top: '-100%' }}>
+            <div>
+                <div style={{ position: 'absolute', top: '-100%' }}></div>
+                {/* <div className='homeRight' style={{ paddingLeft: 60 }}>
+                    <Table style={{ width: 1200, height: 1516, marginBottom: 60 }} flds={flds} datas={datas} />
+                    <Panel style={{ flexGrow: 1, paddingTop: 60 }}>
+                        <HomeRightEcharts />
+                    </Panel>
+                </div> */}
             </div>
+
         )
     }
 }
-
-class ChartView extends React.Component {
-    state = {}
-    componentDidMount() {
-        const { scr, sub, options } = this.props;
-        let scribe = (ops) => {
-            publish(sub, ops).then((res) => {
-                if (this.chart) this.chart.dispose();
-                this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.chart));
-                this.chart.setOption(res[0]);
-                if (res[0].img) { this.setState({ img: res[0].img }); }
-            });
-        }
-        if (scr != sub) this.token = subscribe(scr, scribe);
-        if (options) { scribe(options); this.timer = setInterval(() => scribe(options), 1000 * 60 * 5); }
-    }
-    componentWillUnmount() {
-        if (this.token) unsubscribe(this.token);
-        if (this.chart) this.chart.dispose();
-        if (this.timer) clearInterval(this.timer);
-    }
-    render() {
-        let { style } = this.props;
-        return (
-            <div style={_.assign({ height: '100%', overflow: 'hide' }, style)}>
-                {
-                    this.state.img ?
-                        <div style={{ position: 'absolute', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: '5px' }}>
-                            <img src={this.state.img.url} />
-                        </div> : null
-                }
-                <div ref="chart" style={{ height: '100%' }}></div>
-            </div>
-        );
-    }
-}
-
 
 // 港口
 export default class Port extends React.Component {
@@ -151,29 +127,11 @@ export default class Port extends React.Component {
     }
 
     render() {
-        let { tview = [], idx = 0 } = this.state;
+        let { tview = [], idx = 0, } = this.state;
         return (
             <div className='portMap' style={{ overflow: 'hidden', height: '100%' }}>
-                <div ref="iframe" style={{ height: '100%', width: '67%' }}>
-                    {this.state.map ? <MapOperation map={this.state.map} /> : null}
-                </div>
-                <div className="Right_Map">
-                    <div className="Right_Map_row1">
-                        <span>12312321321</span>
-                    </div>
-                    <div className="Right_Pie">
-                        <div className="Right_Pie_title">
-                            <span>出入境旅客统计</span>
-                        </div>
-                        <div className="Right_Map_row2">
-                            <ChartView scr='rpanel_gcfx_scr' sub='map_view_pie' options={true} />
-                            <div>
-                                <span>出境旅客人数</span>
-                                <span>175000</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <div ref="iframe"></div>
+                {this.state.map ? <MapOperation map={this.state.map} /> : null}
             </div>
         )
     }

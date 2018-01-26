@@ -6,7 +6,8 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Table } from '../../../frame/componets/index';
+import { ViwePager, Tip, Table, Panel } from '../../../frame/componets/index';
+import HomeRightEcharts from './homeRightEcharts';
 
 class MyPort extends React.Component {
     state = {
@@ -79,22 +80,15 @@ export default class Home extends React.Component {
         publish('home_worldMap').then((res) => {
             this.setState({ ports: res[0].data });
         });
+        publish('home_right_t').then((res) => {
+            this.setState(res[0]);
+        });
     }
     handleShowTip = (showTip, msg) => {
         this.setState({ tip: { showTip: showTip, msg: msg } });
     }
     render() {
-        let { ports = [] } = this.state;
-        let flds = [
-            {name: 'a', title: 'a'},
-            {name: 'b', title: 'b'},
-        ];
-        let datas = [
-            {a: 1, b: 2},
-            {a: 1, b: 2},
-            {a: 1, b: 2},
-            {a: 1, b: 2},
-        ];
+        let { ports = [], flds = [], datas = [] } = this.state;
         return (
             <div className='home' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='homeLeft'>
@@ -108,8 +102,11 @@ export default class Home extends React.Component {
                         {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} key={i} port={e} id={'icon_' + i} />)}
                     </div>
                 </div>
-                <div className='homeRight'>
-                    <Table style={{width: 1200}} flds={flds} datas={datas}/>
+                <div className='homeRight' style={{paddingLeft: 60}}>
+                    <Table style={{width: 1200, height: 1516, marginBottom: 60}} flds={flds} datas={datas}/>
+                    <Panel style={{flexGrow: 1, paddingTop: 60}}>
+                        <HomeRightEcharts />
+                    </Panel>
                 </div>
                 {this.state.tip.showTip ?
                     <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 450, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name}>

@@ -156,6 +156,8 @@ body > div {
 
 .homeRight {
     width: 33%;
+    display: flex;
+    flex-direction: column;
 }
 
 .portType {
@@ -256,9 +258,9 @@ body > div {
 
 .portMap{
     display: flex;
-    flex-direction: column;
-
-    > div {
+    flex-direction: row;
+    width: 100%;
+    > div:first-child {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -287,29 +289,20 @@ body > div {
     height: 1000px;
     width: 100%;
     box-sizing: border-box;
-    border: 5px solid #4D94DE;
-    padding-left: 30px;
-    padding-top: 30px;
+    border: 2px solid #4D94DE;
+    border-radius: 4px;
 }
 
 .Right_Map_row2_list{
     height: 100%;
 }
 
-.Right_Pie{
-    padding: 15px;
-    border: 5px solid #089CEF;
-    color: white;
-}
+.homeRightE {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
 
-.Right_Pie_title{
-    border: 5px solid #089CEF;
-    padding: 20px;
-    margin-bottom: 25px;
-    border-radius: 25px;
-    font-size: 130px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    width: 910px;
+    > div {
+        flex-grow: 1;
+    }
 }

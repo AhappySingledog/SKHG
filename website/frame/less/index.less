@@ -119,38 +119,46 @@
     background-size: 100% 100%;
     width: fit-content;
     height: fit-content;
-    padding: 0 1px;
+    padding: 2px 2px;
 
-    > div {
-        flex-grow: 1;
-
-        > table {
-            width: 100%;
-            > thead {
-                > tr {
-                    > td {
-                        height: 92px;
-                        background: rgba(255, 255, 255, 0);
-                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-                        color: #5caeff;
-                        font-size: 40px;
-                    }
+    > table {
+        width: 100%;
+        > thead {
+            > tr {
+                > td {
+                    height: 92px;
+                    background: rgba(255, 255, 255, 0);
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                    color: #5caeff;
+                    font-size: 40px;
+                    padding-left: 25px;
                 }
             }
-            > tbody {
-                > tr > td {
-                    height: 92px;
-                    color: white;
-                    font-size: 45px;
-                }
-                > tr:nth-of-type(2n) {
-                    background: #002e73;
-                    > td:nth-of-type(1) {
-                        width: 225px;
-                        background: #0a6ec8;
-                    }
+        }
+        > tbody {
+            > tr > td {
+                height: 92px;
+                color: white;
+                font-size: 45px;
+                padding-left: 25px;
+            }
+            > tr:nth-of-type(2n) {
+                background: #002e73;
+                > td:nth-of-type(1) {
+                    width: 200px;
+                    background: #0a6ec8;
                 }
             }
         }
     }
+}
+
+.panel {
+    display: flex;
+    flex-direction: column;
+    background: url('../images/面板底框.png') no-repeat;
+    background-size: 100% 100%;
+    width: fit-content;
+    height: fit-content;
+    padding: 2px 2px;
 }
