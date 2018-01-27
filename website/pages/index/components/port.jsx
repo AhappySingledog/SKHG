@@ -56,14 +56,10 @@ class MapOperation extends React.Component {
 
 // 港口
 export default class Port extends React.Component {
-    state = { tview: [], map: null }
+
+    state = { map: null }
     componentDidMount() {
-        // 获取地图信息
-        publish('map_view_init').then((res) => {
-            console.log(res);
-            let { data: tview } = res[0]
-            this.setState({ tview }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?map=' + tview[0].key));
-        });
+        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=two_layer');
     }
 
     /**

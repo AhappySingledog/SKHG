@@ -5,7 +5,7 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
-$.ajax({ dataType: 'json', url: '../data.json', async: false, success: (res) => data_mapJson = res.filter((obj) => obj.name === 'GIS管网')[0] || {} });
+$.ajax({ dataType: 'json', url: '../mapcfg.json', async: false, success: (res) => data_mapJson = res });
 
 subscribes(
     {
@@ -175,8 +175,7 @@ subscribes(
     }, {
         sub: 'map_view_init',   // 第二页地图
         func: (ops) => {
-            console.log(data_mapJson)
-            return data_mapJson.data.filter((obj) => obj.key === 'demo')[0];
+            return data_mapJson;
         },
     }, {
         sub: 'map_view_pie',   // 出入境旅客统计饼状图

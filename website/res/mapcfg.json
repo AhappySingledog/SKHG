@@ -16,9 +16,28 @@
         "x": "经度",
         "y": "纬度"
     },
+
     "map_base": [
         {
-            "group": "m_1",
+            "group": "two_layer",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://localhost:9090/ServiceEngine/ecity/rest/services/tianimage/MapServer",
+                    "type": "tiled",
+                    "name": "天地图影像",
+                    "params": {
+                        "imgurl": "/images/legend/layerBtn/dxt.png",
+                        "legendurl": "/images/legend/layerBtn/dxt.png",
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "threee_layer",
             "visible": 1,
             "maps": [
                 {

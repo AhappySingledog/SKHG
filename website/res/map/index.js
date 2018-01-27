@@ -58,7 +58,6 @@ require([
     function requestAndLoadMap(){
         $.ajax({ dataType: 'json', url: '../mapcfg.json', async: false, success: function(cfg) {
             mapcfg = cfg;
-
             map = new Map(mapId, { 
                 lods:lods,
                 autoResize: true,
@@ -81,15 +80,19 @@ require([
         }});
     }
 
+
+
     /**
      * 加载地图图层
      */
     function loadLayers(){
+
+        var params = getQueryParams();
         var baseLayerInfoArr = mapcfg.map_base;
         var layer = null;
         var layerArr = [];
         baseLayerInfoArr.forEach(function (group) {
-            if (group.visible === 1) {
+            if (group.visible === 1 && group.group === params["mtype"]) {
                 group.maps.forEach(function (layer) {
                     var type = layer.type;
                     layerArr.push({
@@ -113,6 +116,11 @@ require([
                 }
             });
         }
+    }
+
+    function getQueryParams() {
+        var url = window.location.search.substr(1);
+        return url.split('&').map(function(a) {return a.split('=');}).reduce(function(a, b) {a[b[0]] = b[1] || ''; return a; }, {});
     }
 
     /**
