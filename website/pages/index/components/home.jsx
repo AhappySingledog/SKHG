@@ -19,19 +19,21 @@ class MyPort extends React.Component {
             let $port = $('#' + this.props.id);
             $port.on('click', (e) => {
                 // let id = e.currentTarget.attributes['1'].nodeValue.substring(4);
-                if (this.port.name === '蛇口港') {
+                if (this.port.name === '深圳-深圳西部港区') {
                     this.props.changeLayer(1, {});
                 }
             });
-            $port.on('mouseover', () => {
-                this.props.tipEvent(true, this.port);
-            });
-            $port.on('mouseout', () => {
-                this.props.tipEvent(false, this.port);
-            });
-            if (this.port.selected) {
-                this.props.tipEvent(true, this.port);
-                this.timer = setInterval(() => this.props.tipEvent(true, this.port), 10 * 1000);
+            if (this.port.tip) {
+                $port.on('mouseover', () => {
+                    this.props.tipEvent(true, this.port);
+                });
+                $port.on('mouseout', () => {
+                    this.props.tipEvent(false, this.port);
+                });
+                if (this.port.selected) {
+                    this.props.tipEvent(true, this.port);
+                    this.timer = setInterval(() => this.props.tipEvent(true, this.port), 10 * 1000);
+                }
             }
         }
     }
@@ -103,7 +105,7 @@ export default class Home extends React.Component {
                     </div>
                 </div>
                 <div className='homeRight' style={{paddingLeft: 60}}>
-                    <Table style={{width: 1200, height: 1516, marginBottom: 60}} flds={flds} datas={datas}/>
+                    <Table style={{width: 1200, height: 1541, marginBottom: 60}} flds={flds} datas={datas}/>
                     <Panel style={{flexGrow: 1, paddingTop: 60}}>
                         <HomeRightEcharts />
                     </Panel>
