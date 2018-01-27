@@ -5,34 +5,22 @@
     <title></title>   
     <meta charset="utf-8" />   
     <style>
-        html,body{
-            height: 100%;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
+        html,body{ height: 100%;width: 100%;padding: 0;margin: 0;}
     </style>
     <script src="client.js"></script>
     <script type="text/javascript">
         if (!$.ecity) $.ecity = {};
         if (!$.ecity.top) $.ecity.top = window;
         _load(
-            "frame/arcgis_js_api/library/3.12/3.12/init-debugger.js",
-            "map/js/MapEvent.js",
-            "map/js/Math.js",
-            "frame/js/common.js",
-            "frame/js/objectFactory.js",
-            "map/js/funlib-debugger.js",
-            "frame/arcgis_js_api/library/3.12/3.12/dijit/themes/tundra/tundra.css",
-            "frame/arcgis_js_api/library/3.12/3.12/esri/css/esri.css"
-        );
-    </script>
-    <script type="text/javascript">
+            "frame/arcgis_js_api/library/3.20/3.20/init.js",
+            "frame/arcgis_js_api/library/3.20/3.20/custom/heatmap.js",
+            "frame/arcgis_js_api/library/3.20/3.20/dijit/themes/tundra/tundra.css",
+            "frame/arcgis_js_api/library/3.20/3.20/esri/css/esri.css"
+        )
         var dojoConfig = {parseOnLoad: true};
     </script>
 </head>
 <body>
-    <div id="map" style="height: 100%"></div>
-    <script src="index.js"></script>
 </body>
+<script src="index.js"></script>
 </html>
