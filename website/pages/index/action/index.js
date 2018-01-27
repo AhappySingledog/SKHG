@@ -106,22 +106,32 @@ subscribes(
             ctx.rotate(-Math.PI / 4);
             ctx.fillText(waterMarkText, 0, 0);
             let option = {
+                color: ['#315F97', '#86C9F4', '#4DA8EC', '#3A91D2', '#005FA6'],
                 tooltip: {},
                 title: [{
                     text: '各渠道投诉占比',
                     x: '12%',
                     y: '0%',
                     textAlign: 'center',
+                    textStyle: {
+                        color: 'white',
+                    }
                 }, {
                     text: '各级别投诉占比',
                     x: '12%',
                     y: '50%',
                     textAlign: 'center',
+                    textStyle: {
+                        color: 'white',
+                    }
                 }, {
                     text: '投诉原因TOP10',
                     x: '50%',
                     y: '0%',
                     textAlign: 'center',
+                    textStyle: {
+                        color: 'white',
+                    }
                 }],
                 grid: [{
                     top: 50,
@@ -131,10 +141,19 @@ subscribes(
                     containLabel: true,
                 }],
                 xAxis: [{
+                    show: false,
                     type: 'value',
                     max: builderJson.all,
                     splitLine: {
                         show: false,
+                    },
+                    nameTextStyle: {
+                        color: 'white',
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'white',
+                        }
                     }
                 }],
                 yAxis: [{
@@ -146,27 +165,54 @@ subscribes(
                     },
                     splitLine: {
                         show: false
+                    },
+                    axisLine: {
+                        lineStyle: {
+                            color: 'white',
+                        }
                     }
                 }],
                 series: [{
                     type: 'pie',
                     radius: [0, '30%'],
                     center: ['25%', '25%'],
-                    data: Object.keys(downloadJson).map(function (key) {
-                        return {
-                            name: key.replace('.js', ''),
-                            value: downloadJson[key]
-                        }
-                    })
-                }, {
-                    type: 'pie',
-                    radius: [0, '30%'],
-                    center: ['25%', '75%'],
                     data: Object.keys(themeJson).map(function (key) {
                         return {
                             name: key.replace('.js', ''),
                             value: themeJson[key]
                         }
+                    }),
+                    label: {
+                        color: 'rgba(255, 255, 255, 0.8)',
+                    },
+                }, {
+                    type: 'pie',
+                    radius: [0, '30%'],
+                    center: ['25%', '75%'],
+                    data: Object.keys(downloadJson).map(function (key) {
+                        return {
+                            name: key.replace('.js', ''),
+                            value: downloadJson[key]
+                        }
+                    }),
+                    label: {
+                        color: 'rgba(255, 255, 255, 0.8)',
+                    },
+                }, {
+                    type: 'bar',
+                    stack: 'chart',
+                    z: 3,
+                    label: {
+                        normal: {
+                            position: 'right',
+                            show: true
+                        }
+                    },
+                    itemStyle: {
+                        color: '#86C9F4',
+                    },
+                    data: Object.keys(builderJson.charts).map(function (key) {
+                        return builderJson.charts[key];
                     })
                 }]
             };

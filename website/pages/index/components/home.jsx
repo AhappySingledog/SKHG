@@ -18,17 +18,16 @@ class MyPort extends React.Component {
         if (this.props.id !== '') {
             let $port = $('#' + this.props.id);
             $port.on('click', (e) => {
-                // let id = e.currentTarget.attributes['1'].nodeValue.substring(4);
                 if (this.port.name === '深圳-深圳西部港区') {
                     this.props.changeLayer(1, {});
                 }
             });
             if (this.port.tip) {
                 $port.on('mouseover', () => {
-                    this.props.tipEvent(true, this.port);
+                    this.props.tipEvent(true, this.port, true);
                 });
                 $port.on('mouseout', () => {
-                    this.props.tipEvent(false, this.port);
+                    this.props.tipEvent(false, this.port, false);
                 });
                 if (this.port.selected) {
                     this.props.tipEvent(true, this.port);
@@ -36,9 +35,6 @@ class MyPort extends React.Component {
                 }
             }
         }
-    }
-    componentWillUnmount() {
-        if (this.timer) { clearInterval(this.timer); }
     }
     render() {
         const { port, id } = this.props;
@@ -76,6 +72,7 @@ export default class Home extends React.Component {
         tip: {
             showTip: false,
             msg: {},
+            on: false,
         }
     }
     componentDidMount() {
@@ -86,8 +83,16 @@ export default class Home extends React.Component {
             this.setState(res[0]);
         });
     }
-    handleShowTip = (showTip, msg) => {
-        this.setState({ tip: { showTip: showTip, msg: msg } });
+    handleShowTip = (showTip, msg, on) => {
+        if (on != undefined) {
+            this.setState({tip: {showTip: showTip, msg: msg, on: on}});
+        }
+        else {
+            const flag = this.state.tip.on;
+            if (!flag) {
+                this.setState({ tip: { showTip: showTip, msg: msg } });
+            }
+        }
     }
     render() {
         let { ports = [], flds = [], datas = [] } = this.state;
@@ -101,7 +106,7 @@ export default class Home extends React.Component {
                             <div className='yellowPort'/>
                             <div style={{color: 'white', fontSize: 65, marginLeft: 60}}>国内港口分部</div>
                         </div>
-                        {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} key={i} port={e} id={'icon_' + i} />)}
+                        {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} ports={ports} key={i} port={e} id={'icon_' + i} />)}
                     </div>
                 </div>
                 <div className='homeRight' style={{paddingLeft: 60}}>
