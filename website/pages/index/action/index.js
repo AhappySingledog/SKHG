@@ -5,7 +5,7 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
-$.ajax({ dataType: 'json', url: '../mapcfg.json', async: false, success: (res) => data_mapJson = res });
+$.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
 
 subscribes(
     {

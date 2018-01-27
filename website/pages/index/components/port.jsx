@@ -8,16 +8,18 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Table, Panel } from '../../../frame/componets/index';
+import { ViwePager, Tip, Table, Panel, Dialog } from '../../../frame/componets/index';
 import HomeRightEcharts from './homeRightEcharts';
 
 // 地图操作组件
 class MapOperation extends React.Component {
-    state = {}
+    state = {
+        showMT: false,             //展现码头数据
+        mtJson: [],               //码头数据
+    }
 
     componentDidMount() {
-        console.log(this.props.map);
-        // this.props.map.mapOper.centerAt({x: 113.8662306010001, y: 22.457914536000033});
+
         let mapExtent = {
             xmax: 113.9250031023771,
             xmin: 113.85290532405679,
@@ -25,29 +27,52 @@ class MapOperation extends React.Component {
             ymin: 22.446418229209208,
         };
         this.props.map.mapOper.setMapExtent(mapExtent);
-        let param = {
-            id: 'test',
-            layerId: 'test',
-            src: '../map/images/gngk.png',
-            width: 100,
-            height: 100,
-            angle: 0,
-            x: 113.8662306010001,
-            y: 22.457914536000033,
-        };
-        this.props.map.mapDisplay.image(param);
+
+        publish('map_view_init').then((res) => {
+            this.setState({ mtJson: res[0] })
+            this.handleMTSJ(res[0]);
+        })
     }
+
+    handleMTSJ = (datas) => {
+        for(let o in datas){
+            let dots = datas[o].polygon.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+            let params = {
+                id: "port_view"+o,
+                layerId: 'port_view',
+                fillcolor: 'blue',
+                dots: dots,
+                // attr: { ...datas[key], no: o.length },
+                click: this.showContainerModal,
+                mouseover : (g) =>{
+                    let datajsons = g.attributes;
+                    this.setState({
+                        showMT : !this.state.showMT
+                    })
+                },
+                mouseout : () =>{
+                    this.setState({
+                        showMT : !this.state.showMT
+                    })
+                }
+            }
+            this.props.map.mapDisplay.polygon(params);
+        }
+    };
+
+    showContainerModal = (e) => {
+        alert("点击后就要进入第三个页面的！");
+    };
     render() {
         let { flds = [], datas = [] } = this.state;
         return (
             <div>
-                <div style={{ position: 'absolute', top: '-100%' }}></div>
-                {/* <div className='homeRight' style={{ paddingLeft: 60 }}>
-                    <Table style={{ width: 1200, height: 1516, marginBottom: 60 }} flds={flds} datas={datas} />
-                    <Panel style={{ flexGrow: 1, paddingTop: 60 }}>
-                        <HomeRightEcharts />
-                    </Panel>
-                </div> */}
+                <div style={{ position: 'relative' }}>
+                    {
+                        this.state.showMT ? <Dialog /> : null
+                    }
+                </div>
+
             </div>
 
         )

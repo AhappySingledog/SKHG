@@ -162,3 +162,44 @@
     height: fit-content;
     padding: 2px 2px;
 }
+
+.dialog{
+    &-title{
+        position: absolute;
+        right: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-around;
+    }
+
+    &-top {
+        height: 122px;
+        background: url('../images/上.png') no-repeat;
+        background-size: 100% 100%;
+        padding-left: 71px;
+
+        &-title {
+            text-align: center;
+            line-height: 122px;
+            color: white;
+            font-size: 50px;
+        }
+    }
+
+    &-center {
+        background: url('../images/中.png') no-repeat;
+        background-size: 100% 100%;
+        padding-left: 71px;
+
+        &-content {
+            padding: 30px 30px 5px 30px;
+        }
+    }
+
+    &-bottom {
+        height: 25px;
+        background: url('../images/下.png') no-repeat;
+        background-size: 100% 100%;
+    }
+}

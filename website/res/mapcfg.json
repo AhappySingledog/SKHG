@@ -24,7 +24,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://localhost:9090/ServiceEngine/ecity/rest/services/tianimage/MapServer",
+                    "url": "http://10.1.0.177:8080/ServiceEngine/ecity/rest/services/tianimage/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -42,7 +42,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://localhost:9090/ServiceEngine/ecity/rest/services/tianimage/MapServer",
+                    "url": "http://10.1.0.178:6080/arcgis/rest/services/sckjzx/SCT_NEW/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
