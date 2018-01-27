@@ -1,35 +1,32 @@
 @import '../../../frame/less/common.less';
-
-body > div {
+body>div {
     width: @scale * 3840px;
     height: @scale * 1080px;
     background: #000E46;
 }
 
-.mframe{
+.mframe {
     height: 100%;
     display: flex;
-    flex-direction: column;   
-    align-items: center; 
+    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
 }
 
-.mheader{
-    margin-top: 70px;
-    height: 336px;
-    width: 11432px;
+.mheader {
+    margin-top: 65px;
+    height: 334px;
+    width: 11444px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background: url('../images/底框上.png') no-repeat;
-
     &-title {
         color: white;
         font-size: 135px;
-        line-height: 336px;
+        line-height: 334px;
         margin-left: 800px;
     }
-
     &-top {
         display: flex;
         flex-direction: row;
@@ -38,13 +35,11 @@ body > div {
         position: relative;
         top: -105px;
     }
-
     &-time {
         color: white;
         font-size: 100px;
         margin-right: 100px;
     }
-
     &-home {
         margin-left: 20px;
         width: 324px;
@@ -52,11 +47,9 @@ body > div {
         background: url('../images/buttons/主页.png') no-repeat;
         cursor: pointer;
     }
-
     &-home:hover {
         background: url('../images/buttons/主页-点击.png') no-repeat;
     }
-
     &-iQuery {
         margin-left: 20px;
         width: 324px;
@@ -64,11 +57,9 @@ body > div {
         background: url('../images/buttons/智能查询.png') no-repeat;
         cursor: pointer;
     }
-
     &-iQuery:hover {
         background: url('../images/buttons/智能查询-点击.png') no-repeat;
     }
-
     &-iCount {
         margin-left: 20px;
         width: 324px;
@@ -76,11 +67,9 @@ body > div {
         background: url('../images/buttons/智能统计.png') no-repeat;
         cursor: pointer;
     }
-
     &-iCount:hover {
         background: url('../images/buttons/智能统计-点击.png') no-repeat;
     }
-
     &-iCommand {
         margin-left: 20px;
         width: 324px;
@@ -88,11 +77,9 @@ body > div {
         background: url('../images/buttons/智能指挥.png') no-repeat;
         cursor: pointer;
     }
-
     &-iCommand:hover {
         background: url('../images/buttons/智能指挥-点击.png') no-repeat;
     }
-
     &-warning {
         margin-left: 20px;
         width: 324px;
@@ -100,14 +87,13 @@ body > div {
         background: url('../images/buttons/报警信息.png') no-repeat;
         cursor: pointer;
     }
-
     &-warning:hover {
         background: url('../images/buttons/报警信息-点击.png') no-repeat;
     }
 }
 
 .mbody {
-    width: 11432px;
+    width: 11444px;
     flex-grow: 1;
     position: relative;
     background: url('../images/底框_中.png') repeat-y;
@@ -118,16 +104,16 @@ body > div {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
-        padding: 55px 35px;
-        > div {
+        padding: 35px;
+        >div {
             flex-grow: 1;
         }
     }
 }
 
 .mfooter {
-    width: 11432px;
-    height: 44px;
+    width: 11444px;
+    height: 40px;
 }
 
 .home {
@@ -144,8 +130,7 @@ body > div {
     border: 2px solid #0682ce;
     display: flex;
     flex-direction: row;
-    
-    > div {
+    >div {
         background: url('../images/地图.png') no-repeat center;
         background-size: 99% 99%;
         margin: 20px;
@@ -217,7 +202,6 @@ body > div {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-
     &-top {
         width: 100%;
         background: url('../images/时间轴.png') no-repeat bottom;
@@ -230,19 +214,13 @@ body > div {
         font-size: 50px;
         padding-bottom: 11px;
         margin-bottom: 9px;
-
         &-msg {
             display: flex;
             flex-direction: column;
             align-items: center;
         }
-
-        &-year {
-
-        }
-        &-event {
-
-        }
+        &-year {}
+        &-event {}
         &-time {
             width: 27px;
             height: 26px;
@@ -250,13 +228,11 @@ body > div {
             margin-top: 20px;
         }
     }
-
     &-bottom {
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
-
         &-msg {
             width: 992px;
             height: 616px;
@@ -271,43 +247,67 @@ body > div {
     }
 }
 
+.homeRightE {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    >div {
+        flex-grow: 1;
+    }
+}
+
+.homeRightP {
+    display: flex;
+    flex-direction: column;
+}
+
+.introduce {
+    display: flex;
+    flex-direction: column;
+    &-title {
+        height: 277px;
+        width: 2442px;
+        border: 15px solid #FFFFFF;
+        border-image: url('../images/skbt.png') 10 10 10 10 stretch;
+    }
+}
 
 
-/**      港口样式       */
-.map-view{
+/**港口样式*/
+
+.map-view {
     .xfull();
 }
 
-.portMap{
+.portMap {
     display: flex;
     flex-direction: row;
     width: 67%;
-    > div:first-child {
+    >div:first-child {
         flex-grow: 1;
         display: flex;
         flex-direction: column;
         border: 5px solid rgba(6, 130, 206, 0.5);
         padding: 20px;
-
-        > iframe {
+        >iframe {
             border: 2px solid #0682ce;
             flex-grow: 1;
         }
     }
 }
 
-.Right_Map{
+.Right_Map {
     right: 0px;
     top: 0px;
     position: absolute;
     font-size: 80px;
 }
 
-.Right_Map_row1{
+.Right_Map_row1 {
     background: green
 }
 
-.Right_Map_row2{
+.Right_Map_row2 {
     height: 1000px;
     width: 100%;
     box-sizing: border-box;
@@ -315,16 +315,6 @@ body > div {
     border-radius: 4px;
 }
 
-.Right_Map_row2_list{
+.Right_Map_row2_list {
     height: 100%;
-}
-
-.homeRightE {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-
-    > div {
-        flex-grow: 1;
-    }
 }

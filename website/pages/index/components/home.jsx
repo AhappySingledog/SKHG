@@ -8,6 +8,7 @@ import bmap from 'echarts/extension/bmap/bmap';
 import { publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel } from '../../../frame/componets/index';
 import HomeRightEcharts from './homeRightEcharts';
+import HomeRightPanel from './homeRightPanel';
 
 class MyPort extends React.Component {
     state = {
@@ -79,23 +80,16 @@ export default class Home extends React.Component {
         publish('home_worldMap').then((res) => {
             this.setState({ ports: res[0].data });
         });
-        publish('home_right_t').then((res) => {
-            this.setState(res[0]);
-        });
     }
     handleShowTip = (showTip, msg, on) => {
-        if (on != undefined) {
-            this.setState({tip: {showTip: showTip, msg: msg, on: on}});
-        }
+        if (on != undefined) { this.setState({tip: {showTip: showTip, msg: msg, on: on}});}
         else {
             const flag = this.state.tip.on;
-            if (!flag) {
-                this.setState({ tip: { showTip: showTip, msg: msg } });
-            }
+            if (!flag) {this.setState({ tip: { showTip: showTip, msg: msg } });}
         }
     }
     render() {
-        let { ports = [], flds = [], datas = [] } = this.state;
+        let { ports = [] } = this.state;
         return (
             <div className='home' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='homeLeft'>
@@ -110,10 +104,7 @@ export default class Home extends React.Component {
                     </div>
                 </div>
                 <div className='homeRight' style={{paddingLeft: 60}}>
-                    <Table style={{width: 1200, height: 1541, marginBottom: 60}} flds={flds} datas={datas}/>
-                    <Panel style={{flexGrow: 1, paddingTop: 60}}>
-                        <HomeRightEcharts />
-                    </Panel>
+                    <HomeRightPanel/>
                 </div>
                 {this.state.tip.showTip ?
                     <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 450, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name}>
