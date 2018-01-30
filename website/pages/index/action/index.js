@@ -17,204 +17,125 @@ subscribes(
         sub: 'home_right_t',   // 首页右侧table
         func: (ops) => {
             let flds = [
-                {name: 'name', title: '港口名称'},
-                {name: 'position', title: '港口位置'},
-                {name: 'teu', title: '港口年吞吐量'},
-                {name: 'time', title: '招商运营时间'},
+                { name: 'name', title: '港口名称' },
+                { name: 'position', title: '港口位置' },
+                { name: 'teu', title: '港口年吞吐量' },
+                { name: 'time', title: '招商运营时间' },
             ];
             let datas = [
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
-                {name: '北海港', position: '北海港', teu: '345 TEU', time: 1983},
-                {name: '八所港', position: '八所港', teu: '235 TEU', time: 1982},
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
+                { name: '北海港', position: '北海港', teu: '345 TEU', time: 1983 },
+                { name: '八所港', position: '八所港', teu: '235 TEU', time: 1982 },
             ];
-            return {flds: flds, datas: datas};
+            return { flds: flds, datas: datas };
         },
     }, {
         sub: 'home_right_e',   // 首页右侧echarts
         func: (ops) => {
-            let builderJson = {
-                "all": 10887,
-                "charts": {
-                    "map": 3237,
-                    "lines": 2164,
-                    "bar": 7561,
-                    "line": 7778,
-                    "pie": 7355,
-                    "scatter": 2405,
-                    "candlestick": 1842,
-                    "radar": 2090,
-                    "heatmap": 1762,
-                    "treemap": 1593,
-                    "graph": 2060,
-                    "boxplot": 1537,
-                    "parallel": 1908,
-                    "gauge": 2107,
-                    "funnel": 1692,
-                    "sankey": 1568
-                },
-                "components": {
-                    "geo": 2788,
-                    "title": 9575,
-                    "legend": 9400,
-                    "tooltip": 9466,
-                    "grid": 9266,
-                    "markPoint": 3419,
-                    "markLine": 2984,
-                    "timeline": 2739,
-                    "dataZoom": 2744,
-                    "visualMap": 2466,
-                    "toolbox": 3034,
-                    "polar": 1945
-                },
-                "ie": 9743
-            };
-            let downloadJson = {
-                "echarts.min.js": 17365,
-                "echarts.simple.min.js": 4079,
-                "echarts.common.min.js": 6929,
-                "echarts.js": 14890
-            };
-            let themeJson = {
-                "dark.js": 1594,
-                "infographic.js": 925,
-                "shine.js": 1608,
-                "roma.js": 721,
-                "macarons.js": 2179,
-                "vintage.js": 1982
-            };
-            let waterMarkText = 'ECHARTS';
-            let canvas = document.createElement('canvas');
-            let ctx = canvas.getContext('2d');
-            canvas.width = canvas.height = 100;
-            ctx.textAlign = 'center';
-            ctx.textBaseline = 'middle';
-            ctx.globalAlpha = 0.08;
-            ctx.font = '20px Microsoft Yahei';
-            ctx.translate(50, 50);
-            ctx.rotate(-Math.PI / 4);
-            ctx.fillText(waterMarkText, 0, 0);
             let option = {
-                color: ['#315F97', '#86C9F4', '#4DA8EC', '#3A91D2', '#005FA6'],
-                tooltip: {},
-                title: [{
-                    text: '各渠道投诉占比',
-                    x: '12%',
-                    y: '0%',
-                    textAlign: 'center',
+                title: {
+                    text: '报警信息',
+                    left: 60,
                     textStyle: {
                         color: 'white',
+                        fontSize: 45,
                     }
-                }, {
-                    text: '各级别投诉占比',
-                    x: '12%',
-                    y: '50%',
-                    textAlign: 'center',
+                },
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
+                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    }
+                },
+                legend: {
+                    data: ['日', '月', '年',],
+                    align: 'right',
+                    itemGap: 50,
                     textStyle: {
                         color: 'white',
+                        fontSize: 30,
                     }
-                }, {
-                    text: '投诉原因TOP10',
-                    x: '50%',
-                    y: '0%',
-                    textAlign: 'center',
-                    textStyle: {
-                        color: 'white',
-                    }
-                }],
-                grid: [{
-                    top: 50,
-                    width: '50%',
-                    bottom: '0%',
-                    right: 10,
-                    containLabel: true,
-                }],
+                },
+                grid: {
+                    height: '88%',
+                    left: '3%',
+                    right: '4%',
+                    bottom: '3%',
+                    containLabel: true
+                },
                 xAxis: [{
-                    show: false,
-                    type: 'value',
-                    max: builderJson.all,
-                    splitLine: {
-                        show: false,
-                    },
-                    nameTextStyle: {
-                        color: 'white',
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: 'white',
-                        }
-                    }
-                }],
-                yAxis: [{
                     type: 'category',
-                    data: Object.keys(builderJson.charts),
                     axisLabel: {
                         interval: 0,
-                        rotate: 30
-                    },
-                    splitLine: {
-                        show: false
-                    },
+                        rotate: 40,
+                        fontSize: 30,
+                    }, 
                     axisLine: {
                         lineStyle: {
-                            color: 'white',
+                            color: '#fff'
                         }
-                    }
+                    },
+                    data: ['监控视频故障', '空箱秤重', '调拨车辆', '超三个月场柜未放行', '海关未放行柜装船', '未申报靠泊', '贸货柜混堆异动', '未审批装卸', '车辆未上锁', '换装柜', '空车超重']
+                }],
+                yAxis: [{
+                    type: 'value',
+                    name: '/个',
+                    nameTextStyle: {
+                        fontSize: 30,
+                    },
+                    axisLabel: {
+                        formatter: '{value}',
+                        fontSize: 30,
+                    }, 
+                    axisLine: {
+                        lineStyle: {
+                            color: '#fff'
+                        }
+                    },
                 }],
                 series: [{
-                    type: 'pie',
-                    radius: [0, '30%'],
-                    center: ['25%', '25%'],
-                    data: Object.keys(themeJson).map(function (key) {
-                        return {
-                            name: key.replace('.js', ''),
-                            value: themeJson[key]
-                        }
-                    }),
-                    label: {
-                        color: 'rgba(255, 255, 255, 0.8)',
-                    },
-                }, {
-                    type: 'pie',
-                    radius: [0, '30%'],
-                    center: ['25%', '75%'],
-                    data: Object.keys(downloadJson).map(function (key) {
-                        return {
-                            name: key.replace('.js', ''),
-                            value: downloadJson[key]
-                        }
-                    }),
-                    label: {
-                        color: 'rgba(255, 255, 255, 0.8)',
-                    },
-                }, {
-                    type: 'bar',
-                    stack: 'chart',
-                    z: 3,
-                    label: {
+                    name: '日',
+                    type: 'bar', itemStyle: {
                         normal: {
-                            position: 'right',
-                            show: true
+                            show: true,
+                            color: '#f7da36',
+
                         }
                     },
-                    itemStyle: {
-                        color: '#86C9F4',
+                    data: [1, 2, 1, 2, 3, 2, 1, 4, 3, 1, 2]
+                }, {
+                    name: '月',
+                    type: 'bar', itemStyle: {
+                        normal: {
+                            show: true,
+                            color: '#4dbeff',
+
+                        }
                     },
-                    data: Object.keys(builderJson.charts).map(function (key) {
-                        return builderJson.charts[key];
-                    })
-                }]
+                    data: [3, 5, 4, 6, 8, 7, 10, 6, 8, 10, 9]
+                }, {
+                    name: '年',
+                    type: 'bar', itemStyle: {
+                        normal: {
+                            show: true,
+                            color: '#00B46B',
+
+                        }
+                    },
+                    data: [18, 16, 20, 19, 22, 21, 24, 20, 26, 24, 29]
+                },]
             };
             return option;
         },
@@ -229,16 +150,16 @@ subscribes(
             let data = ((data_mapJson.data.filter((a) => a.key === 'demo')[0] || {}).value || []);
             let data1 = data.map((d) => { return { name: d.name + '_', value: d.value } });
             return {
-                color : ['#FFBD19','#089CEF'],
+                color: ['#FFBD19', '#089CEF'],
                 tooltip: {
                     trigger: 'item',
                     formatter: "{a} <br/>{b}: {c} ({d}%)"
                 },
                 legend: {
-                    itemWidth : 100,
+                    itemWidth: 100,
                     itemHeight: 100,
-                    textStyle : {
-                        fontSize : 50
+                    textStyle: {
+                        fontSize: 50
                     },
                     orient: 'vertical',
                     x: 'left',
@@ -247,12 +168,13 @@ subscribes(
                         textStyle: {
                             color: '#ffffff'
                         },
-                        
-                        },{
+
+                    }, {
                         name: '出境',
                         textStyle: {
                             color: '#ffffff'
-                        }}],
+                        }
+                    }],
                 },
                 series: [
                     {
@@ -261,10 +183,10 @@ subscribes(
                         radius: ['40%', '55%'],
                         label: {
                             normal: {
-                                fontSize : 50,
+                                fontSize: 50,
                                 formatter: '{b}\n{d}%',
-                                padding : 100,
-                                width : 200,
+                                padding: 100,
+                                width: 200,
                             }
                         },
                         data: [

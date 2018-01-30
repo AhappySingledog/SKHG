@@ -79,7 +79,10 @@ export default class App extends React.Component {
                 <div className='mheader'>
                     <div className='mheader-title'>蛇口海关iMap智慧管理系统</div>
                     <div className='mheader-top'>
-                        <Timer />
+                        <div className='mheader-nt'>
+                            <div className='mheader-name'>海关监管区域</div>
+                            <Timer />
+                        </div>
                         <div className='mheader-home' onClick={() => this.changeLayer(0, {})}/>
                         <div className='mheader-iQuery' onClick={() => this.iQuery()}/>
                         <div className='mheader-iCount' onClick={() => this.iCount()}/>

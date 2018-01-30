@@ -20,7 +20,8 @@ body>div {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background: url('../images/底框上.png') no-repeat;
+    background: url('../images/底框_上.png') no-repeat;
+    background-size: 100% 100%;
     &-title {
         color: white;
         font-size: 135px;
@@ -33,17 +34,38 @@ body>div {
         align-items: center;
         justify-content: flex-end;
         position: relative;
-        top: -105px;
+        height: fit-content;
+    }
+    &-nt {
+        width: 3538px;
+        height: 259px;
+        background: url('../images/蓝色块.png') no-repeat;
+        background-size: 100% 100%;
+        margin-right: 457px;
+        display: flex;
+        flex-direction: row;
+    }
+    &-name {
+        width: 1184px;
+        height: 259px;
+        line-height: 259px;
+        font-size: 120px;
+        text-align: center;
+        color: white;
+        font-weight: bold;
     }
     &-time {
         color: white;
         font-size: 100px;
-        margin-right: 100px;
+        flex-grow: 1;
+        height: 259px;
+        line-height: 259px;
+        text-align: center;
     }
     &-home {
-        margin-left: 20px;
-        width: 324px;
-        height: 203px;
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
         background: url('../images/buttons/主页.png') no-repeat;
         cursor: pointer;
     }
@@ -51,9 +73,9 @@ body>div {
         background: url('../images/buttons/主页-点击.png') no-repeat;
     }
     &-iQuery {
-        margin-left: 20px;
-        width: 324px;
-        height: 203px;
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
         background: url('../images/buttons/智能查询.png') no-repeat;
         cursor: pointer;
     }
@@ -61,9 +83,9 @@ body>div {
         background: url('../images/buttons/智能查询-点击.png') no-repeat;
     }
     &-iCount {
-        margin-left: 20px;
-        width: 324px;
-        height: 203px;
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
         background: url('../images/buttons/智能统计.png') no-repeat;
         cursor: pointer;
     }
@@ -71,9 +93,9 @@ body>div {
         background: url('../images/buttons/智能统计-点击.png') no-repeat;
     }
     &-iCommand {
-        margin-left: 20px;
-        width: 324px;
-        height: 203px;
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
         background: url('../images/buttons/智能指挥.png') no-repeat;
         cursor: pointer;
     }
@@ -81,9 +103,9 @@ body>div {
         background: url('../images/buttons/智能指挥-点击.png') no-repeat;
     }
     &-warning {
-        margin-left: 20px;
-        width: 324px;
-        height: 203px;
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
         background: url('../images/buttons/报警信息.png') no-repeat;
         cursor: pointer;
     }
@@ -258,17 +280,54 @@ body>div {
 
 .homeRightP {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    flex-grow: 1;
+    &-l {
+        display: flex;
+        flex-direction: column;
+        &-bottom {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            padding-top: 25px;
+        }
+    }
+    &-r {
+        flex-grow: 1;
+        padding-left: 35px;
+    }
 }
 
 .introduce {
     display: flex;
     flex-direction: column;
     &-title {
-        height: 277px;
-        width: 2442px;
-        border: 15px solid #FFFFFF;
-        border-image: url('../images/skbt.png') 10 10 10 10 stretch;
+        height: 184px;
+        background: url('../images/蛇口海关标题bg.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    &-msg {
+        display: flex;
+        flex-direction: row;
+        padding-top: 25px;
+        height: 1145px;
+    }
+    &-iv {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        padding-left: 30px;
+    }
+    &-image {
+        width: 786px;
+        height: 515px;
+        background: url('../images/图片.png') 100% 100% no-repeat;
+    }
+    &-video {
+        width: 786px;
+        height: 610px;
+        background: url('../images/视频.png') 100% 100% no-repeat;
     }
 }
 

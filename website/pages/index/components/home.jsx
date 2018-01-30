@@ -103,7 +103,7 @@ export default class Home extends React.Component {
                         {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} ports={ports} key={i} port={e} id={'icon_' + i} />)}
                     </div>
                 </div>
-                <div className='homeRight' style={{paddingLeft: 60}}>
+                <div className='homeRight' style={{paddingLeft: 20}}>
                     <HomeRightPanel/>
                 </div>
                 {this.state.tip.showTip ?
