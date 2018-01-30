@@ -1,8 +1,9 @@
 [
     {
         "id": "0",
-        "name": "蛇口MCT",
+        "name": "赤湾港码头数据",
         "type": "0",
+        "style" : {  "left" : 3100, "top" : 450 },
         "polygon": {
             "rings": [
                 [
@@ -53,18 +54,25 @@
                 ]
             ]
         },
-        "data": {
-            "name": "22H009F",
-            "bianhao": "22H009F",
-            "changbiao": "22H",
-            "beibiao": "009",
-            "paibiao": "F"
-        }
+        "data": [{
+            "arrival" : 1,
+            "harbor" : "进港港口",
+            "aisBigShip" : 15,
+            "aisBarge": 8,
+            "shipname" : "大船驳船"
+        },{
+            "arrival" : 2,
+            "harbor" : "出港港口",
+            "aisBigShip" : 3,
+            "aisBarge": 2,
+            "shipname" : "大船驳船"
+        }]
     },
     {
         "id": "1",
-        "name": "蛇口SCT",
+        "name": "蛇口港码头数据",
         "type": "1",
+        "style" : {  "left" : 3100, "top" : 450 },
         "polygon": {
             "rings": [
                 [
@@ -219,18 +227,25 @@
                 ]
             ]
         },
-        "data": {
-            "name": "22H009F",
-            "bianhao": "22H009F",
-            "changbiao": "22H",
-            "beibiao": "009",
-            "paibiao": "F"
-        }
+        "data": [{
+            "arrival" : 1,
+            "harbor" : "进港港口",
+            "aisBigShip" : 15,
+            "aisBarge": 8,
+            "shipname" : "大船驳船"
+        },{
+            "arrival" : 2,
+            "harbor" : "出港港口",
+            "aisBigShip" : 3,
+            "aisBarge": 2,
+            "shipname" : "大船驳船"
+        }]
     },
     {
         "id": "2",
-        "name": "蛇口CCT",
+        "name": "妈湾港码头数据",
         "type": "2",
+        "style" : {  "left" : 3100, "top" : 450 },
         "polygon": {
             "rings": [
                 [
@@ -313,12 +328,18 @@
                 ]
             ]
         },
-        "data": {
-            "name": "22H009F",
-            "bianhao": "22H009F",
-            "changbiao": "22H",
-            "beibiao": "009",
-            "paibiao": "F"
-        }
+        "data": [{
+            "arrival" : 1,
+            "harbor" : "进港港口",
+            "aisBigShip" : 15,
+            "aisBarge": 8,
+            "shipname" : "大船驳船"
+        },{
+            "arrival" : 2,
+            "harbor" : "出港港口",
+            "aisBigShip" : 3,
+            "aisBarge": 2,
+            "shipname" : "大船驳船"
+        }]
     }
 ]

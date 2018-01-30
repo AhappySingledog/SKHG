@@ -1,0 +1,528 @@
+html {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  user-select: none;
+}
+body {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+body > div {
+  height: 100%;
+  width: 100%;
+  box-sizing: border-box;
+}
+* {
+  font-family: '微软雅黑';
+}
+body > div {
+  width: 11520px;
+  height: 3240px;
+  background: #000E46;
+}
+.mframe {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.mheader {
+  margin-top: 65px;
+  height: 334px;
+  width: 11444px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: url('../images/底框_上.png') no-repeat;
+  background-size: 100% 100%;
+}
+.mheader-title {
+  color: white;
+  font-size: 135px;
+  line-height: 334px;
+  margin-left: 800px;
+}
+.mheader-top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  position: relative;
+  height: fit-content;
+}
+.mheader-nt {
+  width: 3538px;
+  height: 259px;
+  background: url('../images/蓝色块.png') no-repeat;
+  background-size: 100% 100%;
+  margin-right: 457px;
+  display: flex;
+  flex-direction: row;
+}
+.mheader-name {
+  width: 1184px;
+  height: 259px;
+  line-height: 259px;
+  font-size: 120px;
+  text-align: center;
+  color: white;
+  font-weight: bold;
+}
+.mheader-time {
+  color: white;
+  font-size: 100px;
+  flex-grow: 1;
+  height: 259px;
+  line-height: 259px;
+  text-align: center;
+}
+.mheader-home {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/主页.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-home:hover {
+  background: url('../images/buttons/主页-点击.png') no-repeat;
+}
+.mheader-iQuery {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/智能查询.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-iQuery:hover {
+  background: url('../images/buttons/智能查询-点击.png') no-repeat;
+}
+.mheader-iCount {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/智能统计.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-iCount:hover {
+  background: url('../images/buttons/智能统计-点击.png') no-repeat;
+}
+.mheader-iCommand {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/智能指挥.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-iCommand:hover {
+  background: url('../images/buttons/智能指挥-点击.png') no-repeat;
+}
+.mheader-warning {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/报警信息.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-warning:hover {
+  background: url('../images/buttons/报警信息-点击.png') no-repeat;
+}
+.mbody {
+  width: 11444px;
+  flex-grow: 1;
+  position: relative;
+  background: url('../images/底框_中.png') repeat-y;
+  border-bottom: 3px solid #0682ec;
+  display: flex;
+  flex-direction: column;
+}
+.mbody-content {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 35px;
+}
+.mbody-content > div {
+  flex-grow: 1;
+}
+.mfooter {
+  width: 11444px;
+  height: 40px;
+}
+.home {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.homeLeft {
+  width: 67%;
+  background: url('../images/底纹.png') no-repeat center;
+  background-size: 100% 100%;
+  border: 2px solid #0682ce;
+  display: flex;
+  flex-direction: row;
+}
+.homeLeft > div {
+  background: url('../images/地图.png') no-repeat center;
+  background-size: 99% 99%;
+  margin: 20px;
+  border: 5px solid rgba(6, 130, 206, 0.5);
+  flex-grow: 1;
+}
+.homeRight {
+  width: 33%;
+  display: flex;
+  flex-direction: column;
+}
+.portType {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+}
+.greenPort {
+  width: 51px;
+  height: 51px;
+  background: url('../images/国外港口分布.png');
+  cursor: pointer;
+}
+.greenPort:hover {
+  transform: scaleX(1.5) scaleY(1.5);
+}
+.yellowPort {
+  width: 51px;
+  height: 51px;
+  background: url('../images/国内港口分布.png');
+  cursor: pointer;
+}
+.yellowPort:hover {
+  transform: scaleX(1.5) scaleY(1.5);
+}
+.silkRedPoint {
+  width: 38px;
+  height: 38px;
+  background: url('../images/红白.png');
+  cursor: pointer;
+}
+.silkRedPoint:hover {
+  transform: scaleX(1.5) scaleY(1.5);
+}
+.silkYellowPoint {
+  width: 38px;
+  height: 38px;
+  background: url('../images/黄白.png');
+  cursor: pointer;
+}
+.silkYellowPoint:hover {
+  transform: scaleX(1.5) scaleY(1.5);
+}
+.desc {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.desc-top {
+  width: 100%;
+  background: url('../images/时间轴.png') no-repeat bottom;
+  background-size: 100% 48px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  font-size: 50px;
+  padding-bottom: 11px;
+  margin-bottom: 9px;
+}
+.desc-top-msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.desc-top-time {
+  width: 27px;
+  height: 26px;
+  background: url('../images/时间点.png') no-repeat;
+  margin-top: 20px;
+}
+.desc-bottom {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.desc-bottom-msg {
+  width: 992px;
+  height: 616px;
+  color: white;
+  font-size: 50px;
+  margin-right: 25px;
+  overflow: auto;
+  background: url('../images/tip文字底框.png') no-repeat;
+  background-size: 100% 100%;
+  padding: 0 10px;
+}
+.homeRightE {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.homeRightE > div {
+  flex-grow: 1;
+}
+.homeRightP {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+}
+.homeRightP-l {
+  display: flex;
+  flex-direction: column;
+}
+.homeRightP-l-bottom {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-top: 25px;
+}
+.homeRightP-r {
+  flex-grow: 1;
+  padding-left: 35px;
+}
+.introduce {
+  display: flex;
+  flex-direction: column;
+}
+.introduce-title {
+  height: 184px;
+  background: url('../images/蛇口海关标题bg.png') no-repeat;
+  background-size: 100% 100%;
+}
+.introduce-msg {
+  display: flex;
+  flex-direction: row;
+  padding-top: 25px;
+  height: 1145px;
+}
+.introduce-iv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30px;
+}
+.introduce-image {
+  width: 786px;
+  height: 515px;
+  background: url('../images/图片.png') 100% 100% no-repeat;
+}
+.introduce-video {
+  width: 786px;
+  height: 610px;
+  background: url('../images/视频.png') 100% 100% no-repeat;
+}
+/**港口样式*/
+.map-view {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+}
+.portMap {
+  display: flex;
+  flex-direction: row;
+  width: 67%;
+}
+.portMap > div:first-child {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid rgba(6, 130, 206, 0.5);
+  padding: 20px;
+}
+.portMap > div:first-child > iframe {
+  border: 2px solid #0682ce;
+  flex-grow: 1;
+}
+.Right_Map {
+  right: 0px;
+  top: 0px;
+  position: absolute;
+  font-size: 80px;
+}
+.Right_Map_row1 {
+  background: green;
+}
+.Right_Map_row2 {
+  height: 1000px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 2px solid #4D94DE;
+  border-radius: 4px;
+}
+.Right_Map_row2_list {
+  height: 100%;
+}
+.homeRightE {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.homeRightE > div {
+  flex-grow: 1;
+}
+.Msg {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.Msg-title {
+  background: url('../images/port/底框_下.png') no-repeat;
+  background-size: 100%,100%;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  color: white;
+  font-size: 50px;
+  padding-bottom: 11px;
+  margin-bottom: 9px;
+}
+.Msg-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  color: white;
+}
+.Msg-row-flex {
+  border: 1px solid #0682ec;
+  font-size: 80px;
+  padding: 10px 20px 10px 30px;
+  margin: 0 15px;
+}
+.Msg-row-flex-InShip {
+  display: flex;
+  flex-direction: row;
+}
+.Msg-row-flex-InShip > span {
+  width: 160px;
+}
+.Msg-row-flex-InBigShip {
+  display: flex;
+  flex-direction: row;
+}
+.Msg-row-flex-InBigShip > span {
+  width: 160px;
+}
+.Msg-row-flex-InBigShip-val {
+  display: flex;
+  flex-direction: column;
+}
+.Msg-row-flex-InBigShip-val > span {
+  border: 5px solid #233A52;
+  text-align: center;
+  width: 240px;
+  height: 90px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  margin-top: 10px;
+  line-height: 90px;
+  background: #010007;
+}
+.Pie {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  margin-left: 13px;
+}
+.number-view {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  align-items: flex-end;
+  height: 100%;
+}
+.number-0 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/0.png') no-repeat;
+}
+.number-1 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/1.png') no-repeat;
+}
+.number-2 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/2.png') no-repeat;
+}
+.number-3 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/3.png') no-repeat;
+}
+.number-4 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/4.png') no-repeat;
+}
+.number-5 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/5.png') no-repeat;
+}
+.number-6 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/6.png') no-repeat;
+}
+.number-7 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/7.png') no-repeat;
+}
+.number-8 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/8.png') no-repeat;
+}
+.number-9 {
+  width: 122px;
+  height: 195px;
+  margin: 0 9px;
+  background: url('../images/9.png') no-repeat;
+}
+.number-break {
+  width: 25px;
+  height: 36px;
+  margin: 0 0px;
+  background: url('../images/break.png') no-repeat;
+}
+.number-point {
+  width: 25px;
+  height: 25px;
+  margin: 0 0px;
+  background: url('../images/point.png') no-repeat;
+}

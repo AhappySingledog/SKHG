@@ -81,7 +81,7 @@ subscribes(
                         interval: 0,
                         rotate: 40,
                         fontSize: 30,
-                    }, 
+                    },
                     axisLine: {
                         lineStyle: {
                             color: '#fff'
@@ -98,7 +98,7 @@ subscribes(
                     axisLabel: {
                         formatter: '{value}',
                         fontSize: 30,
-                    }, 
+                    },
                     axisLine: {
                         lineStyle: {
                             color: '#fff'
@@ -197,5 +197,305 @@ subscribes(
                 ]
             }
         },
+    }, {
+        /** 进出港口箱子饼状图 */
+        sub: 'port_pie_gk',
+        func: (ops) => {
+            return {
+                color: ['#339A9F', '#ffffff'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                title: [{
+                    text: '装船箱量',
+                    x: '10%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '80',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }, {
+                    text: '卸船箱量',
+                    x: '60%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '80',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }],
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['直达', '其他']
+                },
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['25%', '30%'],
+                        startAngle: 90,
+                        label: {
+                            normal: {
+                                show: false,
+                            },
+                        },
+                        data: [
+                            { value: 4029, name: '装船箱量' },
+                            { value: 1971, name: '卸船箱量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['25%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 180,
+                                        fontSize: '80',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 120,
+                                    fontSize: '120',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 4028, name: '装船箱量' }
+                        ]
+                    },
+
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['75%', '30%'],
+                        startAngle: 90,
+                        label: {
+                            normal: {
+                                show: false,
+                            },
+                        },
+                        data: [
+                            { value: 2996, name: '卸船数量' },
+                            { value: 3004, name: '装船数量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['75%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 180,
+                                        fontSize: '80',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 120,
+                                    fontSize: '120',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 2996, name: '卸船数量' }
+                        ]
+                    }
+
+
+
+                ]
+            }
+        }
+    }, {
+        /** 进出闸口箱子斌状图 */
+        sub: 'port_pie_zk',
+        func: (ops) => {
+            return {
+                color: ['#ffffff', '#E15B01'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                },
+                title: [{
+                    text: '进闸数量',
+                    x: '10%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '80',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }, {
+                    text: '出闸数量',
+                    x: '60%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '80',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }],
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['直达', '其他']
+                },
+                series: [
+                    {
+                        name: '12312312321',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['25%', '30%'],
+                        startAngle: 0,
+                        label: {
+                            normal: {
+                                show: false,
+                            },
+                        },
+                        data: [
+                            { value: 3322, name: '进闸数量' },
+                            { value: 2678, name: '出闸数量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['25%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 180,
+                                        fontSize: '80',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 120,
+                                    fontSize: '120',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 3322, name: '出闸数量' }
+                        ]
+                    },
+
+
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['75%', '30%'],
+                        startAngle: 0,
+                        label: {
+                            normal: {
+                                show: false,
+                            }
+                        },
+                        data: [
+                            { value: 3360, name: '进闸箱数' },
+                            { value: 2640, name: '出闸箱数' },
+                            // {value:2996, name:'营销广告'},
+                            // {value:3004, name:'搜索引擎'}
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['75%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 180,
+                                        fontSize: '80',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 120,
+                                    fontSize: '120',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 2640, name: '出闸箱数' }
+                        ]
+                    },
+                ]
+            }
+        }
     }
 );

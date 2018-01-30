@@ -12,7 +12,6 @@ var mapLayer = null;
 var mapEdit = null;
 var drawToolBar = null;
 var mapcfg = null;
-var maplayerLoaded = null;
 
 require([
     'esri/map',
@@ -116,10 +115,6 @@ require([
                     }
                 }
             });
-        }
-
-        if(maplayerLoaded!=null){
-            maplayerLoaded();
         }
     }
 
