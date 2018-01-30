@@ -7,7 +7,7 @@ export default class WordsContent extends React.Component {
     render() {
         return (
             <div className='words' style={this.props.style}>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;{this.props.children}
+                {this.props.children}
             </div>
         )
     }

@@ -5,6 +5,8 @@ import ReactDOM from 'react-dom';
 import { publish } from '../../../frame/core/arbiter';
 import { Panel, WordsContent } from '../../../frame/componets/index';
 import echarts from 'echarts';
+import $ from 'jquery';
+import _ from 'lodash';
 
 class HgIntroduce extends React.Component {
     render() {
@@ -19,6 +21,101 @@ class HgIntroduce extends React.Component {
                         <div className='introduce-image'></div>
                         <div className='introduce-video'></div>
                     </div>
+                </div>
+            </div>
+        )
+    }
+}
+
+class Honor extends React.Component {
+    render() {
+        return (
+            <div className='oneHonor'>
+                <img className='oneHonor-img' src={this.props.data.img}/>
+                <div>{this.props.data.time}</div>
+                <div>{this.props.data.msg}</div>
+            </div>
+        )
+    }
+}
+
+class HonorOnline extends React.Component {
+    state= {
+        data: [],
+        honors: [],
+    }
+    componentDidMount() {
+        let work = () => {
+            let { data } = this.state;
+            let firstItem = data[0];
+            let temp = data.slice(1).concat(firstItem);
+            let honors = _.take(temp, 4);
+            this.setState({honors: honors, data: temp});
+            $('.oneHonor').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.oneHonor').removeClass('zoomIn animated'));
+        }
+        $.ajax({dataType: 'json', url: '../honors.json', async: false, success: (res) => {
+            this.setState({data: res.data});
+            setInterval(work, 5 * 1000);
+        }});
+    }
+    render() {
+        return (
+            <div className='honor'>
+                <div className='honor-title'>网上荣誉室</div>
+                <div className='honor-body'>
+                    <WordsContent style={{padding: '20px', width: 1366, height: 1200, display: 'flex', flexFlow: 'row wrap', alignContent: 'space-between', justifyContent: 'space-between'}}>
+                        {this.state.honors.map((h, i) => <Honor key={i} data={h}/>)}
+                    </WordsContent>
+                </div>
+            </div>
+        )
+    }
+}
+
+class Case extends React.Component {
+    render() {
+        return (
+            <div className='oneCase'>
+                {/* <div className='oneCase-title'>{this.props.data.title}</div>
+                <div className='oneCase-msg'>{this.props.data.msg}</div> */}
+                <div className='oneCase-title'>hhhh</div>
+                <div className='oneCase-msg'>xxxxx</div>
+            </div>
+            // <WordsContent style={{padding: '20px', width: 1366, height: 1200, display: 'flex', flexFlow: 'row wrap', alignContent: 'space-between', justifyContent: 'space-between'}}>
+            // {this.state.honors.map((h, i) => <Honor key={i} data={h}/>)}
+            // </WordsContent>
+        )
+    }
+}
+
+class ClassicCase extends React.Component {
+    state= {
+        data: [],
+        cases: [],
+    }
+    componentDidMount() {
+        let work = () => {
+            let { data } = this.state;
+            let firstItem = data[0];
+            let temp = data.slice(1).concat(firstItem);
+            let cases = _.take(temp, 2);
+            this.setState({cases: cases, data: temp});
+            $('.oneCase').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.oneCase').removeClass('zoomIn animated'));
+        }
+        $.ajax({dataType: 'json', url: '../cases.json', async: false, success: (res) => {
+            this.setState({data: res.data});
+            //setInterval(work, 5 * 1000);
+            work();
+        }});
+    }
+    render() {
+        return (
+            <div className='case'>
+                <div className='case-title'>经典案例</div>
+                <div className='case-body'>
+                    {/* {this.state.cases.map((c, i) => <Case key={i} data={c}/>)} */}
+                    <Case/>
+                    <Case/>
                 </div>
             </div>
         )
@@ -50,7 +147,16 @@ export default class HomeRightPanel extends React.Component {
                         </Panel>
                     </div>
                 </div>
-                <div className='homeRightP-r'></div>
+                <div className='homeRightP-r'>
+                    <Panel style={{padding: '20px 25px'}}>
+                        <HonorOnline/>
+                    </Panel>
+                    <div className='homeRightP-r-bottom'>
+                        <Panel style={{padding: '20px 25px', flexGrow: 1}}>
+                            <ClassicCase/>
+                        </Panel>
+                    </div>
+                </div>
             </div>
         )
     }

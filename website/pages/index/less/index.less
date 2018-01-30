@@ -295,6 +295,14 @@ body>div {
     &-r {
         flex-grow: 1;
         padding-left: 35px;
+        display: flex;
+        flex-direction: column;
+        &-bottom {
+            flex-grow: 1;
+            padding-top: 35px;
+            display: flex;
+            flex-direction: column;
+        }
     }
 }
 
@@ -328,6 +336,51 @@ body>div {
         width: 786px;
         height: 610px;
         background: url('../images/视频.png') 100% 100% no-repeat;
+    }
+}
+
+.honor {
+    display: flex;
+    flex-direction: column;
+    &-title {
+        width: 804px;
+        height: 174px;
+        background: url('../images/标题框.png') 100% 100% no-repeat;
+        line-height: 174px;
+        text-align: center;
+        color: white;
+        font-size: 80px;
+    }
+    &-body {
+        padding-top: 25px;
+    }
+}
+
+.oneHonor {
+    color: white;
+    font-size: 40px;
+    width: fit-content;
+    &-img {
+        width: 673px;
+        height: 474px;
+    }
+}
+
+.case {
+    display: flex;
+    flex-direction: column;
+    &-title {
+        width: 804px;
+        height: 174px;
+        background: url('../images/标题框.png') 100% 100% no-repeat;
+        line-height: 174px;
+        text-align: center;
+        color: white;
+        font-size: 80px;
+    }
+    &-body {
+        padding-top: 25px;
+        width: 1407px;
     }
 }
 
