@@ -14,7 +14,7 @@ class HgIntroduce extends React.Component {
             <div className='introduce'>
                 <div className='introduce-title'/>
                 <div className='introduce-msg'>
-                    <WordsContent style={{height: 1141, fontSize: 60, color: 'white'}}>
+                    <WordsContent style={{height: 1141, fontSize: 60, color: 'white', textIndent: '2em', lineHeight: '120px', padding: '0 20px'}}>
                         中华人民共和国蛇口海关隶属深圳海关，是深圳西部一个综合性海运口岸海关，主要业务包括：进出口海运货物监管、前海湾保税港区和进出境旅客监管；监管下去主要包括招湾、赤湾、妈湾、东角头、蛇口客运站、前海湾保税港区等港口作业区，监管海岸线达20公里。依法对经港口口岸进出境的运输工具、货物、物品进行监管；征收关税和其他法定有海关征收的税费；查缉走私；开展贸易统计并办理其他海关业务。
                     </WordsContent>
                     <div className='introduce-iv'>
@@ -54,8 +54,8 @@ class HonorOnline extends React.Component {
             $('.oneHonor').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.oneHonor').removeClass('zoomIn animated'));
         }
         $.ajax({dataType: 'json', url: '../honors.json', async: false, success: (res) => {
-            this.setState({data: res.data});
-            setInterval(work, 5 * 1000);
+            this.setState({data: res.data}, work);
+            setInterval(work, 20 * 1000);
         }});
     }
     render() {
@@ -75,15 +75,10 @@ class HonorOnline extends React.Component {
 class Case extends React.Component {
     render() {
         return (
-            <div className='oneCase'>
-                {/* <div className='oneCase-title'>{this.props.data.title}</div>
-                <div className='oneCase-msg'>{this.props.data.msg}</div> */}
-                <div className='oneCase-title'>hhhh</div>
-                <div className='oneCase-msg'>xxxxx</div>
-            </div>
-            // <WordsContent style={{padding: '20px', width: 1366, height: 1200, display: 'flex', flexFlow: 'row wrap', alignContent: 'space-between', justifyContent: 'space-between'}}>
-            // {this.state.honors.map((h, i) => <Honor key={i} data={h}/>)}
-            // </WordsContent>
+            <WordsContent style={{padding: '20px', width: 1366, height: 436, display: 'flex', flexDirction: 'column'}}>
+                <div className='oneCase-title'>{this.props.data.title}</div>
+                <div className='oneCase-msg'>{this.props.data.msg}</div>
+            </WordsContent>
         )
     }
 }
@@ -100,12 +95,11 @@ class ClassicCase extends React.Component {
             let temp = data.slice(1).concat(firstItem);
             let cases = _.take(temp, 2);
             this.setState({cases: cases, data: temp});
-            $('.oneCase').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.oneCase').removeClass('zoomIn animated'));
+            $('.case-body').addClass('bounceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.case-body').removeClass('bounceInUp animated'));
         }
         $.ajax({dataType: 'json', url: '../cases.json', async: false, success: (res) => {
-            this.setState({data: res.data});
-            //setInterval(work, 5 * 1000);
-            work();
+            this.setState({data: res.data}, work);
+            setInterval(work, 30 * 1000);
         }});
     }
     render() {
@@ -113,9 +107,7 @@ class ClassicCase extends React.Component {
             <div className='case'>
                 <div className='case-title'>经典案例</div>
                 <div className='case-body'>
-                    {/* {this.state.cases.map((c, i) => <Case key={i} data={c}/>)} */}
-                    <Case/>
-                    <Case/>
+                    {this.state.cases.map((c, i) => <Case key={i} data={c}/>)}
                 </div>
             </div>
         )

@@ -369,6 +369,7 @@ body>div {
 .case {
     display: flex;
     flex-direction: column;
+    flex-grow: 1;
     &-title {
         width: 804px;
         height: 174px;
@@ -381,6 +382,22 @@ body>div {
     &-body {
         padding-top: 25px;
         width: 1407px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.oneCase {
+    &-title {
+        color: white;
+        font-size: 55px;
+    }
+    &-msg {
+        color: white;
+        font-size: 45px;
+        text-indent: 2em;
     }
 }
 
