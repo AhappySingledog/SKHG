@@ -37,6 +37,9 @@ class MyPort extends React.Component {
             }
         }
     }
+    componentWillUnmount() {
+        if (this.timer) clearInterval(this.timer);
+    }
     render() {
         const { port, id } = this.props;
         return (

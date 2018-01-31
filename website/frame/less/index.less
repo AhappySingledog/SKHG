@@ -215,3 +215,92 @@
     height: fit-content;
     padding: 2px 2px;
 }
+
+@keyframes showAnimete {
+    from{
+        transform: scaleX(0)
+    }
+    to{
+        transform: scaleX(1);
+    }
+}
+
+.cv {
+    width: 7554px;
+    height: 2680px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    left: 62px;
+    animation: showAnimete 0.5s ease;
+    transform-origin: left center;
+
+    &-top {
+        height: 5%;
+        display: flex;
+        flex-direction: row;
+        justify-content: flex-end;
+        align-items: center;
+        padding-right: 30px;
+        background: url('../images/底块.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &-mid {
+        height: 90%;
+        padding: 0 30px;
+        background: url('../images/底块中.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+
+        &-iframe {
+            width: 100%;
+            height: 100%;
+            border: 1px solid #5AA4F7;
+        }
+    }
+
+    &-bottom {
+        height: 5%;
+        background: url('../images/底块下.png');
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.closeCv {
+    width: 90px;
+    height: 90px;
+    background: url('../images/关闭.png');
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    cursor: pointer;
+}
+
+.cv-title {
+    display: flex;
+    flex-direction: row;
+    flex-grow: 1;
+    padding-left: 70px;
+}
+
+.cv-name {
+    color: white;
+    font-size: 60px;
+    margin-right: 20px;
+}
+
+.cv-liveID {
+    color: white;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+.cv-liveName {
+    color: white;
+    font-size: 20px;
+    margin-right: 20px;
+}

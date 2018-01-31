@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
+import { ViwePager, Tip, Table, Panel, Dialog, ChartView, Vedio } from '../../../frame/componets/index';
 import BigShipIcon from '../../../res/mapIcon/大船.gif';
 import BargeIcon from '../../../res/mapIcon/驳船.gif';
 
@@ -70,7 +70,7 @@ class MapOperation extends React.Component {
         })
 
         /** 驳船显示 */
-        publish('barge_GetListAsync').then((res)=>{
+        publish('barge_GetListAsync').then((res) => {
             this.handleBarge(res[0]);
         })
     }
@@ -102,9 +102,9 @@ class MapOperation extends React.Component {
         }
     };
 
-    handleBigship = (json) =>{
+    handleBigship = (json) => {
         let that = this;
-        for(let o in json){
+        for (let o in json) {
             json[o]["key"] = "" + o + "";
             json[o]['name'] = '大船详情';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
@@ -125,11 +125,11 @@ class MapOperation extends React.Component {
         }
     }
 
-    handleBarge =(json) =>{
+    handleBarge = (json) => {
         let that = this;
-        for(let o in json){
+        for (let o in json) {
             json[o]["key"] = "" + o + "";
-            json[o]['name']='驳船详情';
+            json[o]['name'] = '驳船详情';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
                     id: 'BARGE_SHIP_LAYER' + o,
@@ -149,7 +149,7 @@ class MapOperation extends React.Component {
     }
 
     /** 图标点击事件 */
-    onIconClick=(e) =>{
+    onIconClick = (e) => {
         console.log(e);
     }
 
@@ -181,7 +181,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.showMT ? <Tip title={this.state.tip.mtJson.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
                         {/** 内部信息 */}
-                        <PortMsg msg={this.state.tip}/>
+                        <PortMsg msg={this.state.tip} />
                         <PortPie />
                     </Tip> : null
                 }
@@ -267,7 +267,10 @@ class PortPie extends React.Component {
 // 港口
 export default class Port extends React.Component {
 
-    state = { map: null }
+    state = { 
+        map: null,
+        cv: {},
+    }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=two_layer');
     }
@@ -332,16 +335,38 @@ export default class Port extends React.Component {
         $($iframe).remove();
     }
 
+    vedio = (i) => {
+        let data = [
+            { name: 'SCT大楼12F大厅', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032172&rtmp=rtmp://playrtmp.simope.com:1935/live/07f39deff1?liveID=100032172&hls=http://playhls.simope.com/live/07f39deff1/playlist.m3u8?liveID=100032172' },
+            { name: 'SCT4号泊位', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032166&rtmp=rtmp://playrtmp.simope.com:1935/live/e4b0c82c15?liveID=100032166&hls=http://playhls.simope.com/live/e4b0c82c15/playlist.m3u8?liveID=100032166' },
+            { name: 'SCT工程部维修车间', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032170&rtmp=rtmp://playrtmp.simope.com:1935/live/89619ada51?liveID=100032170&hls=http://playhls.simope.com/live/89619ada51/playlist.m3u8?liveID=100032170' },
+            { name: 'SCT大楼1F监控室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032167&rtmp=rtmp://playrtmp.simope.com:1935/live/105c2009a0?liveID=100032167&hls=http://playhls.simope.com/live/105c2009a0/playlist.m3u8?liveID=100032167' },
+            { name: 'CCT操作部中控室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032173&rtmp=rtmp://playrtmp.simope.com:1935/live/ee2e705054?liveID=100032173&hls=http://playhls.simope.com/live/ee2e705054/playlist.m3u8?liveID=100032173' },
+            { name: 'CCT工程部维修车间', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032171&rtmp=rtmp://playrtmp.simope.com:1935/live/d37820f07a?liveID=100032171&hls=http://playhls.simope.com/live/d37820f07a/playlist.m3u8?liveID=100032171' },
+            { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+        ];
+        this.setState({cv: data[7]});
+    }
+
+    closeV = () => {
+        this.setState({cv: {}});
+    }
+
     render() {
         let { tview = [], idx = 0, } = this.state;
         return (
-            <div className='portMap'  style={{ overflow: 'hidden', height: '100%' }}>
+            <div className='portMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='portleft'>
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} /> : null}
                 </div>
-                <div className='portRight' style={{marginLeft : 30}}>
-                    
+                <div className='portRight' style={{ marginLeft: 30 }}>
+                    <div className='portRight-1' onClick={() => this.vedio(1)}></div>
+                    <div className='portRight-2' onClick={() => this.vedio(2)}></div>
+                    <div className='portRight-3' onClick={() => this.vedio(3)}></div>
+                    <div className='portRight-4' onClick={() => this.vedio(4)}></div>
+                    {this.state.cv.url ? <Vedio close={this.closeV} video={this.state.cv} /> : null}
                 </div>
             </div>
 

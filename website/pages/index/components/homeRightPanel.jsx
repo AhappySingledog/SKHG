@@ -104,8 +104,11 @@ class ClassicCase extends React.Component {
         }
         $.ajax({dataType: 'json', url: '../cases.json', async: false, success: (res) => {
             this.setState({data: res.data}, work);
-            setInterval(work, 30 * 1000);
+            this.timer = setInterval(work, 30 * 1000);
         }});
+    }
+    componentWillUnmount() {
+        if (this.timer) clearInterval(this.timer);
     }
     render() {
         return (
