@@ -295,6 +295,14 @@ body > div {
 .homeRightP-r {
   flex-grow: 1;
   padding-left: 35px;
+  display: flex;
+  flex-direction: column;
+}
+.homeRightP-r-bottom {
+  flex-grow: 1;
+  padding-top: 35px;
+  display: flex;
+  flex-direction: column;
 }
 .introduce {
   display: flex;
@@ -328,6 +336,62 @@ body > div {
   height: 610px;
   background: url('../images/视频.png') 100% 100% no-repeat;
 }
+.honor {
+  display: flex;
+  flex-direction: column;
+}
+.honor-title {
+  width: 804px;
+  height: 174px;
+  background: url('../images/标题框.png') 100% 100% no-repeat;
+  line-height: 174px;
+  text-align: center;
+  color: white;
+  font-size: 80px;
+}
+.honor-body {
+  padding-top: 25px;
+}
+.oneHonor {
+  color: white;
+  font-size: 40px;
+  width: fit-content;
+}
+.oneHonor-img {
+  width: 673px;
+  height: 474px;
+}
+.case {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+.case-title {
+  width: 804px;
+  height: 174px;
+  background: url('../images/标题框.png') 100% 100% no-repeat;
+  line-height: 174px;
+  text-align: center;
+  color: white;
+  font-size: 80px;
+}
+.case-body {
+  padding-top: 25px;
+  width: 1407px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.oneCase-title {
+  color: white;
+  font-size: 55px;
+}
+.oneCase-msg {
+  color: white;
+  font-size: 45px;
+  text-indent: 2em;
+}
 /**港口样式*/
 .map-view {
   padding: 0;
@@ -336,20 +400,33 @@ body > div {
   width: 100%;
 }
 .portMap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.portleft {
   display: flex;
   flex-direction: row;
   width: 67%;
 }
-.portMap > div:first-child {
+.portleft > div:first-child {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
   border: 5px solid rgba(6, 130, 206, 0.5);
   padding: 20px;
 }
-.portMap > div:first-child > iframe {
+.portleft > div:first-child > iframe {
   border: 2px solid #0682ce;
   flex-grow: 1;
+}
+.portRight {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  background: url('../images/port/第二层右侧.png') 100% 100% no-repeat;
+  background-size: 100% 100%;
 }
 .Right_Map {
   right: 0px;
@@ -426,6 +503,7 @@ body > div {
 .Msg-row-flex-InBigShip-val {
   display: flex;
   flex-direction: column;
+  margin-left: 15px;
 }
 .Msg-row-flex-InBigShip-val > span {
   border: 5px solid #233A52;
@@ -458,71 +536,83 @@ body > div {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/0.png') no-repeat;
+  background: url('../images/port/0.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-1 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/1.png') no-repeat;
+  background: url('../images/port/1.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-2 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/2.png') no-repeat;
+  background: url('../images/port/2.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-3 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/3.png') no-repeat;
+  background: url('../images/port/3.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-4 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/4.png') no-repeat;
+  background: url('../images/port/4.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-5 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/5.png') no-repeat;
+  background: url('../images/port/5.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-6 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/6.png') no-repeat;
+  background: url('../images/port/6.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-7 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/7.png') no-repeat;
+  background: url('../images/port/7.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-8 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/8.png') no-repeat;
+  background: url('../images/port/8.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-9 {
   width: 122px;
   height: 195px;
   margin: 0 9px;
-  background: url('../images/9.png') no-repeat;
+  background: url('../images/port/9.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-break {
   width: 25px;
   height: 36px;
   margin: 0 0px;
-  background: url('../images/break.png') no-repeat;
+  background: url('../images/port/break.png') no-repeat;
+  background-size: 100% 103%;
 }
 .number-point {
   width: 25px;
   height: 25px;
   margin: 0 0px;
-  background: url('../images/point.png') no-repeat;
+  background: url('../images/port/point.png') no-repeat;
+  background-size: 100% 103%;
 }

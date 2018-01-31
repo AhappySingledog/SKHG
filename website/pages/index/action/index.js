@@ -4,6 +4,7 @@ import $ from 'jquery';
 
 let ports = null;
 let data_mapJson = null;
+let ariBarge = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
 
@@ -209,19 +210,19 @@ subscribes(
                 },
                 title: [{
                     text: '装船箱量',
-                    x: '10%',
+                    x: '15%',
                     y: '70%',
                     textStyle: {
-                        fontSize: '80',
+                        fontSize: '50',
                         fontWeight: 'bold',
                         color: ['#ffffff'],
                     }
                 }, {
                     text: '卸船箱量',
-                    x: '60%',
+                    x: '65%',
                     y: '70%',
                     textStyle: {
-                        fontSize: '80',
+                        fontSize: '50',
                         fontWeight: 'bold',
                         color: ['#ffffff'],
                     }
@@ -268,16 +269,16 @@ subscribes(
                                 rich: {
                                     b: {
                                         color: 'while',
-                                        height: 180,
-                                        fontSize: '80',
+                                        height: 70,
+                                        fontSize: '40',
                                         fontWeight: 'bold'
                                     },
                                 },
                                 position: 'center',
                                 color: ['#ffffff'],
                                 textStyle: {
-                                    height: 120,
-                                    fontSize: '120',
+                                    height: 80,
+                                    fontSize: '80',
                                     fontWeight: 'bold'
                                 }
                             },
@@ -323,16 +324,16 @@ subscribes(
                                 rich: {
                                     b: {
                                         color: 'while',
-                                        height: 180,
-                                        fontSize: '80',
+                                        height: 70,
+                                        fontSize: '40',
                                         fontWeight: 'bold'
                                     },
                                 },
                                 position: 'center',
                                 color: ['#ffffff'],
                                 textStyle: {
-                                    height: 120,
-                                    fontSize: '120',
+                                    height: 80,
+                                    fontSize: '80',
                                     fontWeight: 'bold'
                                 }
                             },
@@ -359,19 +360,19 @@ subscribes(
                 },
                 title: [{
                     text: '进闸数量',
-                    x: '10%',
+                    x: '15%',
                     y: '70%',
                     textStyle: {
-                        fontSize: '80',
+                        fontSize: '50',
                         fontWeight: 'bold',
                         color: ['#ffffff'],
                     }
                 }, {
                     text: '出闸数量',
-                    x: '60%',
+                    x: '65%',
                     y: '70%',
                     textStyle: {
-                        fontSize: '80',
+                        fontSize: '50',
                         fontWeight: 'bold',
                         color: ['#ffffff'],
                     }
@@ -418,16 +419,16 @@ subscribes(
                                 rich: {
                                     b: {
                                         color: 'while',
-                                        height: 180,
-                                        fontSize: '80',
+                                        height: 70,
+                                        fontSize: '40',
                                         fontWeight: 'bold'
                                     },
                                 },
                                 position: 'center',
                                 color: ['#ffffff'],
                                 textStyle: {
-                                    height: 120,
-                                    fontSize: '120',
+                                    height: 80,
+                                    fontSize: '80',
                                     fontWeight: 'bold'
                                 }
                             },
@@ -476,16 +477,16 @@ subscribes(
                                 rich: {
                                     b: {
                                         color: 'while',
-                                        height: 180,
-                                        fontSize: '80',
+                                        height: 70,
+                                        fontSize: '40',
                                         fontWeight: 'bold'
                                     },
                                 },
                                 position: 'center',
                                 color: ['#ffffff'],
                                 textStyle: {
-                                    height: 120,
-                                    fontSize: '120',
+                                    height: 80,
+                                    fontSize: '80',
                                     fontWeight: 'bold'
                                 }
                             },
@@ -496,6 +497,25 @@ subscribes(
                     },
                 ]
             }
+        }
+    }, {
+        /** 驳船显示 */
+        sub: 'vessel_GetListAsync',
+        func: (ops) => {
+            return publish('webAction', { svn: 'QUERY_KHSJ', path: '/api/Vessel/GetListAsync' }, ).then((res) => {
+                let data = JSON.parse(res);
+                return data;
+            })
+
+        }
+    }, {
+        /** 大船显示 */
+        sub: 'barge_GetListAsync',
+        func: (ops) => {
+            return publish('webAction', { svn: 'QUERY_KHSJ', path: '/api/Barge/GetListAsync' }).then((res) => {
+                let data = JSON.parse(res);
+                return data;
+            })
         }
     }
 );

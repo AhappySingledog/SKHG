@@ -55,9 +55,14 @@ class HonorOnline extends React.Component {
         }
         $.ajax({dataType: 'json', url: '../honors.json', async: false, success: (res) => {
             this.setState({data: res.data}, work);
-            setInterval(work, 20 * 1000);
+            this.timer = setInterval(work, 20 * 1000);
         }});
     }
+
+    componentWillUnmount(){
+        clearInterval(this.timer);
+    }
+    
     render() {
         return (
             <div className='honor'>

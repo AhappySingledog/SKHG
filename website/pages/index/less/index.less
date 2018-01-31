@@ -409,6 +409,13 @@ body>div {
 }
 
 .portMap{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+.portleft{
     display: flex;
     flex-direction: row;
     width: 67%;
@@ -424,6 +431,14 @@ body>div {
             flex-grow: 1;
         }
     }
+}
+
+.portRight{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    background: url('../images/port/第二层右侧.png') 100% 100% no-repeat;
+    background-size: 100% 100%;
 }
 
 .Right_Map{
@@ -507,6 +522,7 @@ body>div {
                 &-val{
                     display: flex;
                     flex-direction: column;
+                    margin-left: 15px;
                     > span{
                         border: 5px solid #233A52;
                         text-align: center;
@@ -538,8 +554,9 @@ body>div {
         width: @wd;
         height: @ht;
         margin: 0 (@mlr * @scale);
-        @url: '../images/@{number}.png';
+        @url: '../images/port/@{number}.png';
         background: url(@url) no-repeat;
+        background-size: 100% 103%;
     }
 }
 

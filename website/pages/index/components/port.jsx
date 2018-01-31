@@ -9,7 +9,8 @@ import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
-import HomeRightEcharts from './homeRightEcharts';
+import BigShipIcon from '../../../res/mapIcon/大船.gif';
+import BargeIcon from '../../../res/mapIcon/驳船.gif';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -40,14 +41,15 @@ function getNumberArr(num) {
 class MapOperation extends React.Component {
     state = {
         showMT: false,             //展现码头数据
-        tip: {
+        tip: {                     //码头数据
             showtip: false,
-            mtJson: []
-        }                  //码头数据
+            mtJson: [],
+            clientX: null,        //指定创建的DIV在文档中距离左侧的位置
+            clientY: null,        // 指定创建的DIV在文档中距离顶部的位置
+        }
     }
 
     componentDidMount() {
-
         let mapExtent = {
             xmax: 113.9250031023771,
             xmin: 113.85290532405679,
@@ -56,9 +58,20 @@ class MapOperation extends React.Component {
         };
         this.props.map.mapOper.setMapExtent(mapExtent);
 
+        /** 港口码头划分 */
         publish('map_view_init').then((res) => {
             this.setState({ mtJson: res[0] })
             this.handleMTSJ(res[0]);
+        });
+
+        /** 大船显示 */
+        publish('vessel_GetListAsync').then((res) => {
+            this.handleBigship(res[0]);
+        })
+
+        /** 驳船显示 */
+        publish('barge_GetListAsync').then((res)=>{
+            this.handleBarge(res[0]);
         })
     }
 
@@ -77,34 +90,87 @@ class MapOperation extends React.Component {
                 fillstyle: "STYLE_DIAGONAL_CROSS",
                 linestyle: "STYLE_LONGDASH",
                 mouseover: (g) => {
-                    this.toolTipIn(g);
+                    this.toolTipIn(g)
                 },
-                mouseout: () => {
+                mouseout: (g) => {
                     this.setState({
-                        showMT: !this.state.showMT
+                        showMT: false
                     })
-                }
+                },
             }
             this.props.map.mapDisplay.polygon(params);
         }
     };
+
+    handleBigship = (json) =>{
+        let that = this;
+        for(let o in json){
+            json[o]["key"] = "" + o + "";
+            json[o]['name'] = '大船详情';
+            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
+                let param = {
+                    id: 'BIG_SHIP_LAYER' + o,
+                    layerId: 'BIG_SHIP_LAYER',
+                    src: BigShipIcon,
+                    width: 140,
+                    height: 70,
+                    angle: (Number(json[o].heading) / 100) - 90,
+                    x: json[o].longitude,
+                    y: json[o].latitude,
+                    attr: { ...json[o] },
+                    click: this.onIconClick,
+                }
+                this.props.map.mapDisplay.image(param);
+            }
+        }
+    }
+
+    handleBarge =(json) =>{
+        let that = this;
+        for(let o in json){
+            json[o]["key"] = "" + o + "";
+            json[o]['name']='驳船详情';
+            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
+                let param = {
+                    id: 'BARGE_SHIP_LAYER' + o,
+                    layerId: 'BARGE_SHIP_LAYER',
+                    src: BargeIcon,
+                    width: 140,
+                    height: 70,
+                    angle: (Number(json[o].heading) / 100) - 90,
+                    x: json[o].longitude,
+                    y: json[o].latitude,
+                    attr: { ...json[o] },
+                    click: this.onIconClick,
+                }
+                this.props.map.mapDisplay.image(param);
+            }
+        }
+    }
+
+    /** 图标点击事件 */
+    onIconClick=(e) =>{
+        console.log(e);
+    }
+
     /** 鼠标移入事件 */
     toolTipIn = (e) => {
         let datajson = e.attributes;
         var point = e.geometry.getCentroid();
         var screenPoint = this.props.map.mapDisplay.toScreen(point.x, point.y);
-        console.log(screenPoint);
-
+        var clientX = screenPoint.x + 200;
+        var clientY = screenPoint.y - 900;
         this.setState({
             showMT: true,
             tip: {
                 showtip: true,
-                mtJson: datajson
+                mtJson: datajson,
+                clientX: clientX,
+                clientY: clientY,
             }
 
         })
     }
-
     showContainerModal = (e) => {
         alert("点击后就要进入第三个页面的！");
     };
@@ -113,9 +179,9 @@ class MapOperation extends React.Component {
         return (
             <div style={{ position: 'absolute' }}>
                 {
-                    this.state.showMT ? <Tip title={this.state.tip.mtJson.name} style={{ position: 'absolute', top: this.state.tip.mtJson.style.top, left: this.state.tip.mtJson.style.left }}>
+                    this.state.showMT ? <Tip title={this.state.tip.mtJson.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
                         {/** 内部信息 */}
-                        <PortMsg msg={this.state.tip} />
+                        <PortMsg msg={this.state.tip}/>
                         <PortPie />
                     </Tip> : null
                 }
@@ -140,7 +206,7 @@ class PortMsg extends React.Component {
             bc.push(getNumberArr(value.aisBarge));
         })
         return (
-            <div className="Msg">
+            <div id="msgs" className="Msg">
                 <div className="Msg-title" ></div>
                 <div className="Msg-row">
                     {mtJson.data.map((value, key) =>
@@ -188,7 +254,7 @@ class PortPie extends React.Component {
                 {/* <ChartView scr='port_pie_gk_scr' sub='port_pie_gk' options={true} /> */}
                 {/* <ChartView scr='port_pie_zk_scr' sub='port_pie_zk' options={true} /> */}
                 <Panel style={{ flexGrow: 1, paddingTop: 60 }}>
-                    <div className='homeRightE' style={{ width: 1015, height: 1500, paddingBottom: 30 }}>
+                    <div className='homeRightE' style={{ width: 1015, height: 800, paddingBottom: 30 }}>
                         <div className='homeRightE-l' style={{ height: '50%' }} ref="echart1"></div>
                         <div className='homeRightE-l' style={{ height: '50%' }} ref="echart2"></div>
                     </div>
@@ -269,10 +335,16 @@ export default class Port extends React.Component {
     render() {
         let { tview = [], idx = 0, } = this.state;
         return (
-            <div className='portMap' style={{ overflow: 'hidden', height: '100%' }}>
-                <div ref="iframe"></div>
-                {this.state.map ? <MapOperation map={this.state.map} /> : null}
+            <div className='portMap'  style={{ overflow: 'hidden', height: '100%' }}>
+                <div className='portleft'>
+                    <div ref="iframe"></div>
+                    {this.state.map ? <MapOperation map={this.state.map} /> : null}
+                </div>
+                <div className='portRight' style={{marginLeft : 30}}>
+                    
+                </div>
             </div>
+
         )
     }
 }
