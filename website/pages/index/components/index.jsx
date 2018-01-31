@@ -5,6 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish } from '../../../frame/core/arbiter';
+import { Vedio } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
@@ -36,6 +37,7 @@ export default class App extends React.Component {
     state = {
         index: null,
         curLayer: null,
+        cv: {},
     }
     componentDidMount() {
         this.changeLayer(0, {});
@@ -46,16 +48,16 @@ export default class App extends React.Component {
             let curLayer = null;
             switch (index) {
                 case 1:
-                    curLayer = <Port changeLayer={this.changeLayer} {...value} />;
+                    curLayer = <Port changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
                     break;
                 case 2:
-                    curLayer = <Pier changeLayer={this.changeLayer} {...value} />;
+                    curLayer = <Pier changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
                     break;
                 case 3:
-                    curLayer = <WareHouse changeLayer={this.changeLayer} {...value} />;
+                    curLayer = <WareHouse changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
                     break;
                 default:
-                    curLayer = <Home changeLayer={this.changeLayer} {...value} />;
+                    curLayer = <Home changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
             this.setState({ index, curLayer });
@@ -72,6 +74,22 @@ export default class App extends React.Component {
     }
     warning = () => {
         console.log('warning');
+    }
+    playVedio = (vedio) => {
+        let data = [
+            { name: 'SCT大楼12F大厅', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032172&rtmp=rtmp://playrtmp.simope.com:1935/live/07f39deff1?liveID=100032172&hls=http://playhls.simope.com/live/07f39deff1/playlist.m3u8?liveID=100032172' },
+            { name: 'SCT4号泊位', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032166&rtmp=rtmp://playrtmp.simope.com:1935/live/e4b0c82c15?liveID=100032166&hls=http://playhls.simope.com/live/e4b0c82c15/playlist.m3u8?liveID=100032166' },
+            { name: 'SCT工程部维修车间', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032170&rtmp=rtmp://playrtmp.simope.com:1935/live/89619ada51?liveID=100032170&hls=http://playhls.simope.com/live/89619ada51/playlist.m3u8?liveID=100032170' },
+            { name: 'SCT大楼1F监控室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032167&rtmp=rtmp://playrtmp.simope.com:1935/live/105c2009a0?liveID=100032167&hls=http://playhls.simope.com/live/105c2009a0/playlist.m3u8?liveID=100032167' },
+            { name: 'CCT操作部中控室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032173&rtmp=rtmp://playrtmp.simope.com:1935/live/ee2e705054?liveID=100032173&hls=http://playhls.simope.com/live/ee2e705054/playlist.m3u8?liveID=100032173' },
+            { name: 'CCT工程部维修车间', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032171&rtmp=rtmp://playrtmp.simope.com:1935/live/d37820f07a?liveID=100032171&hls=http://playhls.simope.com/live/d37820f07a/playlist.m3u8?liveID=100032171' },
+            { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+        ];
+        this.setState({cv: data[7]});
+    }
+    closeVedio = () => {
+        this.setState({cv: {}});
     }
     render() {
         return (
@@ -92,6 +110,7 @@ export default class App extends React.Component {
                 </div>
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
                 <div className='mfooter'/>
+                {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
             </div>
         )
     }
