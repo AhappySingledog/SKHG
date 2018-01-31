@@ -42,7 +42,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://10.1.0.178:6080/arcgis/rest/services/sckjzx/SCT_NEW/MapServer",
+                    "url": "http://10.1.0.178:6080/arcgis/rest/services/sckjzx/HG_map/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {

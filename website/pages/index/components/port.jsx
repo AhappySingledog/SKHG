@@ -8,7 +8,8 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Table, Panel, Dialog, ChartView} from '../../../frame/componets/index';
+import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
+import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/大船.gif';
 import BargeIcon from '../../../res/mapIcon/驳船.gif';
 
@@ -44,8 +45,10 @@ class MapOperation extends React.Component {
         tip: {                     //码头数据
             showtip: false,
             mtJson: [],
-            clientX: null,        //指定创建的DIV在文档中距离左侧的位置
-            clientY: null,        // 指定创建的DIV在文档中距离顶部的位置
+            isShowDes: false,
+            desTitle: "显示详情",
+            desItem: {},
+            desColumns: [],
         }
     }
 
@@ -60,8 +63,8 @@ class MapOperation extends React.Component {
 
         /** 港口码头划分 */
         publish('map_view_init').then((res) => {
-            this.setState({ mtJson: res[0] })
-            this.handleMTSJ(res[0]);
+            this.setState({ mtJson: res[0][0].features })
+            this.handleMTSJ(res[0][0].features);
         });
 
         /** 大船显示 */
@@ -77,7 +80,7 @@ class MapOperation extends React.Component {
 
     handleMTSJ = (datas) => {
         for (let o in datas) {
-            let dots = datas[o].polygon.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+            let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
             let params = {
                 id: "port_view" + o,
                 linecolor: 'red',
@@ -107,6 +110,7 @@ class MapOperation extends React.Component {
         for (let o in json) {
             json[o]["key"] = "" + o + "";
             json[o]['name'] = '大船详情';
+            json[o]['colname'] = 'bigship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
                     id: 'BIG_SHIP_LAYER' + o,
@@ -119,6 +123,37 @@ class MapOperation extends React.Component {
                     y: json[o].latitude,
                     attr: { ...json[o] },
                     click: this.onIconClick,
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140 + 36);
+                            symbol.setHeight(70 + 9);
+                        }
+                        g.setSymbol(symbol);
+                        let param2 = {
+                            id: 'BIG_SHIP_LAYER',
+                            layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
+                            x: g.geometry.x,
+                            y: g.geometry.y,
+                            text: g.attributes.cshipname || g.attributes.shipname,
+                            size: '10pt',
+                            color: 'red',
+                            offsetX: 0,
+                            offsetY: 132,
+                            visible: true,
+                            layerIndex: 10,
+                        }
+                        that.props.map.mapDisplay.text(param2);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140);
+                            symbol.setHeight(70);
+                        }
+                        g.setSymbol(symbol);
+                        that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
+                    }
                 }
                 this.props.map.mapDisplay.image(param);
             }
@@ -130,6 +165,7 @@ class MapOperation extends React.Component {
         for (let o in json) {
             json[o]["key"] = "" + o + "";
             json[o]['name'] = '驳船详情';
+            json[o]['colname'] = 'bargeship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
                     id: 'BARGE_SHIP_LAYER' + o,
@@ -142,6 +178,37 @@ class MapOperation extends React.Component {
                     y: json[o].latitude,
                     attr: { ...json[o] },
                     click: this.onIconClick,
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140 + 36);
+                            symbol.setHeight(70 + 9);
+                        }
+                        g.setSymbol(symbol);
+                        let param2 = {
+                            id: 'BARGE_SHIP_LAYER',
+                            layerId: 'BARGE_SHIP_HOVERTEXT',
+                            x: g.geometry.x,
+                            y: g.geometry.y,
+                            text: g.attributes.cshipname || g.attributes.shipname,
+                            size: '10pt',
+                            color: 'red',
+                            offsetX: 0,
+                            offsetY: 132,
+                            visible: true,
+                            layerIndex: 10,
+                        }
+                        that.props.map.mapDisplay.text(param2);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140);
+                            symbol.setHeight(70);
+                        }
+                        g.setSymbol(symbol);
+                        that.props.map.mapDisplay.clearLayer('BARGE_SHIP_HOVERTEXT');
+                    }
                 }
                 this.props.map.mapDisplay.image(param);
             }
@@ -150,7 +217,38 @@ class MapOperation extends React.Component {
 
     /** 图标点击事件 */
     onIconClick = (e) => {
-        console.log(e);
+        this.setState({ isShowDes: false });
+        let attr = e.attributes;
+        let bigship = [
+            { title: "船东", dataIndex: "shipowner" }, { title: "泊位", dataIndex: "berth" }, { title: "航线", dataIndex: "service" },
+            { title: "航次", dataIndex: "voyage" }, { title: "船长", dataIndex: "vessellength" }, { title: "船高", dataIndex: "vesselheight" },
+            { title: "吃水", dataIndex: "depth" }, { title: "分线", dataIndex: "qcnums" }, { title: "ETA", dataIndex: "etatime" },
+            { title: "ETD", dataIndex: "etdtime" }, { title: "POB", dataIndex: "pobtime" }, { title: "ATB", dataIndex: "atbtime" },
+            { title: "ATD", dataIndex: "atdtime" }, { title: "状态", dataIndex: "curstatus" }, { title: "装卸", dataIndex: "ldds", colspan: true },
+            { title: "航道", dataIndex: "fairwayname", colspan: true }
+        ];
+        let bargeship = [
+            { title: "船东", dataIndex: "shipowner", colspan: true },
+            { title: "进口航次", dataIndex: "voyagein", colspan: true },
+            { title: "出口航次", dataIndex: "voyageout", colspan: true },
+            { title: "ETA", dataIndex: "etatime", colspan: true },
+            { title: "状态", dataIndex: "curstatus", colspan: true }
+        ];
+        if (attr.colname === 'bigship') {
+            this.setState({
+                desColumns: bigship
+            })
+        } else if (attr.colname === 'bargeship') {
+            this.setState({
+                desColumns: bargeship
+            })
+        };
+
+        this.setState({
+            desTitle: attr.name,
+            desItem: attr,
+            isShowDes: true
+        });
     }
 
     /** 鼠标移入事件 */
@@ -171,22 +269,34 @@ class MapOperation extends React.Component {
 
         })
     }
+
+
+    /**
+    * 取消关闭详情框
+    */
+    handleCloseDesDailog = (e) => {
+        this.setState({
+            isShowDes: false
+        });
+    }
+
     showContainerModal = (e) => {
         alert("点击后就要进入第三个页面的！");
     };
     render() {
         let { flds = [], datas = [] } = this.state;
+        let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
             <div style={{ position: 'absolute' }}>
                 {
-                    this.state.showMT ? <Tip title={this.state.tip.mtJson.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
+                    this.state.showMT ? <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
                         {/** 内部信息 */}
                         <PortMsg msg={this.state.tip} />
                         <PortPie />
                     </Tip> : null
                 }
+                {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
             </div>
-
         )
     }
 }
@@ -194,7 +304,9 @@ class MapOperation extends React.Component {
 
 /** 内部信息 */
 class PortMsg extends React.Component {
-    state = {}
+    state = {
+        showTip: false,
+    }
     render() {
         const { showtip, mtJson = [] } = this.props.msg;
         const sum = [];
@@ -267,9 +379,7 @@ class PortPie extends React.Component {
 // 港口
 export default class Port extends React.Component {
 
-    state = { 
-        map: null,
-    }
+    state = { map: null }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=two_layer');
     }
@@ -349,6 +459,7 @@ export default class Port extends React.Component {
                     <div className='portRight-4' onClick={() => publish('playVedio')}></div>
                 </div>
             </div>
+
         )
     }
 }
