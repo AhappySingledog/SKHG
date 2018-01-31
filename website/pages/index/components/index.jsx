@@ -4,7 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { publish } from '../../../frame/core/arbiter';
+import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import { Vedio } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
@@ -40,7 +40,13 @@ export default class App extends React.Component {
         cv: {},
     }
     componentDidMount() {
-        this.changeLayer(0, {});
+        this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
+        this.sub_playVedio = subscribe('playVedio', this.playVedio);
+        publish('changeLayer', 0, {});
+    }
+    componentWillUnmount() {
+        if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
+        if (this.sub_playVedio) unsubscribe(this.sub_playVedio);
     }
     changeLayer = (index, value) => {
         let { index: idx } = this.state;
@@ -48,16 +54,16 @@ export default class App extends React.Component {
             let curLayer = null;
             switch (index) {
                 case 1:
-                    curLayer = <Port changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
+                    curLayer = <Port {...value} />;
                     break;
                 case 2:
-                    curLayer = <Pier changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
+                    curLayer = <Pier {...value} />;
                     break;
                 case 3:
-                    curLayer = <WareHouse changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
+                    curLayer = <WareHouse {...value} />;
                     break;
                 default:
-                    curLayer = <Home changeLayer={this.changeLayer} playVedio={this.playVedio} {...value} />;
+                    curLayer = <Home {...value} />;
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
             this.setState({ index, curLayer });
@@ -86,7 +92,7 @@ export default class App extends React.Component {
             { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
-        this.setState({cv: data[7]});
+        this.setState({cv: {}}, () => this.setState({cv: data[7]}));
     }
     closeVedio = () => {
         this.setState({cv: {}});

@@ -19,7 +19,9 @@ class HgIntroduce extends React.Component {
                     </WordsContent>
                     <div className='introduce-iv'>
                         <div className='introduce-image'></div>
-                        <div className='introduce-video'></div>
+                        <div className='introduce-video'>
+                            <div className='introduce-Playvideo' onClick={() => publish('playVedio')}></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -59,7 +61,7 @@ class HonorOnline extends React.Component {
         }});
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         clearInterval(this.timer);
     }
     

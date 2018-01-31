@@ -343,10 +343,10 @@ export default class Port extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} /> : null}
                 </div>
                 <div className='portRight' style={{ marginLeft: 30 }}>
-                    <div className='portRight-1' onClick={() => this.props.playVedio(1)}></div>
-                    <div className='portRight-2' onClick={() => this.props.playVedio(2)}></div>
-                    <div className='portRight-3' onClick={() => this.props.playVedio(3)}></div>
-                    <div className='portRight-4' onClick={() => this.props.playVedio(4)}></div>
+                    <div className='portRight-1' onClick={() => publish('playVedio')}></div>
+                    <div className='portRight-2' onClick={() => publish('playVedio')}></div>
+                    <div className='portRight-3' onClick={() => publish('playVedio')}></div>
+                    <div className='portRight-4' onClick={() => publish('playVedio')}></div>
                 </div>
             </div>
         )
