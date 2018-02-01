@@ -631,7 +631,74 @@ body > div {
   cursor: pointer;
 }
 /***************************************************************
-*************************第二层页面结束**************************
+*************************第三层页面结束**************************
+***************************************************************/
+/*------------------------------------------------------------*/
+/***************************************************************
+*************************第四层页面开始**************************
+***************************************************************/
+.house {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.houseleft {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 67%;
+}
+.houseleft-map {
+  background: url('../images/port/仓库地图.png') no-repeat;
+  background-size: 100% 100%;
+  width: 100%;
+  height: 100%;
+}
+.houseright {
+  width: 33%;
+  background: url('../images/port/第四层右侧.png') no-repeat;
+  background-size: 100% 100%;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid rgba(6, 130, 206, 0.5);
+  padding: 20px;
+  margin-left: 30px;
+}
+.houseright-1 {
+  position: absolute;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.houseright-2 {
+  position: absolute;
+  right: 2029px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.houseright-3 {
+  position: absolute;
+  right: 1000px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.houseright-4 {
+  position: absolute;
+  right: 100px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+/***************************************************************
+*************************第三层页面结束**************************
 ***************************************************************/
 .number-view {
   display: flex;
@@ -724,4 +791,10 @@ body > div {
   margin: 0 0px;
   background: url('../images/port/point.png') no-repeat;
   background-size: 100% 103%;
+}
+.test-tip {
+  width: 1421px;
+  height: 611px;
+  background: url('../../../res/mapIcon/tip.png') no-repeat;
+  background-size: 100% 100%;
 }

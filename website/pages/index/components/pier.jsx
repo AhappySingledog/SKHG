@@ -87,14 +87,6 @@ class MapOperation extends React.Component {
                 linewidth: 6,
                 fillstyle: "STYLE_DIAGONAL_CROSS",
                 linestyle: "STYLE_LONGDASH",
-                mouseover: (g) => {
-                    this.toolTipIn(g)
-                },
-                mouseout: (g) => {
-                    this.setState({
-                        showMT: false
-                    })
-                },
             }
             this.props.map.mapDisplay.polygon(params);
         }
@@ -250,7 +242,6 @@ class MapOperation extends React.Component {
         });
     }
 
-
     /**
     * 取消关闭详情框
     */
@@ -261,15 +252,14 @@ class MapOperation extends React.Component {
     }
 
     showContainerModal = (e) => {
-        publish('changeLayer', {index: 1, props: {}});
+        publish('changeLayer', { index: 3, props: {} });
     };
     render() {
         let { flds = [], datas = [] } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
-            <div style={{ position: 'absolute' }}>
-
-                {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
+            <div>
+                {this.state.isShowDes ? <Desc className='descTip' title={''} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null}
             </div>
         )
     }

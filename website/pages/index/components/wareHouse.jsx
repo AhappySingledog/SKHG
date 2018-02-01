@@ -19,7 +19,14 @@ export default class WareHouse extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="house">
+                <div className="houseleft"><div className="houseleft-map"></div></div>
+                <div className="houseright">
+                    <div className='houseright-1' onClick={() => publish('playVedio')}></div>
+                    <div className='houseright-2' onClick={() => publish('playVedio')}></div>
+                    <div className='houseright-3' onClick={() => publish('playVedio')}></div>
+                    <div className='houseright-4' onClick={() => publish('playVedio')}></div>
+                </div>
             </div>
         )
     }
