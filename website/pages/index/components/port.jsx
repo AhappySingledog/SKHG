@@ -362,7 +362,7 @@ class MapOperation extends React.Component {
         let { flds = [], datas = [] } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
-            <div style={{ position: 'absolute' }}>
+            <div>
                 {
                     this.state.showMT ? <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
                         {/** 内部信息 */}
