@@ -42,28 +42,30 @@ export default class App extends React.Component {
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
-        publish('changeLayer', 0, {});
+        publish('changeLayer', {index: 0, props: {}});
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
         if (this.sub_playVedio) unsubscribe(this.sub_playVedio);
     }
-    changeLayer = (index, value) => {
-        let { index: idx } = this.state;
+    changeLayer = (ops) => {
+        let idx = this.state.index;
+        let index = ops.index;
+        let props = ops.props;
         if (index != idx) {
             let curLayer = null;
             switch (index) {
                 case 1:
-                    curLayer = <Port {...value} />;
+                    curLayer = <Port {...props} />;
                     break;
                 case 2:
-                    curLayer = <Pier {...value} />;
+                    curLayer = <Pier {...props} />;
                     break;
                 case 3:
-                    curLayer = <WareHouse {...value} />;
+                    curLayer = <WareHouse {...props} />;
                     break;
                 default:
-                    curLayer = <Home {...value} />;
+                    curLayer = <Home {...props} />;
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
             this.setState({ index, curLayer });

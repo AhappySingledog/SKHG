@@ -20,7 +20,7 @@ class MyPort extends React.Component {
             let $port = $('#' + this.props.id);
             $port.on('click', (e) => {
                 if (this.port.name === '深圳-深圳西部港区') {
-                    publish('changeLayer', 1, {});
+                    publish('changeLayer', {index: 1, props: {}});
                 }
             });
             if (this.port.tip) {
