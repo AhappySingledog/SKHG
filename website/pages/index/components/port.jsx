@@ -356,7 +356,7 @@ class MapOperation extends React.Component {
     }
 
     showContainerModal = (e) => {
-        alert("点击后就要进入第三个页面的！");
+        publish('changeLayer', {index: 2, props: {datas: e.attributes}});
     };
     render() {
         let { flds = [], datas = [] } = this.state;

@@ -268,6 +268,7 @@ body > div {
   background: url('../images/tip文字底框.png') no-repeat;
   background-size: 100% 100%;
   padding: 0 10px;
+  text-indent: 2em;
 }
 .homeRightE {
   flex-grow: 1;
@@ -329,12 +330,24 @@ body > div {
 .introduce-image {
   width: 786px;
   height: 515px;
-  background: url('../images/图片.png') 100% 100% no-repeat;
+  background: url('../images/图片.png') no-repeat;
+  background-size: 100% 100%;
 }
 .introduce-video {
   width: 786px;
   height: 610px;
-  background: url('../images/视频.png') 100% 100% no-repeat;
+  background: url('../images/视频.png') no-repeat;
+  background-size: 100% 100%;
+}
+.introduce-Playvideo {
+  width: 124px;
+  height: 124px;
+  background: url('../images/视频图标.png') no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  top: 242px;
+  left: 331px;
+  cursor: pointer;
 }
 .honor {
   display: flex;
@@ -343,7 +356,8 @@ body > div {
 .honor-title {
   width: 804px;
   height: 174px;
-  background: url('../images/标题框.png') 100% 100% no-repeat;
+  background: url('../images/标题框.png') no-repeat;
+  background-size: 100% 100%;
   line-height: 174px;
   text-align: center;
   color: white;
@@ -369,7 +383,8 @@ body > div {
 .case-title {
   width: 804px;
   height: 174px;
-  background: url('../images/标题框.png') 100% 100% no-repeat;
+  background: url('../images/标题框.png') no-repeat;
+  background-size: 100% 100%;
   line-height: 174px;
   text-align: center;
   color: white;
@@ -399,6 +414,9 @@ body > div {
   height: 100%;
   width: 100%;
 }
+/***************************************************************
+**********************第二层页面开始*****************************
+***************************************************************/
 .portMap {
   width: 100%;
   height: 100%;
@@ -406,6 +424,7 @@ body > div {
   flex-direction: row;
 }
 .portleft {
+  position: relative;
   display: flex;
   flex-direction: row;
   width: 67%;
@@ -425,36 +444,47 @@ body > div {
   display: flex;
   flex-direction: column;
   width: 33%;
-  background: url('../images/port/第二层右侧.png') 100% 100% no-repeat;
+  background: url('../images/port/第二层右侧.png') no-repeat;
   background-size: 100% 100%;
 }
-.Right_Map {
-  right: 0px;
-  top: 0px;
+.portRight-1 {
   position: absolute;
-  font-size: 80px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
 }
-.Right_Map_row1 {
-  background: green;
+.portRight-2 {
+  position: absolute;
+  right: 2029px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
 }
-.Right_Map_row2 {
-  height: 1000px;
-  width: 100%;
-  box-sizing: border-box;
-  border: 2px solid #4D94DE;
-  border-radius: 4px;
+.portRight-3 {
+  position: absolute;
+  right: 1000px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
 }
-.Right_Map_row2_list {
-  height: 100%;
+.portRight-4 {
+  position: absolute;
+  right: 100px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
 }
-.homeRightE {
-  flex-grow: 1;
-  display: flex;
-  flex-direction: column;
-}
-.homeRightE > div {
-  flex-grow: 1;
-}
+/***************************************************************
+*************************第二层页面结束**************************
+***************************************************************/
+/*------------------------------------------------------------*/
+/***************************************************************
+**********************第二层页面替补框开始************************
+***************************************************************/
 .Msg {
   display: flex;
   flex-direction: column;
@@ -524,6 +554,85 @@ body > div {
   margin-top: 30px;
   margin-left: 13px;
 }
+.homeRightE {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+.homeRightE > div {
+  flex-grow: 1;
+}
+/***************************************************************
+**********************第二层页面替补框结束************************
+***************************************************************/
+/*------------------------------------------------------------*/
+/***************************************************************
+*************************第三层页面开始**************************
+***************************************************************/
+.pierMap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.pierleft {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 67%;
+}
+.pierleft > div:first-child {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid rgba(6, 130, 206, 0.5);
+  padding: 20px;
+}
+.pierleft > div:first-child > iframe {
+  border: 2px solid #0682ce;
+  flex-grow: 1;
+}
+.pierRight {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+  background: url('../images/port/第三层右侧.png') no-repeat;
+  background-size: 100% 100%;
+}
+.pierRight-1 {
+  position: absolute;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.pierRight-2 {
+  position: absolute;
+  right: 2029px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.pierRight-3 {
+  position: absolute;
+  right: 1000px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+.pierRight-4 {
+  position: absolute;
+  right: 100px;
+  bottom: 50px;
+  width: 800px;
+  height: 100Px;
+  cursor: pointer;
+}
+/***************************************************************
+*************************第二层页面结束**************************
+***************************************************************/
 .number-view {
   display: flex;
   flex-direction: row;
@@ -616,4 +725,3 @@ body > div {
   background: url('../images/port/point.png') no-repeat;
   background-size: 100% 103%;
 }
-/** 第二页码头数据展示  */
