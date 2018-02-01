@@ -103,14 +103,14 @@ export default class Home extends React.Component {
                             <div className='yellowPort'/>
                             <div style={{color: 'white', fontSize: 65, marginLeft: 60}}>国内港口分部</div>
                         </div>
-                        {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} ports={ports} key={i} port={e} id={'icon_' + i} />)}
+                        {ports.map((e, i) => <MyPort changeLayer={this.props.changeLayer} tipEvent={this.handleShowTip} ports={ports} key={i} port={e} id={e.id + '_' + i} />)}
                     </div>
                 </div>
                 <div className='homeRight' style={{paddingLeft: 20}}>
                     <HomeRightPanel/>
                 </div>
                 {this.state.tip.showTip ?
-                    <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 450, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name}>
+                    <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 480, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name}>
                         <MyPortDesc port={this.state.tip.msg} />
                     </Tip> : null
                 }

@@ -2,7 +2,8 @@
     "name": "首页国外港口分布",
     "data": [
         {
-            "name": "深圳-深圳西部港区",
+            "id": "p1",
+            "name": "香港—现代货箱码头有限公司（MTL）",
             "icon": { "className": "yellowPort", "top": 1400, "left": 2510 },
             "tip": true,
             "events": [
@@ -10,7 +11,7 @@
                 { "year": 1978, "event": "招商局运营" },
                 { "year": 2018, "event": "吞吐量超过350万TEU" }
             ],
-            "msg": "深圳西部港区位于珠三角入海口东岸，南邻香港，地理位置得天独厚，主要从事集装箱、散杂货码头及保税物流园区业务。主要包括蛇口集装箱码头（SCT）、赤湾集装箱码头（CCT）、深圳前海湾保税港区（含MCT港区及保税物流园区）、招商港务、海星港及赤湾港航（深赤湾）。2016年处理集装箱吞吐量达1096万个标准箱，散杂货1900万吨。",
+            "msg": "香港现代货箱码头有限公司(MTL）于1969年成立，是香港第一家集装箱码头，现代货箱码头目前拥有和运营香港葵涌集装箱码头，是香港最大的集装箱码头运营商之一。2016年处理集装箱吞吐量达462万个标准箱。",
             "imgs": [
                 "../portImages/图片.png",
                 "../portImages/图片.png",
@@ -20,6 +21,7 @@
             "selected": true
         },
         {
+            "id": "p2",
             "name": "台湾—高明货柜码头股份有限公司",
             "icon": { "className": "yellowPort", "top": 1379, "left": 2574 },
             "tip": true,
@@ -37,6 +39,7 @@
             ]
         },
         {
+            "id": "p3",
             "name": "漳州—漳州招商局厦门湾港务有限公司",
             "icon": { "className": "yellowPort", "top": 1335, "left": 2536 },
             "tip": true,
@@ -54,6 +57,7 @@
             ]
         },
         {
+            "id": "p4",
             "name": "宁波—宁波大榭招商国际有限码头",
             "icon": { "className": "yellowPort", "top": 1278, "left": 2589 },
             "tip": true,
@@ -71,6 +75,7 @@
             ]
         },
         {
+            "id": "p5",
             "name": "上海—上港集团",
             "icon": { "className": "yellowPort", "top": 1236, "left": 2603 },
             "tip": true,
@@ -88,6 +93,7 @@
             ]
         },
         {
+            "id": "p6",
             "name": "青岛-招商局国际集装箱码头有限公司",
             "icon": { "className": "yellowPort", "top": 1179, "left": 2562 },
             "tip": true,
@@ -105,6 +111,7 @@
             ]
         },
         {
+            "id": "p7",
             "name": "天津-天津五洲公司",
             "icon": { "className": "yellowPort", "top": 1113, "left": 2522 },
             "tip": true,
@@ -122,7 +129,8 @@
             ]
         },
         {
-            "name": "蛇口港7",
+            "id": "p8",
+            "name": "",
             "icon": { "className": "yellowPort", "top": 1088, "left": 2608 },
             "tip": true,
             "events": [
@@ -139,7 +147,8 @@
             ]
         },
         {
-            "name": "蛇口港8",
+            "id": "p9",
+            "name": "",
             "icon": { "className": "yellowPort", "top": 1131, "left": 2280 },
             "tip": true,
             "events": [
@@ -156,6 +165,7 @@
             ]
         },
         {
+            "id": "p10",
             "name": "湛江—湛江港集团",
             "icon": { "className": "yellowPort", "top": 1386, "left": 2380 },
             "tip": true,
@@ -173,7 +183,8 @@
             ]
         },
         {
-            "name": "维多利亚港",
+            "id": "p11",
+            "name": "",
             "icon": { "className": "greenPort", "top": 1605, "left": 1270 },
             "tip": true,
             "events": [
@@ -190,7 +201,8 @@
             ]
         },
         {
-            "name": "维多利亚港1",
+            "id": "p12",
+            "name": "尼日利亚—庭堪国际集装箱码头",
             "icon": { "className": "greenPort", "top": 1651, "left": 629 },
             "tip": true,
             "events": [
@@ -198,7 +210,7 @@
                 { "year": 1978, "event": "招商局运营" },
                 { "year": 2018, "event": "吞吐量超过350万TEU" }
             ],
-            "msg": "",
+            "msg": "2010年 11月 招商局港口联合中非发展基金收购了ZIM船公司在庭堪国际集装箱码头 47.5% 的股份，开始运营TICT。该码头是西非地区CMA, ZIM等大型船公司的主要门户港，占Lagos的集装箱市场总量约1/3 的份额，2016年TICT吞吐量约为41万标箱。",
             "imgs": [
                 "../portImages/图片.png",
                 "../portImages/图片.png",
@@ -207,7 +219,8 @@
             ]
         },
         {
-            "name": "维多利亚港2",
+            "id": "p13",
+            "name": "多哥—洛美集装箱码头",
             "icon": { "className": "greenPort", "top": 1617, "left": 453 },
             "tip": true,
             "events": [
@@ -215,7 +228,7 @@
                 { "year": 1978, "event": "招商局运营" },
                 { "year": 2018, "event": "吞吐量超过350万TEU" }
             ],
-            "msg": "",
+            "msg": "2012年8月招商局港口从TIL集团收购多哥洛美集装箱码头50%的权益，主导运营LCT。码头有4 个集装箱泊位， 是MSC船公司在西非的枢纽港，也是CMA CGM,  PIL等大型船公司在西非的门户港。2016年集装箱吞吐量53万标箱。",
             "imgs": [
                 "../portImages/图片.png",
                 "../portImages/图片.png",
@@ -224,7 +237,8 @@
             ]
         },
         {
-            "name": "维多利亚港3",
+            "id": "p14",
+            "name": "",
             "icon": { "className": "greenPort", "top": 1632, "left": 240 },
             "tip": true,
             "events": [
@@ -241,7 +255,8 @@
             ]
         },
         {
-            "name": "维多利亚港4",
+            "id": "p15",
+            "name": "",
             "icon": { "className": "greenPort", "top": 1276, "left": 254 },
             "tip": true,
             "events": [
@@ -258,7 +273,8 @@
             ]
         },
         {
-            "name": "维多利亚港5",
+            "id": "p16",
+            "name": "土耳其—Kumport码头",
             "icon": { "className": "greenPort", "top": 1100, "left": 858 },
             "tip": true,
             "events": [
@@ -266,7 +282,7 @@
                 { "year": 1978, "event": "招商局运营" },
                 { "year": 2018, "event": "吞吐量超过350万TEU" }
             ],
-            "msg": "",
+            "msg": "Kumport是土耳其第三大集装箱码头，位于马尔马拉海西北海岸的Ambarli港区内，占据欧亚大陆连接处的重要战略地理位置。该港口吞吐量在过去5年复合增长率都在30%左右，是黑海门户和欧亚交通的枢纽。2016年吞吐量达66万标箱。",
             "imgs": [
                 "../portImages/图片.png",
                 "../portImages/图片.png",
@@ -275,7 +291,8 @@
             ]
         },
         {
-            "name": "维多利亚港6",
+            "id": "p17",
+            "name": "",
             "icon": { "className": "greenPort", "top": 1059, "left": 1129 },
             "tip": true,
             "events": [
@@ -292,7 +309,8 @@
             ]
         },
         {
-            "name": "维多利亚港7",
+            "id": "p18",
+            "name": "",
             "icon": { "className": "greenPort", "top": 962, "left": 415 },
             "tip": true,
             "events": [
@@ -309,7 +327,8 @@
             ]
         },
         {
-            "name": "维多利亚港8",
+            "id": "p19",
+            "name": "",
             "icon": { "className": "greenPort", "top": 864, "left": 502 },
             "tip": true,
             "events": [
@@ -326,7 +345,8 @@
             ]
         },
         {
-            "name": "维多利亚港9",
+            "id": "p20",
+            "name": "",
             "icon": { "className": "greenPort", "top": 1060, "left": 6217 },
             "tip": true,
             "events": [
@@ -343,80 +363,139 @@
             ]
         },
         {
+            "id": "p21",
             "name": "丝绸之路1",
             "icon": { "className": "silkYellowPoint", "top": 1127, "left": 2525 }
         },
         {
+            "id": "p22",
             "name": "丝绸之路2",
             "icon": { "className": "silkYellowPoint", "top": 1240, "left": 2448 }
         },
         {
+            "id": "p23",
             "name": "丝绸之路3",
             "icon": { "className": "silkYellowPoint", "top": 1224, "left": 2342 }
         },
         {
+            "id": "p24",
             "name": "丝绸之路4",
             "icon": { "className": "silkYellowPoint", "top": 1195, "left": 2228 }
         },
         {
+            "id": "p25",
             "name": "丝绸之路5",
             "icon": { "className": "silkYellowPoint", "top": 1124, "left": 2036 }
         },
         {
+            "id": "p26",
             "name": "丝绸之路6",
             "icon": { "className": "silkYellowPoint", "top": 1044, "left": 1872 }
         },
         {
+            "id": "p27",
             "name": "丝绸之路7",
             "icon": { "className": "silkRedPoint", "top": 873, "left": 1023 }
         },
         {
+            "id": "p28",
             "name": "丝绸之路8",
             "icon": { "className": "silkRedPoint", "top": 878, "left": 633 }
         },
         {
+            "id": "p29",
             "name": "丝绸之路9",
             "icon": { "className": "silkRedPoint", "top": 902, "left": 603 }
         },
         {
+            "id": "p30",
             "name": "丝绸之路10",
             "icon": { "className": "silkRedPoint", "top": 922, "left": 571 }
         },
         {
+            "id": "p31",
             "name": "丝绸之路11",
             "icon": { "className": "silkRedPoint", "top": 940, "left": 538 }
         },
         {
+            "id": "p32",
             "name": "丝绸之路12",
             "icon": { "className": "silkRedPoint", "top": 958, "left": 502 }
         },
         {
+            "id": "p33",
             "name": "丝绸之路13",
             "icon": { "className": "silkRedPoint", "top": 1175, "left": 294 }
         },
         {
+            "id": "p34",
             "name": "丝绸之路14",
             "icon": { "className": "silkRedPoint", "top": 1175, "left": 626 }
         },
         {
+            "id": "p35",
             "name": "丝绸之路15",
             "icon": { "className": "silkRedPoint", "top": 1112, "left": 906 }
         },
         {
+            "id": "p36",
             "name": "丝绸之路16",
             "icon": { "className": "silkRedPoint", "top": 1073, "left": 1002 }
         },
         {
-            "name": "丝绸之路17",
-            "icon": { "className": "silkRedPoint", "top": 1535, "left": 1160 }
+            "id": "p37",
+            "name": "吉布提—吉布提港有限公司",
+            "icon": { "className": "silkRedPoint", "top": 1535, "left": 1160 },
+            "tip": true,
+            "events": [
+                { "year": 1943, "event": "港口开埠" },
+                { "year": 1978, "event": "招商局运营" },
+                { "year": 2018, "event": "吞吐量超过350万TEU" }
+            ],
+            "msg": "2013年2月，招商局港口通过全资子公司招商局控股吉布提公司以1.85亿美元正式收购吉布提港有限公司23.5%的股份，在吉布提参与运营DCT集装箱码头和POD多功能码头。2016年集装箱吞吐量达到98万标箱，散杂货吞吐量652万吨。",
+            "imgs": [
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png"
+            ]
         },
         {
-            "name": "丝绸之路18",
-            "icon": { "className": "silkRedPoint", "top": 1637, "left": 1875 }
+            "id": "p38",
+            "name": "斯里兰卡—科伦坡国际集装箱码头",
+            "icon": { "className": "silkRedPoint", "top": 1637, "left": 1875 },
+            "tip": true,
+            "events": [
+                { "year": 1943, "event": "港口开埠" },
+                { "year": 1978, "event": "招商局运营" },
+                { "year": 2018, "event": "吞吐量超过350万TEU" }
+            ],
+            "msg": "招商局港口于2009年开始的海外第一个绿地项目—科伦坡港项目，包括建设期共计35年特许经营权。2011年12月开工建设，2013年8月开港运作。斯里兰卡是南亚次大陆以南、接近赤道的印度洋岛国，素有“印度洋明珠”之称，是“21世纪海上丝绸之路”的重要枢纽。 2016年吞吐量达到201万标箱。",
+            "imgs": [
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png"
+            ]
         },
         {
-            "name": "丝绸之路19",
-            "icon": { "className": "silkRedPoint", "top": 1375, "left": 2489 }
+            "id": "p39",
+            "name": "深圳-深圳西部港区",
+            "icon": { "className": "silkRedPoint", "top": 1377, "left": 2500 },
+            "tip": true,
+            "events": [
+                { "year": 1943, "event": "港口开埠" },
+                { "year": 1978, "event": "招商局运营" },
+                { "year": 2018, "event": "吞吐量超过350万TEU" }
+            ],
+            "msg": "深圳西部港区位于珠三角入海口东岸，南邻香港，地理位置得天独厚，主要从事集装箱、散杂货码头及保税物流园区业务。主要包括蛇口集装箱码头（SCT）、赤湾集装箱码头（CCT）、深圳前海湾保税港区（含MCT港区及保税物流园区）、招商港务、海星港及赤湾港航（深赤湾）。2016年处理集装箱吞吐量达1096万个标准箱，散杂货1900万吨。",
+            "imgs": [
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png",
+                "../portImages/图片.png"
+            ],
+            "selected": true
         }
     ]
 }
