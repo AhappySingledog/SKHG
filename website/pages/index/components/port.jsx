@@ -85,19 +85,36 @@ class MapOperation extends React.Component {
     }
 
     handleMTSJ = (datas) => {
+        let color = {
+            mt: [57, 255, 95, 0.6],
+            ck: [24, 46, 255, 0.6],
+            yq: [250, 22, 80, 0.6],
+            mg: [8, 249, 250, 0.6],
+        };
         for (let o in datas) {
             let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
+            let name = datas[o].properties.name;
+            let fillColor = color.mg;
+            if (name.indexOf('码头') >= 0) {
+                fillColor = color.mt;
+            }
+            if (name.indexOf('园区') >= 0) {
+                fillColor = color.yq;
+            }
+            if (name.indexOf('仓库') >= 0) {
+                fillColor = color.ck;
+            }
             let params = {
                 id: 'port_view' + o,
-                linecolor: 'red',
+                linecolor: fillColor,
                 layerId: 'port_view',
-                fillcolor: 'red',
+                // fillcolor: fillColor,
                 dots: dots,
                 attr: { ...datas[o] },
                 click: this.showContainerModal,
                 linewidth: 6,
-                fillstyle: "STYLE_DIAGONAL_CROSS",
-                linestyle: "STYLE_LONGDASH",
+                // fillstyle: "STYLE_DIAGONAL_CROSS",
+                // linestyle: "STYLE_LONGDASH",
                 mouseover: (g) => {
                     this.toolTipIn(g)
                 },
