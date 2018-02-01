@@ -12,6 +12,7 @@ import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/
 import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/大船.gif';
 import BargeIcon from '../../../res/mapIcon/驳船.gif';
+import TruckIcon from '../../../res/mapIcon/车.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -41,12 +42,12 @@ function getNumberArr(num) {
 // 地图操作组件
 class MapOperation extends React.Component {
     state = {
-        showMT: false,             //展现码头数据
-        tip: {                     //码头数据
+        showMT: false,
+        tip: {
             showtip: false,
             mtJson: [],
             isShowDes: false,
-            desTitle: "显示详情",
+            desTitle: '显示详情',
             desItem: {},
             desColumns: [],
         }
@@ -76,13 +77,18 @@ class MapOperation extends React.Component {
         publish('barge_GetListAsync').then((res) => {
             this.handleBarge(res[0]);
         })
+
+        /** 外拖拖车 */
+        publish('truck_GetListAsync').then((res) => {
+            this.handleOutcar(res[0]);
+        })
     }
 
     handleMTSJ = (datas) => {
         for (let o in datas) {
             let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
             let params = {
-                id: "port_view" + o,
+                id: 'port_view' + o,
                 linecolor: 'red',
                 layerId: 'port_view',
                 fillcolor: 'red',
@@ -108,7 +114,7 @@ class MapOperation extends React.Component {
     handleBigship = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]["key"] = "" + o + "";
+            json[o]['key'] = "" + o + "";
             json[o]['name'] = '大船详情';
             json[o]['colname'] = 'bigship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
@@ -163,7 +169,7 @@ class MapOperation extends React.Component {
     handleBarge = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]["key"] = "" + o + "";
+            json[o]['key'] = "" + o + "";
             json[o]['name'] = '驳船详情';
             json[o]['colname'] = 'bargeship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
@@ -215,6 +221,61 @@ class MapOperation extends React.Component {
         }
     }
 
+    handleOutcar = (json) => {
+        let that = this;
+        for (let o in json) {
+            json[o]["key"] = "" + o + "";
+            json[o]["name"] = "拖车详情";
+            json[o]['colname'] = 'outcar';
+            if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
+                let param = {
+                    id: 'TRUCK_LAYER' + o,
+                    layerId: 'TRUCK_LAYER',
+                    src: TruckIcon,
+                    width: 140,
+                    height: 120,
+                    x: json[o].Curlng,
+                    y: json[o].Curlat,
+                    attr: { ...json[o] },
+                    click: this.onIconClick,
+                    layerIndex: 30,
+                    mouseover: (g) => {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140 + 36);
+                            symbol.setHeight(120 + 9);
+                        }
+                        g.setSymbol(symbol);
+                        let param2 = {
+                            id: 'TRUCK_LAYER',
+                            layerId: 'TRUCK_LAYER_HOVERTEXT',
+                            x: g.geometry.x,
+                            y: g.geometry.y,
+                            text: g.attributes.Truckno,
+                            size: '10pt',
+                            offsetX: 0,
+                            offsetY: 110,
+                            visible: true,
+                            layerIndex: 20,
+                        }
+                        that.props.map.mapDisplay.text(param2);
+                    },
+                    mouseout: (g) => {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140);
+                            symbol.setHeight(120);
+                        }
+                        g.setSymbol(symbol);
+                        that.props.map.mapDisplay.clearLayer('TRUCK_LAYER_HOVERTEXT');
+                    }
+                }
+                this.props.map.mapDisplay.image(param);
+            }
+
+        };
+    }
+
     /** 图标点击事件 */
     onIconClick = (e) => {
         this.setState({ isShowDes: false });
@@ -234,6 +295,16 @@ class MapOperation extends React.Component {
             { title: "ETA", dataIndex: "etatime", colspan: true },
             { title: "状态", dataIndex: "curstatus", colspan: true }
         ];
+        let outcar = [
+            { title: "车牌", dataIndex: "Truckno", colspan: true },
+            { title: "单号", dataIndex: "Bookingno", colspan: true },
+            { title: "箱号", dataIndex: "Containerno", colspan: true },
+            { title: "箱型", dataIndex: "Containertype", colspan: true },
+            { title: "尺寸", dataIndex: "Containersize", colspan: true },
+            { title: "箱高", dataIndex: "Containerheight", colspan: true },
+            { title: "空重", dataIndex: "Emptyfull", colspan: true },
+            { title: "收提", dataIndex: "Inout", colspan: true }
+        ];
         if (attr.colname === 'bigship') {
             this.setState({
                 desColumns: bigship
@@ -241,6 +312,10 @@ class MapOperation extends React.Component {
         } else if (attr.colname === 'bargeship') {
             this.setState({
                 desColumns: bargeship
+            })
+        } else if (attr.colname === 'outcar') {
+            this.setState({
+                desColumns: outcar
             })
         };
 

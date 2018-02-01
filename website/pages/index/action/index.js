@@ -4,9 +4,10 @@ import $ from 'jquery';
 
 let ports = null;
 let data_mapJson = null;
-let ariBarge = null;
+let truck = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
+$.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
 
 subscribes(
     {
@@ -516,6 +517,12 @@ subscribes(
                 let data = JSON.parse(res);
                 return data;
             })
+        }
+    }, {
+        /** 外拖拖车 */
+        sub: 'truck_GetListAsync',
+        func: (ops) => {
+            return truck;
         }
     }
 );
