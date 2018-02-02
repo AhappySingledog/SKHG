@@ -22,7 +22,7 @@ body > div {
 body > div {
   width: 11520px;
   height: 3240px;
-  background: #000E46;
+  background: #051658;
 }
 .mframe {
   height: 100%;
@@ -478,6 +478,38 @@ body > div {
   height: 100Px;
   cursor: pointer;
 }
+.mapbtn {
+  position: absolute;
+  bottom: 50px;
+  right: 50px;
+}
+.mapbtn-btn1 {
+  width: 250px;
+  height: 120px;
+  background: #0682ec;
+  border: 5px solid #ffffff;
+  margin-left: 15px;
+  border-radius: 15px;
+  color: white;
+}
+.mapbtn-btn2 {
+  width: 250px;
+  height: 120px;
+  background: #0682ec;
+  border: 5px solid #ffffff;
+  margin-left: 15px;
+  border-radius: 15px;
+  color: white;
+}
+.mapbtn-btn3 {
+  width: 250px;
+  height: 120px;
+  background: #0682ec;
+  border: 5px solid #ffffff;
+  margin-left: 15px;
+  border-radius: 15px;
+  color: white;
+}
 /***************************************************************
 *************************第二层页面结束**************************
 ***************************************************************/
@@ -656,7 +688,7 @@ body > div {
   height: 100%;
 }
 .houseright {
-  width: 33%;
+  width: 32%;
   background: url('../images/port/第四层右侧.png') no-repeat;
   background-size: 100% 100%;
   flex-grow: 1;
@@ -698,7 +730,7 @@ body > div {
   cursor: pointer;
 }
 /***************************************************************
-*************************第三层页面结束**************************
+*************************第四层页面结束**************************
 ***************************************************************/
 .number-view {
   display: flex;
@@ -797,4 +829,15 @@ body > div {
   height: 611px;
   background: url('../../../res/mapIcon/tip.png') no-repeat;
   background-size: 100% 100%;
+}
+.test-sxt {
+  position: relative;
+  width: 70px;
+  height: 86px;
+  background: url('../../../res/mapIcon/摄像头.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.test-sxt:hover {
+  transform: scale(1.5);
 }

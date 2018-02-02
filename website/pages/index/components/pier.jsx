@@ -97,21 +97,11 @@ class MapOperation extends React.Component {
                 id: 'port_view' + o,
                 linecolor: fillColor,
                 layerId: 'port_view',
-                // fillcolor: fillColor,
                 dots: dots,
                 attr: { ...datas[o] },
                 click: this.showContainerModal,
                 linewidth: 6,
-                // fillstyle: "STYLE_DIAGONAL_CROSS",
-                // linestyle: "STYLE_LONGDASH",
-                mouseover: (g) => {
-                    this.toolTipIn(g)
-                },
-                mouseout: (g) => {
-                    this.setState({
-                        showMT: false
-                    })
-                },
+
             }
             this.props.map.mapDisplay.polygon(params);
         }

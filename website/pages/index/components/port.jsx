@@ -372,14 +372,69 @@ class MapOperation extends React.Component {
         });
     }
 
+    /** 进入下一层 */
     showContainerModal = (e) => {
-        publish('changeLayer', {index: 2, props: {datas: e.attributes}});
+        publish('changeLayer', { index: 2, props: { datas: e.attributes } });
     };
+
+    /** 拖车按钮 */
+    outbtn = (e) => {
+        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
+        /** 外拖拖车 */
+        publish('truck_GetListAsync').then((res) => {
+            this.handleOutcar(res[0]);
+        })
+    }
+
+    /** 船舶按钮 */
+    shipbtn = (e) => {
+        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
+        /** 驳船显示 */
+        publish('barge_GetListAsync').then((res) => {
+            this.handleBarge(res[0]);
+        });
+
+        /** 大船显示 */
+        publish('vessel_GetListAsync').then((res) => {
+            this.handleBigship(res[0]);
+        })
+    }
+
+    /** 地图切换 */
+    mapbtn = (e) => {
+        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
+        /** 大船显示 */
+        publish('vessel_GetListAsync').then((res) => {
+            this.handleBigship(res[0]);
+        })
+
+        /** 驳船显示 */
+        publish('barge_GetListAsync').then((res) => {
+            this.handleBarge(res[0]);
+        })
+
+        /** 外拖拖车 */
+        publish('truck_GetListAsync').then((res) => {
+            this.handleOutcar(res[0]);
+        })
+    }
+
     render() {
         let { flds = [], datas = [] } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
             <div>
+                <div className="mapbtn">
+                    <button onClick={this.outbtn} className="mapbtn-btn1" >拖车</button>
+                    <button onClick={this.shipbtn} className="mapbtn-btn2">船舶</button>
+                    <button onClick={this.mapbtn} className="mapbtn-btn3">地图</button>
+                </div>
                 {
                     this.state.showMT ? <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
                         {/** 内部信息 */}
