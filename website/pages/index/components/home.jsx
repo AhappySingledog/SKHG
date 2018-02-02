@@ -16,25 +16,18 @@ class MyPort extends React.Component {
     }
     componentDidMount() {
         this.port = this.props.port;
-        if (this.props.id !== '') {
+        if (this.props.id !== '' && this.port.tip) {
             let $port = $('#' + this.props.id);
-            $port.on('click', (e) => {
-                if (this.port.name === '深圳-深圳西部港区') {
-                    publish('changeLayer', {index: 1, props: {}});
-                }
+            $port.on('mouseover', () => {
+                this.props.tipEvent(true, this.port);
             });
-            if (this.port.tip) {
-                $port.on('mouseover', () => {
-                    this.props.tipEvent(true, this.port, true);
-                });
-                $port.on('mouseout', () => {
-                    this.props.tipEvent(false, this.port, false);
-                });
-                if (this.port.selected) {
-                    this.props.tipEvent(true, this.port);
-                    this.timer = setInterval(() => this.props.tipEvent(true, this.port), 10 * 1000);
-                }
-            }
+            $port.on('mouseout', () => {
+                this.props.tipEvent(false, this.port);
+            });
+            $port.on('click', () => {
+                // this.props.tipEvent(true, this.port, true);
+                publish('changeLayer', {index: 1, props: {}});
+            });
         }
     }
     componentWillUnmount() {
@@ -76,7 +69,7 @@ export default class Home extends React.Component {
         tip: {
             showTip: false,
             msg: {},
-            on: false,
+            locked: false,
         }
     }
     componentDidMount() {
@@ -84,11 +77,11 @@ export default class Home extends React.Component {
             this.setState({ ports: res[0].data });
         });
     }
-    handleShowTip = (showTip, msg, on) => {
-        if (on != undefined) { this.setState({tip: {showTip: showTip, msg: msg, on: on}});}
+    handleShowTip = (showTip, msg, locked) => {
+        if (locked != undefined) this.setState({tip: {showTip: showTip, msg: msg, locked: locked}});
         else {
-            const flag = this.state.tip.on;
-            if (!flag) {this.setState({ tip: { showTip: showTip, msg: msg } });}
+            let flag = this.state.tip.locked;
+            if (!flag) this.setState({tip: {showTip: showTip, msg: msg}});
         }
     }
     render() {
