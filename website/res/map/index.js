@@ -43,13 +43,19 @@ require([
 
     //天地图比例尺
     var lods = [
-            { "level": 15, "resolution": 4.291534423828125e-005, "scale": 18035.741763839724 },
-            { "level": 16, "resolution": 2.1457672119140625e-005, "scale": 9017.8708819198619 },
-            { "level": 17, "resolution": 1.0728836059570313e-005, "scale": 4508.9354409599309 },
-            { "level": 18, "resolution": 5.3644180297851563e-006, "scale": 2254.4677204799655 },
-            { "level": 19, "resolution": 2.9864180297851563E-6, "scale": 1255.0817275289144 },
-            { "level": 20, "resolution": 1.4934180297851564E-6, "scale": 627.6287050411438},
-            { "level": 21, "resolution": 7.941802978515629E-7, "scale": 333.7647878681856}
+            { "level": 0, "resolution":  5.9486525145757E-4, "scale": 250000},
+            { "level": 1, "resolution":  2.97432625728785E-4, "scale": 125000},
+            { "level": 2, "resolution":  1.5228550437313792E-4, "scale": 64000},
+            { "level": 3, "resolution":  7.614275218656896E-5, "scale": 32000},
+            { "level": 4, "resolution":  3.807137609328448E-5, "scale": 16000},
+            { "level": 5, "resolution":  1.903568804664224E-5, "scale": 8000},
+            { "level": 6, "resolution":  9.51784402332112E-6, "scale": 4000},
+            { "level": 7, "resolution":  4.75892201166056E-6, "scale": 2000},
+            { "level": 8, "resolution":  2.37946100583028E-6, "scale": 1000},
+            { "level": 9, "resolution":  1.18973050291514E-6, "scale": 500},
+            { "level": 10, "resolution": 5.9486525145757E-7, "scale": 250},
+            { "level": 11, "resolution":  2.97432625728785E-7, "scale": 125}
+
     ];
 
     /**
