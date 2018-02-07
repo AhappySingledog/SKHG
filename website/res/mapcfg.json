@@ -49,9 +49,9 @@
                     }
                 },
                 {
-                    "id": "tianimage",
+                    "id": "cehui",
                     "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/SMC/MapServer",
-                    "type": "tiled",
+                    "type": "dynamic",
                     "name": "测绘图",
                     "params": {
                         "maxscale": "",

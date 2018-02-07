@@ -62,15 +62,15 @@ class MapOperation extends React.Component {
             this.handleMTSJ(res[0][0].features);
         });
 
-        /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
-            this.handleBigship(res[0]);
-        })
+        // /** 大船显示 */
+        // publish('vessel_GetListAsync').then((res) => {
+        //     this.handleBigship(res[0]);
+        // })
 
-        /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
-            this.handleBarge(res[0]);
-        });
+        // /** 驳船显示 */
+        // publish('barge_GetListAsync').then((res) => {
+        //     this.handleBarge(res[0]);
+        // });
     }
 
     handleMTSJ = (datas) => {
