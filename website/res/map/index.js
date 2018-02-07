@@ -92,7 +92,6 @@ require([
      * 加载地图图层
      */
     function loadLayers(){
-
         var params = getQueryParams();
         var baseLayerInfoArr = mapcfg.map_base;
         var layer = null;

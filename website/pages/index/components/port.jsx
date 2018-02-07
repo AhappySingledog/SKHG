@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
+import PortRightPanel from './portRightPanel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
@@ -43,13 +44,16 @@ function getNumberArr(num) {
 class MapOperation extends React.Component {
     state = {
         showMT: false,
+        Amap: false,
+        jiasuju: {},
         tip: {
             showtip: false,
-            mtJson: [],
             isShowDes: false,
             desTitle: '显示详情',
             desItem: {},
+            mtJson: [],
             desColumns: [],
+
         }
     }
 
@@ -69,14 +73,14 @@ class MapOperation extends React.Component {
         });
 
         /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
-            this.handleBigship(res[0]);
-        })
+        // publish('vessel_GetListAsync').then((res) => {
+        //     this.handleBigship(res[0]);
+        // })
 
         /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
-            this.handleBarge(res[0]);
-        })
+        // publish('barge_GetListAsync').then((res) => {
+        //     this.handleBarge(res[0]);
+        // })
 
         /** 外拖拖车 */
         publish('truck_GetListAsync').then((res) => {
@@ -108,20 +112,19 @@ class MapOperation extends React.Component {
                 id: 'port_view' + o,
                 linecolor: fillColor,
                 layerId: 'port_view',
-                // fillcolor: fillColor,
                 dots: dots,
                 attr: { ...datas[o] },
                 click: this.showContainerModal,
                 linewidth: 6,
-                // fillstyle: "STYLE_DIAGONAL_CROSS",
-                // linestyle: "STYLE_LONGDASH",
                 mouseover: (g) => {
                     this.toolTipIn(g)
                 },
                 mouseout: (g) => {
                     this.setState({
-                        showMT: false
-                    })
+                        showMT: false,
+                        Amap: false
+                    });
+                    this.props.map.mapDisplay.clearLayer('port_view1');
                 },
             }
             this.props.map.mapDisplay.polygon(params);
@@ -346,20 +349,40 @@ class MapOperation extends React.Component {
     /** 鼠标移入事件 */
     toolTipIn = (e) => {
         let datajson = e.attributes;
+        let dots = datajson.geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
+        let params = {
+            id: 'port_view1',
+            layerId: 'port_view1',
+            fillcolor: [255, 133, 71, 1],
+            dots: dots,
+            linewidth: 6,
+        }
+        this.props.map.mapDisplay.polygon(params);
         var point = e.geometry.getCentroid();
         var screenPoint = this.props.map.mapDisplay.toScreen(point.x, point.y);
         var clientX = screenPoint.x + 200;
         var clientY = screenPoint.y - 900;
-        this.setState({
-            showMT: true,
-            tip: {
-                showtip: true,
-                mtJson: datajson,
-                clientX: clientX,
-                clientY: clientY,
-            }
+        if (datajson.properties.name.indexOf('码头') >= 0) {
+            this.setState({
+                showMT: true,
+                Amap: false,
+                tip: {
+                    showtip: true,
+                    mtJson: datajson,
+                    clientX: clientX,
+                    clientY: clientY,
+                }
+            });
+        } else {
+            this.setState({
+                showMT: false,
+                Amap: true,
+                tip: {
+                    mtJson: datajson,
+                }
+            });
+        }
 
-        })
     }
 
 
@@ -426,8 +449,9 @@ class MapOperation extends React.Component {
     }
 
     render() {
-        let { flds = [], datas = [] } = this.state;
+        let { tip = {} } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
+
         return (
             <div>
                 <div className="mapbtn">
@@ -436,11 +460,22 @@ class MapOperation extends React.Component {
                     <button onClick={this.mapbtn} className="mapbtn-btn3">地图</button>
                 </div>
                 {
-                    this.state.showMT ? <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', top: this.state.tip.clientY, left: this.state.tip.clientX }}>
-                        {/** 内部信息 */}
-                        <PortMsg msg={this.state.tip} />
-                        <PortPie />
-                    </Tip> : null
+                    this.state.showMT ?
+                        <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', bottom: '235px', right: '50px' }}>
+                            {/** 内部信息 */}
+                            <PortMsg msg={this.state.tip} />
+                            <PortPie />
+                        </Tip> : null
+                }
+                {
+                    this.state.Amap ? <div style={{
+                        background: 'url(../../../../mapIcon/' + tip.mtJson.properties.name + '.png) no-repeat',
+                        'position': 'absolute',
+                        'bottom': '240px',
+                        'right': '30px',
+                        width: '960px',
+                        height: '620px',
+                    }}></div> : null
                 }
                 {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
             </div>
@@ -493,29 +528,28 @@ class PortMsg extends React.Component {
 
 /** 饼状图 */
 class PortPie extends React.Component {
-    state = {}
+    state = {
+        /** 第二层详情分两种情况，一种无图，一种有图 */
+        Amap: false,
+        datas: {},
+    }
     componentDidMount() {
+
         publish('port_pie_gk').then((res) => {
             if (this.chart) this.chart.dispose();
             this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
             this.chart.setOption(res[0]);
         });
-        publish('port_pie_zk').then((res) => {
-            if (this.charts) this.charts.dispose();
-            this.charts = echarts.init(ReactDOM.findDOMNode(this.refs.echart2));
-            this.charts.setOption(res[0]);
-        });
+
     }
 
     render() {
         return (
             <div className="Pie">
-                {/* <ChartView scr='port_pie_gk_scr' sub='port_pie_gk' options={true} /> */}
-                {/* <ChartView scr='port_pie_zk_scr' sub='port_pie_zk' options={true} /> */}
                 <Panel style={{ flexGrow: 1, paddingTop: 60 }}>
                     <div className='homeRightE' style={{ width: 1015, height: 800, paddingBottom: 30 }}>
                         <div className='homeRightE-l' style={{ height: '50%' }} ref="echart1"></div>
-                        <div className='homeRightE-l' style={{ height: '50%' }} ref="echart2"></div>
+                        {/**   <div className='homeRightE-l' style={{ height: '50%' }} ref="echart2"></div> */}
                     </div>
                 </Panel>
             </div>

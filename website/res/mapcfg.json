@@ -3,10 +3,10 @@
     "centery": -1,
     "initlevel": -1,
     "extent": {
-        "xmax":113.9250031023771,
-        "xmin":113.85290532405679,
-        "ymax":22.486930314170145,
-        "ymin":22.446418229209208
+        "xmax":114.04809512479585,
+        "xmin":113.77790778948597,
+        "ymax":22.605922269617693,
+        "ymin":22.42376102402963
     },
     "isJwd": 1,
     "overview": 0,
@@ -28,8 +28,6 @@
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
-                        "imgurl": "/images/legend/layerBtn/dxt.png",
-                        "legendurl": "/images/legend/layerBtn/dxt.png",
                         "maxscale": "",
                         "minscale": ""
                     }
@@ -44,10 +42,18 @@
                     "id": "tianimage",
                     "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/shdt/MapServer",
                     "type": "tiled",
-                    "name": "天地图影像",
+                    "name": "天地影响图",
                     "params": {
-                        "imgurl": "/images/legend/layerBtn/dxt.png",
-                        "legendurl": "/images/legend/layerBtn/dxt.png",
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                },
+                {
+                    "id": "tianimage",
+                    "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/SMC/MapServer",
+                    "type": "tiled",
+                    "name": "测绘图",
+                    "params": {
                         "maxscale": "",
                         "minscale": ""
                     }
