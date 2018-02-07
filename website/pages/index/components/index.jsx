@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio } from '../../../frame/componets/index';
+import { Vedio, ViwePager } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
@@ -37,38 +37,44 @@ export default class App extends React.Component {
     state = {
         index: null,
         curLayer: null,
+        oldProps: {},
+        curProps: {},
         cv: {},
+        viwePager: null,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
+        this.sub_viwePager = subscribe('playImgs', this.playImgs);
         publish('changeLayer', {index: 0, props: {}});
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
         if (this.sub_playVedio) unsubscribe(this.sub_playVedio);
+        if (this.sub_viwePager) unsubscribe(this.sub_viwePager);
     }
     changeLayer = (ops) => {
         let idx = this.state.index;
+        let oldProps = this.state.curProps;
+        let curProps = ops.props;
         let index = ops.index;
-        let props = ops.props;
         if (index != idx) {
             let curLayer = null;
             switch (index) {
                 case 1:
-                    curLayer = <Port {...props} />;
+                    curLayer = <Port {...curProps} />;
                     break;
                 case 2:
-                    curLayer = <Pier {...props} />;
+                    curLayer = <Pier {...curProps} />;
                     break;
                 case 3:
-                    curLayer = <WareHouse {...props} />;
+                    curLayer = <WareHouse {...curProps} />;
                     break;
                 default:
-                    curLayer = <Home {...props} />;
+                    curLayer = <Home {...curProps} />;
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
-            this.setState({ index, curLayer });
+            this.setState({ index, curLayer, oldProps, curProps });
         }
     }
     iQuery = () => {
@@ -82,6 +88,11 @@ export default class App extends React.Component {
     }
     warning = () => {
         console.log('warning');
+    }
+    goBack =() => {
+        let index = this.state.index;
+        let oldProps = this.state.oldProps;
+        if (index >= 1) this.changeLayer({index: index - 1, props: oldProps});
     }
     playVedio = (vedio) => {
         let data = [
@@ -99,26 +110,34 @@ export default class App extends React.Component {
     closeVedio = () => {
         this.setState({cv: {}});
     }
+    playImgs = (imgs) => {
+        this.setState({viwePager: {imgs: imgs}}, () => $('#imgsDisplay').addClass('bounceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#imgsDisplay').removeClass('bounceInLeft animated')));
+    }
+    closeImgs = () => {
+        $('#imgsDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('#imgsDisplay').removeClass('bounceOutLeft animated');this.setState({viwePager: null});});
+    }
     render() {
         return (
             <div className='mframe'>
                 <div className='mheader'>
                     <div className='mheader-title'>蛇口海关iMap智慧管理系统</div>
                     <div className='mheader-top'>
+                        <div className='mheader-back' onClick={this.goBack}/>
+                        <div className='mheader-home' onClick={() => this.changeLayer(0, {})}/>
+                        <div className='mheader-iQuery' onClick={this.iQuery}/>
+                        <div className='mheader-iCount' onClick={this.iCount}/>
+                        <div className='mheader-iCommand' onClick={this.iCommand}/>
+                        <div className='mheader-warning' onClick={this.warning}/>
                         <div className='mheader-nt'>
                             <div className='mheader-name'>海关监管区域</div>
                             <Timer />
                         </div>
-                        <div className='mheader-home' onClick={() => this.changeLayer(0, {})}/>
-                        <div className='mheader-iQuery' onClick={() => this.iQuery()}/>
-                        <div className='mheader-iCount' onClick={() => this.iCount()}/>
-                        <div className='mheader-iCommand' onClick={() => this.iCommand()}/>
-                        <div className='mheader-warning' onClick={() => this.warning()}/>
                     </div>
                 </div>
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
                 <div className='mfooter'/>
                 {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
+                {this.state.viwePager ? <div id='imgsDisplay' style={{position: 'absolute', top: 462, left: 5113}}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{width: 2538, height: 2670}} boxStyle="content" interval={4000} close={this.closeImgs}/></div> : null}
             </div>
         )
     }

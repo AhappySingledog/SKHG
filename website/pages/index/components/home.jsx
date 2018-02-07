@@ -25,8 +25,7 @@ class MyPort extends React.Component {
                 this.props.tipEvent(false, this.port);
             });
             $port.on('click', () => {
-                // this.props.tipEvent(true, this.port, true);
-                publish('changeLayer', {index: 1, props: {}});
+                this.props.tipEvent(true, this.port, true);
             });
         }
     }
@@ -46,6 +45,9 @@ class MyPort extends React.Component {
 
 class MyPortDesc extends React.Component {
     state = {}
+    fullScreen = (imgs) => {
+        publish('playImgs', imgs);
+    }
     render() {
         return (
             <div className='desc'>
@@ -54,7 +56,7 @@ class MyPortDesc extends React.Component {
                 </div>
                 <div className='desc-bottom'>
                     <div className='desc-bottom-msg'>{this.props.port.msg}</div>
-                    <ViwePager autoPlay={true} direction={'right'} imgs={this.props.port.imgs} width={449} height={614} boxStyle="content" interval={4000} />
+                    <ViwePager autoPlay={true} direction={'right'} imgs={this.props.port.imgs} style={{width: 449, height: 614}} boxStyle="content" interval={4000} fullScreen={this.fullScreen}/>
                 </div>
             </div>
         );
@@ -103,7 +105,7 @@ export default class Home extends React.Component {
                     <HomeRightPanel/>
                 </div>
                 {this.state.tip.showTip ?
-                    <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 480, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name}>
+                    <Tip style={{ position: 'absolute', top: this.state.tip.msg.icon.top - 480, left: this.state.tip.msg.icon.left + 50 }} title={this.state.tip.msg.name} titleClick={() => {if (this.state.tip.msg.name == '深圳-深圳西部港区') publish('changeLayer', {index: 1, props: {}});}} close={() => this.handleShowTip(false, {}, false)}>
                         <MyPortDesc port={this.state.tip.msg} />
                     </Tip> : null
                 }

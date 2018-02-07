@@ -37,7 +37,7 @@ export default class ViwePager extends React.Component {
         this.setState({activeIndex: indexIn});
         this.autoPlay();
     }
-    position = () => {return {left: -40 - this.state.activeIndex * this.props.width};}
+    position = () => {return {left: -40 - this.state.activeIndex * this.props.style.width};}
     left = () => {
         clearInterval(this.timeOuter);
         let oldIndex = this.props.activeIndex;
@@ -51,13 +51,15 @@ export default class ViwePager extends React.Component {
         this.autoPlay();
     }
     render() {
-        let {boxStyle, width, height} = this.props;
-        return <div className={boxStyle} style={{width: width, height: height}}>
+        let {boxStyle, width, height, style} = this.props;
+        return <div className={boxStyle} style={style}>
             <div className="leftIcon" onClick={this.left}/>
             <div className="rightIcon" onClick={this.right}/>
+            {this.props.fullScreen ? <div className="fullScreen" onClick={() => this.props.fullScreen(this.props.imgs)}/> : null}
+            {this.props.close ? <div className="closeImgs" onClick={() => this.props.close()}/> : null}
             <div className='changeImg'>{this.props.imgs.map((img, i) => <div key={i} style={{opacity: this.state.activeIndex === i ? 1 : 0.6}} className='changeImg-item' onClick={() => this.toIndex(i)}/>)}</div>
             <ul style={this.position()}>
-                {this.props.imgs.map((img, i) => <li key={i} className="boxStyleLi" style={{width: width, height: height + 50}} ><img src={img} /></li>)}
+                {this.props.imgs.map((img, i) => <li key={i} className="boxStyleLi" style={{width: style.width, height: style.height + 50}} ><img src={img} /></li>)}
             </ul>
         </div>
     }
