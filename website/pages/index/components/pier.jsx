@@ -269,14 +269,9 @@ class MapOperation extends React.Component {
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
             <div>
-                {this.state.isShowDes ? <Desc className='descTip' title={''} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null}
+                {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null}
                 {
-                    this.state.showMT ?
-                        <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', bottom: '65px', right: '50px' }}>
-                            {/** 内部信息 */}
-                            <PortMsg msg={this.state.tip} />
-                            <PortPie />
-                        </Tip> : null
+                    this.state.showMT ? <div className="portTip animated" > </div> : null
                 }
             </div>
         )
