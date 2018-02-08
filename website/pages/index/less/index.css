@@ -60,7 +60,7 @@ body > div {
   height: 259px;
   background: url('../images/蓝色块.png') no-repeat;
   background-size: 100% 100%;
-  margin-right: 457px;
+  margin-left: 457px;
   display: flex;
   flex-direction: row;
 }
@@ -130,6 +130,16 @@ body > div {
 }
 .mheader-warning:hover {
   background: url('../images/buttons/报警信息-点击.png') no-repeat;
+}
+.mheader-back {
+  margin-left: 25px;
+  width: 407px;
+  height: 255px;
+  background: url('../images/buttons/返回.png') no-repeat;
+  cursor: pointer;
+}
+.mheader-back:hover {
+  background: url('../images/buttons/返回-点击.png') no-repeat;
 }
 .mbody {
   width: 11444px;
@@ -269,6 +279,7 @@ body > div {
   background-size: 100% 100%;
   padding: 0 10px;
   text-indent: 2em;
+  line-height: 80px;
 }
 .homeRightE {
   flex-grow: 1;
@@ -481,35 +492,66 @@ body > div {
 }
 .mapbtn {
   position: absolute;
-  bottom: 50px;
-  right: 50px;
+  top: 100px;
+  right: 200px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 340px;
 }
 .mapbtn-btn1 {
-  width: 250px;
-  height: 120px;
-  background: #0682ec;
-  border: 5px solid #ffffff;
-  margin-left: 15px;
-  border-radius: 15px;
+  width: 100px;
+  height: 60px;
+  background: #CF433F;
+  border-radius: 10px;
   color: white;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+.mapbtn-btn1:hover {
+  background: #E34945;
 }
 .mapbtn-btn2 {
-  width: 250px;
-  height: 120px;
-  background: #0682ec;
-  border: 5px solid #ffffff;
-  margin-left: 15px;
-  border-radius: 15px;
+  width: 100px;
+  height: 60px;
+  background: #61A0A8;
+  border-radius: 10px;
   color: white;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+.mapbtn-btn2:hover {
+  background: #79B8C0;
 }
 .mapbtn-btn3 {
-  width: 250px;
-  height: 120px;
-  background: #0682ec;
-  border: 5px solid #ffffff;
-  margin-left: 15px;
-  border-radius: 15px;
+  width: 100px;
+  height: 60px;
+  background: #D48265;
+  border-radius: 10px;
   color: white;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+.mapbtn-btn3:hover {
+  background: #E17954;
+}
+.mapbtn-noSelected {
+  width: 100px;
+  height: 60px;
+  background: #C0C0C0;
+  border-radius: 10px;
+  color: white;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
 }
 /** 左侧结束 */
 /** 右侧 */
@@ -526,6 +568,45 @@ body > div {
 /***************************************************************
 **********************第二层页面替补框开始************************
 ***************************************************************/
+@-webkit-keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 0.5;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 0.5;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+.portTip {
+  position: absolute;
+  background: url('../images/port/蛇口港码头数据1.png') no-repeat;
+  background-size: 100% 100%;
+  width: 1179px;
+  height: 527px;
+  bottom: 240px;
+  right: 30px;
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+.portSmallTip {
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
 .Msg {
   display: flex;
   flex-direction: column;

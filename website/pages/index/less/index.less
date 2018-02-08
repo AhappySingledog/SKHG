@@ -590,6 +590,53 @@ body>div {
 /***************************************************************
 **********************第二层页面替补框开始************************
 ***************************************************************/
+@-webkit-keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 0.5;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 0.5;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+.portTip{
+    position: absolute;
+    background: url('../images/port/蛇口港码头数据1.png') no-repeat;
+    background-size: 100% 100%;
+    width : 1179px;
+    height: 527px;
+    bottom: 240px;
+    right: 30px;
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+.portSmallTip{
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+
+
 
 .Msg{
     display: flex;

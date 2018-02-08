@@ -424,14 +424,15 @@ class MapOperation extends React.Component {
                 </div>
                 {
                     this.state.showMT ?
-                        <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', bottom: '235px', right: '50px' }}>
-                            {/** 内部信息 */}
-                            <PortMsg msg={this.state.tip} />
-                            <PortPie />
-                        </Tip> : null
+                        // <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', bottom: '235px', right: '50px' }}>
+                        //     {/** 内部信息 */}
+                        //     <PortMsg msg={this.state.tip} />
+                        //     <PortPie />
+                        // </Tip> : null
+                        <div className = "portTip animated" > </div> : null
                 }
                 {
-                    this.state.Amap ? <div style={{
+                    this.state.Amap ? <div className = "portSmallTip animated" style={{
                         background: 'url(../../../../mapIcon/' + tip.mtJson.properties.name + '.png) no-repeat',
                         'position': 'absolute',
                         'bottom': '240px',
