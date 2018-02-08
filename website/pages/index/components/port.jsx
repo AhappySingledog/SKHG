@@ -54,8 +54,8 @@ class MapOperation extends React.Component {
             mtJson: [],
             desColumns: [],
         },
-        outCar: true,
-        ship: true,
+        TRUCK_LAYER: true,
+        SHIP_LAYER: true,
         map: true,
     }
 
@@ -142,8 +142,8 @@ class MapOperation extends React.Component {
             json[o]['colname'] = 'bigship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
-                    id: 'BIG_SHIP_LAYER' + o,
-                    layerId: 'BIG_SHIP_LAYER',
+                    id: 'SHIP_LAYER' + o,
+                    layerId: 'SHIP_LAYER',
                     src: BigShipIcon,
                     width: 140,
                     height: 70,
@@ -197,8 +197,8 @@ class MapOperation extends React.Component {
             json[o]['colname'] = 'bargeship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
-                    id: 'BARGE_SHIP_LAYER' + o,
-                    layerId: 'BARGE_SHIP_LAYER',
+                    id: 'SHIP_LAYER' + o,
+                    layerId: 'SHIP_LAYER',
                     src: BargeIcon,
                     width: 140,
                     height: 70,
@@ -403,46 +403,11 @@ class MapOperation extends React.Component {
         publish('changeLayer', { index: 2, props: { datas: e.attributes } });
     };
 
-    /** 拖车按钮 */
-    outbtn = () => {
-        console.log("123")
-        this.props.map.mapDisplay.hide('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.hide('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.show('TRUCK_LAYER');
-    }
-
-    /** 船舶按钮 */
-    shipbtn = () => {
-        console.log("456")
-        this.props.map.mapDisplay.show('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.show('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.hide('TRUCK_LAYER');
-    }
-
-    /** 地图切换 */
-    mapbtn = () => {
-        console.log("789")
-        this.props.map.mapDisplay.hide('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.hide('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.hide('TRUCK_LAYER');
-    }
-
+    /** 地图内容展示状态切换 */
     mapItemsDisplay = (key) => {
-        let flag = this.state[key];
-        this.setState({ [key]: !flag }, () => {
-            switch (key) {
-                case 'outCar':
-                    this.outbtn();
-                    break;
-                case 'ship':
-                    this.shipbtn();
-                    break
-                case 'map':
-                    this.mapbtn();
-                    break
-                default:
-                    break;
-            }
+        let flag = !this.state[key];
+        this.setState({ [key]: flag }, () => {
+            flag ? this.props.map.mapDisplay.show(key) :  this.props.map.mapDisplay.hide(key);
         });
     }
 
@@ -453,9 +418,9 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <div onClick={() => this.mapItemsDisplay('outCar')} className={this.state.outCar ? 'mapbtn-btn1' : 'mapbtn-noSelected'}>拖车</div>
-                    <div onClick={() => this.mapItemsDisplay('ship')} className={this.state.ship ? 'mapbtn-btn2' : 'mapbtn-noSelected'}>船舶</div>
-                    <div onClick={() => this.mapItemsDisplay('map')} className={this.state.map ? 'mapbtn-btn3' : 'mapbtn-noSelected'}>地图</div>
+                    <div onClick={() => this.mapItemsDisplay('TRUCK_LAYER')} className={this.state.TRUCK_LAYER ? 'mapbtn-btn1' : 'mapbtn-noSelected'}>拖车</div>
+                    <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-btn2' : 'mapbtn-noSelected'}>船舶</div>
+                    <div className={this.state.map ? 'mapbtn-btn3' : 'mapbtn-noSelected'}>地图</div>
                 </div>
                 {
                     this.state.showMT ?
