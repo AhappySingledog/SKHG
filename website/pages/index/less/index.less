@@ -506,35 +506,66 @@ body>div {
 
 .mapbtn{
     position: absolute;
-    bottom: 50px;
-    right: 50px;
+    top: 100px;
+    right: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    width: 340px;
 
     &-btn1{
-        width: 250px;
-        height: 120px;
-        background: #0682ec;
-        border: 5px solid #ffffff;
-        margin-left: 15px;
-        border-radius: 15px;
+        width: 100px;
+        height: 60px;
+        background: #CF433F;
+        border-radius: 10px;
         color: white;
+        font-size: 30px;
+        line-height: 60px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background: #E34945;
+        }
     }
     &-btn2{
-        width: 250px;
-        height: 120px;
-        background: #0682ec;
-        border: 5px solid #ffffff;
-        margin-left: 15px;
-        border-radius: 15px;
+        width: 100px;
+        height: 60px;
+        background: #61A0A8;
+        border-radius: 10px;
         color: white;
+        font-size: 30px;
+        line-height: 60px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background: #79B8C0;
+        }
     }
     &-btn3{
-        width: 250px;
-        height: 120px;
-        background: #0682ec;
-        border: 5px solid #ffffff;
-        margin-left: 15px;
-        border-radius: 15px;
+        width: 100px;
+        height: 60px;
+        background: #D48265;
+        border-radius: 10px;
         color: white;
+        font-size: 30px;
+        line-height: 60px;
+        text-align: center;
+        cursor: pointer;
+        &:hover {
+            background: #E17954;
+        }
+    }
+    &-noSelected {
+        width: 100px;
+        height: 60px;
+        background: #C0C0C0;
+        border-radius: 10px;
+        color: white;
+        font-size: 30px;
+        line-height: 60px;
+        text-align: center;
+        cursor: pointer;
     }
 }
 /** 左侧结束 */

@@ -53,11 +53,14 @@ class MapOperation extends React.Component {
             desItem: {},
             mtJson: [],
             desColumns: [],
-
-        }
+        },
+        outCar: true,
+        ship: true,
+        map: true,
     }
 
     componentDidMount() {
+        console.log(this.props.map);
         let mapExtent = {
             xmax: 113.9250031023771,
             xmin: 113.85290532405679,
@@ -90,10 +93,10 @@ class MapOperation extends React.Component {
 
     handleMTSJ = (datas) => {
         let color = {
-            mt: [57, 255, 95, 0.6],
-            ck: [24, 46, 255, 0.6],
-            yq: [250, 22, 80, 0.6],
-            mg: [8, 249, 250, 0.6],
+            mt: [57, 255, 95, 1],
+            ck: [24, 46, 255, 1],
+            yq: [250, 22, 80, 1],
+            mg: [8, 249, 250, 1],
         };
         for (let o in datas) {
             let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
@@ -448,6 +451,13 @@ class MapOperation extends React.Component {
         })
     }
 
+    mapItemsDisplay = (key) => {
+        let flag = this.state[key];
+        this.setState({[key]: !flag}, () => {
+
+        });
+    }
+
     render() {
         let { tip = {} } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
@@ -455,9 +465,9 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <button onClick={this.outbtn} className="mapbtn-btn1" >拖车</button>
-                    <button onClick={this.shipbtn} className="mapbtn-btn2">船舶</button>
-                    <button onClick={this.mapbtn} className="mapbtn-btn3">地图</button>
+                    <div onClick={() => this.mapItemsDisplay('outCar')} className={this.state.outCar ? 'mapbtn-btn1' : 'mapbtn-noSelected'}>拖车</div>
+                    <div onClick={() => this.mapItemsDisplay('ship')} className={this.state.ship ? 'mapbtn-btn2' : 'mapbtn-noSelected'}>船舶</div>
+                    <div onClick={() => this.mapItemsDisplay('map')} className={this.state.map ? 'mapbtn-btn3' : 'mapbtn-noSelected'}>地图</div>
                 </div>
                 {
                     this.state.showMT ?

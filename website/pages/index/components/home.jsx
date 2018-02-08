@@ -20,9 +20,13 @@ class MyPort extends React.Component {
             let $port = $('#' + this.props.id);
             $port.on('mouseover', () => {
                 this.props.tipEvent(true, this.port);
+                let $portName = $('#_' + this.props.id);
+                $portName['0'].style.color = 'red';
             });
             $port.on('mouseout', () => {
                 this.props.tipEvent(false, this.port);
+                let $portName = $('#_' + this.props.id);
+                $portName['0'].style.color = 'white';
             });
             $port.on('click', () => {
                 this.props.tipEvent(true, this.port, true);
@@ -37,6 +41,9 @@ class MyPort extends React.Component {
         return (
             <div>
                 <div className={port.icon.className} style={{ position: 'absolute', top: port.icon.top, left: port.icon.left }} id={id}>
+                </div>
+                <div id={'_' + id} style={{ position: 'absolute', top: port.icon.top, left: port.icon.left + 50, color: 'white', fontSize: 20, zIndex: 2 }}>
+                    {port.addr || port.name}
                 </div>
             </div>
         );

@@ -17,9 +17,9 @@ class Timer extends React.Component {
         const week = { '1': '星期一', '2': '星期二', '3': '星期三', '4': '星期四', '5': '星期五', '6': '星期六', '7': '星期日' };
         let tq = '晴';
         function initWeather() {
-            // publish('webAction', { svn: 'sojson', path: 'weather/json.shtml', data: { city: '深圳' } }).then((res) => {
-            //     if (res[0].message === 'Success !') { tq = res[0].data.forecast[0].type; }
-            // });
+            publish('webAction', { svn: 'sojson', path: 'weather/json.shtml', data: { city: '深圳' } }).then((res) => {
+                if (res[0].message === 'Success !') { tq = res[0].data.forecast[0].type; }
+            });
         }
         initWeather();
         setInterval(() => {
