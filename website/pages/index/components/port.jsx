@@ -76,14 +76,14 @@ class MapOperation extends React.Component {
         });
 
         /** 大船显示 */
-        // publish('vessel_GetListAsync').then((res) => {
-        //     this.handleBigship(res[0]);
-        // })
+        publish('vessel_GetListAsync').then((res) => {
+            this.handleBigship(res[0]);
+        })
 
         /** 驳船显示 */
-        // publish('barge_GetListAsync').then((res) => {
-        //     this.handleBarge(res[0]);
-        // })
+        publish('barge_GetListAsync').then((res) => {
+            this.handleBarge(res[0]);
+        })
 
         /** 外拖拖车 */
         publish('truck_GetListAsync').then((res) => {

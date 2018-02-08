@@ -24,7 +24,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/shdt/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -35,12 +35,12 @@
             ]
         },
         {
-            "group": "three_layer",
+            "group": "SCT",
             "visible": 1,
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/shdt/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -50,7 +50,33 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://192.168.8.65:6080/arcgis/rest/services/skhg/SMC/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SMC",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "type": "tiled",
+                    "name": "天地影响图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                },
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SMC/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {

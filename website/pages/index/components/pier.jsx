@@ -358,8 +358,7 @@ export default class Pier extends React.Component {
 
     state = { map: null }
     componentDidMount() {
-        console.log(this.props);
-        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=three_layer');
+        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.props.datas.name);
     }
 
     /**
