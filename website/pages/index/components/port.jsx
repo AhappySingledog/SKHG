@@ -93,10 +93,10 @@ class MapOperation extends React.Component {
 
     handleMTSJ = (datas) => {
         let color = {
-            mt: [57, 255, 95, 1],
-            ck: [24, 46, 255, 1],
-            yq: [250, 22, 80, 1],
-            mg: [8, 249, 250, 1],
+            mt: [57, 255, 95, 0.6],
+            ck: [24, 46, 255, 0.6],
+            yq: [250, 22, 80, 0.6],
+            mg: [8, 249, 250, 0.6],
         };
         for (let o in datas) {
             let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
@@ -404,57 +404,45 @@ class MapOperation extends React.Component {
     };
 
     /** 拖车按钮 */
-    outbtn = (e) => {
-        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
-        /** 外拖拖车 */
-        publish('truck_GetListAsync').then((res) => {
-            this.handleOutcar(res[0]);
-        })
+    outbtn = () => {
+        console.log("123")
+        this.props.map.mapDisplay.hide('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.hide('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.show('TRUCK_LAYER');
     }
 
     /** 船舶按钮 */
-    shipbtn = (e) => {
-        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
-        /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
-            this.handleBarge(res[0]);
-        });
-
-        /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
-            this.handleBigship(res[0]);
-        })
+    shipbtn = () => {
+        console.log("456")
+        this.props.map.mapDisplay.show('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.show('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.hide('TRUCK_LAYER');
     }
 
     /** 地图切换 */
-    mapbtn = (e) => {
-        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
-        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
-        /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
-            this.handleBigship(res[0]);
-        })
-
-        /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
-            this.handleBarge(res[0]);
-        })
-
-        /** 外拖拖车 */
-        publish('truck_GetListAsync').then((res) => {
-            this.handleOutcar(res[0]);
-        })
+    mapbtn = () => {
+        console.log("789")
+        this.props.map.mapDisplay.hide('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.hide('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.hide('TRUCK_LAYER');
     }
 
     mapItemsDisplay = (key) => {
         let flag = this.state[key];
-        this.setState({[key]: !flag}, () => {
-
+        this.setState({ [key]: !flag }, () => {
+            switch (key) {
+                case 'outCar':
+                    this.outbtn();
+                    break;
+                case 'ship':
+                    this.shipbtn();
+                    break
+                case 'map':
+                    this.mapbtn();
+                    break
+                default:
+                    break;
+            }
         });
     }
 

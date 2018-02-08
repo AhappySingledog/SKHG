@@ -55,57 +55,39 @@ class MapOperation extends React.Component {
 
     componentDidMount() {
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
-
-        /** 港口码头划分 */
-        publish('map_view_init').then((res) => {
-            this.setState({ mtJson: res[0][0].features })
-            this.handleMTSJ(res[0][0].features);
-        });
-
-        // /** 大船显示 */
-        // publish('vessel_GetListAsync').then((res) => {
-        //     this.handleBigship(res[0]);
-        // })
-
-        // /** 驳船显示 */
-        // publish('barge_GetListAsync').then((res) => {
-        //     this.handleBarge(res[0]);
-        // });
+        this.handleMTSJ(this.props.datas);
     }
 
-    handleMTSJ = (datas) => {
-        let color = {
-            mt: [57, 255, 95, 0.6],
-            ck: [24, 46, 255, 0.6],
-            yq: [250, 22, 80, 0.6],
-            mg: [8, 249, 250, 0.6],
-        };
-        for (let o in datas) {
-            let dots = datas[o].geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
-            let name = datas[o].properties.name;
-            let fillColor = color.mg;
-            if (name.indexOf('码头') >= 0) {
-                fillColor = color.mt;
-            }
-            if (name.indexOf('园区') >= 0) {
-                fillColor = color.yq;
-            }
-            if (name.indexOf('仓库') >= 0) {
-                fillColor = color.ck;
-            }
-            let params = {
-                id: 'port_view' + o,
-                linecolor: fillColor,
-                layerId: 'port_view',
-                dots: dots,
-                attr: { ...datas[o] },
-                click: this.showContainerModal,
-                linewidth: 6,
 
-            }
-            this.props.map.mapDisplay.polygon(params);
+    handleMTSJ = (datas) => {
+        this.props.map.mapDisplay.clearLayer('port_view');
+        let color = {
+            mt: [255, 255, 255, 0],
+        };
+
+        let dots = datas.geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
+        let name = datas.properties.name;
+        let fillColor = color.mt;
+        let params = {
+            id: 'port_view',
+            layerId: 'port_view',
+            linecolor: fillColor,
+            dots: dots,
+            attr: { ...datas },
+            click: this.showContainerModal,
+            linewidth: 0,
+            mouseover: (g) => {
+                this.toolTipIn(g)
+            },
+            mouseout: (g) => {
+                this.setState({
+                    showMT: false,
+                });
+            },
         }
+        this.props.map.mapDisplay.polygon(params);
     };
+
 
 
     handleBigship = (json) => {
@@ -257,6 +239,19 @@ class MapOperation extends React.Component {
         });
     }
 
+    /** 鼠标移入事件 */
+    toolTipIn = (e) => {
+        let datajson = e.attributes;
+        this.setState({
+            showMT: true,
+            tip: {
+                showtip: true,
+                mtJson: datajson,
+            }
+        });
+
+    }
+
     /**
     * 取消关闭详情框
     */
@@ -267,14 +262,22 @@ class MapOperation extends React.Component {
     }
 
     showContainerModal = (e) => {
-        publish('changeLayer', { index: 3, props: {} });
+        publish('changeLayer', { index: 3, props: { datas: e.attributes } });
     };
     render() {
-        let { flds = [], datas = [] } = this.state;
+        let { tip = {} } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
         return (
             <div>
                 {this.state.isShowDes ? <Desc className='descTip' title={''} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null}
+                {
+                    this.state.showMT ?
+                        <Tip title={this.state.tip.mtJson.properties.name} style={{ position: 'absolute', bottom: '65px', right: '50px' }}>
+                            {/** 内部信息 */}
+                            <PortMsg msg={this.state.tip} />
+                            <PortPie />
+                        </Tip> : null
+                }
             </div>
         )
     }
@@ -360,6 +363,7 @@ export default class Pier extends React.Component {
 
     state = { map: null }
     componentDidMount() {
+        console.log(this.props);
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=three_layer');
     }
 
