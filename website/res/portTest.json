@@ -57,7 +57,8 @@
                 },
                 "properties": {
                     "Id": 1,
-                    "name": "赤湾港码头数据"
+                    "name": "赤湾港码头数据",
+                    "image":"CCTIMG"
                 },
                 "data": [
                     {
@@ -102,7 +103,8 @@
                 },
                 "properties": {
                     "Id": 2,
-                    "name": "蛇口港码头数据"
+                    "name": "蛇口港码头数据",
+                    "image":"SCTIMG"
                 },
                 "data": [
                     {
@@ -214,7 +216,8 @@
                 },
                 "properties": {
                     "Id": 3,
-                    "name": "妈湾港码头数据"
+                    "name": "妈湾港码头数据",
+                    "image":"MCTIMG"
                 },
                 "data": [
                     {
@@ -290,7 +293,8 @@
                 },
                 "properties": {
                     "Id": 4,
-                    "name": "游轮母港"
+                    "name": "游轮母港",
+                    "image":"homePortIMG"
                 },
                 "data": [
                     {
@@ -351,7 +355,8 @@
                 },
                 "properties": {
                     "Id": 5,
-                    "name": "游艇自由行"
+                    "name": "游艇自由行",
+                    "image":"IndependentTravelIMG"
                 },
                 "data": [
                     {
@@ -423,7 +428,8 @@
                 },
                 "properties": {
                     "Id": 6,
-                    "name": "招商保税园区"
+                    "name": "招商保税园区",
+                    "image":"investmentIMG"
                 },
                 "data": [
                     {
@@ -483,7 +489,8 @@
                 },
                 "properties": {
                     "Id": 7,
-                    "name": "CIC"
+                    "name": "CIC",
+                    "image":"CICIMG"
                 },
                 "data": [
                     {
@@ -555,7 +562,8 @@
                 },
                 "properties": {
                     "Id": 8,
-                    "name": "赤湾港行码头"
+                    "name": "赤湾港行码头",
+                    "image":"SCTMTIMG"
                 },
                 "data": [
                     {
@@ -615,7 +623,8 @@
                 },
                 "properties": {
                     "Id": 9,
-                    "name": "中国免税仓库"
+                    "name": "中国免税仓库",
+                    "image":"ChinaIMG"
                 },
                 "data": [
                     {
@@ -679,7 +688,8 @@
                 },
                 "properties": {
                     "Id": 10,
-                    "name": "深圳免税仓库"
+                    "name": "深圳免税仓库",
+                    "image":"SZMSIMG"
                 },
                 "data": [
                     {

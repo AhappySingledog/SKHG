@@ -10,9 +10,9 @@ import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
-import BigShipIcon from '../../../res/mapIcon/大船.gif';
-import BargeIcon from '../../../res/mapIcon/驳船.gif';
-import TruckIcon from '../../../res/mapIcon/车.png';
+import BigShipIcon from '../../../res/mapIcon/bigShip.gif';
+import BargeIcon from '../../../res/mapIcon/Barge.gif';
+import TruckIcon from '../../../res/mapIcon/car.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {

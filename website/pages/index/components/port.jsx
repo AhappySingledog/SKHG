@@ -11,9 +11,9 @@ import PortRightPanel from './portRightPanel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
-import BigShipIcon from '../../../res/mapIcon/大船.gif';
-import BargeIcon from '../../../res/mapIcon/驳船.gif';
-import TruckIcon from '../../../res/mapIcon/车.png';
+import BigShipIcon from '../../../res/mapIcon/bigShip.gif';
+import BargeIcon from '../../../res/mapIcon/Barge.gif';
+import TruckIcon from '../../../res/mapIcon/car.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -433,7 +433,7 @@ class MapOperation extends React.Component {
                 }
                 {
                     this.state.Amap ? <div className = "portSmallTip animated" style={{
-                        background: 'url(../../../../mapIcon/' + tip.mtJson.properties.name + '.png) no-repeat',
+                        background: 'url(../../../../dist/mapIcon/' + tip.mtJson.properties.image + '.png) no-repeat',
                         'position': 'absolute',
                         'bottom': '240px',
                         'right': '30px',
