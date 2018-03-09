@@ -5,7 +5,8 @@
             "id": "p1",
             "name": "香港—现代货箱码头有限公司（MTL）",
             "addr": "香港",
-            "icon": { "className": "yellowPort", "top": 1400, "left": 2510 },
+            "geo": [114.121, 22.348],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -25,7 +26,8 @@
             "id": "p2",
             "name": "台湾—高明货柜码头股份有限公司",
             "addr": "台湾",
-            "icon": { "className": "yellowPort", "top": 1379, "left": 2574 },
+            "geo": [120.318, 22.55],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -44,7 +46,8 @@
             "id": "p3",
             "name": "漳州—漳州招商局厦门湾港务有限公司",
             "addr": "漳州",
-            "icon": { "className": "yellowPort", "top": 1335, "left": 2536 },
+            "geo": [118.046, 24.407],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -63,7 +66,8 @@
             "id": "p4",
             "name": "宁波—宁波大榭招商国际有限码头",
             "addr": "宁波",
-            "icon": { "className": "yellowPort", "top": 1278, "left": 2589 },
+            "geo": [121.938, 29.915],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -82,7 +86,8 @@
             "id": "p5",
             "name": "上海—上港集团",
             "addr": "上海",
-            "icon": { "className": "yellowPort", "top": 1236, "left": 2603 },
+            "geo": [121.66, 31.32],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -101,7 +106,8 @@
             "id": "p6",
             "name": "青岛-招商局国际集装箱码头有限公司",
             "addr": "青岛",
-            "icon": { "className": "yellowPort", "top": 1179, "left": 2562 },
+            "geo": [120.219, 35.993],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -120,7 +126,8 @@
             "id": "p7",
             "name": "天津-天津五洲公司",
             "addr": "天津",
-            "icon": { "className": "yellowPort", "top": 1113, "left": 2522 },
+            "geo": [117.779, 38.988],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -137,45 +144,10 @@
         },
         {
             "id": "p8",
-            "name": "",
-            "icon": { "className": "yellowPort", "top": 1088, "left": 2608 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p9",
-            "name": "",
-            "icon": { "className": "yellowPort", "top": 1131, "left": 2280 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p10",
             "name": "湛江—湛江港集团",
             "addr": "湛江",
-            "icon": { "className": "yellowPort", "top": 1386, "left": 2380 },
+            "geo": [110.415, 21.181],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -191,27 +163,10 @@
             ]
         },
         {
-            "id": "p11",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 1605, "left": 1270 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p12",
+            "id": "p9",
             "name": "尼日利亚—庭堪国际集装箱码头",
-            "icon": { "className": "greenPort", "top": 1651, "left": 629 },
+            "geo": [4.895576, 6.607661],
+            "color": "SPRINGGREEN",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -227,9 +182,10 @@
             ]
         },
         {
-            "id": "p13",
+            "id": "p10",
             "name": "多哥—洛美集装箱码头",
-            "icon": { "className": "greenPort", "top": 1617, "left": 453 },
+            "geo": [1.278, 6.138],
+            "color": "SPRINGGREEN",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -245,45 +201,10 @@
             ]
         },
         {
-            "id": "p14",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 1632, "left": 240 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p15",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 1276, "left": 254 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p16",
+            "id": "p11",
             "name": "土耳其—Kumport码头",
-            "icon": { "className": "greenPort", "top": 1100, "left": 858 },
+            "geo": [28.49681, 41.189508],
+            "color": "SPRINGGREEN",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -299,161 +220,10 @@
             ]
         },
         {
-            "id": "p17",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 1059, "left": 1129 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p18",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 962, "left": 415 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p19",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 864, "left": 502 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p20",
-            "name": "",
-            "icon": { "className": "greenPort", "top": 1060, "left": 6217 },
-            "tip": true,
-            "events": [
-                { "year": 1943, "event": "港口开埠" },
-                { "year": 1978, "event": "招商局运营" },
-                { "year": 2018, "event": "吞吐量超过350万TEU" }
-            ],
-            "msg": "",
-            "imgs": [
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png",
-                "../portImages/06.png"
-            ]
-        },
-        {
-            "id": "p21",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1127, "left": 2525 }
-        },
-        {
-            "id": "p22",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1240, "left": 2448 }
-        },
-        {
-            "id": "p23",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1224, "left": 2342 }
-        },
-        {
-            "id": "p24",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1195, "left": 2228 }
-        },
-        {
-            "id": "p25",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1124, "left": 2036 }
-        },
-        {
-            "id": "p26",
-            "name": "",
-            "icon": { "className": "silkYellowPoint", "top": 1044, "left": 1872 }
-        },
-        {
-            "id": "p27",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 873, "left": 1023 }
-        },
-        {
-            "id": "p28",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 878, "left": 633 }
-        },
-        {
-            "id": "p29",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 902, "left": 603 }
-        },
-        {
-            "id": "p30",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 922, "left": 571 }
-        },
-        {
-            "id": "p31",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 940, "left": 538 }
-        },
-        {
-            "id": "p32",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 958, "left": 502 }
-        },
-        {
-            "id": "p33",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 1175, "left": 294 }
-        },
-        {
-            "id": "p34",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 1175, "left": 626 }
-        },
-        {
-            "id": "p35",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 1112, "left": 906 }
-        },
-        {
-            "id": "p36",
-            "name": "",
-            "icon": { "className": "silkRedPoint", "top": 1073, "left": 1002 }
-        },
-        {
-            "id": "p37",
+            "id": "p12",
             "name": "吉布提—吉布提港有限公司",
-            "icon": { "className": "silkRedPoint", "top": 1535, "left": 1160 },
+            "geo": [43.148, 11.618],
+            "color": "SPRINGGREEN",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -469,9 +239,10 @@
             ]
         },
         {
-            "id": "p38",
+            "id": "p13",
             "name": "斯里兰卡—科伦坡国际集装箱码头",
-            "icon": { "className": "silkRedPoint", "top": 1637, "left": 1875 },
+            "geo": [79.831, 6.944],
+            "color": "SPRINGGREEN",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },
@@ -487,10 +258,11 @@
             ]
         },
         {
-            "id": "p39",
+            "id": "p14",
             "name": "深圳-深圳西部港区",
             "addr": "深圳",
-            "icon": { "className": "silkRedPoint", "top": 1377, "left": 2500 },
+            "geo": [113.888, 22.478],
+            "color": "YELLOW",
             "tip": true,
             "events": [
                 { "year": 1943, "event": "港口开埠" },

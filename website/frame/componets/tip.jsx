@@ -1,9 +1,13 @@
 import '../less';
 import 'animate.css';
 import React from 'react';
+import $ from 'jquery';
 
 // tip组件
 export default class Tip extends React.Component {
+    componentDidMount() {
+        $('.tip').addClass('zoomInRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.tip').removeClass('zoomInRight animated'));
+    }
     render() {
         return (
             <div className='tip' style={this.props.style}>

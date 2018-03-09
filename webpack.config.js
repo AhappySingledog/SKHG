@@ -9,6 +9,9 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const buildName = 'dist';
 const env = process.env.NODE_ENV.trim();
 
+const cesiumSource = 'node_modules/cesium/Source';
+const cesiumWorkers = '../Build/Cesium/Workers';
+
 var config = {
     devtool: 'source-map',
     context: path.join(__dirname, './'),
@@ -18,9 +21,20 @@ var config = {
         chunkFilename: '[name]/[chunkhash:8].chunk.js', 
         path: path.join(__dirname, buildName),
         publicPath: '/' + buildName + '/',
+        sourcePrefix: ''
+    },
+    amd: {
+        // Enable webpack-friendly use of require in Cesium
+        toUrlUndefined: true
     },
     node: { fs: 'empty'},
-    resolve: { extensions: ['.js', '.jsx', '.less', '.css', '.json']}, // 支持的文件类型
+    resolve: { 
+        extensions: ['.js', '.jsx', '.less', '.css', '.json'], // 支持的文件类型
+        alias: {
+            // Cesium module name
+            cesium: path.resolve(__dirname, cesiumSource),
+        }
+    }, 
     module: {
         rules: [
             {
@@ -54,6 +68,18 @@ var config = {
         }),
         new CopyWebpackPlugin([
             { from: path.join(__dirname, 'website/res'), to: path.join(__dirname, buildName)},
+            {
+                from: path.join(cesiumSource, cesiumWorkers),
+                to: 'cesium/Workers'
+            },
+            {
+                from: path.join(cesiumSource, 'Assets'),
+                to: 'cesium/Assets'
+            },
+            {
+                from: path.join(cesiumSource, 'Widgets'),
+                to: 'cesium/Widgets'
+            }
         ]),
         new webpack.DefinePlugin({
             'process.env': {
@@ -66,6 +92,7 @@ var config = {
             __COMPONENT_DEVTOOLS__: false,
             // 是否检测不必要的组件重渲染
             __WHY_DID_YOU_UPDATE__: false,
+            CESIUM_BASE_URL: JSON.stringify('../../dist/cesium')
         }),
     ],
 }
