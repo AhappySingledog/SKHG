@@ -35,6 +35,12 @@
       "description": "元数据服务",
       "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/NetServer/skhg_loader",
       "proxy": "proxy"
+    },
+    {
+      "name": "QUERY_KHSJ",
+      "description": "视屏接口",
+      "url": "http://172.18.15.182:8081",
+      "proxy": "proxy"
     }
   ]
 }
