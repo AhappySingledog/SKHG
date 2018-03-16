@@ -17,6 +17,24 @@
       "description": "客户特殊箱数据",
       "url": "http://172.18.15.182:8081",
       "proxy": "proxy"
+    },
+    {
+      "name": "skhg",
+      "description": "元数据服务",
+      "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/NetServer/skhg",
+      "proxy": "proxy"
+    },
+    {
+      "name": "skhg_stage",
+      "description": "元数据服务",
+      "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/NetServer/skhg_stage",
+      "proxy": "proxy"
+    },
+    {
+      "name": "skhg_loader",
+      "description": "元数据服务",
+      "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/NetServer/skhg_loader",
+      "proxy": "proxy"
     }
   ]
 }

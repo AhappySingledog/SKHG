@@ -4,6 +4,7 @@
         "features": [
             {
                 "type": "Feature",
+                "name" : "CCT",
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -131,6 +132,7 @@
             },
             {
                 "type": "Feature",
+                "name" : "MCT",
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [
@@ -651,6 +653,7 @@
             },
             {
                 "type": "Feature",
+                "name" : "SZMSCK",
                 "geometry": {
                     "type": "Polygon",
                     "coordinates": [

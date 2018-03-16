@@ -19,6 +19,13 @@ body > div {
 * {
   font-family: '微软雅黑';
 }
+@font-face {
+  font-family: 'DS-DIGIB_0';
+  src: url('DS-DIGIB_0.eot');
+  /* IE9*/
+  src: url('DS-DIGIB_0.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('DS-DIGIB_0.woff') format('woff'), /* chrome、firefox */ url('DS-DIGIB_0.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('DS-DIGIB_0.svg#DS-DIGIB_0') format('svg');
+  /* iOS 4.1- */
+}
 body > div {
   width: 11520px;
   height: 3240px;
@@ -568,96 +575,52 @@ body > div {
 /***************************************************************
 **********************第二层页面替补框开始************************
 ***************************************************************/
-@-webkit-keyframes fadeInRight {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-  }
-  to {
-    opacity: 0.5;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-@keyframes fadeInRight {
-  from {
-    opacity: 0;
-    -webkit-transform: translate3d(100%, 0, 0);
-    transform: translate3d(100%, 0, 0);
-  }
-  to {
-    opacity: 0.5;
-    -webkit-transform: translate3d(0, 0, 0);
-    transform: translate3d(0, 0, 0);
-  }
-}
-.portTip {
-  position: absolute;
-  background: url('../images/port/SCTdatajson.png') no-repeat;
-  background-size: 100% 100%;
-  width: 1179px;
-  height: 527px;
-  bottom: 240px;
-  right: 30px;
-  -webkit-animation-name: fadeInRight;
-  animation-name: fadeInRight;
-}
-.portSmallTip {
-  -webkit-animation-name: fadeInRight;
-  animation-name: fadeInRight;
-}
 .Msg {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-around;
-}
-.Msg-title {
-  background: url('../images/port/Bottomframe.png') no-repeat;
-  background-size: 100%,100%;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-  color: white;
-  font-size: 50px;
-  padding-bottom: 11px;
-  margin-bottom: 9px;
-}
-.Msg-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
+  height: 800px;
   color: white;
 }
-.Msg-row-flex {
+.Msg-corner {
+  background: url('../images/port/corner.png') no-repeat;
+  background-size: 95%,100%;
+  background-position: 50%;
+}
+.Msg-corner-flex {
   border: 1px solid #0682ec;
   font-size: 80px;
-  padding: 10px 20px 10px 30px;
-  margin: 0 15px;
-}
-.Msg-row-flex-InShip {
+  padding: 20px;
+  margin: 40px;
   display: flex;
   flex-direction: row;
+  line-height: 143px;
 }
-.Msg-row-flex-InShip > span {
-  width: 160px;
-}
-.Msg-row-flex-InBigShip {
+.Msg-corner-flex-InShip {
   display: flex;
   flex-direction: row;
+  align-items: center;
 }
-.Msg-row-flex-InBigShip > span {
+.Msg-corner-flex-InShip > span {
   width: 160px;
+  line-height: 100px;
 }
-.Msg-row-flex-InBigShip-val {
+.Msg-corner-flex-InBigShip {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.Msg-corner-flex-InBigShip > span {
+  width: 160px;
+  line-height: 100px;
+}
+.Msg-corner-flex-InBigShip-val {
   display: flex;
   flex-direction: column;
   margin-left: 15px;
 }
-.Msg-row-flex-InBigShip-val > span {
+.Msg-corner-flex-InBigShip-val > span {
   border: 5px solid #233A52;
   text-align: center;
   width: 240px;
@@ -673,16 +636,62 @@ body > div {
 .Pie {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
-  margin-left: 13px;
 }
-.homeRightE {
+.homeRightEcharts {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+}
+.homeRightEcharts-tip {
   flex-grow: 1;
   display: flex;
   flex-direction: column;
+  justify-content: center;
 }
-.homeRightE > div {
-  flex-grow: 1;
+.homeRightEcharts-span {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.homeRightEcharts-span > span {
+  color: #ffffff;
+}
+/***********************
+*******园区等界面********
+***********************/
+.mtables {
+  position: absolute;
+  right: 50px;
+  bottom: 235px;
+  color: white;
+  font-size: 60px;
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+.mtables-top {
+  background: url('../images/port/上.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  padding: 54px;
+}
+.mtables-center {
+  background: url('../images/port/中.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 40px;
+}
+.mtables-center-value {
+  margin-top: 40px;
+}
+.mtables-center-value > span {
+  padding: 40px;
+}
+.mtables-bot {
+  background: url('../images/port/下.png') no-repeat;
+  background-size: 100% 100%;
+  height: 50px;
 }
 /***************************************************************
 **********************第二层页面替补框结束************************
@@ -828,7 +837,6 @@ body > div {
   flex-wrap: nowrap;
   justify-content: flex-end;
   align-items: flex-end;
-  height: 100%;
 }
 .number-0 {
   width: 122px;
@@ -930,4 +938,28 @@ body > div {
 }
 .test-sxt:hover {
   transform: scale(1.5);
+}
+@-webkit-keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
 }

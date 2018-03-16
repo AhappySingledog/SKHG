@@ -5,6 +5,7 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 let truck = null;
+let wharf = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
@@ -14,7 +15,7 @@ const PI = 3.1415926535897932384626;
 const a = 6378245.0;
 const ee = 0.00669342162296594323;
 
-function transformlat(lng, lat){
+function transformlat(lng, lat) {
     var ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
     ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
     ret += (20.0 * Math.sin(lat * PI) + 40.0 * Math.sin(lat / 3.0 * PI)) * 2.0 / 3.0;
@@ -22,7 +23,7 @@ function transformlat(lng, lat){
     return ret;
 }
 
-function transformlng(lng, lat){
+function transformlng(lng, lat) {
     var ret = 300.0 + lng + 2.0 * lat + 0.1 * lng * lng + 0.1 * lng * lat + 0.1 * Math.sqrt(Math.abs(lng));
     ret += (20.0 * Math.sin(6.0 * lng * PI) + 20.0 * Math.sin(2.0 * lng * PI)) * 2.0 / 3.0;
     ret += (20.0 * Math.sin(lng * PI) + 40.0 * Math.sin(lng / 3.0 * PI)) * 2.0 / 3.0;
@@ -37,14 +38,14 @@ function transformlng(lng, lat){
  * @param bd_lat
  * @returns {*[]}
  */
-function bd09togcj02(bd_lon, bd_lat){
+function bd09togcj02(bd_lon, bd_lat) {
     var x = bd_lon - 0.0065;
     var y = bd_lat - 0.006;
     var z = Math.sqrt(x * x + y * y) - 0.00002 * Math.sin(y * x_PI);
     var theta = Math.atan2(y, x) - 0.000003 * Math.cos(x * x_PI);
     var gg_lng = z * Math.cos(theta);
     var gg_lat = z * Math.sin(theta);
-    return {lng: gg_lng, lat: gg_lat};
+    return { lng: gg_lng, lat: gg_lat };
 }
 
 /**
@@ -53,7 +54,7 @@ function bd09togcj02(bd_lon, bd_lat){
  * @param lat
  * @returns {*[]}
  */
-function gcj02towgs84(lng, lat){
+function gcj02towgs84(lng, lat) {
     var dlat = transformlat(lng - 105.0, lat - 35.0);
     var dlng = transformlng(lng - 105.0, lat - 35.0);
     var radlat = lat / 180.0 * PI;
@@ -64,13 +65,13 @@ function gcj02towgs84(lng, lat){
     dlng = (dlng * 180.0) / (a / sqrtmagic * Math.cos(radlat) * PI);
     var mglat = lat + dlat;
     var mglng = lng + dlng;
-    return {lng: mglng, lat: mglat};
+    return { lng: mglng, lat: mglat };
 };
 
 function bd2wgs84(lng, lat) {
     let p1 = bd09togcj02(lng, lat);
     let p2 = gcj02towgs84(p1.lng, p1.lat);
-    return {lng: p2.lng, lat: p2.lat};
+    return { lng: p2.lng, lat: p2.lat };
 }
 
 const time = 3;
@@ -137,60 +138,60 @@ subscribes(
                 [82.176287, 7.201695],
                 [80.262968, 6.024258],
 
-                [80.24687,5.987419],
-                [80.198577,5.950577],
-                [80.152584,5.925247],
-                [80.095093,5.902218],
-                [80.0445,5.886098],
-                [79.961712,5.858462],
-                [79.860527,5.83543],
+                [80.24687, 5.987419],
+                [80.198577, 5.950577],
+                [80.152584, 5.925247],
+                [80.095093, 5.902218],
+                [80.0445, 5.886098],
+                [79.961712, 5.858462],
+                [79.860527, 5.83543],
 
-                [79.855928,5.833127],
-                [79.487982,5.980511],
-                [78.531322,6.348793],
-                [77.133128,6.716808],
-                [76.02929,7.158053],
-                [74.631095,7.892488],
-                [73.600847,8.625603],
-                [72.644187,9.137934],
-                [71.54035,9.64952],
-                [69.553442,10.16032],
-                [67.345766,10.743079],
-                [65.579625,11.3247],
-                [64.034252,11.615066],
-                [62.562469,11.68761],
-                [60.796328,11.977593],
-                [58.80942,12.122466],
-                [56.822512,12.484299],
-                [53.731766,12.701155],
-                [51.965626,12.773398],
-                [49.463593,12.773398],
-                [47.182329,12.411973],
-                [43.355691,12.484299],
-                [43.061334,12.773398],
-                [42.840567,13.062163],
-                [42.031085,13.998251],
-                [41.515961,14.787332],
-                [41.221604,15.430798],
-                [40.927248,16.214513],
-                [40.191356,17.348816],
-                [39.455464,18.476061],
-                [38.94034,19.874594],
-                [38.204448,20.984544],
-                [37.10061,23.179253],
-                [35.555237,25.805392],
-                [33.034807,28.634027],
-                [32.648464,29.281269],
-                [32.53808,29.635502],
-                [32.482888,29.940421],
-                [32.482888,30.132517],
-                [32.455292,30.236412],
-                [32.409299,30.29231],
-                [32.344909,30.380083],
-                [32.289717,30.507612],
-                [32.262121,30.666786],
-                [32.243724,31.016037],
-                [32.243724,31.19018],
+                [79.855928, 5.833127],
+                [79.487982, 5.980511],
+                [78.531322, 6.348793],
+                [77.133128, 6.716808],
+                [76.02929, 7.158053],
+                [74.631095, 7.892488],
+                [73.600847, 8.625603],
+                [72.644187, 9.137934],
+                [71.54035, 9.64952],
+                [69.553442, 10.16032],
+                [67.345766, 10.743079],
+                [65.579625, 11.3247],
+                [64.034252, 11.615066],
+                [62.562469, 11.68761],
+                [60.796328, 11.977593],
+                [58.80942, 12.122466],
+                [56.822512, 12.484299],
+                [53.731766, 12.701155],
+                [51.965626, 12.773398],
+                [49.463593, 12.773398],
+                [47.182329, 12.411973],
+                [43.355691, 12.484299],
+                [43.061334, 12.773398],
+                [42.840567, 13.062163],
+                [42.031085, 13.998251],
+                [41.515961, 14.787332],
+                [41.221604, 15.430798],
+                [40.927248, 16.214513],
+                [40.191356, 17.348816],
+                [39.455464, 18.476061],
+                [38.94034, 19.874594],
+                [38.204448, 20.984544],
+                [37.10061, 23.179253],
+                [35.555237, 25.805392],
+                [33.034807, 28.634027],
+                [32.648464, 29.281269],
+                [32.53808, 29.635502],
+                [32.482888, 29.940421],
+                [32.482888, 30.132517],
+                [32.455292, 30.236412],
+                [32.409299, 30.29231],
+                [32.344909, 30.380083],
+                [32.289717, 30.507612],
+                [32.262121, 30.666786],
+                [32.243724, 31.016037],
+                [32.243724, 31.19018],
             ];
             let czml = [{
                 id: "document",
@@ -217,8 +218,8 @@ subscribes(
                         //     },
                         //     outlineWidth: 0
                         // }
-                        polylineArrow : {
-                            color : {
+                        polylineArrow: {
+                            color: {
                                 rgba: [230, 33, 41, 255]
                             }
                         }
@@ -423,300 +424,276 @@ subscribes(
         /** 进出港口箱子饼状图 */
         sub: 'port_pie_gk',
         func: (ops) => {
+            /**
+             * 双层圆环图
+             * param1    value值  
+             * param2 3  最小最大值
+             * param4   字体及圆环大颜色
+             */
+
+            var value = ops.value;
+            var min = 0;
+            var max = 7000;
+            var size = '100%';
+            var initcolor = '#30979C';
+
+            var color = initcolor;
+            var dataStyle = {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    shadowBlur: 40,
+                    shadowColor: 'rgba(40, 40, 40, 0.5)'
+                }
+            };
+            var placeHolderStyle = {
+                normal: {
+                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }
+            };
+
             return {
-                color: ['#339A9F', '#ffffff'],
+                title: {
+                    text: value,
+                    x: 'center',
+                    y: '35%',
+                    textStyle: {
+                        fontWeight: 'normal',
+                        color: 'white',
+                        fontSize: parseInt(size) * 0.6
+                    },
+                    subtext: 'TEU',
+                    subtextStyle: {
+                        fontWeight: 'normal',
+                        color: 'white',
+                        fontSize: parseInt(size) * 0.4
+                    }
+                },
+                color: ['#fff', '#313443', '#fff'],
                 tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    show: false,
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
-                title: [{
-                    text: '装船箱量',
-                    x: '15%',
-                    y: '70%',
-                    textStyle: {
-                        fontSize: '50',
-                        fontWeight: 'bold',
-                        color: ['#ffffff'],
-                    }
-                }, {
-                    text: '卸船箱量',
-                    x: '65%',
-                    y: '70%',
-                    textStyle: {
-                        fontSize: '50',
-                        fontWeight: 'bold',
-                        color: ['#ffffff'],
-                    }
-                }],
                 legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data: ['直达', '其他']
+                    show: false,
+                    itemGap: 12,
+                    data: ['01', '02']
                 },
-                series: [
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        avoidLabelOverlap: false,
-                        selectedMode: 'single',
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['56%', '60%'],
-                        center: ['25%', '30%'],
-                        startAngle: 90,
-                        label: {
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: {
+                            show: true
+                        },
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Line 1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['58%', '68%'],
+                    itemStyle: dataStyle,
+                    hoverAnimation: true,
+                    data: [{
+                        value: value - min,
+                        name: '01',
+                        itemStyle: {
                             normal: {
-                                show: false,
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
+                                    offset: 0,
+                                    color: color
+                                }, {
+                                    offset: 1,
+                                    color: color
+                                }]),
                             },
                         },
-                        data: [
-                            { value: 4029, name: '装船箱量' },
-                            { value: 1971, name: '卸船箱量' }
-                        ]
-                    },
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['61%', '60%'],
-                        center: ['25%', '30%'],
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: ['{c}', '{b|TEU}'].join('\n'),
-                                rich: {
-                                    b: {
-                                        color: 'while',
-                                        height: 70,
-                                        fontSize: '40',
-                                        fontWeight: 'bold'
-                                    },
-                                },
-                                position: 'center',
-                                color: ['#ffffff'],
-                                textStyle: {
-                                    height: 80,
-                                    fontSize: '80',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                        },
-                        data: [
-                            { value: 4028, name: '装船箱量' }
-                        ]
-                    },
-
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        avoidLabelOverlap: false,
-                        selectedMode: 'single',
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['56%', '60%'],
-                        center: ['75%', '30%'],
-                        startAngle: 90,
-                        label: {
-                            normal: {
-                                show: false,
-                            },
-                        },
-                        data: [
-                            { value: 2996, name: '卸船数量' },
-                            { value: 3004, name: '装船数量' }
-                        ]
-                    },
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['61%', '60%'],
-                        center: ['75%', '30%'],
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: ['{c}', '{b|TEU}'].join('\n'),
-                                rich: {
-                                    b: {
-                                        color: 'while',
-                                        height: 70,
-                                        fontSize: '40',
-                                        fontWeight: 'bold'
-                                    },
-                                },
-                                position: 'center',
-                                color: ['#ffffff'],
-                                textStyle: {
-                                    height: 80,
-                                    fontSize: '80',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                        },
-                        data: [
-                            { value: 2996, name: '卸船数量' }
-                        ]
+                    }, {
+                        value: max - value,
+                        name: 'invisible',
+                        itemStyle: placeHolderStyle
                     }
 
-
-
-                ]
+                    ]
+                }, {
+                    name: 'Line 2',
+                    type: 'pie',
+                    animation: false,
+                    clockWise: false,
+                   radius: ['66%', '70%'],
+                    itemStyle: dataStyle,
+                    hoverAnimation: false,
+                    tooltip: {
+                        show: false
+                    },
+                    data: [{
+                        value: 0,
+                        name: '02',
+                        itemStyle: {
+                            normal: {
+                                color: color,
+                            },
+                        }
+                    }]
+                }]
             }
         }
     }, {
         /** 进出闸口箱子斌状图 */
         sub: 'port_pie_zk',
         func: (ops) => {
+            /**
+             * 双层圆环图
+             * param1    value值  
+             * param2 3  最小最大值
+             * param4   字体及圆环大颜色
+             */
+
+            var value = ops.value;
+            var min = 0;
+            var max = 3000;
+            var size = '100%';
+            var initcolor = '#F26D12';
+
+            var color = initcolor;
+            var dataStyle = {
+                normal: {
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    },
+                    shadowBlur: 40,
+                    shadowColor: 'rgba(40, 40, 40, 0.5)'
+                }
+            };
+            var placeHolderStyle = {
+                normal: {
+                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
+                    label: {
+                        show: false
+                    },
+                    labelLine: {
+                        show: false
+                    }
+                }
+            };
+
             return {
-                color: ['#ffffff', '#E15B01'],
+                title: {
+                    text: value,
+                    x: 'center',
+                    y: '35%',
+                    textStyle: {
+                        fontWeight: 'normal',
+                        color: 'white',
+                        fontSize: parseInt(size) * 0.6
+                    },
+                    subtext: 'TEU',
+                    subtextStyle: {
+                        fontWeight: 'normal',
+                        color: 'white',
+                        fontSize: parseInt(size) * 0.4
+                    }
+                },
+                color: ['#fff', '#313443', '#fff'],
                 tooltip: {
-                    trigger: 'item',
-                    formatter: "{a} <br/>{b}: {c} ({d}%)"
+                    show: false,
+                    formatter: "{a} <br/>{b} : {c} ({d}%)"
                 },
-                title: [{
-                    text: '进闸数量',
-                    x: '15%',
-                    y: '70%',
-                    textStyle: {
-                        fontSize: '50',
-                        fontWeight: 'bold',
-                        color: ['#ffffff'],
-                    }
-                }, {
-                    text: '出闸数量',
-                    x: '65%',
-                    y: '70%',
-                    textStyle: {
-                        fontSize: '50',
-                        fontWeight: 'bold',
-                        color: ['#ffffff'],
-                    }
-                }],
                 legend: {
-                    orient: 'vertical',
-                    x: 'left',
-                    data: ['直达', '其他']
+                    show: false,
+                    itemGap: 12,
+                    data: ['01', '02']
                 },
-                series: [
-                    {
-                        name: '12312312321',
-                        type: 'pie',
-                        silent: true,
-                        avoidLabelOverlap: false,
-                        selectedMode: 'single',
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['56%', '60%'],
-                        center: ['25%', '30%'],
-                        startAngle: 0,
-                        label: {
+                toolbox: {
+                    show: false,
+                    feature: {
+                        mark: {
+                            show: true
+                        },
+                        dataView: {
+                            show: true,
+                            readOnly: false
+                        },
+                        restore: {
+                            show: true
+                        },
+                        saveAsImage: {
+                            show: true
+                        }
+                    }
+                },
+                series: [{
+                    name: 'Line 1',
+                    type: 'pie',
+                    clockWise: false,
+                    radius: ['58%', '68%'],
+                    itemStyle: dataStyle,
+                    hoverAnimation: true,
+                    data: [{
+                        value: value - min,
+                        name: '01',
+                        itemStyle: {
                             normal: {
-                                show: false,
+                                color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
+                                    offset: 0,
+                                    color: color
+                                }, {
+                                    offset: 1,
+                                    color: color
+                                }]),
                             },
                         },
-                        data: [
-                            { value: 3322, name: '进闸数量' },
-                            { value: 2678, name: '出闸数量' }
-                        ]
-                    },
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['61%', '60%'],
-                        center: ['25%', '30%'],
-                        label: {
-                            normal: {
-                                show: true,
-                                formatter: ['{c}', '{b|TEU}'].join('\n'),
-                                rich: {
-                                    b: {
-                                        color: 'while',
-                                        height: 70,
-                                        fontSize: '40',
-                                        fontWeight: 'bold'
-                                    },
-                                },
-                                position: 'center',
-                                color: ['#ffffff'],
-                                textStyle: {
-                                    height: 80,
-                                    fontSize: '80',
-                                    fontWeight: 'bold'
-                                }
-                            },
-                        },
-                        data: [
-                            { value: 3322, name: '出闸数量' }
-                        ]
-                    },
+                    }, {
+                        value: max - value,
+                        name: 'invisible',
+                        itemStyle: placeHolderStyle
+                    }
 
-
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        avoidLabelOverlap: false,
-                        selectedMode: 'single',
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['56%', '60%'],
-                        center: ['75%', '30%'],
-                        startAngle: 0,
-                        label: {
-                            normal: {
-                                show: false,
-                            }
-                        },
-                        data: [
-                            { value: 3360, name: '进闸箱数' },
-                            { value: 2640, name: '出闸箱数' },
-                            // {value:2996, name:'营销广告'},
-                            // {value:3004, name:'搜索引擎'}
-                        ]
+                    ]
+                }, {
+                    name: 'Line 2',
+                    type: 'pie',
+                    animation: false,
+                    clockWise: false,
+                   radius: ['66%', '70%'],
+                    itemStyle: dataStyle,
+                    hoverAnimation: false,
+                    tooltip: {
+                        show: false
                     },
-                    {
-                        name: '访问来源',
-                        type: 'pie',
-                        silent: true,
-                        hoverAnimation: false,
-                        legendHoverLink: false,
-                        radius: ['61%', '60%'],
-                        center: ['75%', '30%'],
-                        label: {
+                    data: [{
+                        value: 0,
+                        name: '02',
+                        itemStyle: {
                             normal: {
-                                show: true,
-                                formatter: ['{c}', '{b|TEU}'].join('\n'),
-                                rich: {
-                                    b: {
-                                        color: 'while',
-                                        height: 70,
-                                        fontSize: '40',
-                                        fontWeight: 'bold'
-                                    },
-                                },
-                                position: 'center',
-                                color: ['#ffffff'],
-                                textStyle: {
-                                    height: 80,
-                                    fontSize: '80',
-                                    fontWeight: 'bold'
-                                }
+                                color: color,
                             },
-                        },
-                        data: [
-                            { value: 2640, name: '出闸箱数' }
-                        ]
-                    },
-                ]
+                        }
+                    }]
+                }]
             }
         }
     }, {
