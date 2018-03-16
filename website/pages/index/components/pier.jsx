@@ -13,6 +13,7 @@ import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.gif';
 import BargeIcon from '../../../res/mapIcon/Barge.gif';
 import TruckIcon from '../../../res/mapIcon/car.png';
+import VideoIcon from '../images/视频监控.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -86,6 +87,65 @@ class MapOperation extends React.Component {
             },
         }
         this.props.map.mapDisplay.polygon(params);
+
+        if (datas.name === 'SCT') {
+            
+            publish('webAction', {svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {}}).then((res) => {
+                console.log(res);
+                let data = JSON.parse(res).filter((e) => e.liveName.indexOf('SCT') >= 0);
+                initVideo(data);
+                this.setState({ JsonData: data, dataSource: data.map((e, i) => { return { key: i + 1, name: e.name, liveID: e.liveID, liveName: e.liveName } }) });
+            });
+            let clickVideo = (e) => {
+                let url = null;
+                let data = null;
+                if (typeof (e.attributes) !== 'undefined') {
+                    url = 'http://www.cheluyun.com/javascript/zsg?id=' + e.attributes.liveID + '&rtmp=' + e.attributes.rtmpReleaseAddr + '&hls=' + e.attributes.hlsReleaseAddr;
+                    data = e.attributes;
+                } else {
+                    url = 'http://www.cheluyun.com/javascript/zsg?id=' + e.liveID + '&rtmp=' + e.rtmpReleaseAddr + '&hls=' + e.hlsReleaseAddr;
+                    data = e;
+                }
+                publish('playVedio', { url: url, name: data.name });
+            }
+            let initVideo = (data) => {
+                this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+                let that = this;
+                console.log(data);
+                data.forEach((e, i) => {
+                    let point = e.coordinate.split(',');
+                    let param = {
+                        id: 'VIDEO_LAYER' + i,
+                        layerId: 'VIDEO_LAYER',
+                        src: VideoIcon,
+                        width: 140,
+                        height: 140,
+                        angle: 0,
+                        x: point[0],
+                        y: point[1],
+                        attr: { ...e },
+                        click: clickVideo,
+                        mouseover: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(140 + 12);
+                                symbol.setHeight(140 + 12);
+                            }
+                            g.setSymbol(symbol);
+                        },
+                        mouseout: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(140);
+                                symbol.setHeight(140);
+                            }
+                            g.setSymbol(symbol);
+                        }
+                    }
+                    this.props.map.mapDisplay.image(param);
+                });
+            }
+        }
     };
 
 
