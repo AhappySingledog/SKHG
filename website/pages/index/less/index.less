@@ -234,8 +234,18 @@ body>div {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
+    &-t {
+        color: white;
+        text-align: center;
+        font-size: 70px;
+        line-height: 143px;
+        width: 98%;
+        height: 143px;
+        background: url('../images/光线.png') no-repeat;
+        background-size: 100% 100%;
+    }
     &-top {
-        width: 100%;
+        width: 98%;
         background: url('../images/时间轴.png') no-repeat bottom;
         background-size: 100% 48px;
         display: flex;
@@ -261,12 +271,13 @@ body>div {
         }
     }
     &-bottom {
+        width: 98%;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-around;
         &-msg {
-            width: 992px;
+            width: 1100px;
             height: 616px;
             color: white;
             font-size: 50px;
@@ -278,6 +289,85 @@ body>div {
             text-indent: 2em;
             line-height: 80px;
         }
+    }
+}
+
+@keyframes showAnimete_1 {
+    from{
+        transform: scaleY(0)
+    }
+    to{
+        transform: scaleY(1);
+    }
+}
+
+@keyframes showAnimete_2 {
+    from{
+        transform: scaleY(1)
+    }
+    to{
+        transform: scaleY(0);
+    }
+}
+
+.showAnimete_1 {
+    animation: showAnimete_1 0.5s ease;
+    transform-origin: top center;
+}
+
+.showAnimete_2 {
+    animation: showAnimete_2 0.5s ease;
+    transform-origin: top center;
+}
+
+.rightP {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    margin-right: 20px;
+    margin-bottom: 20px;
+    width: fit-content;
+
+    &-t {
+        width: 100%;
+        height: 37px;
+        background: url('../images/上.png') no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &-c {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        flex-grow: 1;
+        background: url('../images/中.png') no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &-b {
+        width: 100%;
+        height: 41px;
+        background: url('../images/下.png') no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &-sq {
+        width: 120px;
+        height: 120px;
+        background: url('../images/buttons/收起.png') no-repeat;
+        background-size: 80% 80%;
+        background-position: center;
+    }
+
+    &-zk {
+        width: 120px;
+        height: 120px;
+        background: url('../images/buttons/展开.png') no-repeat;
+        background-size: 80% 80%;
+        background-position: center;
     }
 }
 

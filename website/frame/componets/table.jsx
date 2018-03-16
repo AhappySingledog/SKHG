@@ -1,20 +1,44 @@
 import '../less';
 import 'animate.css';
 import React from 'react';
+import ReactDOM from 'react-dom';
+import $ from 'jquery';
 
 // tip组件
 export default class Table extends React.Component {
+    componentDidUpdate() {
+        if (this.props.trClick) {
+            let datas = this.props.datas;
+            $(ReactDOM.findDOMNode(this.refs.table)).find('tbody>tr').each((i, e) => {
+                e.onclick = (a) => {
+                    this.props.trClick(datas[i], i);
+                }
+            });
+        }
+        if (this.props.trDbclick) {
+            let datas = this.props.datas;
+            $(ReactDOM.findDOMNode(this.refs.table)).find('tbody>tr').each((i, e) => {
+                e.ondblclick = () => {
+                    this.props.trDbclick(datas[i], i);
+                }
+            });
+        }
+        if (this.props.selectedIndex != undefined) {
+            $('#' + this.props.id + '>tr>td').removeClass('trSelected');
+            $('#' + this.props.id + '>tr:nth-of-type(' + (this.props.selectedIndex + 1) + ')>td').addClass('trSelected');
+        }
+    }
     render() {
         let { flds = [], datas = [] } = this.props;
         return (
-            <div className='mtable' style={this.props.style}>
+            <div className='mtable' style={this.props.style} ref='table'>
                 <table>
                     <thead>
                         <tr>
                             {flds.map((fld, i) => <td key={i}>{fld.title}</td>)}
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id={this.props.id}>
                         {datas.map((data, i) => 
                             <tr key={i}>
                                 {flds.map((fld, j) => <td key={j}>{data && data[fld.name]}</td>)}

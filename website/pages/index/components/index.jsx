@@ -137,7 +137,7 @@ export default class App extends React.Component {
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
                 <div className='mfooter'/>
                 {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
-                {this.state.viwePager ? <div id='imgsDisplay' style={{position: 'absolute', top: 462, left: 5113}}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{width: 2538, height: 2670}} boxStyle="content" interval={4000} close={this.closeImgs}/></div> : null}
+                {this.state.viwePager ? <div id='imgsDisplay' style={{position: 'absolute', top: 462, left: 5126, zIndex: 10}}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{width: 2538, height: 2683}} boxStyle="content" interval={4000} close={this.closeImgs}/></div> : null}
             </div>
         )
     }
