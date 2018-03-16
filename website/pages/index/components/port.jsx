@@ -76,6 +76,32 @@ class MapOperation extends React.Component {
         publish('map_view_init').then((res) => {
             this.setState({ mtJson: res[0][0].features })
             this.handleMTSJ(res[0][0].features);
+
+            // 插入区域信息
+            // let a = res[0][0].features.map((e, i) => {
+            //     return {
+            //         attr: {
+            //             NAME: e.properties.name,
+            //             CODE: e.name || '',
+            //             TYPE: '',
+            //             SSDW: '',
+            //             SSDWNAME: '',
+            //             XMIN: e.mapExtent.xmin,
+            //             XMAX: e.mapExtent.xmax,
+            //             YMIN: e.mapExtent.ymin,
+            //             YMAX: e.mapExtent.ymax,
+            //             LAYER: '',
+            //         },
+            //         geom: {
+            //             rings: [
+            //                 e.geometry.coordinates,
+            //             ]
+            //         }
+            //     };
+            // })
+            // publish('webAction', {svn: 'test', type: 'post', path: 'insertArea', data: {datas: JSON.stringify(a)}}).then((res) => {
+            //     console.log(res);
+            // });
         });
 
         /** 大船显示 */
