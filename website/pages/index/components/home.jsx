@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Table, Panel } from '../../../frame/componets/index';
-import HomeRightEcharts from './homeRightEcharts';
 import HomeRightPanel from './homeRightPanel';
 import Cesium from 'cesium/Cesium'
 import 'cesium/Widgets/widgets.css'

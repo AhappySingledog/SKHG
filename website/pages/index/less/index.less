@@ -1,17 +1,4 @@
 @import '../../../frame/less/common.less';
-
-@font-face {
-    font-family: 'DS-DIGIB_0';
-    src: url('./DS-DIGIB_0.eot');
-    /* IE9*/
-    src: url('./DS-DIGIB_0.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
-    url('./DS-DIGIB_0.woff') format('woff'), /* chrome、firefox */
-    url('./DS-DIGIB_0.ttf'    ) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
-    url('./DS-DIGIB_0.svg#DS-DIGIB_0') format('svg');
-    /* iOS 4.1- */
-}
-
-
 body>div {
     width: @scale * 3840px;
     height: @scale * 1080px;
@@ -119,11 +106,21 @@ body>div {
         margin-left: 25px;
         width: 407px;
         height: 255px;
-        background: url('../images/buttons/报警信息.png') no-repeat;
+        background: url('../images/buttons/智能预警.png') no-repeat;
         cursor: pointer;
     }
     &-warning:hover {
-        background: url('../images/buttons/报警信息-点击.png') no-repeat;
+        background: url('../images/buttons/智能预警-点击.png') no-repeat;
+    }
+    &-link {
+        margin-left: 25px;
+        width: 407px;
+        height: 255px;
+        background: url('../images/buttons/智能链接.png') no-repeat;
+        cursor: pointer;
+    }
+    &-link:hover {
+        background: url('../images/buttons/智能链接-点击.png') no-repeat;
     }
     &-back {
         margin-left: 25px;
@@ -395,29 +392,20 @@ body>div {
 
 .homeRightP {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    justify-content: space-between;
     flex-grow: 1;
     &-l {
         display: flex;
-        flex-direction: column;
-        &-bottom {
-            flex-grow: 1;
-            display: flex;
-            flex-direction: column;
-            padding-top: 25px;
-        }
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
     &-r {
-        flex-grow: 1;
-        padding-left: 35px;
         display: flex;
-        flex-direction: column;
-        &-bottom {
-            flex-grow: 1;
-            padding-top: 35px;
-            display: flex;
-            flex-direction: column;
-        }
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
     }
 }
 
@@ -425,9 +413,13 @@ body>div {
     display: flex;
     flex-direction: column;
     &-title {
-        height: 184px;
-        background: url('../images/蛇口海关标题bg.png') no-repeat;
+        height: 155px;
+        background: url('../images/大尺寸标题底框.png') no-repeat;
         background-size: 100% 100%;
+        line-height: 155px;
+        text-align: center;
+        color: white;
+        font-size: 80px;
     }
     &-msg {
         display: flex;
@@ -470,11 +462,11 @@ body>div {
     display: flex;
     flex-direction: column;
     &-title {
-        width: 804px;
-        height: 174px;
-        background: url('../images/标题框.png') no-repeat;
+        width: 1406px;
+        height: 155px;
+        background: url('../images/小尺寸标题底框.png') no-repeat;
         background-size: 100% 100%;
-        line-height: 174px;
+        line-height: 155px;
         text-align: center;
         color: white;
         font-size: 80px;
@@ -490,8 +482,18 @@ body>div {
     width: fit-content;
     &-img {
         width: 673px;
-        height: 474px;
+        height: 430px;
     }
+}
+
+.echart-title {
+    height: 155px;
+    background: url('../images/大尺寸标题底框.png') no-repeat;
+    background-size: 100% 100%;
+    line-height: 155px;
+    text-align: center;
+    color: white;
+    font-size: 80px;
 }
 
 .case {
@@ -499,11 +501,11 @@ body>div {
     flex-direction: column;
     flex-grow: 1;
     &-title {
-        width: 804px;
-        height: 174px;
-        background: url('../images/标题框.png') no-repeat;
+        width: 1406px;
+        height: 155px;
+        background: url('../images/小尺寸标题底框.png') no-repeat;
         background-size: 100% 100%;
-        line-height: 174px;
+        line-height: 155px;
         text-align: center;
         color: white;
         font-size: 80px;
@@ -520,7 +522,7 @@ body>div {
 
 .oneCase {
     &-title {
-        color: white;
+        color: #5caeff;
         font-size: 55px;
     }
     &-msg {
@@ -693,45 +695,97 @@ body>div {
 /***************************************************************
 **********************第二层页面替补框开始************************
 ***************************************************************/
+@-webkit-keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 0.5;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 0.5;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+.portTip{
+    position: absolute;
+    background: url('../images/port/SCTdatajson.png') no-repeat;
+    background-size: 100% 100%;
+    width : 1179px;
+    height: 527px;
+    bottom: 240px;
+    right: 30px;
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+.portSmallTip{
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+}
+
+
+
 
 .Msg{
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-around;
-    height: 800px;
-    color : white;
 
+    &-title{
+        background: url('../images/port/Bottomframe.png') no-repeat;
+        background-size: 100%,100%;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        color: white;
+        font-size: 50px;
+        padding-bottom: 11px;
+        margin-bottom: 9px;
 
-        &-corner{
-            background: url('../images/port/corner.png') no-repeat;
-            background-size: 95%,100%;
-            background-position: 50%;
-       
+    }
+    &-row{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        color : white;
+
         &-flex{
             border: 1px solid #0682ec;
             font-size: 80px;
-            padding: 20px;
-            margin: 40px;
-            display: flex;
-            flex-direction: row;
-            line-height: 143px;
+            padding: 10px 20px 10px 30px;
+            margin: 0 15px;
             &-InShip{
                 display: flex;
                 flex-direction: row;
-                align-items: center;
                  > span{
                     width: 160px;
-                    line-height: 100px;
                  }
             }
             &-InBigShip{
                 display: flex;
                 flex-direction: row;
-                align-items: center;
                 > span{
                     width: 160px;
-                    line-height: 100px;
                 };
                 
                 &-val{
@@ -760,65 +814,17 @@ body>div {
 .Pie{
     display: flex;
     flex-direction: column;
+    margin-top: 30px;
+    margin-left: 13px;
 }
 
-.homeRightEcharts {
+.homeRightE {
     flex-grow: 1;
     display: flex;
-    flex-direction: row;
-    &-tip{
+    flex-direction: column;
+
+    > div {
         flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    &-span{
-        text-align: center;
-        margin-bottom: 20px;
-        >span{
-            color: #ffffff;
-        }
-    }
-   
-}
-
-/***********************
-*******园区等界面********
-***********************/
-.mtables{
-    position: absolute;
-    right: 50px;
-    bottom: 235px;
-    color: white;
-    font-size: 60px;
-    -webkit-animation-name: fadeInRight;
-    animation-name: fadeInRight;
-    &-top{
-        background: url('../images/port/上.png') no-repeat;
-        background-size: 100% 100%;
-        display: flex;
-        flex-direction: column;
-        text-align: center;
-        padding: 54px;
-    }
-    &-center{
-        background: url('../images/port/中.png') no-repeat;
-        background-size: 100% 100%;
-        display: flex;
-        flex-direction: column;
-        padding: 40px;
-        &-value{
-            margin-top: 40px;
-            >span{
-                padding:  40px;
-            }
-        }
-    }
-    &-bot{
-        background: url('../images/port/下.png') no-repeat;
-        background-size: 100% 100%;
-        height: 50px;
     }
 }
 
@@ -1001,7 +1007,7 @@ body>div {
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: flex-end;
-    // height: 100%;
+    height: 100%;
 }
 
 .numberLoop(9);
@@ -1029,30 +1035,3 @@ body>div {
         transform: scale(1.5);
     }
 }
-@-webkit-keyframes fadeInRight {
-    from {
-      opacity: 0;
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-  
-    to {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-  
-    to {
-      opacity: 1;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }

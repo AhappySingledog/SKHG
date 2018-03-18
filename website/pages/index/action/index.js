@@ -5,7 +5,6 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 let truck = null;
-let wharf = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
@@ -268,97 +267,189 @@ subscribes(
         sub: 'home_right_e',   // 首页右侧echarts
         func: (ops) => {
             let option = {
-                title: {
-                    text: '报警信息',
-                    left: 60,
+                color: ['#58DABC', '#52BEFC', '#FFB84E', '#FFB84E'],
+                title: [{
+                    text: '报关单量',
+                    x: '4%',
+                    y: '1%',
+                    textAlign: 'center',
                     textStyle: {
-                        color: 'white',
-                        fontSize: 45,
+                        color: '#58DABC',
+                        fontSize: 35,
                     }
-                },
+                }, {
+                    text: '征收金额',
+                    x: '54%',
+                    y: '1%',
+                    textAlign: 'center',
+                    textStyle: {
+                        color: '#52BEFC',
+                        fontSize: 35,
+                    }
+                }, {
+                    text: '通关效率',
+                    x: '4%',
+                    y: '51%',
+                    textAlign: 'center',
+                    textStyle: {
+                        color: '#FFB84E',
+                        fontSize: 35,
+                    }
+                }, {
+                    text: '查验时效',
+                    x: '54%',
+                    y: '51%',
+                    textAlign: 'center',
+                    textStyle: {
+                        color: '#FFB84E',
+                        fontSize: 35,
+                    }
+                }],
+                grid: [
+                    { x: '4%', y: '7%', width: '44%', height: '39%' },
+                    { x2: '2%', y: '7%', width: '44%', height: '39%' },
+                    { x: '4%', y2: '4%', width: '44%', height: '39%' },
+                    { x2: '2%', y2: '4%', width: '44%', height: '39%' }
+
+                ],
                 tooltip: {
-                    trigger: 'axis',
-                    axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
+                    formatter: '{a}: ({c})'
+                },
+                xAxis: [
+                    {
+                        gridIndex: 0,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    {
+                        gridIndex: 1,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    {
+                        gridIndex: 2,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                    },
+                    {
+                        gridIndex: 3,
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        },
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
                     }
-                },
-                legend: {
-                    data: ['日', '月', '年',],
-                    align: 'right',
-                    itemGap: 50,
-                    textStyle: {
-                        color: 'white',
-                        fontSize: 30,
+                ],
+                yAxis: [
+                    {
+                        gridIndex: 0,
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    {
+                        gridIndex: 1,
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    {
+                        gridIndex: 2,
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
+                    },
+                    {
+                        gridIndex: 3,
+                        axisLabel: {
+                            formatter: '{value}',
+                            fontSize: 30,
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: '#fff'
+                            }
+                        }
                     }
-                },
-                grid: {
-                    height: '88%',
-                    left: '3%',
-                    right: '4%',
-                    bottom: '3%',
-                    containLabel: true
-                },
-                xAxis: [{
-                    type: 'category',
-                    axisLabel: {
-                        interval: 0,
-                        rotate: 40,
-                        fontSize: 30,
+                ],
+                series: [
+                    {
+                        name: '报关单量',
+                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        type: 'bar',
+                        xAxisIndex: 0,
+                        yAxisIndex: 0,
                     },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#fff'
-                        }
+                    {
+                        name: '征收金额',
+                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        type: 'bar',
+                        xAxisIndex: 1,
+                        yAxisIndex: 1,
                     },
-                    data: ['监控视频故障', '空箱秤重', '调拨车辆', '超三个月场柜未放行', '海关未放行柜装船', '未申报靠泊', '贸货柜混堆异动', '未审批装卸', '车辆未上锁', '换装柜', '空车超重']
-                }],
-                yAxis: [{
-                    type: 'value',
-                    name: '/个',
-                    nameTextStyle: {
-                        fontSize: 30,
+                    {
+                        name: '通关效率',
+                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        type: 'bar',
+                        xAxisIndex: 2,
+                        yAxisIndex: 2,
                     },
-                    axisLabel: {
-                        formatter: '{value}',
-                        fontSize: 30,
-                    },
-                    axisLine: {
-                        lineStyle: {
-                            color: '#fff'
-                        }
-                    },
-                }],
-                series: [{
-                    name: '日',
-                    type: 'bar', itemStyle: {
-                        normal: {
-                            show: true,
-                            color: '#f7da36',
+                    {
+                        name: '查验时效',
+                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        type: 'bar',
+                        xAxisIndex: 3,
+                        yAxisIndex: 3,
+                    }
 
-                        }
-                    },
-                    data: [1, 2, 1, 2, 3, 2, 1, 4, 3, 1, 2]
-                }, {
-                    name: '月',
-                    type: 'bar', itemStyle: {
-                        normal: {
-                            show: true,
-                            color: '#4dbeff',
-
-                        }
-                    },
-                    data: [3, 5, 4, 6, 8, 7, 10, 6, 8, 10, 9]
-                }, {
-                    name: '年',
-                    type: 'bar', itemStyle: {
-                        normal: {
-                            show: true,
-                            color: '#00B46B',
-
-                        }
-                    },
-                    data: [18, 16, 20, 19, 22, 21, 24, 20, 26, 24, 29]
-                },]
+                ]
             };
             return option;
         },
@@ -424,276 +515,300 @@ subscribes(
         /** 进出港口箱子饼状图 */
         sub: 'port_pie_gk',
         func: (ops) => {
-            /**
-             * 双层圆环图
-             * param1    value值  
-             * param2 3  最小最大值
-             * param4   字体及圆环大颜色
-             */
-
-            var value = ops.value;
-            var min = 0;
-            var max = 7000;
-            var size = '100%';
-            var initcolor = '#30979C';
-
-            var color = initcolor;
-            var dataStyle = {
-                normal: {
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    shadowBlur: 40,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
-            };
-            var placeHolderStyle = {
-                normal: {
-                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            };
-
             return {
-                title: {
-                    text: value,
-                    x: 'center',
-                    y: '35%',
-                    textStyle: {
-                        fontWeight: 'normal',
-                        color: 'white',
-                        fontSize: parseInt(size) * 0.6
-                    },
-                    subtext: 'TEU',
-                    subtextStyle: {
-                        fontWeight: 'normal',
-                        color: 'white',
-                        fontSize: parseInt(size) * 0.4
-                    }
-                },
-                color: ['#fff', '#313443', '#fff'],
+                color: ['#339A9F', '#ffffff'],
                 tooltip: {
-                    show: false,
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
                 },
-                legend: {
-                    show: false,
-                    itemGap: 12,
-                    data: ['01', '02']
-                },
-                toolbox: {
-                    show: false,
-                    feature: {
-                        mark: {
-                            show: true
-                        },
-                        dataView: {
-                            show: true,
-                            readOnly: false
-                        },
-                        restore: {
-                            show: true
-                        },
-                        saveAsImage: {
-                            show: true
-                        }
+                title: [{
+                    text: '装船箱量',
+                    x: '15%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '50',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
                     }
+                }, {
+                    text: '卸船箱量',
+                    x: '65%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '50',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }],
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['直达', '其他']
                 },
-                series: [{
-                    name: 'Line 1',
-                    type: 'pie',
-                    clockWise: false,
-                    radius: ['58%', '68%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: true,
-                    data: [{
-                        value: value - min,
-                        name: '01',
-                        itemStyle: {
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['25%', '30%'],
+                        startAngle: 90,
+                        label: {
                             normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
-                                    offset: 0,
-                                    color: color
-                                }, {
-                                    offset: 1,
-                                    color: color
-                                }]),
+                                show: false,
                             },
                         },
-                    }, {
-                        value: max - value,
-                        name: 'invisible',
-                        itemStyle: placeHolderStyle
+                        data: [
+                            { value: 4029, name: '装船箱量' },
+                            { value: 1971, name: '卸船箱量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['25%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 70,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 80,
+                                    fontSize: '80',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 4028, name: '装船箱量' }
+                        ]
+                    },
+
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['75%', '30%'],
+                        startAngle: 90,
+                        label: {
+                            normal: {
+                                show: false,
+                            },
+                        },
+                        data: [
+                            { value: 2996, name: '卸船数量' },
+                            { value: 3004, name: '装船数量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['75%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 70,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 80,
+                                    fontSize: '80',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 2996, name: '卸船数量' }
+                        ]
                     }
 
-                    ]
-                }, {
-                    name: 'Line 2',
-                    type: 'pie',
-                    animation: false,
-                    clockWise: false,
-                   radius: ['66%', '70%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: false,
-                    tooltip: {
-                        show: false
-                    },
-                    data: [{
-                        value: 0,
-                        name: '02',
-                        itemStyle: {
-                            normal: {
-                                color: color,
-                            },
-                        }
-                    }]
-                }]
+
+
+                ]
             }
         }
     }, {
         /** 进出闸口箱子斌状图 */
         sub: 'port_pie_zk',
         func: (ops) => {
-            /**
-             * 双层圆环图
-             * param1    value值  
-             * param2 3  最小最大值
-             * param4   字体及圆环大颜色
-             */
-
-            var value = ops.value;
-            var min = 0;
-            var max = 3000;
-            var size = '100%';
-            var initcolor = '#F26D12';
-
-            var color = initcolor;
-            var dataStyle = {
-                normal: {
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    },
-                    shadowBlur: 40,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
-            };
-            var placeHolderStyle = {
-                normal: {
-                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
-                    label: {
-                        show: false
-                    },
-                    labelLine: {
-                        show: false
-                    }
-                }
-            };
-
             return {
-                title: {
-                    text: value,
-                    x: 'center',
-                    y: '35%',
-                    textStyle: {
-                        fontWeight: 'normal',
-                        color: 'white',
-                        fontSize: parseInt(size) * 0.6
-                    },
-                    subtext: 'TEU',
-                    subtextStyle: {
-                        fontWeight: 'normal',
-                        color: 'white',
-                        fontSize: parseInt(size) * 0.4
-                    }
-                },
-                color: ['#fff', '#313443', '#fff'],
+                color: ['#ffffff', '#E15B01'],
                 tooltip: {
-                    show: false,
-                    formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b}: {c} ({d}%)"
                 },
-                legend: {
-                    show: false,
-                    itemGap: 12,
-                    data: ['01', '02']
-                },
-                toolbox: {
-                    show: false,
-                    feature: {
-                        mark: {
-                            show: true
-                        },
-                        dataView: {
-                            show: true,
-                            readOnly: false
-                        },
-                        restore: {
-                            show: true
-                        },
-                        saveAsImage: {
-                            show: true
-                        }
+                title: [{
+                    text: '进闸数量',
+                    x: '15%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '50',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
                     }
-                },
-                series: [{
-                    name: 'Line 1',
-                    type: 'pie',
-                    clockWise: false,
-                    radius: ['58%', '68%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: true,
-                    data: [{
-                        value: value - min,
-                        name: '01',
-                        itemStyle: {
-                            normal: {
-                                color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
-                                    offset: 0,
-                                    color: color
-                                }, {
-                                    offset: 1,
-                                    color: color
-                                }]),
-                            },
-                        },
-                    }, {
-                        value: max - value,
-                        name: 'invisible',
-                        itemStyle: placeHolderStyle
-                    }
-
-                    ]
                 }, {
-                    name: 'Line 2',
-                    type: 'pie',
-                    animation: false,
-                    clockWise: false,
-                   radius: ['66%', '70%'],
-                    itemStyle: dataStyle,
-                    hoverAnimation: false,
-                    tooltip: {
-                        show: false
-                    },
-                    data: [{
-                        value: 0,
-                        name: '02',
-                        itemStyle: {
+                    text: '出闸数量',
+                    x: '65%',
+                    y: '70%',
+                    textStyle: {
+                        fontSize: '50',
+                        fontWeight: 'bold',
+                        color: ['#ffffff'],
+                    }
+                }],
+                legend: {
+                    orient: 'vertical',
+                    x: 'left',
+                    data: ['直达', '其他']
+                },
+                series: [
+                    {
+                        name: '12312312321',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['25%', '30%'],
+                        startAngle: 0,
+                        label: {
                             normal: {
-                                color: color,
+                                show: false,
                             },
-                        }
-                    }]
-                }]
+                        },
+                        data: [
+                            { value: 3322, name: '进闸数量' },
+                            { value: 2678, name: '出闸数量' }
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['25%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 70,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 80,
+                                    fontSize: '80',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 3322, name: '出闸数量' }
+                        ]
+                    },
+
+
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        avoidLabelOverlap: false,
+                        selectedMode: 'single',
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['56%', '60%'],
+                        center: ['75%', '30%'],
+                        startAngle: 0,
+                        label: {
+                            normal: {
+                                show: false,
+                            }
+                        },
+                        data: [
+                            { value: 3360, name: '进闸箱数' },
+                            { value: 2640, name: '出闸箱数' },
+                            // {value:2996, name:'营销广告'},
+                            // {value:3004, name:'搜索引擎'}
+                        ]
+                    },
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        silent: true,
+                        hoverAnimation: false,
+                        legendHoverLink: false,
+                        radius: ['61%', '60%'],
+                        center: ['75%', '30%'],
+                        label: {
+                            normal: {
+                                show: true,
+                                formatter: ['{c}', '{b|TEU}'].join('\n'),
+                                rich: {
+                                    b: {
+                                        color: 'while',
+                                        height: 70,
+                                        fontSize: '40',
+                                        fontWeight: 'bold'
+                                    },
+                                },
+                                position: 'center',
+                                color: ['#ffffff'],
+                                textStyle: {
+                                    height: 80,
+                                    fontSize: '80',
+                                    fontWeight: 'bold'
+                                }
+                            },
+                        },
+                        data: [
+                            { value: 2640, name: '出闸箱数' }
+                        ]
+                    },
+                ]
             }
         }
     }, {

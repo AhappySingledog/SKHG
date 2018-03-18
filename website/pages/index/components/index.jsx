@@ -89,6 +89,9 @@ export default class App extends React.Component {
     warning = () => {
         console.log('warning');
     }
+    link = () => {
+        console.log('link');
+    }
     goBack =() => {
         let index = this.state.index;
         let oldProps = this.state.oldProps;
@@ -105,7 +108,7 @@ export default class App extends React.Component {
             { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
-        this.setState({cv: {}}, () => this.setState({cv: vedio || data[7]}));
+        this.setState({cv: {}}, () => this.setState({cv: data[7]}));
     }
     closeVedio = () => {
         this.setState({cv: {}});
@@ -128,6 +131,7 @@ export default class App extends React.Component {
                         <div className='mheader-iCount' onClick={this.iCount}/>
                         <div className='mheader-iCommand' onClick={this.iCommand}/>
                         <div className='mheader-warning' onClick={this.warning}/>
+                        <div className='mheader-link' onClick={this.link}/>
                         <div className='mheader-nt'>
                             <div className='mheader-name'>海关监管区域</div>
                             <Timer />
