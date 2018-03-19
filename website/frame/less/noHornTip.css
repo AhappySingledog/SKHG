@@ -1,0 +1,66 @@
+.tips {
+  z-index: 3;
+  -webkit-animation-name: fadeInRight;
+  animation-name: fadeInRight;
+}
+.tips-top {
+  height: 160px;
+  background: url('../images/noHornTip/上.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.tips-top-title {
+  text-align: center;
+  line-height: 122px;
+  color: white;
+  font-size: 70px;
+}
+.tips-top-close {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 42px;
+  height: 42px;
+}
+.tips-center {
+  background: url('../images/noHornTip/中.png') no-repeat;
+  background-size: 100% 100%;
+}
+.tips-center-content {
+  display: flex;
+  flex-direction: row;
+  padding: 0px 50px 0px 50px;
+  align-items: flex-start;
+}
+.tips-bottom {
+  height: 25px;
+  background: url('../images/noHornTip/下.png') no-repeat;
+  background-size: 100% 100%;
+}
+@-webkit-keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    -webkit-transform: translate3d(100%, 0, 0);
+    transform: translate3d(100%, 0, 0);
+  }
+  to {
+    opacity: 1;
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }
+}

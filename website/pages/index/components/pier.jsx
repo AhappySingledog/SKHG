@@ -55,10 +55,45 @@ class MapOperation extends React.Component {
     }
 
     componentDidMount() {
+        Object.keys(this.props.datas.mapExtent).forEach((key) => {
+            this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]);
+        });
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
         this.handleMTSJ(this.props.datas);
+
+        /** 大船显示 */
+        publish('vessel_GetListAsync').then((res) => {
+            this.handleBigship(this.ScreenWharf(res[0], this.props.datas.name));
+        });
+
+        /** 驳船显示 */
+        publish('barge_GetListAsync').then((res) => {
+            console.log(res[0]);
+            this.handleBarge(this.ScreenWharf(res[0], this.props.datas.name));
+        });
+
+        /** 外拖拖车 */
+        publish('truck_GetListAsync').then((res) => {
+            console.log(res[0]);
+            this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name));
+        });
     }
 
+    /** 筛选 */
+    ScreenWharf(data, name) {
+        let datas = [];
+        data.map((value, key) => {
+            if (value.terminal === name || value.Terminal === name) {
+                datas.push(value);
+            }
+            if (typeof (value.curstatus) !== "undefined") {
+                if (value.curstatus.indexOf(name)) {
+                    datas.push(value);
+                }
+            }
+        })
+        return datas;
+    }
 
     handleMTSJ = (datas) => {
         this.props.map.mapDisplay.clearLayer('port_view');
@@ -66,8 +101,8 @@ class MapOperation extends React.Component {
             mt: [255, 255, 255, 0],
         };
 
-        let dots = datas.geometry.coordinates[0].map((p) => { return { x: p[0], y: p[1] }; });
-        let name = datas.properties.name;
+        let dots = datas.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+        let name = datas.code;
         let fillColor = color.mt;
         let params = {
             id: 'port_view',
@@ -88,9 +123,9 @@ class MapOperation extends React.Component {
         }
         this.props.map.mapDisplay.polygon(params);
 
-        if (datas.name === 'SCT') {
-            
-            publish('webAction', {svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {}}).then((res) => {
+        if (datas.code === 'SCT') {
+
+            publish('webAction', { svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {} }).then((res) => {
                 console.log(res);
                 let data = JSON.parse(res).filter((e) => e.liveName.indexOf('SCT') >= 0);
                 initVideo(data);
@@ -261,6 +296,61 @@ class MapOperation extends React.Component {
     }
 
 
+    handleOutcar = (json) => {
+        let that = this;
+        for (let o in json) {
+            json[o]["key"] = "" + o + "";
+            json[o]["name"] = "拖车详情";
+            json[o]['colname'] = 'outcar';
+            if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
+                let param = {
+                    id: 'TRUCK_LAYER' + o,
+                    layerId: 'TRUCK_LAYER',
+                    src: TruckIcon,
+                    width: 140,
+                    height: 120,
+                    x: json[o].Curlng,
+                    y: json[o].Curlat,
+                    attr: { ...json[o] },
+                    click: this.onIconClick,
+                    layerIndex: 30,
+                    mouseover: (g) => {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140 + 36);
+                            symbol.setHeight(120 + 9);
+                        }
+                        g.setSymbol(symbol);
+                        let param2 = {
+                            id: 'TRUCK_LAYER',
+                            layerId: 'TRUCK_LAYER_HOVERTEXT',
+                            x: g.geometry.x,
+                            y: g.geometry.y,
+                            text: g.attributes.Truckno,
+                            size: '10pt',
+                            offsetX: 0,
+                            offsetY: 110,
+                            visible: true,
+                            layerIndex: 20,
+                        }
+                        that.props.map.mapDisplay.text(param2);
+                    },
+                    mouseout: (g) => {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140);
+                            symbol.setHeight(120);
+                        }
+                        g.setSymbol(symbol);
+                        that.props.map.mapDisplay.clearLayer('TRUCK_LAYER_HOVERTEXT');
+                    }
+                }
+                this.props.map.mapDisplay.image(param);
+            }
+
+        };
+    }
+
 
     /** 图标点击事件 */
     onIconClick = (e) => {
@@ -418,7 +508,7 @@ export default class Pier extends React.Component {
 
     state = { map: null }
     componentDidMount() {
-        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.props.datas.name);
+        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
     }
 
     /**

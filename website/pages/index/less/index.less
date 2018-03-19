@@ -1,4 +1,17 @@
 @import '../../../frame/less/common.less';
+
+@font-face {
+    font-family: 'DS-DIGIB_0';
+    src: url('./DS-DIGIB_0.eot');
+    /* IE9*/
+    src: url('./DS-DIGIB_0.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('./DS-DIGIB_0.woff') format('woff'), /* chrome、firefox */
+    url('./DS-DIGIB_0.ttf'    ) format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/
+    url('./DS-DIGIB_0.svg#DS-DIGIB_0') format('svg');
+    /* iOS 4.1- */
+}
+
+
 body>div {
     width: @scale * 3840px;
     height: @scale * 1080px;
@@ -631,8 +644,9 @@ body>div {
     display: flex;
     flex-direction: column;
     width: 33%;
-    background: url('../images/port/twoRight.png') no-repeat;
-    background-size: 100% 100%;
+    border: 1px solid #0682ec;
+    // background: url('../images/port/twoRight.png') no-repeat;
+    // background-size: 100% 100%;
 
     &-1 {
         position: absolute;
@@ -738,7 +752,272 @@ body>div {
     display: flex;
     flex-direction: row;
     flex-grow: 1;
-    
+}
+
+.Top{
+    display: flex;
+    flex-direction: row;
+    height: 728px;
+    width: 3740px;
+
+    &-left{
+        border: 1px solid #0682ec;
+        width: 65%;
+        margin: 40px;
+        display: flex;
+        flex-direction: row;
+        &-span{
+            height: 100%;
+            width: 170px;
+            color: white;
+            text-align: center;
+            display: inline-block;
+            box-sizing: border-box;
+            margin: 0px 90px 0px 80px;
+            padding: 120px 0px 0px 0px;
+            font-size: 75px;
+            line-height: 107px;
+            background: url('../images/port/标题组件.png') no-repeat;
+            background-size: 100% 100%;
+        }
+
+        &-Num{
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            &-top{
+                background: url('../images/port/数据bg框.png') no-repeat;
+                background-size: 100% 100%;
+                height: 50%;
+                margin: 35px 35px 17px 0px;
+            }
+            &-bot{
+                display: flex;
+                flex-direction: row;
+                height: 50%;
+                margin: 17px 35px 35px 0px;
+                color: white;
+                &-1{
+                        margin-right: 40px
+                }
+                >div{
+                    display: flex;
+                    flex-direction: column;
+                    width: 50%;
+                    text-align: center;
+                    background: #2A4F99;
+                        >div{
+                            border-bottom: 1px solid #ffffff;
+                            font-size: 70px;   
+                            padding: 20px 0px 20px 0px;
+                        };
+                        >span {
+                            font-family: "DS-DIGIB_0" !important;
+                            font-style: normal;
+                            -webkit-font-smoothing: antialiased;
+                            -webkit-text-stroke-width: 0.2px;
+                            padding-top: 15px;
+                            font-size: 140px
+                        }
+                }
+            }
+        }
+    }
+
+    &-right{
+        border: 1px solid #0682ec;
+        width: 1295px;
+        margin: 40px 15px 40px 0px;
+        display: flex;
+        flex-direction: column;
+        &-top{
+            font-size: 80px;
+            color: #ffffff;
+            margin: 36px;
+        }
+        &-center{
+            background: url('../images/port/数据bg框.png') no-repeat;
+            background-size: 100% 100%;
+            margin: 0px 36px 36px 36px;
+            padding: 25px;
+            >div {
+                font-size: 180px;
+                color : #089cef;
+                font-family: "DS-DIGIB_0" !important;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+                -webkit-text-stroke-width: 0.2px;
+            }
+        }
+        &-bot{
+            display: flex;
+            flex-direction: row;
+            margin: 0px 36px 36px 36px;
+            height: 100%;
+            color: white;
+            &-left{
+                width: 50%;
+                border: 3px solid #089cef;
+                border-radius: 9px;
+                margin-right: 60px;
+                background: #089cef;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            &-right{
+                width: 50%;
+                border: 3px solid #ffa92f;
+                border-radius: 9px;
+                background: #ffa92f;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            &-div{
+                font-size: 66px;
+            }
+            &-span{
+                font-size: 85px;
+            }
+        }
+
+
+    }
+}
+
+.Cen{
+    display: flex;
+    flex-direction: row;
+    height: 969px;;
+    width: 100%;
+
+    &-left{
+        display: flex;
+        flex-direction: column;
+        width: 50%;
+        border: 3px solid #0682ec;
+        margin: 0px 35px 0px 40px;
+    }
+
+    &-box{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+        height: 30%;
+        padding: 20px;
+        color: white;
+        &-zise{
+            background: url('../images/port/紫彩条框.png') no-repeat;
+            background-size: 100% 100%;
+            height: 100%;
+            width: 100%;
+            margin: 0px 10px 10px 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            >div{
+                font-size: 60px;
+            }
+            >span{
+                font-size: 70px;
+                margin-top: 70px;
+            }
+        }
+    }
+
+    &-pie{
+        display: flex;
+        flex-direction: row;
+        padding: 20px;
+        height: 70%;
+        padding: 0px 30px 20px 30px;
+        &-1{
+            border: 3px solid #0682ec; 
+            margin-right: 20px;
+            width: 50%;
+        }
+        &-2{
+            border: 3px solid #0682ec;
+            width: 50%;
+        }
+    }
+
+    &-center{
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        border: 3px solid #0682ec;
+        margin-right: 15px;
+    }
+
+    &-right{
+        display: flex;
+        flex-direction: column;
+        width: 25%;
+        border: 3px solid #0682ec;
+        margin-right: 15px;
+        padding: 15px;
+        &-top{
+            padding: 20px;
+            font-size: 70px;
+            color : #0682ec;
+            text-align: center;
+        }
+        &-bot{
+            border: 3px solid #0682ec;
+            width: 100%;
+            height: 100%;
+            &-violet{
+                display: flex;
+                flex-direction: row;
+                margin: 45px 0px 90px 45px;
+                >div{
+                    margin-left: 50px;
+                    >span{
+                        font-size: 60px;
+                        color: #6700fd;
+                    }
+                    >div{
+                        font-size: 60px;
+                        color: #f9f9f9;
+                    }
+                }
+            }
+            &-blue{
+                display: flex;
+                flex-direction: row;
+                margin: 0px 0px 90px 45px;
+                >div{
+                    margin-left: 50px;
+                    >span{
+                        font-size: 60px;
+                        color: #0058fd;
+                    }
+                    >div{
+                        font-size: 60px;
+                        color: #f9f9f9;
+                    }
+                }
+            }
+            &-green{
+                display: flex;
+                flex-direction: row;
+                margin: 0px 0px 0px 45px;
+                >div{
+                    margin-left: 50px;
+                    >span{
+                        font-size: 60px;
+                        color: #15a714;
+                    }
+                    >div{
+                        font-size: 60px;
+                        color: #f9f9f9;
+                    }
+                }
+            }
+        }
+    }
 }
 
 /** 右侧结束 */
@@ -753,97 +1032,45 @@ body>div {
 /***************************************************************
 **********************第二层页面替补框开始************************
 ***************************************************************/
-@-webkit-keyframes fadeInRight {
-    from {
-      opacity: 0;
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-  
-    to {
-      opacity: 0.5;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }
-  
-  @keyframes fadeInRight {
-    from {
-      opacity: 0;
-      -webkit-transform: translate3d(100%, 0, 0);
-      transform: translate3d(100%, 0, 0);
-    }
-  
-    to {
-      opacity: 0.5;
-      -webkit-transform: translate3d(0, 0, 0);
-      transform: translate3d(0, 0, 0);
-    }
-  }
-
-.portTip{
-    position: absolute;
-    background: url('../images/port/SCTdatajson.png') no-repeat;
-    background-size: 100% 100%;
-    width : 1179px;
-    height: 527px;
-    bottom: 240px;
-    right: 30px;
-    -webkit-animation-name: fadeInRight;
-    animation-name: fadeInRight;
-}
-
-.portSmallTip{
-    -webkit-animation-name: fadeInRight;
-    animation-name: fadeInRight;
-}
-
-
-
 
 .Msg{
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
+    height: 800px;
+    color : white;
 
-    &-title{
-        background: url('../images/port/Bottomframe.png') no-repeat;
-        background-size: 100%,100%;
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-around;
-        color: white;
-        font-size: 50px;
-        padding-bottom: 11px;
-        margin-bottom: 9px;
 
-    }
-    &-row{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        color : white;
-
+        &-corner{
+            background: url('../images/port/corner.png') no-repeat;
+            background-size: 95%,100%;
+            background-position: 50%;
+       
         &-flex{
             border: 1px solid #0682ec;
             font-size: 80px;
-            padding: 10px 20px 10px 30px;
-            margin: 0 15px;
+            padding: 20px;
+            margin: 40px;
+            display: flex;
+            flex-direction: row;
+            line-height: 143px;
             &-InShip{
                 display: flex;
                 flex-direction: row;
+                align-items: center;
                  > span{
                     width: 160px;
+                    line-height: 100px;
                  }
             }
             &-InBigShip{
                 display: flex;
                 flex-direction: row;
+                align-items: center;
                 > span{
                     width: 160px;
+                    line-height: 100px;
                 };
                 
                 &-val{
@@ -872,17 +1099,65 @@ body>div {
 .Pie{
     display: flex;
     flex-direction: column;
-    margin-top: 30px;
-    margin-left: 13px;
 }
 
-.homeRightE {
+.homeRightEcharts {
     flex-grow: 1;
     display: flex;
-    flex-direction: column;
-
-    > div {
+    flex-direction: row;
+    &-tip{
         flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    &-span{
+        text-align: center;
+        margin-bottom: 20px;
+        >span{
+            color: #ffffff;
+        }
+    }
+   
+}
+
+/***********************
+*******园区等界面********
+***********************/
+.mtables{
+    position: absolute;
+    right: 50px;
+    bottom: 5%;
+    color: white;
+    font-size: 60px;
+    -webkit-animation-name: fadeInRight;
+    animation-name: fadeInRight;
+    &-top{
+        background: url('../images/port/上.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        padding: 54px;
+    }
+    &-center{
+        background: url('../images/port/中.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        &-value{
+            margin-top: 40px;
+            >span{
+                padding:  100px;
+            }
+        }
+    }
+    &-bot{
+        background: url('../images/port/下.png') no-repeat;
+        background-size: 100% 100%;
+        height: 50px;
+        padding:  40px;
     }
 }
 
@@ -1048,7 +1323,7 @@ body>div {
         width: @wd;
         height: @ht;
         margin: 0 (@mlr * @scale);
-        @url: '../images/port/@{number}.png';
+        @url: '../images/port/number/@{number}.png';
         background: url(@url) no-repeat;
         background-size: 100% 103%;
     }
@@ -1065,7 +1340,7 @@ body>div {
     flex-wrap: nowrap;
     justify-content: flex-end;
     align-items: flex-end;
-    height: 100%;
+    // height: 100%;
 }
 
 .numberLoop(9);
@@ -1073,6 +1348,41 @@ body>div {
 .number(break, 25px, 36px, 0px);
 
 .number(point, 25px, 25px, 0px);
+
+/************************
+*************************
+************************/
+
+.numbers(@number, @wd, @ht, @mlr) {
+    .numbers-@{number} {
+        width: @wd;
+        height: @ht;
+        margin: 0 (@mlr);
+        @url: '../images/port/number/@{number}.png';
+        background: url(@url) no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.numberLoop(@number, @i: 0) when (@i =< @number) {
+    .numbers(@i, 198px, 265px, 15px);
+    .numberLoop(@number, (@i + 1));  
+}
+
+.numbers-view{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-end;
+    align-items: flex-end;
+    // height: 100%;
+}
+
+.numberLoop(9);
+
+.numbers(break, 25px, 36px, 0px 38px 0px 38px);
+
+.numbers(point, 25px, 25px, 0px 38px 0px 38px);
 
 .test {
     &-tip {
@@ -1093,3 +1403,30 @@ body>div {
         transform: scale(1.5);
     }
 }
+@-webkit-keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  
+  @keyframes fadeInRight {
+    from {
+      opacity: 0;
+      -webkit-transform: translate3d(100%, 0, 0);
+      transform: translate3d(100%, 0, 0);
+    }
+  
+    to {
+      opacity: 1;
+      -webkit-transform: translate3d(0, 0, 0);
+      transform: translate3d(0, 0, 0);
+    }
+  }
