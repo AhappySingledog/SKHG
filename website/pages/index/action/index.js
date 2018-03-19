@@ -836,5 +836,103 @@ subscribes(
         func: (ops) => {
             return truck;
         }
+    }, {
+        /** 业务数据-雷达图 */
+        sub: 'home_right_e_ldt',
+        func: (ops) => {
+            let option = {
+                color: ['red', 'yellow'],
+                tooltip: {
+                    textStyle: {
+                        fontSize: 40,
+                    }
+                },
+                legend: {
+                    top: '2%',
+                    itemWidth: 50,
+                    itemHeight: 30,
+                    itemGap: 30,
+                    textStyle: {
+                        fontSize: 45,
+                        color: 'white'
+                    },
+                    data: ['2017年12月', '2018年一月']
+                },
+                radar: [
+                    {
+                        indicator: [
+                            { name: '入库税款（亿元）', max: 15 },
+                            { name: '报关单量（万票）', max: 20 },
+                            { name: '查验时效-进口（小时）', max: 20 },
+                            { name: '查验时效-出口（小时）', max: 10 },
+                            { name: '通关时效-进口（小时）', max: 40 },
+                            { name: '通关时效-出口（小时）', max: 5 }
+                        ],
+                        center: ['50%', '52%'],
+                        //radius: 200,
+                        startAngle: 90,
+                        splitNumber: 4,
+                        //shape: 'circle',
+                        name: {
+                            formatter: '{value}',
+                            textStyle: {
+                                color: 'white',
+                                fontSize: 40
+                            }
+                        },
+                        splitArea: {
+                            areaStyle: {
+                                color: ['rgba(114, 172, 209, 0.2)',
+                                    'rgba(114, 172, 209, 0.4)', 'rgba(114, 172, 209, 0.6)',
+                                    'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'],
+                                shadowColor: 'rgba(0, 0, 0, 0.3)',
+                                shadowBlur: 10
+                            }
+                        },
+                        axisLine: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.5)'
+                            }
+                        },
+                        splitLine: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.5)'
+                            }
+                        }
+                    },
+                ],
+                series: [{
+                    name: '业务数据',
+                    type: 'radar',
+                    // areaStyle: {normal: {}},
+                    symbolSize: 30,
+                    label: {
+                        fontSize: 50,
+                    },
+                    lineStyle: {
+                        width: 10,
+                    },
+                    data: [
+                        {
+                            value: [14.2, 14.3, 3.59, 1.41, 18.45, 1],
+                            name: '2017年12月',
+                            symbolSize: 30,
+                            lineStyle: {
+                                width: 20,
+                            },
+                        },
+                        {
+                            value: [11.4, 14.1, 2.69, 1.85, 19.55, 0.88],
+                            name: '2018年一月',
+                            symbolSize: 30,
+                            lineStyle: {
+                                width: 20,
+                            },
+                        }
+                    ]
+                }]
+            };
+            return option;
+        }
     }
 );

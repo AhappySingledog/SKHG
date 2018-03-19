@@ -7,6 +7,13 @@ import $ from 'jquery';
 // tip组件
 export default class Table extends React.Component {
     componentDidUpdate() {
+        this.bindClick();
+        $('#' + this.props.id).addClass('slideInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.id).removeClass('slideInUp animated'));
+    }
+    componentDidMount() {
+        this.bindClick();
+    }
+    bindClick = () => {
         if (this.props.trClick) {
             let datas = this.props.datas;
             $(ReactDOM.findDOMNode(this.refs.table)).find('tbody>tr').each((i, e) => {
@@ -32,13 +39,13 @@ export default class Table extends React.Component {
         let { flds = [], datas = [] } = this.props;
         return (
             <div className='mtable' style={this.props.style} ref='table'>
-                <table>
+                <table id={this.props.id}>
                     <thead>
                         <tr>
                             {flds.map((fld, i) => <td key={i}>{fld.title}</td>)}
                         </tr>
                     </thead>
-                    <tbody id={this.props.id}>
+                    <tbody>
                         {datas.map((data, i) => 
                             <tr key={i}>
                                 {flds.map((fld, j) => <td key={j}>{data && data[fld.name]}</td>)}

@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio, ViwePager } from '../../../frame/componets/index';
+import { Vedio, ViwePager, Table, Panel } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
@@ -21,7 +21,7 @@ class Timer extends React.Component {
                 if (res[0].message === 'Success !') { tq = res[0].data.forecast[0].type; }
             });
         }
-        initWeather();
+        //initWeather();
         setInterval(() => {
             let msg = moment().format('YYYY年MM月DD日 ') + week[moment().format('e')] + moment().format(' HH:mm:ss') + '           ' + tq;
             this.setState({ msg });
@@ -33,6 +33,62 @@ class Timer extends React.Component {
     }
 }
 
+let temp = [
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+];
+class MyLink extends React.Component {
+    state = {
+        items: [
+            {name: '旅检移泊确认', show: true},
+            {name: '整泊换装确认', show: false}
+        ],
+        datas: temp
+    }
+    clickTitle = (index) => {
+        let items = this.state.items;
+        let datas = temp.slice((Math.random() * 7).toFixed(0));
+        items.forEach((e, i) => e.show = (i === index));
+        this.setState({items: items, datas: datas});
+    }
+    componentWillUnmount() {
+        if (this.sub_showTip) unsubscribe(this.sub_showTip);
+    }
+    render() {
+        let flds = [
+            {title: '船名', name: 'name'},
+            {title: '航次', name: 'hc'},
+            {title: '预计靠泊港区', name: 'gq'},
+            {title: '预计靠泊泊位', name: 'bw'},
+            {title: '预计靠泊时间', name: 'sj'},
+            {title: '整船柜数量(E/F)', name: 'sl'},
+            {title: '处理', name: 'cl'},
+        ];
+        return (
+            <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950 }}>
+                <div className='warningTip-t'></div>
+                <div className='warningTip-b'>
+                    <Panel style={{padding: '20px 25px', width: 2365, height: 1071}}>
+                        <div className='warningTip-b-title'>
+                            {this.state.items.map((e, i) => <div onClick={() => this.clickTitle(i)} className={e.show ? 'warningTip-b-title-1' : 'warningTip-b-title-2'} key={i}>{e.name}</div>)}
+                        </div>
+                        <div className='warningTip-b-body'>
+                            <Table style={{width: 2361, height: 954, overflow: 'auto'}} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null}/>
+                        </div>
+                    </Panel>
+                </div>
+            </div>
+        );
+    }
+}
+
 export default class App extends React.Component {
     state = {
         index: null,
@@ -41,6 +97,7 @@ export default class App extends React.Component {
         curProps: {},
         cv: {},
         viwePager: null,
+        warningTip: false,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
@@ -91,6 +148,9 @@ export default class App extends React.Component {
     }
     link = () => {
         console.log('link');
+        let flag = !this.state.warningTip;
+        if (flag) this.setState({warningTip: flag}, () => $('.warningTip').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.warningTip').removeClass('showAnimete_1 animated')));
+        else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({warningTip: flag}); });
     }
     goBack =() => {
         let index = this.state.index;
@@ -142,6 +202,7 @@ export default class App extends React.Component {
                 <div className='mfooter'/>
                 {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
                 {this.state.viwePager ? <div id='imgsDisplay' style={{position: 'absolute', top: 462, left: 5126, zIndex: 10}}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{width: 2538, height: 2683}} boxStyle="content" interval={4000} close={this.closeImgs}/></div> : null}
+                {this.state.warningTip ? <MyLink/> : null}
             </div>
         )
     }

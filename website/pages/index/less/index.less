@@ -381,6 +381,62 @@ body>div {
     }
 }
 
+.warningTip {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+    width: fit-content;
+    &-t {
+        margin-right: 7px;
+        width: 238px;
+        height: 119px;
+        background: url('../images/尖角.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    &-b {
+        width: 2466px;
+        height: 1168px;
+        background: url('../images/底框.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        &-title {
+            display: flex;
+            flex-direction: row;
+            height: 112px;
+            &-1 {
+                flex-grow: 1;
+                background: #002E73;
+                font-size: 60px;
+                color: white;
+                text-align: center;
+                line-height: 110px;
+                cursor: pointer;
+                border: 1px solid #1890ff;
+            }
+            &-1:hover {
+                background: #0A81E7;
+            }
+            &-2 {
+                flex-grow: 1;
+                font-size: 60px;
+                color: rgba(255, 255, 255, 0.6);
+                text-align: center;
+                line-height: 110px;
+                cursor: pointer;
+                border: 1px solid #1890ff;
+            }
+            &-2:hover {
+                background: #0A81E7;
+                color: rgba(255, 255, 255, 1);
+            }
+        }
+    }
+}
+
 .homeRightE {
     flex-grow: 1;
     display: flex;
@@ -529,6 +585,8 @@ body>div {
         color: white;
         font-size: 45px;
         text-indent: 2em;
+        height: 350px;
+        overflow: auto;
     }
 }
 

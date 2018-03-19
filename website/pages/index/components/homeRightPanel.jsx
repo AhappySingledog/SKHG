@@ -126,11 +126,31 @@ class ClassicCase extends React.Component {
 
 // 首页右侧组件
 export default class HomeRightPanel extends React.Component {
+    state = {
+        eRadar: true
+    }
     componentDidMount() {
+        this.eRadar();
+    }
+    eBar = () => {
         publish('home_right_e').then((res) => {
             if (this.chart) this.chart.dispose();
             this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
             this.chart.setOption(res[0]);
+        });
+    }
+    eRadar = () => {
+        publish('home_right_e_ldt').then((res) => {
+            if (this.chart) this.chart.dispose();
+            this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
+            this.chart.setOption(res[0]);
+        });
+    }
+    Radar = () => {
+        let flag = !this.state.eRadar;
+        this.setState({eRadar: flag}, () => {
+            if (flag) this.eRadar();
+            else this.eBar();
         });
     }
     componentWillUnmount() {
@@ -149,7 +169,7 @@ export default class HomeRightPanel extends React.Component {
                 </div>
                 <div className='homeRightP-r'>
                     <Panel style={{padding: '20px 25px'}}>
-                        <div className='echart-title'>业务数据</div>
+                        <div className='echart-title' style={{cursor: 'pointer'}} onClick={this.Radar}>业务数据</div>
                         <div ref="echart" style={{width: 2202, height: 1132}}></div>
                     </Panel>
                     <Panel style={{padding: '20px 25px', height: 1287}}>

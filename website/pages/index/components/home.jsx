@@ -228,13 +228,8 @@ export default class Home extends React.Component {
             var $button = $('<button id="bt" title="港口列表" class="cesium-button cesium-toolbar-button cesium-home-button" style="width: 120px; height: 120px;" type="button"><div class="rightP-zk"></div></button>');
             $button.click(() => {
                 let flag = !this.state.showTip;
-                this.setState({showTip: flag}, () => {
-                    if (flag) { 
-                        $('#rightP').css({ display: '' }); 
-                        $('.rightP').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.rightP').removeClass('showAnimete_1 animated')); 
-                    }
-                    else $('.rightP').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.rightP').removeClass('showAnimete_2 animated'); $('#rightP').css({ display: 'none' }); });
-                });
+                if (flag) this.setState({showTip: flag}, () => $('.rightP').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.rightP').removeClass('showAnimete_1 animated')));
+                else $('.rightP').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.rightP').removeClass('showAnimete_2 animated'); this.setState({showTip: flag}); });
             });
             $('.cesium-viewer-toolbar').append($button);
         });
@@ -288,7 +283,7 @@ export default class Home extends React.Component {
                 <div className='homeRight' style={{ paddingLeft: 20 }}>
                     <HomeRightPanel />
                 </div>
-                <div id='rightP'>
+                {this.state.showTip ?
                     <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470 }}>
                         <div className='rightP-t'/>
                         <div className='rightP-c'>
@@ -296,8 +291,7 @@ export default class Home extends React.Component {
                             {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{width: 1600}} port={this.state.tip} /> : null}
                         </div>
                         <div className='rightP-b'/>
-                    </div>
-                </div>
+                    </div> : null}
             </div>
         )
     }
