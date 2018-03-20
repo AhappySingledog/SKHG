@@ -987,7 +987,7 @@ subscribes(
                         fontSize: 45,
                         color: 'white'
                     },
-                    data: ['2017年12月', '2018年一月']
+                    data: ['2017年12月', '2018年1月']
                 },
                 radar: [
                     {
@@ -1051,7 +1051,7 @@ subscribes(
                         },
                         {
                             value: [11.4, 14.1, 2.69, 1.85, 19.55, 0.88],
-                            name: '2018年一月',
+                            name: '2018年1月',
                             lineStyle: {
                                 width: 30
                             },

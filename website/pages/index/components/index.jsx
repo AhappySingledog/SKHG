@@ -59,6 +59,22 @@ class MyLink extends React.Component {
         items.forEach((e, i) => e.show = (i === index));
         this.setState({items: items, datas: datas});
     }
+    cl = (data, fld) => {
+        console.log(data);
+    }
+    qx = (data, fld) => {
+        console.log(data);
+    }
+    myTd = (trIndex, data, fld, tdIndex) => {
+        if (fld.name === 'cl') {
+            return <div style={{display: 'flex', flexDirection: 'row'}}>
+                <div className='link-cl' onClick={() => this.cl(data, fld)}>处理</div>
+                <div style={{margin: '0 5px'}}>|</div>
+                <div className='link-qx'  onClick={() => this.qx(data, fld)}>取消</div>
+            </div>
+        }
+        return data[fld.name];
+    }
     componentWillUnmount() {
         if (this.sub_showTip) unsubscribe(this.sub_showTip);
     }
@@ -81,7 +97,7 @@ class MyLink extends React.Component {
                             {this.state.items.map((e, i) => <div onClick={() => this.clickTitle(i)} className={e.show ? 'warningTip-b-title-1' : 'warningTip-b-title-2'} key={i}>{e.name}</div>)}
                         </div>
                         <div className='warningTip-b-body'>
-                            <Table style={{width: 2361, height: 954, overflow: 'auto'}} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null}/>
+                            <Table style={{width: 2361, height: 954, overflow: 'auto'}} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd}/>
                         </div>
                     </Panel>
                 </div>
