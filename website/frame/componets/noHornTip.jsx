@@ -18,7 +18,7 @@ export default class noHornTip extends React.Component {
                 <div className='tips-center'>
                     <div className='tips-center-content'>{this.props.children}</div>
                 </div>
-                <div className='tips-bottom'/>
+                <div className='tips-bottom' />
             </div>
         )
     }

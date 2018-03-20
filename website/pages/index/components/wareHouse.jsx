@@ -22,11 +22,11 @@ export default class WareHouse extends React.Component {
             <div className="house">
                 <div className="houseleft">
                     <div className="houseleft-map">
-                        <div className='test-sxt' style={{top: 772, left: 890}} onClick={() => publish('playVedio')}/>
-                        <div className='test-sxt' style={{top: 1200, left: 3114}} onClick={() => publish('playVedio')}/>
-                        <div className='test-sxt' style={{top: 2100, left: 1200}} onClick={() => publish('playVedio')}/>
-                        <div className='test-sxt' style={{top: 1900, left: 4325}} onClick={() => publish('playVedio')}/>
-                        <div className='test-sxt' style={{top: 765, left: 6325}} onClick={() => publish('playVedio')}/>
+                        <div className='test-sxt' style={{ top: 772, left: 890 }} onClick={() => publish('playVedio')} />
+                        <div className='test-sxt' style={{ top: 1200, left: 3114 }} onClick={() => publish('playVedio')} />
+                        <div className='test-sxt' style={{ top: 2100, left: 1200 }} onClick={() => publish('playVedio')} />
+                        <div className='test-sxt' style={{ top: 1900, left: 4325 }} onClick={() => publish('playVedio')} />
+                        <div className='test-sxt' style={{ top: 765, left: 6325 }} onClick={() => publish('playVedio')} />
                     </div>
                 </div>
                 <div className="houseright">

@@ -12,7 +12,8 @@
       "description": "第三方开源接口",
       "url": "http://www.sojson.com/open/api",
       "proxy": "proxy"
-    },{
+    },
+    {
       "name": "QUERY_KHSJ",
       "description": "客户特殊箱数据",
       "url": "http://172.18.15.182:8081",

@@ -35,21 +35,21 @@ class Timer extends React.Component {
 }
 
 let temp = [
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
-    {name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消'},
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
+    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
 ];
 class MyLink extends React.Component {
     state = {
         items: [
-            {name: '旅检移泊确认', show: true},
-            {name: '整泊换装确认', show: false}
+            { name: '旅检移泊确认', show: true },
+            { name: '整泊换装确认', show: false }
         ],
         datas: temp
     }
@@ -57,7 +57,7 @@ class MyLink extends React.Component {
         let items = this.state.items;
         let datas = temp.slice((Math.random() * 7).toFixed(0));
         items.forEach((e, i) => e.show = (i === index));
-        this.setState({items: items, datas: datas});
+        this.setState({ items: items, datas: datas });
     }
     cl = (data, fld) => {
         console.log(data);
@@ -67,10 +67,10 @@ class MyLink extends React.Component {
     }
     myTd = (trIndex, data, fld, tdIndex) => {
         if (fld.name === 'cl') {
-            return <div style={{display: 'flex', flexDirection: 'row'}}>
+            return <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className='link-cl' onClick={() => this.cl(data, fld)}>处理</div>
-                <div style={{margin: '0 5px'}}>|</div>
-                <div className='link-qx'  onClick={() => this.qx(data, fld)}>取消</div>
+                <div style={{ margin: '0 5px' }}>|</div>
+                <div className='link-qx' onClick={() => this.qx(data, fld)}>取消</div>
             </div>
         }
         return data[fld.name];
@@ -80,24 +80,24 @@ class MyLink extends React.Component {
     }
     render() {
         let flds = [
-            {title: '船名', name: 'name'},
-            {title: '航次', name: 'hc'},
-            {title: '预计靠泊港区', name: 'gq'},
-            {title: '预计靠泊泊位', name: 'bw'},
-            {title: '预计靠泊时间', name: 'sj'},
-            {title: '整船柜数量(E/F)', name: 'sl'},
-            {title: '处理', name: 'cl'},
+            { title: '船名', name: 'name' },
+            { title: '航次', name: 'hc' },
+            { title: '预计靠泊港区', name: 'gq' },
+            { title: '预计靠泊泊位', name: 'bw' },
+            { title: '预计靠泊时间', name: 'sj' },
+            { title: '整船柜数量(E/F)', name: 'sl' },
+            { title: '处理', name: 'cl' },
         ];
         return (
             <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950 }}>
                 <div className='warningTip-t'></div>
                 <div className='warningTip-b'>
-                    <Panel style={{padding: '20px 25px', width: 2365, height: 1071}}>
+                    <Panel style={{ padding: '20px 25px', width: 2365, height: 1071 }}>
                         <div className='warningTip-b-title'>
                             {this.state.items.map((e, i) => <div onClick={() => this.clickTitle(i)} className={e.show ? 'warningTip-b-title-1' : 'warningTip-b-title-2'} key={i}>{e.name}</div>)}
                         </div>
                         <div className='warningTip-b-body'>
-                            <Table style={{width: 2361, height: 954, overflow: 'auto'}} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd}/>
+                            <Table style={{ width: 2361, height: 954, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd} />
                         </div>
                     </Panel>
                 </div>
@@ -120,7 +120,7 @@ export default class App extends React.Component {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
-        publish('changeLayer', {index: 0, props: {}});
+        publish('changeLayer', { index: 0, props: {} });
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -165,18 +165,18 @@ export default class App extends React.Component {
     }
     warning = () => {
         console.log('warning');
-        publish('changeLayer', {index: 4, props: {}});
+        publish('changeLayer', { index: 4, props: {} });
     }
     link = () => {
         console.log('link');
         let flag = !this.state.warningTip;
-        if (flag) this.setState({warningTip: flag}, () => $('.warningTip').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.warningTip').removeClass('showAnimete_1 animated')));
-        else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({warningTip: flag}); });
+        if (flag) this.setState({ warningTip: flag }, () => $('.warningTip').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.warningTip').removeClass('showAnimete_1 animated')));
+        else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({ warningTip: flag }); });
     }
-    goBack =() => {
+    goBack = () => {
         let index = this.state.index;
         let oldProps = this.state.oldProps;
-        if (index >= 1) this.changeLayer({index: index - 1, props: oldProps});
+        if (index >= 1) this.changeLayer({ index: index - 1, props: oldProps });
     }
     playVedio = (vedio) => {
         let data = [
@@ -189,16 +189,16 @@ export default class App extends React.Component {
             { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
-        this.setState({cv: {}}, () => this.setState({cv: data[7]}));
+        this.setState({ cv: {} }, () => this.setState({ cv: data[7] }));
     }
     closeVedio = () => {
-        this.setState({cv: {}});
+        this.setState({ cv: {} });
     }
     playImgs = (imgs) => {
-        this.setState({viwePager: {imgs: imgs}}, () => $('#imgsDisplay').addClass('bounceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#imgsDisplay').removeClass('bounceInLeft animated')));
+        this.setState({ viwePager: { imgs: imgs } }, () => $('#imgsDisplay').addClass('bounceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#imgsDisplay').removeClass('bounceInLeft animated')));
     }
     closeImgs = () => {
-        $('#imgsDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('#imgsDisplay').removeClass('bounceOutLeft animated');this.setState({viwePager: null});});
+        $('#imgsDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#imgsDisplay').removeClass('bounceOutLeft animated'); this.setState({ viwePager: null }); });
     }
     render() {
         return (
@@ -206,13 +206,13 @@ export default class App extends React.Component {
                 <div className='mheader'>
                     <div className='mheader-title'>蛇口海关iMap智慧管理系统</div>
                     <div className='mheader-top'>
-                        <div className='mheader-back' onClick={this.goBack}/>
-                        <div className='mheader-home' onClick={() => this.changeLayer(0, {})}/>
-                        <div className='mheader-iQuery' onClick={this.iQuery}/>
-                        <div className='mheader-iCount' onClick={this.iCount}/>
-                        <div className='mheader-iCommand' onClick={this.iCommand}/>
-                        <div className='mheader-warning' onClick={this.warning}/>
-                        <div className='mheader-link' onClick={this.link}/>
+                        <div className='mheader-back' onClick={this.goBack} />
+                        <div className='mheader-home' onClick={() => this.changeLayer(0, {})} />
+                        <div className='mheader-iQuery' onClick={this.iQuery} />
+                        <div className='mheader-iCount' onClick={this.iCount} />
+                        <div className='mheader-iCommand' onClick={this.iCommand} />
+                        <div className='mheader-warning' onClick={this.warning} />
+                        <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>海关监管区域</div>
                             <Timer />
@@ -220,10 +220,10 @@ export default class App extends React.Component {
                     </div>
                 </div>
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
-                <div className='mfooter'/>
+                <div className='mfooter' />
                 {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
-                {this.state.viwePager ? <div id='imgsDisplay' style={{position: 'absolute', top: 462, left: 5126, zIndex: 10}}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{width: 2538, height: 2683}} boxStyle="content" interval={4000} close={this.closeImgs}/></div> : null}
-                {this.state.warningTip ? <MyLink/> : null}
+                {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
+                {this.state.warningTip ? <MyLink /> : null}
             </div>
         )
     }

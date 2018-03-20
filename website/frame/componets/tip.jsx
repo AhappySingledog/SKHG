@@ -18,7 +18,7 @@ export default class Tip extends React.Component {
                 <div className='tip-center'>
                     <div className='tip-center-content'>{this.props.children}</div>
                 </div>
-                <div className='tip-bottom'/>
+                <div className='tip-bottom' />
             </div>
         )
     }

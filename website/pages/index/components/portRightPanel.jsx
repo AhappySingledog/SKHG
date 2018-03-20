@@ -94,7 +94,7 @@ class PortRightTop extends React.Component {
 /** 右侧中 */
 class PortRightCen extends React.Component {
     render() {
-        const data = [{'value' : '78','name':'通关效率'},{'value':'65','name':'查验时效'}];
+        const data = [{ 'value': '78', 'name': '通关效率' }, { 'value': '65', 'name': '查验时效' }];
         publish('port_pie_xl', { value: data[0] || 0 }).then((res) => {
             if (this.chart8) this.chart8.dispose();
             this.chart8 = echarts.init(ReactDOM.findDOMNode(this.refs.echart8));
@@ -107,7 +107,7 @@ class PortRightCen extends React.Component {
             this.chart9.setOption(res[0]);
         });
 
-        
+
         const boxNum = [
             {
                 'name': '查验完毕柜数', 'num': '7856'

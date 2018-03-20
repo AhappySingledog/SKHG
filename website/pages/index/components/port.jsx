@@ -78,31 +78,39 @@ class MapOperation extends React.Component {
             this.handleMTSJ(res[0].data);
         });
 
-
-        // 插入区域信息
-        // let a = res[0][0].features.map((e, i) => {
-        //     return {
-        //         attr: {
-        //             NAME: e.properties.name,
-        //             CODE: e.name || '',
-        //             TYPE: '',
-        //             SSDW: '',
-        //             SSDWNAME: '',
-        //             XMIN: e.mapExtent.xmin,
-        //             XMAX: e.mapExtent.xmax,
-        //             YMIN: e.mapExtent.ymin,
-        //             YMAX: e.mapExtent.ymax,
-        //             LAYER: '',
-        //         },
-        //         geom: {
-        //             rings: [
-        //                 e.geometry.coordinates,
-        //             ]
+        // let insertArea = () => {// 插入区域信息
+        //     $.ajax({
+        //         dataType: 'json', url: '../portTest.json', async: false, success: (res) => {
+        //             let a = res.features.map((e, i) => {
+        //                 return {
+        //                     attr: {
+        //                         NAME: e.properties.name,
+        //                         CODE: e.name || '',
+        //                         TYPE: '',
+        //                         SSDW: '',
+        //                         SSDWNAME: '',
+        //                         XMIN: '',
+        //                         XMAX: '',
+        //                         YMIN: '',
+        //                         YMAX: '',
+        //                         LAYER: '',
+        //                     },
+        //                     geom: {
+        //                         rings: [
+        //                             e.geometry.coordinates,
+        //                         ]
+        //                     }
+        //                 };
+        //             });
+        //             console.log(a);
+        //             publish('webAction', { svn: 'skhg_service', type: 'post', path: 'insertArea', data: { datas: JSON.stringify(a) } }).then((res) => {
+        //                 console.log(res);
+        //             });
         //         }
-        //     };
-        // })
+        //     });
+        // }
 
-
+        // insertArea();
 
         /** 大船显示 */
         publish('vessel_GetListAsync').then((res) => {
@@ -693,7 +701,7 @@ export default class Port extends React.Component {
                     <div className='portRight-4' onClick={() => publish('playVedio')}></div>
                 </div> */}
 
-                
+
             </div>
 
         )

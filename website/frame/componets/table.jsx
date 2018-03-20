@@ -48,7 +48,7 @@ export default class Table extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {datas.map((data, i) => 
+                        {datas.map((data, i) =>
                             <tr key={i}>
                                 {flds.map((fld, j) => <td key={j}>{this.props.myTd ? this.props.myTd(i, data, fld, j) : data && data[fld.name]}</td>)}
                             </tr>

@@ -164,11 +164,11 @@ export default class Home extends React.Component {
                     autoScale(entity);
                     index++;
                     if (index >= ports.length) clearInterval(timer);
-                },2 * 1000);
+                }, 2 * 1000);
             }
 
             Cesium.Camera.DEFAULT_VIEW_RECTANGLE = Cesium.Rectangle.fromDegrees(54, 60, 147, 12); //主页默认视角 
-            
+
             drawPorts(ports);
             setTimeout(() => {
                 viewer.camera.flyTo({ //定位并缩放
@@ -196,7 +196,7 @@ export default class Home extends React.Component {
                             destination: Cesium.Cartesian3.fromDegrees(p.geo[0], p.geo[1], 15500000.0)
                         });
                         this.handleShowTip(p.id);
-                        this.setState({selectedIndex: index});
+                        this.setState({ selectedIndex: index });
                     }
                 }, Cesium.ScreenSpaceEventType.LEFT_CLICK);
                 // handler.setInputAction(function (movement) {
@@ -221,15 +221,15 @@ export default class Home extends React.Component {
                 autoRotate();
             }, 30 * 1000);
         }).then(() => {
-            $('.cesium-viewer-toolbar').css({ zIndex: 9});
+            $('.cesium-viewer-toolbar').css({ zIndex: 9 });
             $('.cesium-toolbar-button').css({ width: '120px', height: '120px' });
             $('.cesium-baseLayerPicker-item').css({ width: '144px' });
             $('.cesium-viewer-bottom').css({ display: 'none' });
             var $button = $('<button id="bt" title="港口列表" class="cesium-button cesium-toolbar-button cesium-home-button" style="width: 120px; height: 120px;" type="button"><div class="rightP-zk"></div></button>');
             $button.click(() => {
                 let flag = !this.state.showTip;
-                if (flag) this.setState({showTip: flag}, () => $('.rightP').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.rightP').removeClass('showAnimete_1 animated')));
-                else $('.rightP').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.rightP').removeClass('showAnimete_2 animated'); this.setState({showTip: flag}); });
+                if (flag) this.setState({ showTip: flag }, () => $('.rightP').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.rightP').removeClass('showAnimete_1 animated')));
+                else $('.rightP').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.rightP').removeClass('showAnimete_2 animated'); this.setState({ showTip: flag }); });
             });
             $('.cesium-viewer-toolbar').append($button);
         });
@@ -249,16 +249,16 @@ export default class Home extends React.Component {
         this.setState({ tip: port });
     }
     trClick = (tr, i) => {
-        this.setState({selectedIndex: i});
+        this.setState({ selectedIndex: i });
         publish('stopAuto').then(() => {
             let port = this.state.ports.filter((p) => p.id === tr.id)[0];
-            publish('flyTo',{x: port.geo[0], y: port.geo[1]});
+            publish('flyTo', { x: port.geo[0], y: port.geo[1] });
             this.handleShowTip(tr.id);
         });
     }
     trDbclick = (tr, i) => {
         if (i === 0) {
-            publish('changeLayer', {index: 1, props: {}});
+            publish('changeLayer', { index: 1, props: {} });
         }
     }
     componentWillUnmount() {
@@ -268,10 +268,10 @@ export default class Home extends React.Component {
     }
     render() {
         let flds = [
-            {title: '港口名称', name: 'name'},
-            {title: '地点', name: 'addr'},
-            {title: '港口开埠时间', name: 'kbsj'},
-            {title: '招商局运营时间', name: 'yysj'},
+            { title: '港口名称', name: 'name' },
+            { title: '地点', name: 'addr' },
+            { title: '港口开埠时间', name: 'kbsj' },
+            { title: '招商局运营时间', name: 'yysj' },
         ];
         let temp = this.state.ports;
         let datas = temp.map((e) => { return { id: e.id, name: e.name, addr: e.addr, kbsj: 1983, yysj: 2012 } });
@@ -285,12 +285,12 @@ export default class Home extends React.Component {
                 </div>
                 {this.state.showTip ?
                     <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470 }}>
-                        <div className='rightP-t'/>
+                        <div className='rightP-t' />
                         <div className='rightP-c'>
-                            <Table style={{width: 1600}} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick}/>
-                            {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{width: 1600}} port={this.state.tip} /> : null}
+                            <Table style={{ width: 1600 }} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
+                            {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{ width: 1600 }} port={this.state.tip} /> : null}
                         </div>
-                        <div className='rightP-b'/>
+                        <div className='rightP-b' />
                     </div> : null}
             </div>
         )
