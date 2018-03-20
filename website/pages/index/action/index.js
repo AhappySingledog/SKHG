@@ -841,7 +841,7 @@ subscribes(
         sub: 'home_right_e_ldt',
         func: (ops) => {
             let option = {
-                color: ['red', 'yellow'],
+                color: ['#FD5633', '#38BDFF'],
                 tooltip: {
                     textStyle: {
                         fontSize: 40,
@@ -882,9 +882,9 @@ subscribes(
                         },
                         splitArea: {
                             areaStyle: {
-                                color: ['rgba(114, 172, 209, 0.2)',
-                                    'rgba(114, 172, 209, 0.4)', 'rgba(114, 172, 209, 0.6)',
-                                    'rgba(114, 172, 209, 0.8)', 'rgba(114, 172, 209, 1)'],
+                                color: ['rgba(173, 245, 164, 0.2)',
+                                    'rgba(173, 245, 164, 0.4)', 'rgba(173, 245, 164, 0.6)',
+                                    'rgba(173, 245, 164, 0.8)', 'rgba(173, 245, 164, 1)'],
                                 shadowColor: 'rgba(0, 0, 0, 0.3)',
                                 shadowBlur: 10
                             }
@@ -909,25 +909,22 @@ subscribes(
                     label: {
                         fontSize: 50,
                     },
-                    lineStyle: {
-                        width: 10,
-                    },
                     data: [
                         {
                             value: [14.2, 14.3, 3.59, 1.41, 18.45, 1],
                             name: '2017年12月',
-                            symbolSize: 30,
                             lineStyle: {
-                                width: 20,
+                                width: 30
                             },
+                            symbolSize: 30,
                         },
                         {
                             value: [11.4, 14.1, 2.69, 1.85, 19.55, 0.88],
                             name: '2018年一月',
-                            symbolSize: 30,
                             lineStyle: {
-                                width: 20,
+                                width: 30
                             },
+                            symbolSize: 30,
                         }
                     ]
                 }]

@@ -8,7 +8,9 @@ import $ from 'jquery';
 export default class Table extends React.Component {
     componentDidUpdate() {
         this.bindClick();
-        $('#' + this.props.id).addClass('slideInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.id).removeClass('slideInUp animated'));
+    }
+    componentWillReceiveProps(nextProps) {
+        if (JSON.stringify(this.props.datas) != JSON.stringify(nextProps.datas)) $('#' + this.props.id).addClass('slideInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.id).removeClass('slideInUp animated'));
     }
     componentDidMount() {
         this.bindClick();
@@ -31,8 +33,8 @@ export default class Table extends React.Component {
             });
         }
         if (this.props.selectedIndex != undefined) {
-            $('#' + this.props.id + '>tr>td').removeClass('trSelected');
-            $('#' + this.props.id + '>tr:nth-of-type(' + (this.props.selectedIndex + 1) + ')>td').addClass('trSelected');
+            $('#' + this.props.id + '>tbody>tr>td').removeClass('trSelected');
+            $('#' + this.props.id + '>tbody>tr:nth-of-type(' + (this.props.selectedIndex + 1) + ')>td').addClass('trSelected');
         }
     }
     render() {

@@ -105,7 +105,7 @@ class ClassicCase extends React.Component {
             $('.case-body').addClass('bounceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.case-body').removeClass('bounceInUp animated'));
         }
         $.ajax({dataType: 'json', url: '../cases.json', async: false, success: (res) => {
-            this.setState({data: res.data}, work);
+            this.setState({data: res[this.props.itemKey]}, work);
             this.timer = setInterval(work, 30 * 1000);
         }});
     }
@@ -173,8 +173,8 @@ export default class HomeRightPanel extends React.Component {
                         <div ref="echart" style={{width: 2202, height: 1132}}></div>
                     </Panel>
                     <Panel style={{padding: '20px 25px', height: 1287}}>
-                        <ClassicCase title='经典案例'/>
-                        <ClassicCase title='舆情监控'/>
+                        <ClassicCase title='经典案例' itemKey={'jdal'}/>
+                        <ClassicCase title='舆情监控' itemKey={'yqjk'}/>
                     </Panel>
                 </div>
             </div>

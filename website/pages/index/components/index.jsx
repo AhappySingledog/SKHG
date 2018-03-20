@@ -10,6 +10,7 @@ import Home from './home';
 import Port from './port';
 import Pier from './pier';
 import WareHouse from './wareHouse';
+import IWarning from './iWarning';
 
 class Timer extends React.Component {
     state = { msg: '' }
@@ -127,6 +128,9 @@ export default class App extends React.Component {
                 case 3:
                     curLayer = <WareHouse {...curProps} />;
                     break;
+                case 4:
+                    curLayer = <IWarning {...curProps} />;
+                    break;
                 default:
                     curLayer = <Home {...curProps} />;
             }
@@ -145,6 +149,7 @@ export default class App extends React.Component {
     }
     warning = () => {
         console.log('warning');
+        publish('changeLayer', {index: 4, props: {}});
     }
     link = () => {
         console.log('link');
