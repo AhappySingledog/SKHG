@@ -26,7 +26,7 @@ class MapOperation extends React.Component {
 export default class IWarning extends React.Component {
     state = { map: null }
     componentDidMount() {
-        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.code || 'two_layer');
+        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + (this.props.code || 'two_layer'));
     }
 
     /**
