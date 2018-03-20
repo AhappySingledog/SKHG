@@ -41,14 +41,14 @@ function getNumberArr(num) {
 class PortRightTop extends React.Component {
     state = {}
     render() {
-        const num = 1125678.90;
+        const num = 125678.90;
         const sum = [];
         sum.push(getNumberArr(num));
         return (
             <div className="Top">
                 <div className="Top-left">
                     <div className="Top-left-span">
-                        报关单量
+                        报<br />关<br />单<br />量<br />
                     </div>
                     <div className="Top-left-Num">
                         <div className="Top-left-Num-top">
@@ -94,6 +94,20 @@ class PortRightTop extends React.Component {
 /** 右侧中 */
 class PortRightCen extends React.Component {
     render() {
+        const data = [{'value' : '78','name':'通关效率'},{'value':'65','name':'查验时效'}];
+        publish('port_pie_xl', { value: data[0] || 0 }).then((res) => {
+            if (this.chart8) this.chart8.dispose();
+            this.chart8 = echarts.init(ReactDOM.findDOMNode(this.refs.echart8));
+            this.chart8.setOption(res[0]);
+        });
+
+        publish('port_pie_xl', { value: data[1] || 0 }).then((res) => {
+            if (this.chart9) this.chart9.dispose();
+            this.chart9 = echarts.init(ReactDOM.findDOMNode(this.refs.echart9));
+            this.chart9.setOption(res[0]);
+        });
+
+        
         const boxNum = [
             {
                 'name': '查验完毕柜数', 'num': '7856'
@@ -118,20 +132,22 @@ class PortRightCen extends React.Component {
                     </div>
                     <div className="Cen-pie">
                         <div className='Cen-pie-1'>
-                            <div className='' style={{ height: '100%', width: '100%' }} ></div>
+                            <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart8"></div>
                         </div>
                         <div className='Cen-pie-2'>
-                            <div className='' style={{ height: '100%', width: '100%' }} ></div>
+                            <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart9"></div>
                         </div>
                     </div>
                 </div>
                 {/*      中间部分的中间部分          */}
                 <div className="Cen-center">
                     <div className="Cen-center-top">
-
+                        <div>征收税款金额</div>
+                        <div>23,456,789.00</div>
                     </div>
                     <div className="Cen-center-bot">
-
+                        <div>查验票数</div>
+                        <div>2,345,678</div>
                     </div>
                 </div>
 
@@ -140,21 +156,21 @@ class PortRightCen extends React.Component {
                     <div className="Cen-right-top"> 5349关区 </div>
                     <div className="Cen-right-bot">
                         <div className="Cen-right-bot-violet">
-                            <img src={violet} />
+                            <img src={violet} style={{ width: '140px', height: '140px' }} />
                             <div>
                                 <div>25</div>
                                 <span>报关总量</span>
                             </div>
                         </div>
                         <div className="Cen-right-bot-blue">
-                            <img src={blue} />
+                            <img src={blue} style={{ width: '140px', height: '140px' }} />
                             <div>
                                 <div>8</div>
                                 <span>进口报关单量</span>
                             </div>
                         </div>
                         <div className="Cen-right-bot-green">
-                            <img src={green} />
+                            <img src={green} style={{ width: '140px', height: '140px' }} />
                             <div>
                                 <div>11</div>
                                 <span>出口报关单量</span>
@@ -171,8 +187,31 @@ class PortRightCen extends React.Component {
 class PortRightBot extends React.Component {
     render() {
         return (
-            <div>
+            <div className="Bot">
+                <div className="Bot-video">
+                    <div className='Bot-video-videoleft'>
 
+                    </div>
+                    <div className='Bot-video-vidospan' onClick={() => publish('playVedio')}>
+                        重点视频监控
+                            <div>
+                            <div>视频信息一：对长桥吊运作</div>
+                            <div>视频信息二：堆场工作现场</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="Bot-video">
+                    <div className="Bot-video-videoright">
+
+                    </div>
+                    <div className='Bot-video-vidospan' onClick={() => publish('playVedio')}>
+                        重点视频监控
+                            <div>
+                            <div>视频信息一：对长桥吊运作</div>
+                            <div>视频信息二：堆场工作现场</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         )
     }
