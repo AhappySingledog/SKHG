@@ -126,7 +126,7 @@ files.forEach(function (file) {
     config.entry[name] = file;
     config.plugins.push(new HtmlWebpackPlugin({
         inject: true,
-        title: '武汉天然气大屏系统',
+        title: '蛇口海关大屏',
         template: path.resolve(__dirname, path.join('website', 'frame', 'index.html')),
         minify: {collapseWhitespace: false},
         filename: path.resolve(__dirname, path.join('./', buildName, name, 'index.html')),
