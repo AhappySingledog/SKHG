@@ -820,7 +820,7 @@ body>div {
 
     &-left{
         border: 1px solid #0682ec;
-        width: 65%;
+        width: 70%;
         margin: 40px;
         display: flex;
         flex-direction: row;
@@ -833,7 +833,7 @@ body>div {
             box-sizing: border-box;
             margin: 0px 150px 0px 80px;
             padding: 100px 0px 0px 0px;
-            font-size: 88px;
+            font-size: 70px;
             line-height: 116px;
             background: url('../images/port/标题组件.png') no-repeat;
             background-size: 100% 100%;
@@ -842,11 +842,13 @@ body>div {
         &-Num{
             display: flex;
             flex-direction: column;
+            width: 2060px;
             &-top{
                 background: url('../images/port/数据bg框.png') no-repeat;
                 background-size: 100% 100%;
                 height: 50%;
                 margin: 35px 35px 17px 0px;
+                width: 98%;
             }
             &-bot{
                 display: flex;
@@ -854,6 +856,7 @@ body>div {
                 height: 50%;
                 margin: 17px 35px 35px 0px;
                 color: white;
+                width: 98%;
                 &-1{
                         margin-right: 40px
                 }
@@ -935,7 +938,7 @@ body>div {
                 font-size: 66px;
             }
             &-span{
-                font-size: 85px;
+                font-size: 60px;
             }
         }
 
@@ -1031,7 +1034,7 @@ body>div {
             display: flex;
             flex-direction: column;
             color: white;
-            height: 50%;
+            height: 55%;
             >div:nth-of-type(1){
                 background: url('../images/port/绿光bg.png') no-repeat;
                 background-size: 100%,100%;
@@ -1102,14 +1105,17 @@ body>div {
                 margin: 45px 0px 110px 45px;
                 >div{
                     margin-left: 50px;
-                    margin-top: -20px;
                     >span{
                         font-size: 60px;
-                        color: #6700fd;
+                        color: #f9f9f9;
                     }
                     >div{
-                        font-size: 60px;
-                        color: #f9f9f9;
+                        font-size: 80px;
+                        color: #6700fd;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
                     }
                 }
             }
@@ -1121,11 +1127,15 @@ body>div {
                     margin-left: 50px;
                     >span{
                         font-size: 60px;
-                        color: #0058fd;
+                        color: #f9f9f9;
                     }
                     >div{
-                        font-size: 60px;
-                        color: #f9f9f9;
+                        font-size: 80px;
+                        color: #0058fd;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
                     }
                 }
             }
@@ -1137,11 +1147,15 @@ body>div {
                     margin-left: 50px;
                     >span{
                         font-size: 60px;
-                        color: #15a714;
+                        color: #f9f9f9;
                     }
                     >div{
-                        font-size: 60px;
-                        color: #f9f9f9;
+                        font-size: 80px;
+                        color: #15a714;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
                     }
                 }
             }
@@ -1540,7 +1554,7 @@ body>div {
 }
 
 .numbersLoop(@number, @i: 0) when (@i =< @number) {
-    .numbers(@i, 198px, 250px, 15px);
+    .numbers(@i, 187px, 250px, 15px);
     .numbersLoop(@number, (@i + 1));  
 }
 
@@ -1555,9 +1569,9 @@ body>div {
 
 .numbersLoop(9);
 
-.numbers(break, 25px, 36px, 0px 38px 0px 38px);
+.numbers(break, 25px, 36px, 0px 38px 10px 38px);
 
-.numbers(point, 25px, 25px, 0px 38px 0px 38px);
+.numbers(point, 25px, 25px, 0px 38px 10px 38px);
 
 .test {
     &-tip {

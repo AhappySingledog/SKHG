@@ -115,6 +115,8 @@ export default class App extends React.Component {
         cv: {},
         viwePager: null,
         warningTip: false,
+        jkname: null,
+
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
@@ -137,9 +139,15 @@ export default class App extends React.Component {
             switch (index) {
                 case 1:
                     curLayer = <Port {...curProps} />;
+                    this.setState({
+                        jkname : '海关监管区域'
+                    });
                     break;
                 case 2:
                     curLayer = <Pier {...curProps} />;
+                    this.setState({
+                        jkname : ops.props.datas.name
+                    });
                     break;
                 case 3:
                     curLayer = <WareHouse {...curProps} />;
@@ -149,6 +157,9 @@ export default class App extends React.Component {
                     break;
                 default:
                     curLayer = <Home {...curProps} />;
+                    this.setState({
+                        jkname : '海关监管区域'
+                    });
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
             this.setState({ index, curLayer, oldProps, curProps });
@@ -214,7 +225,7 @@ export default class App extends React.Component {
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
-                            <div className='mheader-name'>海关监管区域</div>
+                            <div className='mheader-name'>{this.state.jkname}</div>
                             <Timer />
                         </div>
                     </div>

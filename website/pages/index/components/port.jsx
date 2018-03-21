@@ -66,11 +66,12 @@ class MapOperation extends React.Component {
 
     componentDidMount() {
         let mapExtent = {
-            xmax: 113.9250031023771,
-            xmin: 113.85290532405679,
-            ymax: 22.486930314170145,
-            ymin: 22.446418229209208,
+            xmax: 113.96063309,
+            xmin: 113.81710400,
+            ymax: 22.49214402,
+            ymin: 22.44131873,
         };
+        console.log(this.props.map);
         this.props.map.mapOper.setMapExtent(mapExtent);
 
         /** 港口码头划分 */
@@ -130,24 +131,15 @@ class MapOperation extends React.Component {
 
     handleMTSJ = (datas) => {
         let color = {
-            yq: [57, 255, 95, 1],
-            ck: [24, 46, 255, 1],
-            mt: [250, 22, 80, 1],
-            mg: [8, 249, 250, 1],
+            1: [250, 22, 80, 1],       //红色
+            2: [57, 255, 95, 1],       //绿色
+            3: [24, 46, 255, 1],       //蓝色
+            4: [251, 251, 0, 1],       //黄色
         };
         for (let o in datas) {
             let dots = datas[o].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
             let name = datas[o].name;
-            let fillColor = color.mg;
-            if (name.indexOf('码头') >= 0) {
-                fillColor = color.mt;
-            }
-            if (name.indexOf('园区') >= 0) {
-                fillColor = color.yq;
-            }
-            if (name.indexOf('仓库') >= 0) {
-                fillColor = color.ck;
-            }
+            let fillColor = color[datas[o].type];
             let params = {
                 id: 'port_view' + o,
                 linecolor: fillColor,
@@ -403,6 +395,15 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.polygon(params);
         publish('getData', { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE = '" + datajson.code + "' " } }).then((res) => {
             if (datajson.name.indexOf('码头') >= 0) {
+                this.setState({
+                    showMT: true,
+                    Amap: false,
+                    tip: {
+                        mtJson: res[0].features,
+                        mapDesc: datajson
+                    }
+                });
+            } else if (datajson.name === '赤湾港航') {
                 this.setState({
                     showMT: true,
                     Amap: false,

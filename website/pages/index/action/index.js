@@ -844,7 +844,7 @@ subscribes(
                     subtextStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.9
+                        fontSize: parseInt(size) * 0.8
                     }
                 },
                 color: ['#fff', '#313443', '#fff'],
