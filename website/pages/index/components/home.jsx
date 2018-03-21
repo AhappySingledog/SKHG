@@ -40,6 +40,7 @@ export default class Home extends React.Component {
         tip: null,
         selectedIndex: 0,
     }
+    timeOut = null
     componentDidMount() {
         publish('home_worldMap').then((res) => {
             let ports = res[0].ports.data;
@@ -141,7 +142,7 @@ export default class Home extends React.Component {
                 //     entitys.push(entity);
                 // });
                 let index = 0;
-                let timer = setInterval(() => {
+                let timer1 = setInterval(() => {
                     let p = ports[index];
                     let entity = viewer.entities.add({ //绘点
                         id: p.id,
@@ -163,7 +164,7 @@ export default class Home extends React.Component {
                     entitys.push(entity);
                     autoScale(entity);
                     index++;
-                    if (index >= ports.length) clearInterval(timer);
+                    if (index >= ports.length) clearInterval(timer1);
                 }, 2 * 1000);
             }
 
@@ -249,16 +250,18 @@ export default class Home extends React.Component {
         this.setState({ tip: port });
     }
     trClick = (tr, i) => {
-        this.setState({ selectedIndex: i });
-        publish('stopAuto').then(() => {
+        if (this.timeOut) clearTimeout(this.timeOut);
+        this.timeOut = setTimeout(() => publish('stopAuto').then(() => {
             let port = this.state.ports.filter((p) => p.id === tr.id)[0];
             publish('flyTo', { x: port.geo[0], y: port.geo[1] });
             this.handleShowTip(tr.id);
-        });
+            this.setState({ selectedIndex: i });
+        }), 300);
     }
     trDbclick = (tr, i) => {
         if (i === 0) {
-            publish('changeLayer', { index: 1, props: {} });
+            if (this.timeOut) clearTimeout(this.timeOut);
+            publish('changeLayer', { index: 1, props: {} })
         }
     }
     componentWillUnmount() {
