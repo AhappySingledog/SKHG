@@ -14,6 +14,15 @@ import 'cesium/Widgets/widgets.css'
 class MapOperation extends React.Component {
     state = {
     }
+    componentDidMount() {
+        let mapExtent = {
+            xmax: 113.9250031023771,
+            xmin: 113.85290532405679,
+            ymax: 22.486930314170145,
+            ymin: 22.446418229209208,
+        };
+        this.props.map.mapOper.setMapExtent(mapExtent);
+    }
     render() {
         return (
             <div>
