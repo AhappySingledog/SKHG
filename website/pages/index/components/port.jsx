@@ -74,7 +74,7 @@ class MapOperation extends React.Component {
             ymax: 22.49214402,
             ymin: 22.44131873,
         };
-        console.log(this.props.map);
+        // console.log(this.props.map);
         this.props.map.mapOper.setMapExtent(mapExtent);
 
         /** 港口码头划分 */
@@ -689,6 +689,9 @@ export default class Port extends React.Component {
         $($iframe).remove();
     }
 
+    componentWillUnmount() {
+        if (this.chart) this.chart.dispose();
+    }
     render() {
         let { tview = [], idx = 0, } = this.state;
         return (

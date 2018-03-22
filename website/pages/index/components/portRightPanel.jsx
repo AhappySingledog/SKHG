@@ -70,10 +70,11 @@ class PortRightTop extends React.Component {
                 </div>
                 <div className="Top-right">
                     <div className="Top-right-top">
-                        出入境人数
+                        5349关区
                     </div>
                     <div className="Top-right-center">
-                        <div>500,000</div>
+                        <div>报关总量：</div>
+                        <div>500,00</div>
                     </div>
                     <div className="Top-right-bot">
                         <div className="Top-right-bot-left">
@@ -120,6 +121,18 @@ class PortRightCen extends React.Component {
             <div className="Cen">
                 {/*      中间部分的左侧部分          */}
                 <div className="Cen-left">
+                    <div className="Cen-left-top">
+                        <div>征收税款金额</div>
+                        <div>23,456,789.00</div>
+                    </div>
+
+                    <div className="Cen-left-bot">
+                        <div>查验票数</div>
+                        <div>2,345,678</div>
+                    </div>
+                </div>
+                {/*      中间部分的右侧部分          */}
+                <div className="Cen-right">
                     <div className="Cen-box">
                         {
                             boxNum.map((value, key) => {
@@ -130,50 +143,28 @@ class PortRightCen extends React.Component {
                             })
                         }
                     </div>
-                    <div className="Cen-pie">
-                        <div className='Cen-pie-1'>
-                            <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart8"></div>
-                        </div>
-                        <div className='Cen-pie-2'>
-                            <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart9"></div>
-                        </div>
-                    </div>
-                </div>
-                {/*      中间部分的中间部分          */}
-                <div className="Cen-center">
-                    <div className="Cen-center-top">
-                        <div>征收税款金额</div>
-                        <div>23,456,789.00</div>
-                    </div>
-                    <div className="Cen-center-bot">
-                        <div>查验票数</div>
-                        <div>2,345,678</div>
-                    </div>
-                </div>
 
-                {/*      中间部分的右侧部分          */}
-                <div className="Cen-right">
-                    <div className="Cen-right-top"> 5349关区 </div>
                     <div className="Cen-right-bot">
-                        <div className="Cen-right-bot-violet">
-                            <img src={violet} style={{ width: '140px', height: '140px' }} />
-                            <div>
-                                <div>25</div>
-                                <span>报关总量</span>
+                        <div className="Cen-pie">
+                            <div className='Cen-pie-1'>
+                                <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart8"></div>
+                            </div>
+                            <div className='Cen-pie-2'>
+                                <div className='homeRightE-1' style={{ height: '100%', width: '100%' }} ref="echart9"></div>
                             </div>
                         </div>
-                        <div className="Cen-right-bot-blue">
-                            <img src={blue} style={{ width: '140px', height: '140px' }} />
-                            <div>
-                                <div>8</div>
-                                <span>进口报关单量</span>
+                        <div className="Cen-right-bot-span">
+                            <div className="Cen-right-bot-span-blue">
+                                <span>出入境旅客<br/>总人数</span>
+                                <div>500.00</div>
                             </div>
-                        </div>
-                        <div className="Cen-right-bot-green">
-                            <img src={green} style={{ width: '140px', height: '140px' }} />
-                            <div>
-                                <div>11</div>
-                                <span>出口报关单量</span>
+                            <div className="Cen-right-bot-span-green">
+                                <span>出境旅客人数</span>
+                                <div>175.000</div>
+                            </div>
+                            <div className="Cen-right-bot-span-orage">
+                                <span>入境旅客人数</span>
+                                <div>325.000</div>
                             </div>
                         </div>
                     </div>

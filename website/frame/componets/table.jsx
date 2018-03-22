@@ -5,6 +5,16 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 // tip组件
+/**
+ *      title           ：自定义标题
+ *      id              : 表格的ID
+ *      style           : 样式内容
+ *      selectedIndex   : 当前被选中的
+ *      flds            : 列名
+ *      datas           : 接收的数据
+ *      trClick         : 单击事件
+ *      trDbclick       : 双击事件
+ */
 export default class Table extends React.Component {
     componentDidUpdate() {
         this.bindClick();

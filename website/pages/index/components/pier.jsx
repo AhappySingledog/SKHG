@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
+import { ViwePager, Tip, Panel, Dialog, ChartView } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.png';
 import BargeIcon from '../../../res/mapIcon/Barge.png';
@@ -69,13 +69,11 @@ class MapOperation extends React.Component {
 
         /** 驳船显示 */
         publish('barge_GetListAsync').then((res) => {
-            console.log(res[0]);
             this.handleBarge(this.ScreenWharf(res[0], this.props.datas.name));
         });
 
         /** 外拖拖车 */
         publish('truck_GetListAsync').then((res) => {
-            console.log(res[0]);
             this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name));
         });
     }
@@ -127,7 +125,6 @@ class MapOperation extends React.Component {
         if (datas.code === 'SCT') {
 
             publish('webAction', { svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {} }).then((res) => {
-                console.log(res);
                 let data = JSON.parse(res).filter((e) => e.liveName.indexOf('SCT') >= 0);
                 initVideo(data);
                 this.setState({ JsonData: data, dataSource: data.map((e, i) => { return { key: i + 1, name: e.name, liveID: e.liveID, liveName: e.liveName } }) });
@@ -147,7 +144,6 @@ class MapOperation extends React.Component {
             let initVideo = (data) => {
                 this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
                 let that = this;
-                console.log(data);
                 data.forEach((e, i) => {
                     let point = e.coordinate.split(',');
                     let param = {
@@ -509,7 +505,10 @@ export default class Pier extends React.Component {
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
     }
-
+    
+    componentWillUnmount() {
+        if (this.chart) this.chart.dispose();
+    }
     /**
     * 
     * @param {*target} 地图参数  
@@ -579,7 +578,7 @@ export default class Pier extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    <PierRightPanel/>
+                    <PierRightPanel datas={this.props.datas}/>
                 </div>
             </div>
 

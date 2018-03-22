@@ -55,7 +55,6 @@ require([
             { "level": 9, "resolution":  1.18973050291514E-6, "scale": 500},
             { "level": 10, "resolution": 5.9486525145757E-7, "scale": 250},
             { "level": 11, "resolution":  2.97432625728785E-7, "scale": 125}
-
     ];
 
     /**
