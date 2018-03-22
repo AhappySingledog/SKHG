@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio, ViwePager, Table, ImgDisplay } from '../../../frame/componets/index';
+import { Vedio, ViwePager, Table, ImgDisplay, Panel } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
