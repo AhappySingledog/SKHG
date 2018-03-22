@@ -8,3 +8,4 @@ export { default as ChartView } from './chart';
 export { default as Vedio } from './vedio';
 export { default as NoHornTip } from './noHornTip';
 export { default as Vedios } from './vedios';
+export { default as ImgDisplay } from './imgDisplay';

@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio, ViwePager, Table, Panel } from '../../../frame/componets/index';
+import { Vedio, ViwePager, Table, ImgDisplay } from '../../../frame/componets/index';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
@@ -116,18 +116,20 @@ export default class App extends React.Component {
         viwePager: null,
         warningTip: false,
         jkname: null,
-
+        img: null,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
+        this.sub_playImg = subscribe('playImg', this.playImg);
         publish('changeLayer', { index: 0, props: {} });
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
         if (this.sub_playVedio) unsubscribe(this.sub_playVedio);
         if (this.sub_viwePager) unsubscribe(this.sub_viwePager);
+        if (this.sub_playImg) unsubscribe(this.sub_playImg);
     }
     changeLayer = (ops) => {
         let idx = this.state.index;
@@ -211,6 +213,12 @@ export default class App extends React.Component {
     closeImgs = () => {
         $('#imgsDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#imgsDisplay').removeClass('bounceOutLeft animated'); this.setState({ viwePager: null }); });
     }
+    playImg = (img) => {
+        this.setState({ img: img }, () => $('.imgDisplay').addClass('bounceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.imgDisplay').removeClass('bounceInLeft animated')));
+    }
+    closeImg = () => {
+        $('.imgDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.imgDisplay').removeClass('bounceOutLeft animated'); this.setState({ img: null }); });
+    }
     render() {
         return (
             <div className='mframe'>
@@ -235,6 +243,7 @@ export default class App extends React.Component {
                 {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
+                {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
             </div>
         )
     }

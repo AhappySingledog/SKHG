@@ -30,10 +30,13 @@ class HgIntroduce extends React.Component {
 }
 
 class Honor extends React.Component {
+    onClick = () => {
+        publish('playImg', this.props.data.img);
+    }
     render() {
         return (
             <div className='oneHonor'>
-                <img className='oneHonor-img' src={this.props.data.img} />
+                <img className='oneHonor-img' src={this.props.data.img} onClick={this.onClick}/>
                 <div>{this.props.data.time}</div>
                 <div style={{width: 673}}>{this.props.data.msg}</div>
             </div>
