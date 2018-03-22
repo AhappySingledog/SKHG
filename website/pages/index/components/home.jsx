@@ -290,7 +290,7 @@ export default class Home extends React.Component {
                     <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470 }}>
                         <div className='rightP-t' />
                         <div className='rightP-c'>
-                            <Table style={{ width: 1600 }} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
+                            <Table style={{}} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
                             {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{ width: 1600 }} port={this.state.tip} /> : null}
                         </div>
                         <div className='rightP-b' />

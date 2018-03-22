@@ -12,7 +12,7 @@ class HgIntroduce extends React.Component {
     render() {
         return (
             <div className='introduce'>
-                <div className='introduce-title'>海关简介</div>
+                <div className='echart-title'>今日蛇关</div>
                 <div className='introduce-msg'>
                     <WordsContent style={{ width: '100%', height: 1141, fontSize: 60, color: 'white', textIndent: '2em', lineHeight: '120px', padding: '0 20px' }}>
                         中华人民共和国蛇口海关隶属深圳海关，是深圳西部一个综合性海运口岸海关，主要业务包括：进出口海运货物监管、前海湾保税港区和进出境旅客监管；监管下去主要包括招湾、赤湾、妈湾、东角头、蛇口客运站、前海湾保税港区等港口作业区，监管海岸线达20公里。依法对经港口口岸进出境的运输工具、货物、物品进行监管；征收关税和其他法定有海关征收的税费；查缉走私；开展贸易统计并办理其他海关业务。
@@ -70,7 +70,7 @@ class HonorOnline extends React.Component {
     render() {
         return (
             <div className='honor'>
-                <div className='honor-title'>网上荣誉室</div>
+                <div className='honor-title'>蛇关风采</div>
                 <div className='honor-body'>
                     <WordsContent style={{ padding: '20px', width: 1366, height: 1113, display: 'flex', flexFlow: 'row wrap', alignContent: 'space-between', justifyContent: 'space-between' }}>
                         {this.state.honors.map((h, i) => <Honor key={i} data={h} />)}

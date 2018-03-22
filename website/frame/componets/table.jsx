@@ -41,6 +41,7 @@ export default class Table extends React.Component {
         let { flds = [], datas = [] } = this.props;
         return (
             <div className='mtable' style={this.props.style} ref='table'>
+                {this.props.title ? <div>{this.props.title}</div> : null}
                 <table id={this.props.id}>
                     <thead>
                         <tr>

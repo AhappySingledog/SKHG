@@ -14,6 +14,7 @@ import BigShipIcon from '../../../res/mapIcon/bigShip.gif';
 import BargeIcon from '../../../res/mapIcon/Barge.gif';
 import TruckIcon from '../../../res/mapIcon/car.png';
 import VideoIcon from '../images/视频监控.png';
+import PierRightPanel from './pierRightPanel';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -182,8 +183,6 @@ class MapOperation extends React.Component {
             }
         }
     };
-
-
 
     handleBigship = (json) => {
         let that = this;
@@ -580,10 +579,7 @@ export default class Pier extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    <div className='pierRight-1' onClick={() => publish('playVedio')}></div>
-                    <div className='pierRight-2' onClick={() => publish('playVedio')}></div>
-                    <div className='pierRight-3' onClick={() => publish('playVedio')}></div>
-                    <div className='pierRight-4' onClick={() => publish('playVedio')}></div>
+                    <PierRightPanel/>
                 </div>
             </div>
 

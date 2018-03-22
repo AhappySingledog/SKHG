@@ -172,6 +172,17 @@
     height: fit-content;
     padding: 2px 2px;
 
+    > div {
+        //width: 100%;
+        background: url('../images/灰白底块.png') no-repeat;
+        background-size: 100% 100%;
+        height: 100px;
+        line-height: 100px;
+        color: #1890ff;
+        font-size: 55px;
+        padding-left: 20px;
+    }
+
     > table {
         width: 100%;
         > thead {
@@ -362,4 +373,41 @@
     color: white;
     font-size: 20px;
     margin-right: 20px;
+}
+
+.vs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    &-t {
+        flex-grow: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        > iframe {
+            flex-grow: 1;
+            width: 100%;
+            border: 1px solid #5AA4F7;
+        }
+    }
+    &-b {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+        > div {
+            flex-grow: 1;
+        }
+        &-v {
+            display: flex;
+            flex-direction: column;
+            &-name {
+                color: white;
+                font-size: 60px;
+                padding-left: 40px;
+            }
+        }
+    }
 }

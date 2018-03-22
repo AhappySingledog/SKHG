@@ -1390,38 +1390,37 @@ body>div {
     display: flex;
     flex-direction: column;
     width: 33%;
-    background: url('../images/port/threeRight.png') no-repeat;
-    background-size: 100% 100%;
 
     &-1 {
-        position: absolute;
-        bottom: 50px;
-        width: 800px;
-        height: 100Px;
-        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        height: 100%;
+
+        >div {
+            //width: 99%;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
     }
-    &-2 {
-        position: absolute;
-        right: 2029px;
-        bottom: 50px;
-        width: 800px;
-        height: 100Px;
-        cursor: pointer;
-    }
-    &-3 {
-        position: absolute;
-        right: 1000px;
-        bottom: 50px;
-        width: 800px;
-        height: 100Px;
-        cursor: pointer;
-    }
-    &-4 {
-        position: absolute;
-        right: 100px;
-        bottom: 50px;
-        width: 800px;
-        height: 100Px;
+
+}
+
+.tableTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    &-n {}
+    &-b {
+        background: url('../images/buttons/导出.png') no-repeat;
+        background-size: 100% 100%;
+        width: 86px;
+        height: 80px;
+        margin-right: 40px;
         cursor: pointer;
     }
 }
