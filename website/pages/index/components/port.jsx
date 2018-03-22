@@ -80,15 +80,15 @@ class MapOperation extends React.Component {
         /** 港口码头划分 */
         publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: '1 = 1 ' } }).then((res) => {
             this.handleMTSJ(res[0].data);
-        });
+        })
 
         // let insertArea = () => {// 插入区域信息
         //     $.ajax({
-        //         dataType: 'json', url: '../portTest.json', async: false, success: (res) => {
+        //         dataType: 'json', url: '../test.json', async: false, success: (res) => {
         //             let a = res.features.map((e, i) => {
         //                 return {
         //                     attr: {
-        //                         NAME: e.properties.name,
+        //                         NAME: e.attributes.name,
         //                         CODE: e.name || '',
         //                         TYPE: '',
         //                         SSDW: '',
@@ -99,11 +99,7 @@ class MapOperation extends React.Component {
         //                         YMAX: '',
         //                         LAYER: '',
         //                     },
-        //                     geom: {
-        //                         rings: [
-        //                             e.geometry.coordinates,
-        //                         ]
-        //                     }
+        //                     geom: e.geometry
         //                 };
         //             });
         //             console.log(a);

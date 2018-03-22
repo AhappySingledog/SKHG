@@ -35,7 +35,7 @@ class Honor extends React.Component {
             <div className='oneHonor'>
                 <img className='oneHonor-img' src={this.props.data.img} />
                 <div>{this.props.data.time}</div>
-                <div>{this.props.data.msg}</div>
+                <div style={{width: 673}}>{this.props.data.msg}</div>
             </div>
         )
     }
@@ -84,7 +84,7 @@ class HonorOnline extends React.Component {
 class Case extends React.Component {
     render() {
         return (
-            <WordsContent style={{ padding: '20px', width: 1366, height: 410, display: 'flex', flexDirction: 'column' }}>
+            <WordsContent style={{ padding: '20px', width: 1366, height: 380, display: 'flex', flexDirction: 'column' }}>
                 <div className='oneCase-title'>{this.props.data.title}</div>
                 <div className='oneCase-msg'>{this.props.data.msg}</div>
             </WordsContent>
@@ -96,6 +96,7 @@ class ClassicCase extends React.Component {
     state = {
         data: [],
         cases: [],
+        index: 0,
     }
     componentDidMount() {
         let work = () => {
@@ -116,11 +117,20 @@ class ClassicCase extends React.Component {
     componentWillUnmount() {
         if (this.timer) clearInterval(this.timer);
     }
+    onClick = (index) => {
+        this.setState({index: index});
+    }
     render() {
         return (
             <div className='case'>
                 <div className='case-title'>{this.props.title}</div>
-                <div className='case-body'>
+                {this.props.itemKey === 'yqjk' ? <div className='yqjk'>
+                    <div className={'yqjk-xl-' + (this.state.index === 0 ? 1 : 2)} onClick={() => this.onClick(0)}></div>
+                    <div className={'yqjk-bd-' + (this.state.index === 1 ? 1 : 2)} onClick={() => this.onClick(1)}></div>
+                    <div className={'yqjk-ty-' + (this.state.index === 2 ? 1 : 2)} onClick={() => this.onClick(2)}></div>
+                    <div className={'yqjk-tt-' + (this.state.index === 3 ? 1 : 2)} onClick={() => this.onClick(3)}></div>
+                </div> : null}
+                <div className='case-body' style={this.props.itemKey === 'yqjk' ? {paddingTop: '10px'} : {}}>
                     {this.state.cases.map((c, i) => <Case key={i} data={c} />)}
                 </div>
             </div>

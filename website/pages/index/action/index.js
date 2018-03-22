@@ -266,11 +266,12 @@ subscribes(
     }, {
         sub: 'home_right_e',   // 首页右侧echarts
         func: (ops) => {
+            let month = ['17/02', '17/03', '17/04', '17/05', '17/06','17/07','17/08','17/09','17/10','17/11','17/12','18/01'];
             let option = {
-                color: ['#58DABC', '#52BEFC', '#FFB84E', '#FFB84E'],
+                color: ['#58DABC', '#52BEFC', '#FFB84E'],
                 title: [{
-                    text: '报关单量',
-                    x: '4%',
+                    text: '报关单量(万票)',
+                    x: '6%',
                     y: '1%',
                     textAlign: 'center',
                     textStyle: {
@@ -278,8 +279,8 @@ subscribes(
                         fontSize: 35,
                     }
                 }, {
-                    text: '征收金额',
-                    x: '54%',
+                    text: '征收金额(亿元)',
+                    x: '56%',
                     y: '1%',
                     textAlign: 'center',
                     textStyle: {
@@ -287,8 +288,8 @@ subscribes(
                         fontSize: 35,
                     }
                 }, {
-                    text: '通关效率',
-                    x: '4%',
+                    text: '通关效率(小时)',
+                    x: '6%',
                     y: '51%',
                     textAlign: 'center',
                     textStyle: {
@@ -296,8 +297,8 @@ subscribes(
                         fontSize: 35,
                     }
                 }, {
-                    text: '查验时效',
-                    x: '54%',
+                    text: '查验时效(小时)',
+                    x: '56%',
                     y: '51%',
                     textAlign: 'center',
                     textStyle: {
@@ -325,9 +326,9 @@ subscribes(
                         },
                         axisLabel: {
                             formatter: '{value}',
-                            fontSize: 30,
+                            fontSize: 20,
                         },
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        data: month
                     },
                     {
                         gridIndex: 1,
@@ -338,9 +339,9 @@ subscribes(
                         },
                         axisLabel: {
                             formatter: '{value}',
-                            fontSize: 30,
+                            fontSize: 20,
                         },
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        data: month
                     },
                     {
                         gridIndex: 2,
@@ -351,9 +352,9 @@ subscribes(
                         },
                         axisLabel: {
                             formatter: '{value}',
-                            fontSize: 30,
+                            fontSize: 20,
                         },
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        data: month
                     },
                     {
                         gridIndex: 3,
@@ -364,9 +365,9 @@ subscribes(
                         },
                         axisLabel: {
                             formatter: '{value}',
-                            fontSize: 30,
+                            fontSize: 20,
                         },
-                        data: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
+                        data: month
                     }
                 ],
                 yAxis: [
@@ -422,33 +423,106 @@ subscribes(
                 series: [
                     {
                         name: '报关单量',
-                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        data: [6.7, 13.9, 13, 11.9, 12.9, 13.8, 12.4, 13.7, 11.3, 13.9, 14.3, 14.1],
                         type: 'bar',
                         xAxisIndex: 0,
                         yAxisIndex: 0,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
                     },
                     {
                         name: '征收金额',
-                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        data: [7.8, 9.9, 10.3, 10.6, 10.3, 9, 10.2, 10.4, 10.9, 11.3, 14.2, 11.4],
                         type: 'bar',
                         xAxisIndex: 1,
                         yAxisIndex: 1,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
                     },
                     {
-                        name: '通关效率',
-                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        name: '通关效率-进口',
+                        data: [0, 0, 5.78, 17.09, 19.12, 10.17, 8.66, 3.71, 0.98, 1.24, 3.59, 2.69],
                         type: 'bar',
                         xAxisIndex: 2,
                         yAxisIndex: 2,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
                     },
                     {
-                        name: '查验时效',
-                        data: [120, 200, 150, 80, 70, 110, 130, 119, 210, 132, 134, 201],
+                        name: '通关效率-出口',
+                        data: [0, 0, 9.02, 8.49, 7.96, 7.78, 6.34, 2.78, 5.42, 6.07, 1.41, 1.85],
+                        type: 'bar',
+                        xAxisIndex: 2,
+                        yAxisIndex: 2,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
+                    },
+                    {
+                        name: '查验时效-进口',
+                        data: [0, 0, 32.73, 31.12, 30.33, 22.94, 21.58, 21.6, 70.45, 16.4, 18.45, 19.55],
                         type: 'bar',
                         xAxisIndex: 3,
                         yAxisIndex: 3,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
+                    },
+                    {
+                        name: '查验时效-出口',
+                        data: [0, 0, 3.69, 2.42, 2.06, 1.3, 1.44, 1.46, 1.22, 0.96, 1, 0.88],
+                        type: 'bar',
+                        xAxisIndex: 3,
+                        yAxisIndex: 3,
+                        label: {
+                            normal: {
+                                show: true,
+                                position: 'top',
+                                formatter: (params) => {
+                                    if (params.value == 0) return '';
+                                    return params.value;
+                                }
+                            }
+                        },
                     }
-
                 ]
             };
             return option;
