@@ -11,8 +11,8 @@ import PortRightPanel from './portRightPanel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, NoHornTip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
-import BigShipIcon from '../../../res/mapIcon/bigShip.gif';
-import BargeIcon from '../../../res/mapIcon/Barge.gif';
+import BigShipIcon from '../../../res/mapIcon/bigShip.png';
+import BargeIcon from '../../../res/mapIcon/Barge.png';
 import TruckIcon from '../../../res/mapIcon/car.png';
 
 /** 计算数量得到小数点和前面加0 */
@@ -58,6 +58,9 @@ class MapOperation extends React.Component {
             mtJson: [],     //后台请求的码头数据
             mapDesc: [],   //勾画出码头页面信息
         },
+        /** 假数据 */
+        mocksJS : null,
+        /** ------- */
         TRUCK_LAYER: true,
         SHIP_LAYER: true,
         BARGE_SHIP_LAYER: true,
@@ -127,13 +130,20 @@ class MapOperation extends React.Component {
         publish('truck_GetListAsync').then((res) => {
             this.handleOutcar(res[0]);
         })
+
+        /** 假数据---其他的 */
+        publish('map_view_init').then((res) => {
+            this.setState({
+                mocksJS : res[0]
+            })
+        })
     }
 
     handleMTSJ = (datas) => {
         let color = {
             1: [250, 22, 80, 1],       //红色
             2: [57, 255, 95, 1],       //绿色
-            3: [24, 46, 255, 1],       //蓝色
+            3: [255, 255, 255, 1],       //蓝色
             4: [251, 251, 0, 1],       //黄色
         };
         for (let o in datas) {
@@ -174,8 +184,8 @@ class MapOperation extends React.Component {
                     id: 'SHIP_LAYER' + o,
                     layerId: 'SHIP_LAYER',
                     src: BigShipIcon,
-                    width: 140,
-                    height: 70,
+                    width: 70,
+                    height: 140,
                     angle: (Number(json[o].heading) / 100) - 90,
                     x: json[o].longitude,
                     y: json[o].latitude,
@@ -184,8 +194,8 @@ class MapOperation extends React.Component {
                     mouseover: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140 + 36);
-                            symbol.setHeight(70 + 9);
+                            symbol.setWidth(70 + 9);
+                            symbol.setHeight(140 + 36);
                         }
                         g.setSymbol(symbol);
                         let param2 = {
@@ -206,8 +216,8 @@ class MapOperation extends React.Component {
                     mouseout: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140);
-                            symbol.setHeight(70);
+                            symbol.setWidth(70);
+                            symbol.setHeight(140);
                         }
                         g.setSymbol(symbol);
                         that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
@@ -230,8 +240,8 @@ class MapOperation extends React.Component {
                     id: 'BARGE_SHIP_LAYER' + o,
                     layerId: 'BARGE_SHIP_LAYER',
                     src: BargeIcon,
-                    width: 140,
-                    height: 70,
+                    width: 70,
+                    height: 140,
                     angle: (Number(json[o].heading) / 100) - 90,
                     x: json[o].longitude,
                     y: json[o].latitude,
@@ -240,8 +250,8 @@ class MapOperation extends React.Component {
                     mouseover: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140 + 36);
-                            symbol.setHeight(70 + 9);
+                            symbol.setWidth(70 + 9);
+                            symbol.setHeight(140 + 36);
                         }
                         g.setSymbol(symbol);
                         let param2 = {
@@ -262,8 +272,8 @@ class MapOperation extends React.Component {
                     mouseout: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140);
-                            symbol.setHeight(70);
+                            symbol.setWidth(70);
+                            symbol.setHeight(140);
                         }
                         g.setSymbol(symbol);
                         that.props.map.mapDisplay.clearLayer('BARGE_SHIP_HOVERTEXT');
@@ -286,8 +296,8 @@ class MapOperation extends React.Component {
                     id: 'TRUCK_LAYER' + o,
                     layerId: 'TRUCK_LAYER',
                     src: TruckIcon,
-                    width: 140,
-                    height: 120,
+                    width: 69,
+                    height: 34,
                     x: json[o].Curlng,
                     y: json[o].Curlat,
                     attr: { ...json[o] },
@@ -296,8 +306,8 @@ class MapOperation extends React.Component {
                     mouseover: (g) => {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140 + 36);
-                            symbol.setHeight(120 + 9);
+                            symbol.setWidth(69 + 36);
+                            symbol.setHeight(34 + 9);
                         }
                         g.setSymbol(symbol);
                         let param2 = {
@@ -317,8 +327,8 @@ class MapOperation extends React.Component {
                     mouseout: (g) => {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
-                            symbol.setWidth(140);
-                            symbol.setHeight(120);
+                            symbol.setWidth(69);
+                            symbol.setHeight(34);
                         }
                         g.setSymbol(symbol);
                         that.props.map.mapDisplay.clearLayer('TRUCK_LAYER_HOVERTEXT');
@@ -393,6 +403,7 @@ class MapOperation extends React.Component {
             linewidth: 6,
         }
         this.props.map.mapDisplay.polygon(params);
+        let codes = datajson.code;
         publish('getData', { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE = '" + datajson.code + "' " } }).then((res) => {
             if (datajson.name.indexOf('码头') >= 0) {
                 this.setState({
@@ -413,23 +424,19 @@ class MapOperation extends React.Component {
                     }
                 });
             } else {
-                var Mock = require('mockjs');
-                var data = Mock.mock({
-                    'list|1-10': [{
-                        'id|+1': 1,
-                        'name': '@ctitle(8)',
-                        'number|1-5000': 1
-                    }]
-                })
-                this.setState({
-                    showMT: false,
-                    Amap: true,
-                    tip: {
-                        // mtJson: res[0].features,
-                        mtJson: data.list,
-                        mapDesc: datajson
+                let datas = this.state.mocksJS;
+                for(let a in datas){
+                    if(datas[a].code === datajson.code){
+                        this.setState({
+                            showMT: false,
+                            Amap: true,
+                            tip: {
+                                mtJson: datas[a],
+                                mapDesc: datajson
+                            },
+                        });
                     }
-                });
+                }
             }
         }
         );
@@ -499,7 +506,7 @@ class Tables extends React.Component {
             <div className='mtables animated' style={this.props.style}>
                 <div className="mtables-top">{flds}</div>
                 <div className='mtables-center'>
-                    {datas.map((value, key) => {
+                    {datas.data.map((value, key) => {
                         return <div key={key} className="mtables-center-value" >
                             <span>{value.name}</span>
                             <span>{value.number}</span>

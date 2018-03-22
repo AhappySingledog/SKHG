@@ -1430,10 +1430,30 @@ body > div {
   background: url('../images/port/图1.png') no-repeat;
   background-size: 100% 100%;
 }
+.Bot-video-videoleft-Playvideo {
+  width: 124px;
+  height: 124px;
+  background: url('../images/视频图标.png') no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  cursor: pointer;
+}
 .Bot-video-videoright {
   height: 100%;
   background: url('../images/port/图2.png') no-repeat;
   background-size: 100% 100%;
+}
+.Bot-video-videoright-Playvideo {
+  width: 124px;
+  height: 124px;
+  background: url('../images/视频图标.png') no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  top: 40%;
+  left: 40%;
+  cursor: pointer;
 }
 .Bot-video-vidospan {
   color: white;
@@ -1533,6 +1553,7 @@ body > div {
 .homeRightEcharts-span {
   text-align: center;
   margin-bottom: 20px;
+  font-size: 60px;
 }
 .homeRightEcharts-span > span {
   color: #ffffff;
@@ -1564,10 +1585,13 @@ body > div {
   flex-direction: column;
 }
 .mtables-center-value {
-  margin-top: 40px;
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 .mtables-center-value > span {
-  padding: 100px;
+  padding: 10px 80px 30px 80px;
 }
 .mtables-bot {
   background: url('../images/port/下.png') no-repeat;

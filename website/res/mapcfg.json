@@ -61,7 +61,7 @@
             ]
         },
         {
-            "group": "SMC",
+            "group": "YTH",
             "visible": 1,
             "maps": [
                 {
@@ -87,7 +87,7 @@
             ]
         },
         {
-            "group": "SZMSCK",
+            "group": "SZMS",
             "visible": 1,
             "maps": [
                 {
@@ -103,6 +103,56 @@
                 {
                     "id": "cehui",
                     "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/SZMSCK/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "CCT",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "type": "tiled",
+                    "name": "天地影响图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                },
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/CCT/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "MCT",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "type": "tiled",
+                    "name": "天地影响图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                },
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/MCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {

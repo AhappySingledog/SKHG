@@ -190,7 +190,7 @@ class PortRightBot extends React.Component {
             <div className="Bot">
                 <div className="Bot-video">
                     <div className='Bot-video-videoleft'>
-
+                        <div className='Bot-video-videoright-Playvideo' onClick={() => publish('playVedio')}></div>
                     </div>
                     <div className='Bot-video-vidospan' onClick={() => publish('playVedio')}>
                         重点视频监控
@@ -202,7 +202,7 @@ class PortRightBot extends React.Component {
                 </div>
                 <div className="Bot-video">
                     <div className="Bot-video-videoright">
-
+                        <div className='Bot-video-videoright-Playvideo' onClick={() => publish('playVedio')}></div>
                     </div>
                     <div className='Bot-video-vidospan' onClick={() => publish('playVedio')}>
                         重点视频监控

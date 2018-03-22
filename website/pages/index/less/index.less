@@ -1183,11 +1183,31 @@ body>div {
             height: 100%;
             background: url('../images/port/图1.png') no-repeat;
             background-size: 100% 100%;
+            &-Playvideo {
+                width: 124px;
+                height: 124px;
+                background: url('../images/视频图标.png') no-repeat;
+                background-size: 100% 100%;
+                position: relative;
+                top: 40%;
+                left: 40%;
+                cursor: pointer;
+            }
         }
         &-videoright{
             height: 100%;
             background: url('../images/port/图2.png') no-repeat;
             background-size: 100% 100%;
+            &-Playvideo {
+                width: 124px;
+                height: 124px;
+                background: url('../images/视频图标.png') no-repeat;
+                background-size: 100% 100%;
+                position: relative;
+                top: 40%;
+                left: 40%;
+                cursor: pointer;
+            }
         }
         &-vidospan{
             color : white;
@@ -1304,6 +1324,7 @@ body>div {
     &-span{
         text-align: center;
         margin-bottom: 20px;
+        font-size : 60px;
         >span{
             color: #ffffff;
         }
@@ -1336,9 +1357,12 @@ body>div {
         display: flex;
         flex-direction: column;
         &-value{
-            margin-top: 40px;
+            margin-top: 10px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
             >span{
-                padding:  100px;
+                padding: 10px 80px 30px 80px;
             }
         }
     }

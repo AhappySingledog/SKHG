@@ -6,7 +6,7 @@ let ports = null;
 let data_mapJson = null;
 let truck = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
-$.ajax({ dataType: 'json', url: '../portTest.json', async: false, success: (res) => data_mapJson = res });
+$.ajax({ dataType: 'json', url: '../datajson.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
 
 const x_PI = 3.14159265358979324 * 3000.0 / 180.0;
