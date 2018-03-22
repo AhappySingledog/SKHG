@@ -75,9 +75,6 @@ class MyLink extends React.Component {
         }
         return data[fld.name];
     }
-    componentWillUnmount() {
-        if (this.sub_showTip) unsubscribe(this.sub_showTip);
-    }
     render() {
         let flds = [
             { title: '船名', name: 'name' },
