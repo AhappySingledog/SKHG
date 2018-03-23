@@ -26,16 +26,15 @@ export default class PierRightPanel extends React.Component {
     }
     componentDidMount() {
         let code = JSON.stringify(this.props.datas.code).replace(/\"/g, "'");
-        /** 船舶信息 */
-        let json = [];
-        publish('getData', { svn: 'skhg_loader', tableName: 'TABLELIST', data: { where: '1 = 1' } }).then((res) => {
-            // for (var o in res[0].features) {
-            //     json.push(res[0].features[o].attributes);
-            // };
-            // this.Berth(json);
-            console.log(res)
-        });
+        /** 各栏堆存柜量 */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
+            this.Berth(res[0].data);
+        })
 
+        /** 泊位停靠船舶信息 */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
+            this.Berth(res[0].data);
+        })
     };
     /** 获取船舶信息 */
     Berth(json) {
@@ -54,12 +53,18 @@ export default class PierRightPanel extends React.Component {
 
 
         let { berths = [] } = this.state;
-        
-        let flds = [
+
+        let fldss = [
             { title: '船舶名称', name: 'CVESSELNAME' },
             { title: '船舶编码', name: 'EVESSELNAME' },
             { title: '靠泊泊位', name: 'BERTHSEQ' },
             { title: '船舶类型', name: 'VESSELTYPE' },
+        ];
+        let flds = [
+            { title: '港口名称', name: 'name' },
+            { title: '地点', name: 'addr' },
+            { title: '港口开埠时间', name: 'kbsj' },
+            { title: '招商局运营时间', name: 'yysj' },
         ];
         let datas = [
             { name: 1, addr: 2, kbsj: 3, yysj: 4 },
@@ -77,7 +82,7 @@ export default class PierRightPanel extends React.Component {
         return (
             <div className='pierRight-1'>
                 <div style={{ width: 3750 }}>
-                    <Table title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={flds} datas={berths} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={fldss} datas={berths} trClick={null} trDbclick={null} />
                     <Table title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ width: 3750 }}>

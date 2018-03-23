@@ -3,10 +3,10 @@
     "centery": -1,
     "initlevel": -1,
     "extent": {
-        "xmax":114.04809512479585,
-        "xmin":113.77790778948597,
-        "ymax":22.605922269617693,
-        "ymin":22.42376102402963
+        "xmax":113.940401003,
+        "xmin":113.847341287,
+        "ymax":22.510245079,
+        "ymin":22.43584891
     },
     "isJwd": 1,
     "overview": 0,
@@ -24,7 +24,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -40,7 +40,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/sct_tif/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -66,7 +66,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -92,7 +92,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -117,7 +117,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -142,7 +142,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt2/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
