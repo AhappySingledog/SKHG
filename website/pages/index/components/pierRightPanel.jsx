@@ -28,20 +28,16 @@ export default class PierRightPanel extends React.Component {
         let code = JSON.stringify(this.props.datas.code).replace(/\"/g, "'");
         /** 各栏堆存柜量 */
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
-            this.Berth(res[0].data);
+            
         })
 
         /** 泊位停靠船舶信息 */
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
-            this.Berth(res[0].data);
+            this.setState({
+                berths: res[0].data
+            })
         })
     };
-    /** 获取船舶信息 */
-    Berth(json) {
-        this.setState({
-            berths: json
-        })
-    }
 
     onClick = (data) => {
         console.log(data);
@@ -53,6 +49,7 @@ export default class PierRightPanel extends React.Component {
 
 
         let { berths = [] } = this.state;
+        console.log(berths);
 
         let fldss = [
             { title: '船舶名称', name: 'CVESSELNAME' },
@@ -86,7 +83,7 @@ export default class PierRightPanel extends React.Component {
                     <Table title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ width: 3750 }}>
-                    <Table title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={flds} datas={[]} trClick={null} trDbclick={null} />
                     <Table title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ padding: '10px', border: '2px solid #1890ff', width: 3730 }}>

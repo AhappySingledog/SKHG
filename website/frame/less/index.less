@@ -172,7 +172,7 @@
     height: fit-content;
     padding: 2px 2px;
 
-    > div {
+    > .mttitle {
         //width: 100%;
         background: url('../images/灰白底块.png') no-repeat;
         background-size: 100% 100%;
@@ -183,41 +183,60 @@
         padding-left: 20px;
     }
 
-    > table {
-        width: 100%;
-        > thead {
-            > tr {
-                > td {
+    > .mhead {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        height: 94px;
+        font-size: 40px;
+        color: #5caeff;
+        > div {
+            padding: 0 20px;
+        }
+    }
+
+    > .mttable {
+        flex-grow: 1;
+        overflow: auto;
+        > table {
+            width: 100%;
+            > thead {
+                > tr {
+                    > td {
+                        //height: 92px;
+                        height: 0;
+                        overflow: hidden;
+                        background: rgba(255, 255, 255, 0);
+                        border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+                        color: #5caeff;
+                        font-size: 40px;
+                        padding-left: 25px;
+                        padding-right: 25px;
+                    }
+                }
+            }
+            > tbody {
+                > tr {
+                    cursor: pointer;
+                }
+                > tr > td {
                     height: 92px;
-                    background: rgba(255, 255, 255, 0);
-                    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-                    color: #5caeff;
-                    font-size: 40px;
+                    color: white;
+                    font-size: 45px;
                     padding-left: 25px;
                     padding-right: 25px;
                 }
-            }
-        }
-        > tbody {
-            > tr {
-                cursor: pointer;
-            }
-            > tr > td {
-                height: 92px;
-                color: white;
-                font-size: 45px;
-                padding-left: 25px;
-                padding-right: 25px;
-            }
-            > tr:nth-of-type(2n) {
-                background: #002e73;
-                > td:nth-of-type(1) {
-                    // width: 200px;
-                    background: #0a6ec8;
+                > tr:nth-of-type(2n) {
+                    background: #002e73;
+                    > td:nth-of-type(1) {
+                        // width: 200px;
+                        background: #0a6ec8;
+                    }
                 }
-            }
-            > tr:hover {
-                background: rgba(255, 189, 77, 0.8);
+                > tr:hover {
+                    background: rgba(255, 189, 77, 0.8);
+                }
             }
         }
     }
