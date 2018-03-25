@@ -86,7 +86,7 @@ class MyLink extends React.Component {
             { title: '处理', name: 'cl' },
         ];
         return (
-            <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950 }}>
+            <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950, zIndex: 99999 }}>
                 <div className='warningTip-t'></div>
                 <div className='warningTip-b'>
                     <Panel style={{ padding: '20px 25px', width: 2365, height: 1071 }}>

@@ -101,39 +101,45 @@ class ClassicCase extends React.Component {
         cases: [],
         index: 0,
     }
+    work = () => {
+        let { data } = this.state;
+        let firstItem = data[0];
+        let temp = data.slice(1).concat(firstItem);
+        let cases = _.take(temp, 1);
+        this.setState({ cases: cases, data: temp });
+        $('#' + this.props.itemKey).addClass('bounceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.itemKey).removeClass('bounceInUp animated'));
+    }
     componentDidMount() {
-        let work = () => {
-            let { data } = this.state;
-            let firstItem = data[0];
-            let temp = data.slice(1).concat(firstItem);
-            let cases = _.take(temp, 1);
-            this.setState({ cases: cases, data: temp });
-            $('.case-body').addClass('bounceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.case-body').removeClass('bounceInUp animated'));
-        }
         $.ajax({
             dataType: 'json', url: '../cases.json', async: false, success: (res) => {
-                this.setState({ data: res[this.props.itemKey] }, work);
-                this.timer = setInterval(work, 30 * 1000);
+                if (this.props.itemKey === 'yqjk') {
+                    this.datas = res[this.props.itemKey];
+                    this.setState({ data: this.datas.xl }, this.work);
+                    this.timer = setInterval(this.work, 30 * 1000);
+                } else {
+                    this.setState({ data: res[this.props.itemKey] }, this.work);
+                    this.timer = setInterval(this.work, 30 * 1000);
+                }
             }
         });
     }
     componentWillUnmount() {
         if (this.timer) clearInterval(this.timer);
     }
-    onClick = (index) => {
-        this.setState({index: index});
+    onClick = (index, key) => {
+        this.setState({index: index, data: this.datas[key]}, this.work);
     }
     render() {
         return (
             <div className='case'>
                 <div className='case-title'>{this.props.title}</div>
                 {this.props.itemKey === 'yqjk' ? <div className='yqjk'>
-                    <div className={'yqjk-xl-' + (this.state.index === 0 ? 1 : 2)} onClick={() => this.onClick(0)}></div>
-                    <div className={'yqjk-bd-' + (this.state.index === 1 ? 1 : 2)} onClick={() => this.onClick(1)}></div>
-                    <div className={'yqjk-ty-' + (this.state.index === 2 ? 1 : 2)} onClick={() => this.onClick(2)}></div>
-                    <div className={'yqjk-tt-' + (this.state.index === 3 ? 1 : 2)} onClick={() => this.onClick(3)}></div>
+                    <div className={'yqjk-xl-' + (this.state.index === 0 ? 1 : 2)} onClick={() => this.onClick(0, 'xl')}></div>
+                    <div className={'yqjk-bd-' + (this.state.index === 1 ? 1 : 2)} onClick={() => this.onClick(1, 'bd')}></div>
+                    <div className={'yqjk-ty-' + (this.state.index === 2 ? 1 : 2)} onClick={() => this.onClick(2, 'ty')}></div>
+                    <div className={'yqjk-tt-' + (this.state.index === 3 ? 1 : 2)} onClick={() => this.onClick(3, 'tt')}></div>
                 </div> : null}
-                <div className='case-body' style={this.props.itemKey === 'yqjk' ? {paddingTop: '10px'} : {}}>
+                <div className='case-body' id={this.props.itemKey} style={this.props.itemKey === 'yqjk' ? {paddingTop: '10px'} : {}}>
                     {this.state.cases.map((c, i) => <Case key={i} data={c} />)}
                 </div>
             </div>

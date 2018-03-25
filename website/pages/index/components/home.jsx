@@ -222,7 +222,7 @@ export default class Home extends React.Component {
                 autoRotate();
             }, 30 * 1000);
         }).then(() => {
-            $('.cesium-viewer-toolbar').css({ zIndex: 9 });
+            $('.cesium-viewer-toolbar').css({ zIndex: 2 });
             $('.cesium-toolbar-button').css({ width: '120px', height: '120px' });
             $('.cesium-baseLayerPicker-item').css({ width: '144px' });
             $('.cesium-viewer-bottom').css({ display: 'none' });
@@ -287,7 +287,7 @@ export default class Home extends React.Component {
                     <HomeRightPanel />
                 </div>
                 {this.state.showTip ?
-                    <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470 }}>
+                    <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470, zIndex: 1 }}>
                         <div className='rightP-t' />
                         <div className='rightP-c'>
                             <Table style={{}} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
