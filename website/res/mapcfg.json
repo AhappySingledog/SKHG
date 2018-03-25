@@ -40,7 +40,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/sct_tif/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地影响图",
                     "params": {
@@ -153,6 +153,31 @@
                 {
                     "id": "cehui",
                     "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/MCT/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "CMBL",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
+                    "type": "tiled",
+                    "name": "天地影响图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                },
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {

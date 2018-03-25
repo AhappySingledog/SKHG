@@ -22,21 +22,38 @@ class Title extends React.Component {
 // 智能预警右侧组件
 export default class PierRightPanel extends React.Component {
     state = {
+        onyard: [],              //各栏堆存柜量
         berths: [],               //泊位停靠船舶信息
+        scctyard: [],            //超过三个月海关未放行的柜量
+        ships: [],               //整船换装柜量
     }
     componentDidMount() {
-        let code = JSON.stringify(this.props.datas.code).replace(/\"/g, "'");
+
+        let pa = [{
+            paramName: "P_TERMINALCODE",
+            value: this.props.datas.code
+        }];
+        // let code = JSON.stringify(this.props.datas.code).replace(/\"/g, "'");
         /** 各栏堆存柜量 */
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
-            
-        })
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
+            this.setState({
+                onyard: res[0].data
+            })
+        });
 
         /** 泊位停靠船舶信息 */
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= 'SCT'" } }).then((res) => {
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
             this.setState({
                 berths: res[0].data
             })
-        })
+        });
+
+        /** 超三个月海关未放行的柜列表  */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
+            this.setState({
+                scctyard: res[0].data.CUR_A
+            })
+        });
     };
 
     onClick = (data) => {
@@ -48,15 +65,38 @@ export default class PierRightPanel extends React.Component {
     render() {
 
 
-        let { berths = [] } = this.state;
-        console.log(berths);
+        let { berths = [], onyard = [], scctyard = [] } = this.state;
 
-        let fldss = [
+        const onyardFlds = [
+            { title: '码头', name: 'TERMINALCODE' },
+            { title: '堆场位置', name: 'YARD' },
+            { title: '堆存柜量', name: 'CNTRCOUNT' },
+        ];
+
+        const berthsFlds = [
             { title: '船舶名称', name: 'CVESSELNAME' },
             { title: '船舶编码', name: 'EVESSELNAME' },
             { title: '靠泊泊位', name: 'BERTHSEQ' },
             { title: '船舶类型', name: 'VESSELTYPE' },
         ];
+
+        const scctyardFlds = [
+            { title: '箱号', name: 'YARDCELL' },
+            { title: '栏位', name: 'YARDLANENO' },
+            { title: '贝位', name: 'YARDBAYNO' },
+            { title: '列号', name: 'YARDROWNO' },
+            { title: '层高', name: 'YARDTIERNO' },
+        ];
+
+        const shipsFlds = [
+            { title: '箱号', name: 'YARDCELL' },
+            { title: '栏位', name: 'YARDLANENO' },
+            { title: '贝位', name: 'YARDBAYNO' },
+            { title: '列号', name: 'YARDROWNO' },
+            { title: '层高', name: 'YARDTIERNO' },
+        ]
+
+
         let flds = [
             { title: '港口名称', name: 'name' },
             { title: '地点', name: 'addr' },
@@ -79,12 +119,12 @@ export default class PierRightPanel extends React.Component {
         return (
             <div className='pierRight-1'>
                 <div style={{ width: 3750 }}>
-                    <Table title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={fldss} datas={berths} trClick={null} trDbclick={null} />
-                    <Table title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={onyard} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={berthsFlds} datas={berths} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ width: 3750 }}>
-                    <Table title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={flds} datas={[]} trClick={null} trDbclick={null} />
-                    <Table title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={scctyardFlds} datas={scctyard} trClick={null} trDbclick={null} />
+                    <Table title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={shipsFlds} datas={scctyard} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ padding: '10px', border: '2px solid #1890ff', width: 3730 }}>
                     <Vedios style={{ width: 1855, height: 1100 }} datas={data} />
