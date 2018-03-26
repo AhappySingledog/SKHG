@@ -43,12 +43,12 @@ export default class Table extends React.Component {
         if (this.props.datas.length > 0) {
             let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
             let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({width: w - 40}));
+            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
         }
         else {
             let tds = $('#' + this.props.id + '>tHead>tr')[0].cells;
             let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({width: w - 40}));
+            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
         }
     }
     componentWillReceiveProps(nextProps) {
@@ -73,7 +73,7 @@ export default class Table extends React.Component {
                     <table id={this.props.id}>
                         <thead>
                             <tr>
-                                {flds.map((fld, i) => <td key={i}><div style={{ height: 0, overflow: 'hidden', lineHeight: '94px' }}>{fld.title}</div></td>)}
+                                {flds.map((fld, i) => <td key={i}><div style={{ height: 0, overflow: 'hidden' }}>{fld.title}</div></td>)}
                             </tr>
                         </thead>
                         <tbody>

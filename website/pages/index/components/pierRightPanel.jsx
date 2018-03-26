@@ -3,6 +3,7 @@ import 'animate.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish } from '../../../frame/core/arbiter';
+import { table2Excel } from '../../../frame/core/table2Excel';
 import { Panel, WordsContent, Table, Vedios } from '../../../frame/componets/index';
 import echarts from 'echarts';
 import $ from 'jquery';
@@ -11,6 +12,7 @@ import _ from 'lodash';
 class Title extends React.Component {
     export = () => {
         console.log(this.props.id);
+        table2Excel(this.props.id);
     }
     render() {
         return (
@@ -65,9 +67,6 @@ export default class PierRightPanel extends React.Component {
     onClick = (data) => {
         console.log(data);
     }
-    export = (id) => {
-        console.log(id);
-    }
     /** 双击显示箱位位置 */
     OnfindBox = (e) => {
         let pa = [{
@@ -85,8 +84,8 @@ export default class PierRightPanel extends React.Component {
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
             this.setState({ BYLANENO: res[0].data.CUR_A })
         });
-        
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'"  } }).then((ors) => {
+
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'" } }).then((ors) => {
             this.setState({ GIS: ors });
         })
 
