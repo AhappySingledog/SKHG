@@ -89,7 +89,7 @@ class Case extends React.Component {
         return (
             <WordsContent style={{ padding: '20px', width: 1366, height: 380, display: 'flex', flexDirction: 'column' }}>
                 <div className='oneCase-title'>{this.props.data.title}</div>
-                <div className='oneCase-msg'>{this.props.data.msg}</div>
+                <div className='oneCase-msg scrollbar'>{this.props.data.msg}</div>
             </WordsContent>
         )
     }

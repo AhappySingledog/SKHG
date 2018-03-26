@@ -23,7 +23,7 @@ class MyPortDesc extends React.Component {
                     {this.props.port.events.map((e, i) => <div key={i} className='desc-top-msg'><div className='desc-top-year'>{e.year}</div><div className='desc-top-event'>{e.event}</div><div className='desc-top-time' /></div>)}
                 </div>
                 <div className='desc-bottom'>
-                    <div className='desc-bottom-msg'>{this.props.port.msg}</div>
+                    <div className='desc-bottom-msg scrollbar'>{this.props.port.msg}</div>
                     <ViwePager autoPlay={true} direction={'right'} imgs={this.props.port.imgs} style={{ width: 449, height: 614 }} boxStyle="content" interval={4000} fullScreen={this.fullScreen} />
                 </div>
             </div>

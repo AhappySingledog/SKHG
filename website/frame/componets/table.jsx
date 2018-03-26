@@ -16,9 +16,6 @@ import $ from 'jquery';
  *      trDbclick       : 双击事件
  */
 export default class Table extends React.Component {
-    state = {
-        ws: []
-    }
     bindClick = () => {
         if (this.props.trClick) {
             let datas = this.props.datas;
@@ -43,37 +40,43 @@ export default class Table extends React.Component {
     }
     componentDidUpdate() {
         if (this.props.datas.length > 0) this.bindClick();
+        if (this.props.datas.length > 0) {
+            let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
+            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
+            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({width: w - 40}));
+            console.log(this.props.id);
+            console.log(tds);
+            console.log(ws);
+        }
+        else {
+            let tds = $('#' + this.props.id + '>tHead>tr')[0].cells;
+            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
+            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({width: w - 40}));
+        }
     }
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(this.props.datas) != JSON.stringify(nextProps.datas)) {
             $('#' + this.props.id).addClass('slideInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.id).removeClass('slideInUp animated'));
-        }
-        if (this.props.datas.length > 0) {
-            let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
-            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            this.setState({ws: ws});
-        }
-        else {
-            let tds = $('#' + this.props.id + '>thead>tr')[0].cells;
-            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            this.setState({ws: ws});
         }
     }
     componentDidMount() {
         if (this.props.datas.length > 0) this.bindClick();
     }
     render() {
-        let { flds = [], datas = [] } = this.props;
+        let { flds = [], datas = [], rowNo } = this.props;
+        if (rowNo) {
+            flds = [{ title: '序号', name: 'rowNo' }].concat(flds);
+            datas.forEach((d, i) => d.rowNo = i + 1);
+        }
         return (
             <div className='mtable' style={this.props.style} ref='table'>
                 {this.props.title ? <div className='mttitle'>{this.props.title}</div> : null}
-                {this.state.head}
-                {<div className='mhead'>{this.state.ws.map((w, i) => <div key={i} style={{width: w - 40}}>{this.props.flds[i].title}</div>)}</div>}
-                <div className='mttable' style={this.props.style.height ? {height: this.props.style.height - 185} : {}}>
+                <div className='mhead'>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
+                <div className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>
                     <table id={this.props.id}>
                         <thead>
                             <tr>
-                                {flds.map((fld, i) => <td key={i}><div style={{height: 0, overflow: 'hidden', lineHeight: '94px'}}>{fld.title}</div></td>)}
+                                {flds.map((fld, i) => <td key={i}><div style={{ height: 0, overflow: 'hidden', lineHeight: '94px' }}>{fld.title}</div></td>)}
                             </tr>
                         </thead>
                         <tbody>
