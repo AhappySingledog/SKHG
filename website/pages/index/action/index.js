@@ -1307,7 +1307,7 @@ subscribes(
 
             var value = ops.value;
             var min = 0;
-            var max = 3000;
+            var max = 5000;
             var size = '100%';
             var initcolor = '#F26D12';
 

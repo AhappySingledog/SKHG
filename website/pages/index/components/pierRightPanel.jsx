@@ -26,6 +26,11 @@ export default class PierRightPanel extends React.Component {
         berths: [],               //泊位停靠船舶信息
         scctyard: [],            //超过三个月海关未放行的柜量
         ships: [],               //整船换装柜量
+        wharf: {               //码头数据
+            BYLANENO: [],
+            GIS: [],
+            BYCNTR: [],        //详细信息
+        }
     }
     componentDidMount() {
 
@@ -54,14 +59,41 @@ export default class PierRightPanel extends React.Component {
                 scctyard: res[0].data.CUR_A
             })
         });
-    }
+    };
 
+    /** 点击事件 */
     onClick = (data) => {
         console.log(data);
     }
     export = (id) => {
         console.log(id);
     }
+    /** 双击显示箱位位置 */
+    OnfindBox = (e) => {
+        let pa = [{
+            paramName: "P_TERMINALCODE",
+            value: this.props.datas.code
+        }, {
+            paramName: "P_LANENO",
+            value: e.YARD
+        }];
+        /** 
+         *  备注： 
+         *       res 查询loader存储.点击对应的栏号编码后读取该栏号的在场柜
+         *       ors 查询skhg表.    点击对应的栏号编码后得到表中场位中所有的箱量
+        */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
+            this.setState({ BYLANENO: res[0].data.CUR_A })
+        });
+        
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'"  } }).then((ors) => {
+            this.setState({ GIS: ors });
+        })
+
+
+    }
+
+
     render() {
         let { berths = [], onyard = [], scctyard = [] } = this.state;
         const onyardFlds = [
@@ -97,7 +129,7 @@ export default class PierRightPanel extends React.Component {
         return (
             <div className='pierRight-1'>
                 <div style={{ width: 3750 }}>
-                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={onyard} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={onyard} trClick={null} trDbclick={this.OnfindBox.bind(this)} />
                     <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={berthsFlds} datas={berths} trClick={null} trDbclick={null} />
                 </div>
                 <div style={{ width: 3750 }}>
