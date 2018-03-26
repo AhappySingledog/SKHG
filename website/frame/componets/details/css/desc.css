@@ -35,10 +35,6 @@
 }
 .descTip {
   position: absolute;
-  top: 0;
-  right: 0;
-  animation: showAnimete 0.5s ease;
-  transform-origin: right center;
   padding: 70px;
 }
 .descTip-title {

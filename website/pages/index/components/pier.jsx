@@ -56,6 +56,7 @@ class MapOperation extends React.Component {
     }
 
     componentDidMount() {
+        this.sub_boxView = subscribe('box_Information', this.onIconClick);
         Object.keys(this.props.datas.mapExtent).forEach((key) => {
             this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]);
         });
@@ -95,35 +96,7 @@ class MapOperation extends React.Component {
     }
 
     handleMTSJ = (datas) => {
-        this.props.map.mapDisplay.clearLayer('port_view');
-        let color = {
-            mt: [255, 255, 255, 0],
-        };
-
-        let dots = datas.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
-        let name = datas.code;
-        let fillColor = color.mt;
-        let params = {
-            id: 'port_view',
-            layerId: 'port_view',
-            linecolor: fillColor,
-            dots: dots,
-            attr: { ...datas },
-            click: this.showContainerModal,
-            linewidth: 0,
-            mouseover: (g) => {
-                this.toolTipIn(g)
-            },
-            mouseout: (g) => {
-                this.setState({
-                    showMT: false,
-                });
-            },
-        }
-        this.props.map.mapDisplay.polygon(params);
-
         if (datas.code === 'SCT') {
-
             publish('webAction', { svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {} }).then((res) => {
                 let data = JSON.parse(res).filter((e) => e.liveName.indexOf('SCT') >= 0);
                 initVideo(data);
@@ -367,6 +340,24 @@ class MapOperation extends React.Component {
             { title: "状态", dataIndex: "curstatus", colspan: true }
         ];
 
+        let onyard = [
+            { title: "箱号", dataIndex: "containerno" },
+            { title: "场位", dataIndex: "YARDCELL" },
+            { title: "栏位", dataIndex: "YARDLANENO " },
+            { title: "贝位", dataIndex: "YARDBAYNO" },
+            { title: "列号", dataIndex: "YARDROWNO" },
+            { title: "层高", dataIndex: "YARDTIERNO" },
+        ];
+
+        let nocus90 = [
+            { title: "箱号", dataIndex: "containerno" },
+            { title: "场位", dataIndex: "YARDCELL" },
+            { title: "栏位", dataIndex: "YARDLANENO " },
+            { title: "贝位", dataIndex: "YARDBAYNO" },
+            { title: "列号", dataIndex: "YARDROWNO" },
+            { title: "层高", dataIndex: "YARDTIERNO" },
+        ];
+
         if (attr.colname === 'bigship') {
             this.setState({
                 desColumns: bigship
@@ -374,6 +365,14 @@ class MapOperation extends React.Component {
         } else if (attr.colname === 'bargeship') {
             this.setState({
                 desColumns: bargeship
+            })
+        } else if (attr.colname === 'onyard') {
+            this.setState({
+                desColumns: onyard
+            })
+        } else if (attr.colname === 'nocus90') {
+            this.setState({
+                desColumns: nocus90
             })
         }
 
@@ -406,15 +405,23 @@ class MapOperation extends React.Component {
         });
     }
 
-    showContainerModal = (e) => {
-        publish('changeLayer', { index: 3, props: { datas: e.attributes } });
-    };
+    // showContainerModal = (e) => {
+    //     // publish('changeLayer', { index: 3, props: { datas: e.attributes } });
+    //     console.log("asdsadsa");
+    // };
     render() {
         let { tip = {} } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
+        let StyleView = {
+            'bottom': '5%',
+            'right': '0',
+            'animation': 'showAnimete 0.5s ease',
+            'transform-origin': 'right center ',
+        };
         return (
             <div>
-                {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null}
+                {/* {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null} */}
+                {this.state.isShowDes ? <Desc className='descTip' style={StyleView}  title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
                 {
                     this.state.showMT ? <div className="portTip animated" > </div> : null
                 }
@@ -505,7 +512,7 @@ export default class Pier extends React.Component {
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
     }
-    
+
     componentWillUnmount() {
         if (this.chart) this.chart.dispose();
     }
@@ -578,7 +585,7 @@ export default class Pier extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    <PierRightPanel datas={this.props.datas}/>
+                    <PierRightPanel datas={this.props.datas} map={this.state.map} />
                 </div>
             </div>
 

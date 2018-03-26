@@ -465,7 +465,12 @@ class MapOperation extends React.Component {
     render() {
         let { tip = {} } = this.state;
         let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
-
+        let StyleView = {
+            'bottom': '5%',
+            'left': '0',
+            'animation': 'showAnimete 0.5s ease',
+            'transform-origin': 'left center',
+        };
         return (
             <div>
                 <div className="mapbtn">
@@ -487,7 +492,7 @@ class MapOperation extends React.Component {
                         <Tables flds={this.state.tip.mapDesc.name} datas={this.state.tip.mtJson}></Tables>
                         : null
                 }
-                {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
+                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
             </div>
         )
     }
