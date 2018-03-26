@@ -3,7 +3,7 @@ import 'animate.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish } from '../../../frame/core/arbiter';
-import { Panel, WordsContent } from '../../../frame/componets/index';
+import { Panel, WordsContent, Vedios } from '../../../frame/componets/index';
 import echarts from 'echarts';
 import $ from 'jquery';
 import _ from 'lodash';
@@ -210,20 +210,18 @@ class PortRightBot extends React.Component {
 
 // 第二页右侧组件
 export default class PortRight extends React.Component {
-    componentDidMount() {
-
-    }
-    componentWillUnmount() {
-        if (this.chart) this.chart.dispose();
-    }
-
     render() {
+        let data = [
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+        ];
         return (
             <div className='portRight' style={{ marginLeft: 30 }}>
-                <div style={{ 'position': 'absolute' }}>
-                    <PortRightTop />
-                    <PortRightCen />
-                    <PortRightBot />
+                <PortRightTop />
+                <PortRightCen />
+                <div style={{ padding: '20px', border: '2px solid #1890ff', width: 3638, display: 'flex', justifyContent: 'space-between', marginLeft: 30, marginTop: 30 }}>
+                    <Vedios style={{ width: 1805, height: 925 }} datas={data} />
+                    <Vedios style={{ width: 1805, height: 925 }} datas={data} />
                 </div>
             </div>
         )

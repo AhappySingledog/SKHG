@@ -20,7 +20,7 @@ export default class Vedios extends React.Component {
                     <iframe src={this.props.datas[this.state.index].url} />
                 </div>
                 <div className='vs-b'>
-                    {(this.props.datas || []).map((e, i) => <div className='vs-b-v' key={i}><div className='vs-b-v-name'>{'重点视频监控'}</div><div className='vs-b-v-name' onClick={() => this.onClick(i)}>{e.name}</div></div>)}
+                    {(this.props.datas || []).map((e, i) => <div className='vs-b-v' key={i}><div className='vs-b-v-name'>{'重点视频监控'}</div><div className='vs-b-v-name' style={this.state.index === i ? {color: '#1890ff', cursor: 'pointer'} : {cursor: 'pointer'}} onClick={() => this.onClick(i)}>{e.name}</div></div>)}
                 </div>
             </div>
         )
