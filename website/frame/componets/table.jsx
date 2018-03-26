@@ -44,9 +44,6 @@ export default class Table extends React.Component {
             let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
             let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
             ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({width: w - 40}));
-            console.log(this.props.id);
-            console.log(tds);
-            console.log(ws);
         }
         else {
             let tds = $('#' + this.props.id + '>tHead>tr')[0].cells;
