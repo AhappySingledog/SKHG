@@ -10,6 +10,42 @@ import $ from 'jquery';
 import _ from 'lodash';
 import zb from '../images/倒三角.png';
 
+const onyardFlds = [
+    { title: '码头', name: 'TERMINALCODE' },
+    { title: '堆场位置', name: 'YARD' },
+    { title: '堆存柜量', name: 'CNTRCOUNT' },
+];
+const berthsFlds = [
+    { title: '船舶名称', name: 'CVESSELNAME' },
+    { title: '船舶编码', name: 'EVESSELNAME' },
+    { title: '靠泊泊位', name: 'BERTHSEQ' },
+    { title: '船舶类型', name: 'VESSELTYPE' },
+];
+const scctyardFlds = [
+    { title: '箱号', name: 'YARDCELL' },
+    { title: '堆存天数', name: 'POOLDAYS' },
+];
+const shipsFlds = [
+    { title: '箱号', name: 'YARDCELL' },
+    { title: '栏位', name: 'YARDLANENO' },
+    { title: '贝位', name: 'YARDBAYNO' },
+    { title: '列号', name: 'YARDROWNO' },
+    { title: '层高', name: 'YARDTIERNO' },
+];
+const warehouseFlds = [
+    { title: '仓库名称', name: 'name' },
+    { title: '当前库存量', name: 'count' },
+]
+const parkFlds = [
+    { title: '进闸车辆数', name: 'a' },
+    { title: '出闸车辆数', name: 'b' },
+    { title: '入库数量', name: 'c' },
+    { title: '出库数量', name: 'd' },
+    { title: '区内仓库数', name: 'e' },
+    { title: '驻区企业数', name: 'f' },
+    { title: '申报进出区单量', name: 'g' },
+]
+
 class Title extends React.Component {
     export = () => {
         console.log(this.props.id);
@@ -25,6 +61,8 @@ class Title extends React.Component {
 // 智能预警右侧组件
 export default class PierRightPanel extends React.Component {
     state = {
+        warehouse: [],
+        park: [],
         onyard: [],              //各栏堆存柜量
         berths: [],               //泊位停靠船舶信息
         scctyard: [],            //超过三个月海关未放行的柜量
@@ -42,8 +80,17 @@ export default class PierRightPanel extends React.Component {
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
+        const vedios = {
+            sct: [[data, data]],
+            cct: [[data, data]],
+            mct: [[data, data]],
+            cmbl: [[data, data], [data, data]],
+            cic: [[data, data], [data, data]],
+            yth: [[data, data], [data, data], [data, data]],
+            ylmg: [[data, data], [data, data], [data, data]],
+        };
         if (this.props.datas.type == 1) {
-            this.setState({ vedios: [[data, data]], vediosHeight: 1100 });
+            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 1100 });
             let pa = [{
                 paramName: "P_TERMINALCODE",
                 value: this.props.datas.code
@@ -62,27 +109,26 @@ export default class PierRightPanel extends React.Component {
                 })
             });
 
-        /** 超三个月海关未放行的柜列表  */
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
-            this.setState({
-                scctyard: res[0].data.CUR_A
-            })
-        });
-
-    };
+            /** 超三个月海关未放行的柜列表  */
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
+                this.setState({
+                    scctyard: res[0].data.CUR_A
+                })
+            });
+        }
+        else if (this.props.datas.type == 4) {
+            console.log(this.props.datas);
+            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
+        }
+        else {
+            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 870 });
+        }
+    }
 
     componentWillUnmount() {
         this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
-    }
-
-    /** 点击事件 */
-    onClick = (data) => {
-        console.log(data);
-    }
-    export = (id) => {
-        console.log(id);
     }
 
     /** 超三个月海关未放行的柜列表 点击相应的柜信息实现定位及输出信息完整显示 */
@@ -171,7 +217,6 @@ export default class PierRightPanel extends React.Component {
         }
     }
 
-
     /** 柜量信息 */
     showContainerModal = (e) => {
         publish('box_Information', e);
@@ -223,46 +268,33 @@ export default class PierRightPanel extends React.Component {
     }
 
     render() {
-        let { berths = [], onyard = [], scctyard = [], vedios, vediosHeight } = this.state;
-        const onyardFlds = [
-            { title: '码头', name: 'TERMINALCODE' },
-            { title: '堆场位置', name: 'YARD' },
-            { title: '堆存柜量', name: 'CNTRCOUNT' },
-        ];
-        const berthsFlds = [
-            { title: '船舶名称', name: 'CVESSELNAME' },
-            { title: '船舶编码', name: 'EVESSELNAME' },
-            { title: '靠泊泊位', name: 'BERTHSEQ' },
-            { title: '船舶类型', name: 'VESSELTYPE' },
-        ];
-        const scctyardFlds = [
-            { title: '场位', name: 'YARDCELL' },
-            { title: '堆存天数', name: 'POOLDAYS' },
-        ];
-        const shipsFlds = [
-            { title: '场位', name: 'YARDCELL' },
-            { title: '栏位', name: 'YARDLANENO' },
-            { title: '贝位', name: 'YARDBAYNO' },
-            { title: '列号', name: 'YARDROWNO' },
-            { title: '层高', name: 'YARDTIERNO' },
-        ];
+        let { vedios, vediosHeight } = this.state;
         let id1 = 'a1', id2 = 'a2', id3 = 'a3', id4 = 'a4';
-        let {type} = this.props.datas;
-        let temp = type == 1;
+        let items = [];
+        let { type } = this.props.datas;
+        if (type == 1) {
+            items = [
+                <div style={{ width: 3750 }} key='1'>
+                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={berthsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
+                </div>,
+                <div style={{ width: 3750 }} key='2'>
+                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={shipsFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                </div>
+            ];
+        }
+        else if (type == 4) {
+            items = [
+                <div style={{ width: 3750 }} key='1'>
+                    <Table rowNo={true} title={<Title title={'仓库列表'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={warehouseFlds} datas={this.state.warehouse} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'园区信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={parkFlds} datas={this.state.park} trClick={null} trDbclick={null} />
+                </div>,
+            ];
+        }
         return (
             <div className='pierRight-1'>
-                {temp ? <div style={{ width: 3750 }}>
-                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={berthsFlds} datas={berths} trClick={null} trDbclick={null} />
-                </div> : null}
-                {temp ? <div style={{ width: 3750 }}>
-                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={scctyardFlds} datas={scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={shipsFlds} datas={scctyard} trClick={null} trDbclick={null} />
-                </div> : null}
-                {temp ? null : <div style={{ width: 3750 }}>
-                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={scctyardFlds} datas={[]} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={shipsFlds} datas={[]} trClick={null} trDbclick={null} />
-                </div>}
+                {items}
                 {vedios.map((e, i) => <div key={i} style={{ padding: '10px', border: '2px solid #1890ff', width: 3730 }}>
                     <Vedios style={{ width: 1855, height: vediosHeight }} datas={e[0]} />
                     <Vedios style={{ width: 1855, height: vediosHeight }} datas={e[1]} />
