@@ -416,12 +416,12 @@ class MapOperation extends React.Component {
             'bottom': '5%',
             'right': '0',
             'animation': 'showAnimete 0.5s ease',
-            'transform-origin': 'right center ',
+            'transformOrigin': 'right center ',
         };
         return (
             <div>
                 {/* {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null} */}
-                {this.state.isShowDes ? <Desc className='descTip' style={StyleView}  title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
+                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
                 {
                     this.state.showMT ? <div className="portTip animated" > </div> : null
                 }

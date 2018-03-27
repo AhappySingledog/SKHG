@@ -469,7 +469,7 @@ class MapOperation extends React.Component {
             'bottom': '5%',
             'left': '0',
             'animation': 'showAnimete 0.5s ease',
-            'transform-origin': 'left center',
+            'transformOrigin': 'left center',
         };
         return (
             <div>

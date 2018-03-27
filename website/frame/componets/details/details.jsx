@@ -60,20 +60,20 @@ export default class details extends React.Component {
                 let title = typeof column.title === 'undefined' ? "" : column.title;
                 let value = typeof column.dataIndex === 'undefined' ? "" : that.props.item[column.dataIndex];
                 if (column.colspan) {
-                    trs.push(<td className="label">{title}</td>);
-                    trs.push(<td colSpan={that.props.columnTotal * 2 - 1}>{value}</td>);
+                    trs.push(<td key={j + '_1'} className="label">{title}</td>);
+                    trs.push(<td key={j + '_2'} colSpan={that.props.columnTotal * 2 - 1}>{value}</td>);
                     colspanRowCount++;
                     break;
                 } else {
-                    trs.push(<td className="label">{title}</td>);
-                    trs.push(<td>{value}</td>);
+                    trs.push(<td key={j + '_3'} className="label">{title}</td>);
+                    trs.push(<td key={j + '_4'}>{value}</td>);
                 }
             }
             items.push(<tr key={i}>{trs}</tr>);
         }
         return (
             <table className="details_table">
-                    {items}
+                <tbody>{items}</tbody>
             </table>
         );
     }
