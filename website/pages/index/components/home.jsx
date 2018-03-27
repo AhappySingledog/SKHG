@@ -176,10 +176,10 @@ export default class Home extends React.Component {
                     destination: Cesium.Cartesian3.fromDegrees(114.059378, 22.554598, 15500000.0)
                 });
                 viewer.dataSources.add(Cesium.CzmlDataSource.load(czml));
-                setInterval(() => {
-                    viewer.dataSources.removeAll(true);
-                    viewer.dataSources.add(Cesium.CzmlDataSource.load(czml));
-                }, 50 * 1000);
+                // setInterval(() => {
+                //     viewer.dataSources.removeAll(true);
+                //     viewer.dataSources.add(Cesium.CzmlDataSource.load(czml));
+                // }, 50 * 1000);
                 let handler = new Cesium.ScreenSpaceEventHandler(scene.canvas);
                 handler.setInputAction((click) => {
                     stopAuto();
@@ -287,11 +287,11 @@ export default class Home extends React.Component {
                     <HomeRightPanel />
                 </div>
                 {this.state.showTip ?
-                    <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1650, height: 2470, zIndex: 1 }}>
+                    <div className='rightP' style={{ position: 'absolute', top: 250, right: 3820, width: 1750, height: 2470, zIndex: 1 }}>
                         <div className='rightP-t' />
                         <div className='rightP-c'>
-                            <Table style={{}} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
-                            {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{ width: 1600 }} port={this.state.tip} /> : null}
+                            <Table style={{width: 1710}} id={'aa'} selectedIndex={this.state.selectedIndex} flds={flds} datas={datas} trClick={this.trClick} trDbclick={this.trDbclick} />
+                            {this.state.tip ? <MyPortDesc title={this.state.tip.name} style={{ width: 1700 }} port={this.state.tip} /> : null}
                         </div>
                         <div className='rightP-b' />
                     </div> : null}

@@ -186,6 +186,7 @@
         {
             "id": "p9",
             "name": "尼日利亚—庭堪国际集装箱码头",
+            "addr": "庭堪",
             "geo": [4.895576, 6.607661],
             "color": "SPRINGGREEN",
             "tip": true,
@@ -205,6 +206,7 @@
         {
             "id": "p10",
             "name": "多哥—洛美集装箱码头",
+            "addr": "洛美",
             "geo": [1.278, 6.138],
             "color": "SPRINGGREEN",
             "tip": true,
@@ -224,6 +226,7 @@
         {
             "id": "p11",
             "name": "土耳其—Kumport码头",
+            "addr": "Kumport",
             "geo": [28.49681, 41.189508],
             "color": "SPRINGGREEN",
             "tip": true,
@@ -243,6 +246,7 @@
         {
             "id": "p12",
             "name": "吉布提—吉布提港有限公司",
+            "addr": "吉布提",
             "geo": [43.148, 11.618],
             "color": "SPRINGGREEN",
             "tip": true,
@@ -262,6 +266,7 @@
         {
             "id": "p13",
             "name": "斯里兰卡—科伦坡国际集装箱码头",
+            "addr": "科伦坡",
             "geo": [79.831, 6.944],
             "color": "SPRINGGREEN",
             "tip": true,
