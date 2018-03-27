@@ -62,17 +62,27 @@ export default class PierRightPanel extends React.Component {
                 })
             });
 
-            /** 超三个月海关未放行的柜列表  */
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
-                this.setState({
-                    scctyard: res[0].data.CUR_A
-                })
-            });
-        }
-        else {
-            console.log(this.props.datas);
-            this.setState({ vedios: [[data, data], [data, data]], vediosHeight: 930 });
-        }
+        /** 超三个月海关未放行的柜列表  */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
+            this.setState({
+                scctyard: res[0].data.CUR_A
+            })
+        });
+
+    };
+
+    componentWillUnmount() {
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+    }
+
+    /** 点击事件 */
+    onClick = (data) => {
+        console.log(data);
+    }
+    export = (id) => {
+        console.log(id);
     }
 
     /** 超三个月海关未放行的柜列表 点击相应的柜信息实现定位及输出信息完整显示 */
@@ -85,8 +95,12 @@ export default class PierRightPanel extends React.Component {
         publish('box_Information', json);
     }
 
+    /** 柜量信息 */
+    showContainerModal = (e) => {
+        publish('box_model', e);
+    };
 
-    /** 双击显示场位的集装箱 */
+    /** 单击显示场位的集装箱 */
     OnfindBox = (e) => {
         let pa = [{
             paramName: "P_TERMINALCODE",
@@ -119,6 +133,7 @@ export default class PierRightPanel extends React.Component {
                 for (let i in ors[0].data) {
                     orsJson[ors[0].data[i].name] = [ors[0].data[i]];
                 }
+                publish('box', { khsj: khsj[0], bdsj: resjson });
                 this.huatu(resjson, orsJson);
             })
         });
@@ -126,6 +141,7 @@ export default class PierRightPanel extends React.Component {
 
     /** 画箱子 */
     huatu(res, ors) {
+        this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('textLayer');
         for (let key in res) {
@@ -136,14 +152,21 @@ export default class PierRightPanel extends React.Component {
                 let dots = ors[key][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
                 let params = {
                     id: 'box_view' + o,
-                    linecolor: 'blue',
+                    linecolor: [255, 0, 0, 1],
+                    fillcolor: [255, 0, 0, 1],
                     layerId: 'box_view',
                     dots: dots,
                     attr: { ...res[key] },
                     click: this.showContainerModal,
                     linewidth: 0,
-                }
-                this.props.map.mapDisplay.polygon(params, 7);
+                };
+                let points = dots.slice(0, 4);
+                let x = points[0].x + points[1].x + points[2].x + points[3].x;
+                let y = points[0].y + points[1].y + points[2].y + points[3].y;
+                let point = { x: x / 4, y: y / 4 };
+                const level = 5;
+                this.props.map.mapOper.centerAndZoom(point, level);
+                this.props.map.mapDisplay.polygon(params);
             }
         }
     }
@@ -156,6 +179,9 @@ export default class PierRightPanel extends React.Component {
 
     /** 缩放和指示位置 */
     handleNbr = (e) => {
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('textLayer');
         let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
         publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
             let orsJson = {};
@@ -177,10 +203,19 @@ export default class PierRightPanel extends React.Component {
                     height: 48,
                     layerIndex: 30,
                 };
+                let params = {
+                    id: 'box_view' + orsJson[js],
+                    linecolor: [255, 0, 0, 1],
+                    fillcolor: [255, 0, 0, 1],
+                    layerId: 'CONTAINERVIEW_LAYER',
+                    dots: dots,
+                    linewidth: 0,
+                }
                 let point = { x: x / 4, y: y / 4 };
                 const level = 5;
                 this.props.map.mapOper.centerAndZoom(point, level);
                 this.props.map.mapDisplay.image(mText);
+                this.props.map.mapDisplay.polygon(params);
             } else {
                 alert("没有地址~");
             }
@@ -201,11 +236,11 @@ export default class PierRightPanel extends React.Component {
             { title: '船舶类型', name: 'VESSELTYPE' },
         ];
         const scctyardFlds = [
-            { title: '箱号', name: 'YARDCELL' },
+            { title: '场位', name: 'YARDCELL' },
             { title: '堆存天数', name: 'POOLDAYS' },
         ];
         const shipsFlds = [
-            { title: '箱号', name: 'YARDCELL' },
+            { title: '场位', name: 'YARDCELL' },
             { title: '栏位', name: 'YARDLANENO' },
             { title: '贝位', name: 'YARDBAYNO' },
             { title: '列号', name: 'YARDROWNO' },

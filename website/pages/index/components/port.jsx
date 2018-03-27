@@ -474,10 +474,10 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <div onClick={() => this.mapItemsDisplay('TRUCK_LAYER')} className={this.state.TRUCK_LAYER ? 'mapbtn-btn1' : 'mapbtn-noSelected'}>拖车</div>
-                    <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-btn2' : 'mapbtn-noSelected'}>大船</div>
-                    <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-btn3' : 'mapbtn-noSelected'}>驳船</div>
-                    <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div>
+                    <div onClick={() => this.mapItemsDisplay('TRUCK_LAYER')} className={this.state.TRUCK_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>拖车</div>
+                    <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
+                    <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
+                    {/* <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div> */}
                 </div>
                 {
                     this.state.showMT ?
