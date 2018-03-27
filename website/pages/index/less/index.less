@@ -628,14 +628,17 @@ body>div {
         font-size: 250px;
         cursor: pointer;
     }
-    .iWarning-G@{number}:hover {
-        border: 2px solid red;
+    .iWarning-G@{number}:hover when (@number <= 12) {
+        border: 5px solid #E75656;
+    }
+    .iWarning-G@{number}:hover when (@number > 12) {
+        border: 5px solid #F89824;
     }
 }
 
 .iWarningLoop(@number, @i: 1) when (@i =< @number) {
     .iWarning(@i, 592px, 852px);
-    .iWarningLoop(@number, (@i + 1));  
+    .iWarningLoop(@number, (@i + 1));
 }
 
 .iWarningLoop(18);
@@ -653,6 +656,17 @@ body>div {
     &-qx:hover {
         color: white;
     }
+}
+
+.warning {
+    position: absolute;
+    top: 360px;
+    left: 4950px;
+    z-index: 99999;
+    font-size: 100px;
+    color: red;
+    border: 2px solid red;
+    width: fit-content;
 }
 
 

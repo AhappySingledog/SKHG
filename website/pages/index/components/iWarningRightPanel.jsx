@@ -9,9 +9,13 @@ import $ from 'jquery';
 import _ from 'lodash';
 
 class Warning extends React.Component {
+    onMouseOver = () => {
+        let target = ReactDOM.findDOMNode(this.refs.target);
+        $(target).addClass('flipInY animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $(target).removeClass('flipInY animated'));
+    }
     render() {
         return (
-            <div style={this.props.style} className={this.props.className} onClick={() => this.props.onClick(this.props.data)}>
+            <div ref='target' style={this.props.style} className={this.props.className} onClick={() => this.props.onClick(this.props.data)} onMouseOver={this.onMouseOver}>
                 {this.props.data.value}
             </div>
         )

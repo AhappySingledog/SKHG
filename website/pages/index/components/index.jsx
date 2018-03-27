@@ -103,6 +103,20 @@ class MyLink extends React.Component {
     }
 }
 
+class Warning extends React.Component {
+    componentDidMount() {
+        let target = ReactDOM.findDOMNode(this.refs.target);
+        $(target).addClass('wobble animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $(target).removeClass('wobble animated'));
+    }
+    render() {
+        return (
+            <div className='warning' ref='target'>
+                {this.props.warning.msg}
+            </div>
+        );
+    }
+}
+
 export default class App extends React.Component {
     state = {
         index: null,
@@ -114,6 +128,7 @@ export default class App extends React.Component {
         warningTip: false,
         jkname: null,
         img: null,
+        warning: null,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
@@ -121,6 +136,9 @@ export default class App extends React.Component {
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
         publish('changeLayer', { index: 0, props: {} });
+        this.timer = setInterval(() => {
+            this.setState({warning: null}, () => this.setState({warning: {msg: '您有一条新的报警信息！'}}));
+        }, 10 * 1000);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -241,6 +259,7 @@ export default class App extends React.Component {
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
+                {this.state.warning ? <Warning warning={this.state.warning}/> : null}
             </div>
         )
     }
