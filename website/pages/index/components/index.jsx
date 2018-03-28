@@ -137,7 +137,7 @@ export default class App extends React.Component {
         this.sub_playImg = subscribe('playImg', this.playImg);
         publish('changeLayer', { index: 0, props: {} });
         this.timer = setInterval(() => {
-            this.setState({warning: null}, () => this.setState({warning: {msg: '您有一条新的报警信息！'}}));
+            this.setState({ warning: null }, () => this.setState({ warning: { msg: '您有一条新的报警信息！' } }));
         }, 10 * 1000);
     }
     componentWillUnmount() {
@@ -157,13 +157,13 @@ export default class App extends React.Component {
                 case 1:
                     curLayer = <Port {...curProps} />;
                     this.setState({
-                        jkname : '海关监管区域'
+                        jkname: '海关监管区域'
                     });
                     break;
                 case 2:
                     curLayer = <Pier {...curProps} />;
                     this.setState({
-                        jkname : ops.props.datas.name
+                        jkname: ops.props.datas.name
                     });
                     break;
                 case 3:
@@ -175,7 +175,7 @@ export default class App extends React.Component {
                 default:
                     curLayer = <Home {...curProps} />;
                     this.setState({
-                        jkname : '海关监管区域'
+                        jkname: '海关监管区域'
                     });
             }
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
@@ -259,7 +259,7 @@ export default class App extends React.Component {
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
-                {this.state.warning ? <Warning warning={this.state.warning}/> : null}
+                {this.state.warning ? <Warning warning={this.state.warning} /> : null}
             </div>
         )
     }

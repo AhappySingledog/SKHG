@@ -79,7 +79,7 @@ class MapOperation extends React.Component {
                     layerId: 'port_view',
                     dots: dots,
                     attr: { ...e },
-                    click: () => alert(),
+                    click: () => publish('changeLayer', { index: 3, props: {datas: e} }),
                     linewidth: 6,
                 }
                 this.props.map.mapDisplay.polygon(params);
@@ -620,16 +620,11 @@ class PortPie extends React.Component {
 }
 // 码头
 export default class Pier extends React.Component {
-
-
     state = { map: null }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
     }
 
-    componentWillUnmount() {
-        if (this.chart) this.chart.dispose();
-    }
     /**
     * 
     * @param {*target} 地图参数  
@@ -702,7 +697,6 @@ export default class Pier extends React.Component {
                     <PierRightPanel datas={this.props.datas} map={this.state.map} />
                 </div>
             </div>
-
         )
     }
 }
