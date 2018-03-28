@@ -10,42 +10,6 @@ import $ from 'jquery';
 import _ from 'lodash';
 import zb from '../images/倒三角.png';
 
-const onyardFlds = [
-    { title: '码头', name: 'TERMINALCODE' },
-    { title: '堆场位置', name: 'YARD' },
-    { title: '堆存柜量', name: 'CNTRCOUNT' },
-];
-const berthsFlds = [
-    { title: '船舶名称', name: 'CVESSELNAME' },
-    { title: '船舶编码', name: 'EVESSELNAME' },
-    { title: '靠泊泊位', name: 'BERTHSEQ' },
-    { title: '船舶类型', name: 'VESSELTYPE' },
-];
-const scctyardFlds = [
-    { title: '箱号', name: 'YARDCELL' },
-    { title: '堆存天数', name: 'POOLDAYS' },
-];
-const shipsFlds = [
-    { title: '箱号', name: 'YARDCELL' },
-    { title: '栏位', name: 'YARDLANENO' },
-    { title: '贝位', name: 'YARDBAYNO' },
-    { title: '列号', name: 'YARDROWNO' },
-    { title: '层高', name: 'YARDTIERNO' },
-];
-const warehouseFlds = [
-    { title: '仓库名称', name: 'name' },
-    { title: '当前库存量', name: 'count' },
-]
-const parkFlds = [
-    { title: '进闸车辆数', name: 'a' },
-    { title: '出闸车辆数', name: 'b' },
-    { title: '入库数量', name: 'c' },
-    { title: '出库数量', name: 'd' },
-    { title: '区内仓库数', name: 'e' },
-    { title: '驻区企业数', name: 'f' },
-    { title: '申报进出区单量', name: 'g' },
-]
-
 class Title extends React.Component {
     export = () => {
         console.log(this.props.id);
@@ -72,6 +36,10 @@ export default class PierRightPanel extends React.Component {
             GIS: [],
             BYCNTR: [],        //详细信息
         },
+        onyardFlds: [],
+        berthsFlds: [],
+        scctyardFlds: [],
+        shipsFlds: [],
         vedios: [],
         vediosHeight: 1100,
     }
@@ -115,6 +83,13 @@ export default class PierRightPanel extends React.Component {
                     scctyard: res[0].data.CUR_A
                 })
             });
+            publish('tableName_find').then((res) => {
+                res[0].features.forEach((value, key) => {
+                    this.setState({
+                        [value.type]: value.talbe,
+                    });
+                });
+            });
         }
         else if (this.props.datas.type == 4) {
             console.log(this.props.datas);
@@ -134,11 +109,11 @@ export default class PierRightPanel extends React.Component {
     /** 超三个月海关未放行的柜列表 点击相应的柜信息实现定位及输出信息完整显示 */
     nocus90 = (e) => {
         let json = {};
-        e['colname'] = 'nocus90';
+        e['colname'] = 'onyard';
         e['name'] = '超三个月的柜子';
         json['attributes'] = e;
-        this.handleNbr(e);
-        publish('box_Information', json);
+        publish('box_location', e);
+        publish('box_onIconClick', json);
     }
 
     /** 柜量信息 */
@@ -148,11 +123,12 @@ export default class PierRightPanel extends React.Component {
 
     /** 单击显示场位的集装箱 */
     OnfindBox = (e) => {
+        publish('box_handleCloseDesDailog', {});
         let pa = [{
-            paramName: "P_TERMINALCODE",
+            paramName: 'P_TERMINALCODE',
             value: this.props.datas.code
         }, {
-            paramName: "P_LANENO",
+            paramName: 'P_LANENO',
             value: e.YARD
         }];
         /** 
@@ -217,56 +193,6 @@ export default class PierRightPanel extends React.Component {
         }
     }
 
-    /** 柜量信息 */
-    showContainerModal = (e) => {
-        publish('box_Information', e);
-    };
-
-    /** 缩放和指示位置 */
-    handleNbr = (e) => {
-        this.props.map.mapDisplay.clearLayer('box_view');
-        this.props.map.mapDisplay.clearLayer('box_view');
-        this.props.map.mapDisplay.clearLayer('textLayer');
-        let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
-            let orsJson = {};
-            for (let i in ors[0].data) {
-                orsJson[ors[0].data[i].name] = [ors[0].data[i]];
-            }
-            if (orsJson !== "") {
-                let dots = orsJson[js][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
-                let points = dots.slice(0, 4);
-                let x = points[0].x + points[1].x + points[2].x + points[3].x;
-                let y = points[0].y + points[1].y + points[2].y + points[3].y;
-                let mText = {
-                    id: 'text_box',
-                    layerId: 'CONTAINERVIEW_LAYER_BOX',
-                    x: x / 4,
-                    y: (y / 4) + 0.00004,
-                    src: zb,
-                    width: 48,
-                    height: 48,
-                    layerIndex: 30,
-                };
-                let params = {
-                    id: 'box_view' + orsJson[js],
-                    linecolor: [255, 0, 0, 1],
-                    fillcolor: [255, 0, 0, 1],
-                    layerId: 'CONTAINERVIEW_LAYER',
-                    dots: dots,
-                    linewidth: 0,
-                }
-                let point = { x: x / 4, y: y / 4 };
-                const level = 5;
-                this.props.map.mapOper.centerAndZoom(point, level);
-                this.props.map.mapDisplay.image(mText);
-                this.props.map.mapDisplay.polygon(params);
-            } else {
-                alert("没有地址~");
-            }
-        })
-    }
-
     render() {
         let { vedios, vediosHeight } = this.state;
         let id1 = 'a1', id2 = 'a2', id3 = 'a3', id4 = 'a4';
@@ -275,12 +201,12 @@ export default class PierRightPanel extends React.Component {
         if (type == 1) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={berthsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
-                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={shipsFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
                 </div>
             ];
         }

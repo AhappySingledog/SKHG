@@ -5,9 +5,11 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 let truck = null;
+let tableName= null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../datajson.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
+$.ajax({ dataType: 'json', url: '../tableName.json', async: false, success: (res) => tableName = res });
 
 const x_PI = 3.14159265358979324 * 3000.0 / 180.0;
 const PI = 3.1415926535897932384626;
@@ -1002,6 +1004,12 @@ subscribes(
         sub: 'truck_GetListAsync',
         func: (ops) => {
             return truck;
+        }
+    }, {
+        /** 表格名称 */
+        sub: 'tableName_find',
+        func: (ops) => {
+            return tableName;
         }
     }, {
         /** 业务数据-雷达图 */

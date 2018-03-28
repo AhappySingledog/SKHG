@@ -15,6 +15,7 @@ import BargeIcon from '../../../res/mapIcon/Barge.png';
 import TruckIcon from '../../../res/mapIcon/car.png';
 import VideoIcon from '../images/视频监控.png';
 import PierRightPanel from './pierRightPanel';
+import zb from '../images/倒三角.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -59,9 +60,11 @@ class MapOperation extends React.Component {
     }
 
     componentDidMount() {
-        this.sub_box = subscribe('box', this.box);
+    	this.sub_box = subscribe('box', this.box);
         this.sub_boxModel = subscribe('box_model', this.boxModel);
-        this.sub_boxView = subscribe('box_Information', this.onIconClick);
+        this.sub_location = subscribe('box_location', this.handleNbr);
+        this.sub_onIconClick = subscribe('box_onIconClick', this.onIconClick);
+        this.sub_handleCloseDesDailog = subscribe('box_handleCloseDesDailog', this.handleCloseDesDailog);
         Object.keys(this.props.datas.mapExtent).forEach((key) => this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]));
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
         publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "SSDW='" + this.props.datas.code + "' AND LAYER=3" } }).then((res) => {
@@ -98,9 +101,17 @@ class MapOperation extends React.Component {
 
     componentWillUnmount() {
         if (this.sub_box) unsubscribe(this.sub_box);
-        if (this.sub_boxView) unsubscribe(this.sub_boxView);
         if (this.sub_boxModel) unsubscribe(this.sub_boxModel);
-    }
+        if (this.sub_location) unsubscribe(this.sub_location);
+        if (this.sub_onIconClick) unsubscribe(this.sub_onIconClick);
+        if (this.sub_handleCloseDesDailog) unsubscribe(this.sub_handleCloseDesDailog);
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
+        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+    };
     /** 筛选 */
     ScreenWharf(data, name) {
         let datas = [];
@@ -339,58 +350,17 @@ class MapOperation extends React.Component {
     onIconClick = (e) => {
         this.setState({ isShowDes: false });
         let attr = e.attributes;
-        const bigship = [
-            { title: '船东', dataIndex: 'shipowner' }, { title: '泊位', dataIndex: 'berth' }, { title: '航线', dataIndex: 'service' },
-            { title: '航次', dataIndex: 'voyage' }, { title: '船长', dataIndex: 'vessellength' }, { title: '船高', dataIndex: 'vesselheight' },
-            { title: '吃水', dataIndex: 'depth' }, { title: '分线', dataIndex: 'qcnums' }, { title: 'ETA', dataIndex: 'etatime' },
-            { title: 'ETD', dataIndex: 'etdtime' }, { title: 'POB', dataIndex: 'pobtime' }, { title: 'ATB', dataIndex: 'atbtime' },
-            { title: 'ATD', dataIndex: 'atdtime' }, { title: '状态', dataIndex: 'curstatus' }, { title: '装卸', dataIndex: 'ldds', colspan: true },
-            { title: '航道', dataIndex: 'fairwayname', colspan: true }
-        ];
-        const bargeship = [
-            { title: '船东', dataIndex: 'shipowner', colspan: true },
-            { title: '进口航次', dataIndex: 'voyagein', colspan: true },
-            { title: '出口航次', dataIndex: 'voyageout', colspan: true },
-            { title: 'ETA', dataIndex: 'etatime', colspan: true },
-            { title: '状态', dataIndex: 'curstatus', colspan: true }
-        ];
-
-        const onyard = [
-            { title: '箱号', dataIndex: 'containerno' },
-            { title: '场位', dataIndex: 'YARDCELL' },
-            { title: '栏位', dataIndex: 'YARDLANENO ' },
-            { title: '贝位', dataIndex: 'YARDBAYNO' },
-            { title: '列号', dataIndex: 'YARDROWNO' },
-            { title: '层高', dataIndex: 'YARDTIERNO' },
-        ];
-
-        const nocus90 = [
-            { title: '箱号', dataIndex: 'containerno' },
-            { title: '场位', dataIndex: 'YARDCELL' },
-            { title: '栏位', dataIndex: 'YARDLANENO ' },
-            { title: '贝位', dataIndex: 'YARDBAYNO' },
-            { title: '列号', dataIndex: 'YARDROWNO' },
-            { title: '层高', dataIndex: 'YARDTIERNO' },
-        ];
-        this.setState({
-            desColumns: [attr.colname],
-            desTitle: attr.name,
-            desItem: attr,
-            isShowDes: true,
-        });
-    }
-
-    /** 箱子的内部信息 */
-    onClickBoxmodel = (e) => {
-        let pa = [{
-            paramName: 'P_TERMINALCODE',
-            value: this.props.datas.code
-        }, {
-            paramName: 'P_CONTAINERNO',
-            value: e.CONTAINERNO
-        }];
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
-            console.log(res);
+        publish('tableName_find').then((res) => {
+            res[0].features.forEach((value,key) =>{
+                if(value.type === attr.colname){
+                    this.setState({
+                        desColumns : value.talbe,
+                        desTitle: attr.name,
+                        desItem: attr,
+                        isShowDes: true
+                    });
+                }
+            });
         });
     }
 
@@ -424,7 +394,7 @@ class MapOperation extends React.Component {
 
     /** 点击查询框的时候，展示当前贝位的数据列表 */
     findBox = (e) => {
-        this.setState({ visible_duiwei: false });
+        this.setState({ visible_duiwei: false, isShowDes: false });
         let datajs = this.state.datajson;
         if (typeof (datajs[e]) !== 'undefined') {
             this.setState({
@@ -441,7 +411,7 @@ class MapOperation extends React.Component {
 
     /** 点击地图的时候，出现集装箱信息 */
     boxModel = (e) => {
-        this.setState({ visible_duiwei: false });
+        this.setState({ visible_duiwei: false, isShowDes: false });
         let attr = e.attributes;
         let data = Object.keys(attr).map((key, i) => attr[key]);
         data = data.filter((d) => d.YARDLANENO);
@@ -461,19 +431,61 @@ class MapOperation extends React.Component {
             paramName: 'P_CONTAINERNO',
             value: e.CONTAINERNO
         }];
-
-        let nocus90 = [
-            { title: '箱号', dataIndex: 'containerno' },
-            { title: 'ISO代码', dataIndex: 'isocode' },
-            { title: '栏位', dataIndex: 'YARDLANENO ' },
-            { title: '贝位', dataIndex: 'YARDBAYNO' },
-            { title: '列号', dataIndex: 'YARDROWNO' },
-            { title: '层高', dataIndex: 'YARDTIERNO' },
-        ];
-
+        this.handleNbr(e);
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
-            console.log(res);
+            let json = {};
+            e['colname'] = 'onyard';
+            e['name'] = '柜子';
+            let obj = Object.assign(res[0].data.CUR_A[0], e);
+            json['attributes'] = obj;
+            this.onIconClick(json);
         });
+    }
+
+
+    /** 缩放和指示位置 */
+    handleNbr = (e) => {
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+        let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
+            let orsJson = {};
+            for (let i in ors[0].data) {
+                orsJson[ors[0].data[i].name] = [ors[0].data[i]];
+            }
+            if (orsJson !== "") {
+                let dots = orsJson[js][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                let points = dots.slice(0, 4);
+                let x = points[0].x + points[1].x + points[2].x + points[3].x;
+                let y = points[0].y + points[1].y + points[2].y + points[3].y;
+                let mText = {
+                    id: 'text_box',
+                    layerId: 'CONTAINERVIEW_LAYER_BOX',
+                    x: x / 4,
+                    y: (y / 4) + 0.00004,
+                    src: zb,
+                    width: 48,
+                    height: 48,
+                    layerIndex: 30,
+                };
+                let params = {
+                    id: 'box_view' + orsJson[js],
+                    linecolor: [255, 0, 0, 1],
+                    fillcolor: [255, 0, 0, 1],
+                    layerId: 'CONTAINERVIEW_LAYER',
+                    dots: dots,
+                    linewidth: 0,
+                }
+                let point = { x: x / 4, y: y / 4 };
+                const level = 5;
+                this.props.map.mapOper.centerAndZoom(point, level);
+                this.props.map.mapDisplay.image(mText);
+                this.props.map.mapDisplay.polygon(params);
+            } else {
+                alert("没有地址~");
+            }
+        })
     }
 
     render() {
@@ -486,11 +498,11 @@ class MapOperation extends React.Component {
             'transformOrigin': 'right center ',
         };
         const shipsFlds = [
-            { title: '场位', name: 'YARDCELL' },
-            { title: '栏位', name: 'YARDLANENO' },
-            { title: '贝位', name: 'YARDBAYNO' },
-            { title: '列号', name: 'YARDROWNO' },
-            { title: '层高', name: 'YARDTIERNO' },
+            { title: '场位', dataIndex: 'YARDCELL' },
+            { title: '栏位', dataIndex: 'YARDLANENO' },
+            { title: '贝位', dataIndex: 'YARDBAYNO' },
+            { title: '列号', dataIndex: 'YARDROWNO' },
+            { title: '层高', dataIndex: 'YARDTIERNO' },
         ];
 
         return (
@@ -558,7 +570,7 @@ class PortMsg extends React.Component {
 /** 标题 */
 class Title extends React.Component {
     componentDidMount() {
-        document.addEventListener("keydown", this.handleEnterKey);
+        document.addEventListener('keydown', this.handleEnterKey);
     }
 
     export = () => {

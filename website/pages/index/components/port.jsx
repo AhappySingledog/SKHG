@@ -284,8 +284,8 @@ class MapOperation extends React.Component {
     handleOutcar = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]["key"] = "" + o + "";
-            json[o]["name"] = "拖车详情";
+            json[o]['key'] = "" + o + "";
+            json[o]['name'] = "拖车详情";
             json[o]['colname'] = 'outcar';
             if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
                 let param = {
