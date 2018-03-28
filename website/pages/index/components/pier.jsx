@@ -431,12 +431,11 @@ class MapOperation extends React.Component {
 
     /** 点击右侧的堆存柜量后，订阅过来的数据，做展示出当前堆位的所有场位数据 */
     box = (e) => {
-        this.setState({ visible_duiwei: false });
-        this.setState({
+        this.setState({ visible_duiwei: false }, () => this.setState({
             visible_duiwei: true,
             dataSource: e.khsj,
             datajson: e.bdsj,
-        });
+        }));
     }
 
     /** 点击查询框的时候，展示当前贝位的数据列表 */
@@ -520,7 +519,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} id={'a1'} />} style={{ width: '100%', height: 800 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} id={'a1'} />} style={{ width: 1000, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }

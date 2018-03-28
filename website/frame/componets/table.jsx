@@ -38,7 +38,7 @@ export default class Table extends React.Component {
             $('#' + this.props.id + '>tbody>tr:nth-of-type(' + (this.props.selectedIndex + 1) + ')>td').addClass('trSelected');
         }
     }
-    componentDidUpdate() {
+    updateTable = () => {
         if (this.props.datas.length > 0) this.bindClick();
         if (this.props.datas.length > 0) {
             let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
@@ -56,8 +56,11 @@ export default class Table extends React.Component {
             $('#' + this.props.id).addClass('slideInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#' + this.props.id).removeClass('slideInUp animated'));
         }
     }
+    componentDidUpdate() {
+        this.updateTable();
+    }
     componentDidMount() {
-        if (this.props.datas.length > 0) this.bindClick();
+        this.updateTable();
     }
     render() {
         let { flds = [], datas = [], rowNo } = this.props;
