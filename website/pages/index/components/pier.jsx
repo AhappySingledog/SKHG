@@ -62,45 +62,51 @@ class MapOperation extends React.Component {
         this.sub_box = subscribe('box', this.box);
         this.sub_boxModel = subscribe('box_model', this.boxModel);
         this.sub_boxView = subscribe('box_Information', this.onIconClick);
-        Object.keys(this.props.datas.mapExtent).forEach((key) => {
-            this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]);
-        });
+        Object.keys(this.props.datas.mapExtent).forEach((key) => this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]));
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
-        this.handleMTSJ(this.props.datas);
-
-        /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
-            this.handleBigship(this.ScreenWharf(res[0], this.props.datas.name));
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "SSDW='" + this.props.datas.code + "' AND LAYER=3" } }).then((res) => {
+            const color = {
+                1: [250, 22, 80, 1],       // 红色
+                2: [57, 255, 95, 1],       // 绿色
+                3: [255, 255, 255, 1],       // 蓝色
+                4: [251, 251, 0, 1],       // 黄色
+            };
+            res[0].data.forEach((e, i) => {
+                let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                let params = {
+                    id: 'port_view_' + i,
+                    linecolor: color[e.type],
+                    layerId: 'port_view',
+                    dots: dots,
+                    attr: { ...e },
+                    click: () => alert(),
+                    linewidth: 6,
+                }
+                this.props.map.mapDisplay.polygon(params);
+            });
+            if (this.props.datas.type == 1) {
+                this.handleMTSJ(this.props.datas);
+                /** 大船显示 */
+                publish('vessel_GetListAsync').then((res) => this.handleBigship(this.ScreenWharf(res[0], this.props.datas.name)));
+                /** 驳船显示 */
+                publish('barge_GetListAsync').then((res) => this.handleBarge(this.ScreenWharf(res[0], this.props.datas.name)));
+                /** 外拖拖车 */
+                publish('truck_GetListAsync').then((res) => this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name)));
+            }
         });
-
-        /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
-            this.handleBarge(this.ScreenWharf(res[0], this.props.datas.name));
-        });
-
-        /** 外拖拖车 */
-        publish('truck_GetListAsync').then((res) => {
-            this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name));
-        });
-    };
+    }
 
     componentWillUnmount() {
         if (this.sub_box) unsubscribe(this.sub_box);
         if (this.sub_boxView) unsubscribe(this.sub_boxView);
         if (this.sub_boxModel) unsubscribe(this.sub_boxModel);
-    };
+    }
     /** 筛选 */
     ScreenWharf(data, name) {
         let datas = [];
         data.map((value, key) => {
-            if (value.terminal === name || value.Terminal === name) {
-                datas.push(value);
-            }
-            if (typeof (value.curstatus) !== "undefined") {
-                if (value.curstatus.indexOf(name)) {
-                    datas.push(value);
-                }
-            }
+            if (value.terminal === name || value.Terminal === name) datas.push(value);
+            if (typeof (value.curstatus) !== 'undefined' && value.curstatus.indexOf(name)) datas.push(value);
         })
         return datas;
     }
@@ -126,7 +132,6 @@ class MapOperation extends React.Component {
             }
             let initVideo = (data) => {
                 this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
-                let that = this;
                 data.forEach((e, i) => {
                     let point = e.coordinate.split(',');
                     let param = {
@@ -166,9 +171,9 @@ class MapOperation extends React.Component {
     handleBigship = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]['key'] = "" + o + "";
-            json[o]['name'] = '大船详情';
-            json[o]['colname'] = 'bigship';
+            json[o].key = '' + o;
+            json[o].name = '大船详情';
+            json[o].colname = 'bigship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
                     id: 'BIG_SHIP_LAYER' + o,
@@ -221,9 +226,9 @@ class MapOperation extends React.Component {
     handleBarge = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]['key'] = "" + o + "";
-            json[o]['name'] = '驳船详情';
-            json[o]['colname'] = 'bargeship';
+            json[o].key = '' + o;
+            json[o].name = '驳船详情';
+            json[o].colname = 'bargeship';
             if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
                 let param = {
                     id: 'BARGE_SHIP_LAYER' + o,
@@ -277,9 +282,9 @@ class MapOperation extends React.Component {
     handleOutcar = (json) => {
         let that = this;
         for (let o in json) {
-            json[o]["key"] = "" + o + "";
-            json[o]["name"] = "拖车详情";
-            json[o]['colname'] = 'outcar';
+            json[o].key = '' + o;
+            json[o].name = '拖车详情';
+            json[o].colname = 'outcar';
             if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
                 let param = {
                     id: 'TRUCK_LAYER' + o,
@@ -334,72 +339,54 @@ class MapOperation extends React.Component {
     onIconClick = (e) => {
         this.setState({ isShowDes: false });
         let attr = e.attributes;
-        let bigship = [
-            { title: "船东", dataIndex: "shipowner" }, { title: "泊位", dataIndex: "berth" }, { title: "航线", dataIndex: "service" },
-            { title: "航次", dataIndex: "voyage" }, { title: "船长", dataIndex: "vessellength" }, { title: "船高", dataIndex: "vesselheight" },
-            { title: "吃水", dataIndex: "depth" }, { title: "分线", dataIndex: "qcnums" }, { title: "ETA", dataIndex: "etatime" },
-            { title: "ETD", dataIndex: "etdtime" }, { title: "POB", dataIndex: "pobtime" }, { title: "ATB", dataIndex: "atbtime" },
-            { title: "ATD", dataIndex: "atdtime" }, { title: "状态", dataIndex: "curstatus" }, { title: "装卸", dataIndex: "ldds", colspan: true },
-            { title: "航道", dataIndex: "fairwayname", colspan: true }
+        const bigship = [
+            { title: '船东', dataIndex: 'shipowner' }, { title: '泊位', dataIndex: 'berth' }, { title: '航线', dataIndex: 'service' },
+            { title: '航次', dataIndex: 'voyage' }, { title: '船长', dataIndex: 'vessellength' }, { title: '船高', dataIndex: 'vesselheight' },
+            { title: '吃水', dataIndex: 'depth' }, { title: '分线', dataIndex: 'qcnums' }, { title: 'ETA', dataIndex: 'etatime' },
+            { title: 'ETD', dataIndex: 'etdtime' }, { title: 'POB', dataIndex: 'pobtime' }, { title: 'ATB', dataIndex: 'atbtime' },
+            { title: 'ATD', dataIndex: 'atdtime' }, { title: '状态', dataIndex: 'curstatus' }, { title: '装卸', dataIndex: 'ldds', colspan: true },
+            { title: '航道', dataIndex: 'fairwayname', colspan: true }
         ];
-        let bargeship = [
-            { title: "船东", dataIndex: "shipowner", colspan: true },
-            { title: "进口航次", dataIndex: "voyagein", colspan: true },
-            { title: "出口航次", dataIndex: "voyageout", colspan: true },
-            { title: "ETA", dataIndex: "etatime", colspan: true },
-            { title: "状态", dataIndex: "curstatus", colspan: true }
-        ];
-
-        let onyard = [
-            { title: "箱号", dataIndex: "containerno" },
-            { title: "场位", dataIndex: "YARDCELL" },
-            { title: "栏位", dataIndex: "YARDLANENO " },
-            { title: "贝位", dataIndex: "YARDBAYNO" },
-            { title: "列号", dataIndex: "YARDROWNO" },
-            { title: "层高", dataIndex: "YARDTIERNO" },
+        const bargeship = [
+            { title: '船东', dataIndex: 'shipowner', colspan: true },
+            { title: '进口航次', dataIndex: 'voyagein', colspan: true },
+            { title: '出口航次', dataIndex: 'voyageout', colspan: true },
+            { title: 'ETA', dataIndex: 'etatime', colspan: true },
+            { title: '状态', dataIndex: 'curstatus', colspan: true }
         ];
 
-        let nocus90 = [
-            { title: "箱号", dataIndex: "containerno" },
-            { title: "场位", dataIndex: "YARDCELL" },
-            { title: "栏位", dataIndex: "YARDLANENO " },
-            { title: "贝位", dataIndex: "YARDBAYNO" },
-            { title: "列号", dataIndex: "YARDROWNO" },
-            { title: "层高", dataIndex: "YARDTIERNO" },
+        const onyard = [
+            { title: '箱号', dataIndex: 'containerno' },
+            { title: '场位', dataIndex: 'YARDCELL' },
+            { title: '栏位', dataIndex: 'YARDLANENO ' },
+            { title: '贝位', dataIndex: 'YARDBAYNO' },
+            { title: '列号', dataIndex: 'YARDROWNO' },
+            { title: '层高', dataIndex: 'YARDTIERNO' },
         ];
 
-        if (attr.colname === 'bigship') {
-            this.setState({
-                desColumns: bigship
-            })
-        } else if (attr.colname === 'bargeship') {
-            this.setState({
-                desColumns: bargeship
-            })
-        } else if (attr.colname === 'onyard') {
-            this.setState({
-                desColumns: onyard
-            })
-        } else if (attr.colname === 'nocus90') {
-            this.setState({
-                desColumns: nocus90
-            })
-        }
-
+        const nocus90 = [
+            { title: '箱号', dataIndex: 'containerno' },
+            { title: '场位', dataIndex: 'YARDCELL' },
+            { title: '栏位', dataIndex: 'YARDLANENO ' },
+            { title: '贝位', dataIndex: 'YARDBAYNO' },
+            { title: '列号', dataIndex: 'YARDROWNO' },
+            { title: '层高', dataIndex: 'YARDTIERNO' },
+        ];
         this.setState({
+            desColumns: [attr.colname],
             desTitle: attr.name,
             desItem: attr,
-            isShowDes: true
+            isShowDes: true,
         });
     }
 
     /** 箱子的内部信息 */
     onClickBoxmodel = (e) => {
         let pa = [{
-            paramName: "P_TERMINALCODE",
+            paramName: 'P_TERMINALCODE',
             value: this.props.datas.code
         }, {
-            paramName: "P_CONTAINERNO",
+            paramName: 'P_CONTAINERNO',
             value: e.CONTAINERNO
         }];
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
@@ -417,16 +404,13 @@ class MapOperation extends React.Component {
                 mtJson: datajson,
             }
         });
-
     }
 
     /**
     * 取消关闭详情框
     */
     handleCloseDesDailog = (e) => {
-        this.setState({
-            isShowDes: false
-        });
+        this.setState({ isShowDes: false });
     }
 
     /** 点击右侧的堆存柜量后，订阅过来的数据，做展示出当前堆位的所有场位数据 */
@@ -471,24 +455,24 @@ class MapOperation extends React.Component {
     /** 点击场位后，展现详细信息 */
     handleDetails = (e) => {
         let pa = [{
-            paramName: "P_TERMINALCODE",
+            paramName: 'P_TERMINALCODE',
             value: this.props.datas.code
         }, {
-            paramName: "P_CONTAINERNO",
+            paramName: 'P_CONTAINERNO',
             value: e.CONTAINERNO
         }];
 
         let nocus90 = [
-            { title: "箱号", dataIndex: "containerno" },
-            { title: "ISO代码", dataIndex: "isocode" },
-            { title: "栏位", dataIndex: "YARDLANENO " },
-            { title: "贝位", dataIndex: "YARDBAYNO" },
-            { title: "列号", dataIndex: "YARDROWNO" },
-            { title: "层高", dataIndex: "YARDTIERNO" },
+            { title: '箱号', dataIndex: 'containerno' },
+            { title: 'ISO代码', dataIndex: 'isocode' },
+            { title: '栏位', dataIndex: 'YARDLANENO ' },
+            { title: '贝位', dataIndex: 'YARDBAYNO' },
+            { title: '列号', dataIndex: 'YARDROWNO' },
+            { title: '层高', dataIndex: 'YARDTIERNO' },
         ];
 
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
-            
+            console.log(res);
         });
     }
 
