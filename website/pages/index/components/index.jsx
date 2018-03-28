@@ -66,24 +66,24 @@ class MyLink extends React.Component {
         console.log(data);
     }
     myTd = (trIndex, data, fld, tdIndex) => {
-        if (fld.name === 'cl') {
+        if (fld.dataIndex === 'cl') {
             return <div style={{ display: 'flex', flexDirection: 'row' }}>
                 <div className='link-cl' onClick={() => this.cl(data, fld)}>处理</div>
                 <div style={{ margin: '0 5px' }}>|</div>
                 <div className='link-qx' onClick={() => this.qx(data, fld)}>取消</div>
             </div>
         }
-        return data[fld.name];
+        return data[fld.dataIndex];
     }
     render() {
         let flds = [
-            { title: '船名', name: 'name' },
-            { title: '航次', name: 'hc' },
-            { title: '预计靠泊港区', name: 'gq' },
-            { title: '预计靠泊泊位', name: 'bw' },
-            { title: '预计靠泊时间', name: 'sj' },
-            { title: '整船柜数量(E/F)', name: 'sl' },
-            { title: '处理', name: 'cl' },
+            { title: '船名', dataIndex: 'name' },
+            { title: '航次', dataIndex: 'hc' },
+            { title: '预计靠泊港区', dataIndex: 'gq' },
+            { title: '预计靠泊泊位', dataIndex: 'bw' },
+            { title: '预计靠泊时间', dataIndex: 'sj' },
+            { title: '整船柜数量(E/F)', dataIndex: 'sl' },
+            { title: '处理', dataIndex: 'cl' },
         ];
         return (
             <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950, zIndex: 99999 }}>
