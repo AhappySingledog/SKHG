@@ -57,47 +57,32 @@ export default class PierRightPanel extends React.Component {
             yth: [[data, data], [data, data], [data, data]],
             ylmg: [[data, data], [data, data], [data, data]],
         };
-        if (this.props.datas.type == 1) {
-            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 1100 });
-            let pa = [{
-                paramName: "P_TERMINALCODE",
-                value: this.props.datas.code
-            }];
-            /** 各栏堆存柜量 */
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-                this.setState({
-                    onyard: res[0].data
-                })
+        publish('tableName_find').then((res) => {
+            let temp = {};
+            res[0].features.forEach((value, key) => temp[value.type] = value.talbe);
+            this.setState(temp, () => {
+                if (this.props.datas.type == 1) {
+                    this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 1100 });
+                    let pa = [{
+                        paramName: 'P_TERMINALCODE',
+                        value: this.props.datas.code
+                    }];
+                    /** 各栏堆存柜量 */
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ onyard: res[0].data }));
+                    /** 泊位停靠船舶信息 */
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ berths: res[0].data }));
+                    /** 超三个月海关未放行的柜列表  */
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data.CUR_A }));
+                }
+                else if (this.props.datas.type == 4) {
+                    console.log(this.props.datas);
+                    this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
+                }
+                else {
+                    this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 870 });
+                }
             });
-
-            /** 泊位停靠船舶信息 */
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-                this.setState({
-                    berths: res[0].data
-                })
-            });
-
-            /** 超三个月海关未放行的柜列表  */
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
-                this.setState({
-                    scctyard: res[0].data.CUR_A
-                })
-            });
-            publish('tableName_find').then((res) => {
-                res[0].features.forEach((value, key) => {
-                    this.setState({
-                        [value.type]: value.talbe,
-                    });
-                });
-            });
-        }
-        else if (this.props.datas.type == 4) {
-            console.log(this.props.datas);
-            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
-        }
-        else {
-            this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 870 });
-        }
+        });
     }
 
     componentWillUnmount() {
@@ -109,9 +94,9 @@ export default class PierRightPanel extends React.Component {
     /** 超三个月海关未放行的柜列表 点击相应的柜信息实现定位及输出信息完整显示 */
     nocus90 = (e) => {
         let json = {};
-        e['colname'] = 'onyard';
-        e['name'] = '超三个月的柜子';
-        json['attributes'] = e;
+        e.colname = 'onyard';
+        e.name = '超三个月的柜子';
+        json.attributes = e;
         publish('box_location', e);
         publish('box_onIconClick', json);
     }
@@ -145,7 +130,7 @@ export default class PierRightPanel extends React.Component {
             publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'    " } }).then((ors) => {
                 /** 匹配数据 */
                 for (let o in khsj[0]) {
-                    let js = khsj[0][o]['YARDLANENO'] + khsj[0][o].YARDBAYNO + khsj[0][o].YARDROWNO;
+                    let js = khsj[0][o].YARDLANENO + khsj[0][o].YARDBAYNO + khsj[0][o].YARDROWNO;
                     if (typeof (resjson[js]) === 'undefined') {
                         resjson[js] = [khsj[0][o]];
                     } else {
@@ -168,8 +153,8 @@ export default class PierRightPanel extends React.Component {
         this.props.map.mapDisplay.clearLayer('textLayer');
         for (let key in res) {
             let o = res[key];
-            res[key]['colname'] = 'onyard';
-            res[key]['name'] = '柜子';
+            res[key].colname = 'onyard';
+            res[key].name = '柜子';
             if (typeof (ors[key]) !== 'undefined') {
                 let dots = ors[key][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
                 let params = {
@@ -213,8 +198,8 @@ export default class PierRightPanel extends React.Component {
         else if (type == 4) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={'仓库列表'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={warehouseFlds} datas={this.state.warehouse} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'园区信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={parkFlds} datas={this.state.park} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'仓库列表'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.warehouseFlds} datas={this.state.warehouse} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'园区信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.parkFlds} datas={this.state.park} trClick={null} trDbclick={null} />
                 </div>,
             ];
         }

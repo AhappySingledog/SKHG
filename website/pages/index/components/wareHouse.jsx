@@ -7,10 +7,19 @@ import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { publish } from '../../../frame/core/arbiter';
+import WareHouseRight from './wareHouseRight';
 
 class MapOperation extends React.Component {
     componentDidMount() {
         console.log(this.props);
+        let datas = this.props.datas;
+        let mapExtent = {
+            xmin: Number(datas.xmin),
+            xmax: Number(datas.xmax),
+            ymin: Number(datas.ymin),
+            ymax: Number(datas.ymax),
+        }
+        this.props.map.mapOper.setMapExtent(mapExtent);
     }
     render() {
         return (<div></div>)
@@ -91,12 +100,7 @@ export default class WareHouse extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    <div className="houseright">
-                        <div className='houseright-1' onClick={() => publish('playVedio')}></div>
-                        <div className='houseright-2' onClick={() => publish('playVedio')}></div>
-                        <div className='houseright-3' onClick={() => publish('playVedio')}></div>
-                        <div className='houseright-4' onClick={() => publish('playVedio')}></div>
-                    </div>
+                    <WareHouseRight/>
                 </div>
             </div>
         )
