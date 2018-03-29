@@ -9,6 +9,7 @@ import echarts from 'echarts';
 import $ from 'jquery';
 import _ from 'lodash';
 import zb from '../images/倒三角.png';
+import up from '../images/向上.png';
 
 class Title extends React.Component {
     export = () => {
@@ -75,8 +76,14 @@ export default class PierRightPanel extends React.Component {
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data.CUR_A }));
                 }
                 else if (this.props.datas.type == 4) {
-                    console.log(this.props.datas);
+                    publish('pire_right_yq_axis').then((res) => {
+                        if (this.chart) this.chart.dispose();
+                        this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
+                        this.chart.setOption(res[0]);
+                    });
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
+                } else if (this.props.datas.type === 2) {
+
                 }
                 else {
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 870 });
@@ -197,10 +204,96 @@ export default class PierRightPanel extends React.Component {
         }
         else if (type == 4) {
             items = [
-                <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={'仓库列表'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.warehouseFlds} datas={this.state.warehouse} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'园区信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.parkFlds} datas={this.state.park} trClick={null} trDbclick={null} />
-                </div>,
+                <div className="houseView" key='1'>
+                    <div className="houseView-leftspan">
+                        仓<br />库<br />库<br />存<br />情<br />况
+                   </div>
+                    <div className="houseView-view">
+                        <div className="houseView-view-cendiv">
+                            <div >仓库一</div>
+                            <div >仓库二</div>
+                            <div >仓库三</div>
+                            <div >仓库四</div>
+                            <div >仓库五</div>
+                            <div >仓库六</div>
+                            <div >仓库七</div>
+                            <div >仓库八</div>
+                            <div >仓库九</div>
+                            <div >仓库十</div>
+                        </div>
+                        <div className="houseView-view-ec">
+                            <div className='houseView-view-ec-row' style={{ height: '100%', width: '100%' }} ref="echart1"></div>
+                        </div>
+                        <div className="houseView-view-rig">
+                            <div className="houseView-view-rig-top">
+                                <div>今日</div>
+                                <div>昨日</div>
+                                <div>同比</div>
+                            </div>
+                            <div className="houseView-view-rig-num">
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-green">3.75%</div>
+                                </div>
+
+                                <div >
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-green">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-green">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+
+                                <div>
+                                    <div>913</div>
+                                    <div>880</div>
+                                    <div className="houseView-view-rig-num-red">3.75%</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             ];
         }
         return (

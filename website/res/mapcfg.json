@@ -174,16 +174,6 @@
                         "maxscale": "",
                         "minscale": ""
                     }
-                },
-                {
-                    "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS/MapServer",
-                    "type": "dynamic",
-                    "name": "测绘图",
-                    "params": {
-                        "maxscale": "",
-                        "minscale": ""
-                    }
                 }
             ]
         },{

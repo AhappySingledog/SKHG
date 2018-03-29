@@ -60,7 +60,7 @@ class MapOperation extends React.Component {
     }
 
     componentDidMount() {
-    	this.sub_box = subscribe('box', this.box);
+        this.sub_box = subscribe('box', this.box);
         this.sub_boxModel = subscribe('box_model', this.boxModel);
         this.sub_location = subscribe('box_location', this.handleNbr);
         this.sub_onIconClick = subscribe('box_onIconClick', this.onIconClick);
@@ -82,7 +82,7 @@ class MapOperation extends React.Component {
                     layerId: 'port_view',
                     dots: dots,
                     attr: { ...e },
-                    click: () => publish('changeLayer', { index: 3, props: {datas: e} }),
+                    click: () => publish('changeLayer', { index: 3, props: { datas: e } }),
                     linewidth: 6,
                 }
                 this.props.map.mapDisplay.polygon(params);
@@ -351,10 +351,10 @@ class MapOperation extends React.Component {
         this.setState({ isShowDes: false });
         let attr = e.attributes;
         publish('tableName_find').then((res) => {
-            res[0].features.forEach((value,key) =>{
-                if(value.type === attr.colname){
+            res[0].features.forEach((value, key) => {
+                if (value.type === attr.colname) {
                     this.setState({
-                        desColumns : value.talbe,
+                        desColumns: value.talbe,
                         desTitle: attr.name,
                         desItem: attr,
                         isShowDes: true
@@ -390,20 +390,34 @@ class MapOperation extends React.Component {
             dataSource: e.khsj,
             datajson: e.bdsj,
         }));
+        this.old_khsj = e.khsj;
+        this.old_bdsj = e.bdsj;
     }
 
     /** 点击查询框的时候，展示当前贝位的数据列表 */
     findBox = (e) => {
-        this.setState({ visible_duiwei: false, isShowDes: false });
-        let datajs = this.state.datajson;
-        if (typeof (datajs[e]) !== 'undefined') {
+        let khsj = this.old_khsj;
+        let bdsj = this.old_bdsj;
+        let new_data = {};
+        if (0 < e.length && e.length < 3 && e.trim() !== '') {
+            khsj = khsj.filter((d) => d.YARDROWNO === e);
             this.setState({
-                visible_duiwei: true,
-                dataSource: datajs[e],
+                dataSource: khsj,
             });
-        } else {
+        } else if (2 < e.length && e.length < 4 && e.trim() !== '') {
+            khsj = khsj.filter((d) => d.YARDBAYNO === e);
             this.setState({
-                visible_duiwei: true,
+                dataSource: khsj,
+            });
+        } else if (4 < e.length && e.trim() !== '') {
+            if (typeof (bdsj[e]) !== 'undefined') {
+                this.setState({
+                    dataSource: bdsj[e],
+                });
+            }
+        } else if (e.trim() === '') {
+            this.setState({
+                dataSource: this.old_khsj,
             });
         }
     };
@@ -440,6 +454,10 @@ class MapOperation extends React.Component {
             json['attributes'] = obj;
             this.onIconClick(json);
         });
+    }
+    /** 关闭集装箱查询窗口 */
+    handleCloseTitle() {
+        this.setState({ visible_duiwei: false, isShowDes: false });
     }
 
 
@@ -515,7 +533,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} id={'a1'} />} style={{ width: 1000, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} id={'a1'} onClose={this.handleCloseTitle} />} style={{ width: 1200, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }
@@ -574,14 +592,11 @@ class Title extends React.Component {
     }
 
     export = () => {
-        console.log(this.props.id);
         table2Excel(this.props.id);
     }
     handleEnterKey = (e) => {
         if (e.keyCode === 13) {
-            if ($('#inp').val() !== "" && $('#inp').val() !== 'undefined') {
-                this.props.findDate($('#inp').val())
-            }
+            this.props.findDate($('#inp').val())
         }
     }
 
@@ -592,8 +607,8 @@ class Title extends React.Component {
                     {this.props.title}
                 </div>
                 <input className='tableTitle-i' id='inp' />
-                <div className='tableTitle-f' onClick={() => this.props.findDate($('#inp').val())}>
-                </div>
+                <div className='tableTitle-f' onClick={() => this.props.findDate($('#inp').val())}></div>
+                <div className='tableTitle-c' onClick={() => this.props.onClose()}></div>
             </div>
         )
     }

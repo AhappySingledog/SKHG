@@ -5,7 +5,7 @@ import $ from 'jquery';
 let ports = null;
 let data_mapJson = null;
 let truck = null;
-let tableName= null;
+let tableName = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
 $.ajax({ dataType: 'json', url: '../datajson.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
@@ -1105,6 +1105,229 @@ subscribes(
                 }]
             };
             return option;
+        }
+    }, {
+        /** 园区今日数量展示图 */
+        sub: 'pire_right_yq_axis',
+        func: (ops) => {
+            let yAxisMonth = [
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+                " ",
+            ];
+            let barData = [
+                543,
+                765,
+                548,
+                122,
+                913,
+                894,
+                884,
+                833,
+                411,
+                321,
+               
+            ];
+            let heightWidth = ['100%', 70];
+            let barDataTwo = [];
+            let coordData2 = [];
+            let coordData = [];
+            for (let i = 0; i < barData.length; i++) {
+                barDataTwo.push(Math.max.apply(Math, barData) + 5000);
+                coordData.push({
+                    "coord": [Number(barData[i]) - 1, i]
+                });
+                coordData2.push({
+                    "coord": [Math.max.apply(Math, barData) + 5000, i]
+                })
+            };
+            return {
+                backgroundColor: "#051658",
+                title: {
+                    text: ''
+                },
+                legend: null,
+                tooltip: {
+                    trigger: 'axis',
+                    axisPointer: {
+                        type: 'none'
+                    },
+                    formatter: function (params) {
+                        return params[0].name + '今日仓库库存: ' + params[0].value;
+                    }
+                },
+                grid: {
+                    containLabel: true,
+                    top: "50px",
+                    bottom: "37%",
+                    left: "0%",
+                    right: "0",
+
+                },
+                yAxis: [{
+                    data: yAxisMonth,
+                    inverse: true,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                },
+                {
+                    data: yAxisMonth,
+                    inverse: true,
+                    axisLine: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                },
+                ],
+                xAxis: [{
+                    type: "value",
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    }
+                }, {
+                    type: "value",
+                    splitLine: {
+                        show: false
+                    },
+                    axisLabel: {
+                        show: false
+                    },
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: false
+                    }
+                }],
+                series: [{
+                    z: 10,
+                    xAxisIndex: 0,
+                    yAxisIndex: 0,
+                    name: 'XXX',
+                    type: 'pictorialBar',
+                    data: barData,
+                    label: {
+                        normal: {
+                            show: true,
+                            position: 'inside',
+                            textStyle: {
+                                fontSize: 50,
+                                color: '#00ffff'
+                            }
+                        }
+                    },
+                    symbolRepeat: false,
+                    symbolSize: heightWidth,
+                    symbolOffset: [-16.5, 0],
+                    itemStyle: {
+                        normal: {
+                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
+                                offset: 0,
+                                color: '#083e6d',
+                            },
+                            {
+                                offset: 0.5,
+                                color: '#0272f2',
+                                opacity: 0.7
+                            }, {
+                                offset: 1,
+                                color: '#083e6d',
+                                opacity: 0.5
+                            }
+                            ], false),
+                        }
+                    },
+                    symbolClip: true,
+                    symbolPosition: 'end',
+                    symbol: 'rect',
+                    // symbol: 'path://M0 0 L0 60 L225 60 L300 0 Z',
+                    markPoint: {
+                        data: coordData,
+                        symbolSize: [33, 70],
+                        symbolOffset: [-0.5, 0],
+                        z: 3,
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        symbolClip: true,
+                        symbol: 'path://M 300 100 L 100 100 L 100 300 z',
+                    }
+                },
+                {
+                    z: 6,
+                    xAxisIndex: 1,
+                    yAxisIndex: 1,
+                    animation: false,
+                    name: 'XX',
+                    type: 'pictorialBar',
+                    data: barDataTwo,
+                    barCategoryGap: '80%',
+                    label: {
+                        normal: {
+                            show: false,
+                            position: 'inside',
+                            textStyle: {
+                                fontSize: 12,
+                                color: '#00ffff'
+                            }
+                        }
+                    },
+                    symbolRepeat: false,
+                    symbolSize: heightWidth,
+                    symbolOffset: [-16.5, 0],
+                    itemStyle: {
+                        normal: {
+                            color: '#00abc5',
+                            opacity: 0.085
+                        }
+                    },
+                    symbolClip: true,
+                    symbol: 'rect',
+                    markPoint: {
+                        data: coordData2,
+                        symbolSize: [33, 70],
+                        symbolOffset: [-0.5, 0],
+                        label: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        itemStyle: {
+                            normal: {
+                                color: '#00abc5',
+                                opacity: 0.085
+                            }
+                        },
+                        symbolClip: true,
+                        symbol: 'path://M 300 100 L 100 100 L 100 300 z',
+
+                    }
+                },
+                ]
+            }
         }
     }
 );

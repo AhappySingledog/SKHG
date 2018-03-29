@@ -1472,6 +1472,106 @@ body>div {
 /***********************
 *******园区等界面********
 ***********************/
+
+.houseView{
+    width: 3750px;
+    height: 775px;
+    border: 1px solid #0682ec;
+    display: flex;
+    flex-direction: row;
+    &-leftspan{
+        height: 100%;
+        width: 160px;
+        color: white;
+        text-align: center;
+        display: inline-block;
+        box-sizing: border-box;
+        margin: 0px 150px 0px 80px;
+        padding: 100px 0px 0px 0px;
+        font-size: 70px;
+        line-height: 102px;
+        background: url('../images/port/标题组件.png') no-repeat;
+        background-size: 100% 100%;
+    }
+
+    &-view{
+        width: 100%;
+        height: 760px;
+        display: flex;
+        flex-direction: row;
+        overflow: auto;
+        &-cendiv{
+            height: 1200px;
+            width: 8%;
+            display: flex;
+            flex-direction: column;
+            text-align: center;
+            color: #0682ec;
+            >div:first-child{
+                margin-top: 95px;
+            }
+            >div{
+                margin-top: 45px;
+                background: url('../images/port/Tab.png') no-repeat;
+                background-size: 100% 100%;
+                font-size: 50px;
+                cursor: pointer;
+            }
+            >div:hover{
+                background: url('../images/port/onTab.png') no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+        &-ec{
+            height: 1200px;
+            width: 60%;
+            &-row{
+            }
+        }
+        &-rig{
+            height: 1200px;
+            width: 22%;
+            display: flex;
+            flex-direction: column;
+            color: #ffffff;
+            font-size: 50px;
+            &-top{
+                display: flex;
+                flex-direction: row;
+                justify-content: space-around;
+                margin-top: 15px;
+            }
+            &-num{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                font-size: 65px;
+                >div:first-child{
+                    margin-top: 30px;
+                }
+                >div{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    margin-top: 62px;
+                  >div{
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                  }
+                }
+                &-green{
+                    color :#39FF09;
+                }
+                &-red{
+                    color : red;
+                }
+            }
+        }
+    }
+    
+}
 .mtables{
     position: absolute;
     right: 50px;
@@ -1592,10 +1692,18 @@ body>div {
     }
     &-i{
        width: 400px;
-       height: 70px;
+       height: 80px; 
     }
     &-f{
         background: url('../images/buttons/查询.png') no-repeat;
+        background-size: 100% 100%;
+        width: 86px;
+        height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+    }
+    &-c{
+        background: url('../images/buttons/关闭.png') no-repeat;
         background-size: 100% 100%;
         width: 86px;
         height: 80px;
