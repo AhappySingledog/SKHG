@@ -669,6 +669,124 @@ body>div {
     width: fit-content;
 }
 
+.queryBox {
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 433px;
+    left: 7711px;
+    z-index: 99999;
+    border-radius: 10px;
+    padding: 0 62px;
+}
+
+.query {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 2729px;
+    &-t {
+        width: 3612px;
+        height: 2354px;
+        background: url('../images/智能查询底框.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        &-t {
+            width: 3343px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 65px;
+            margin-bottom: 30px;
+            &-item {
+                &-1 {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/码头泊位.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-1-select {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/码头泊位_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-2 {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/集装箱信息.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-2-select {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/集装箱信息_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-3 {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/仓库信息.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-3-select {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/仓库信息_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-4 {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/提单信息.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-4-select {
+                    width: 737px;
+                    height: 178px;
+                    background: url('../images/buttons/提单信息_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+            }
+        }
+        &-b {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            &-c {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+    &-b {
+        width: 160px;
+        height: 160px;
+        background: url('../images/关闭按钮.png') no-repeat;
+        background-size: 100% 100%;
+        margin-bottom: 100px;
+        cursor: pointer;
+    }
+    &-b:hover {
+        transform: rotate(45deg);
+    }
+}
+
 
 /**港口样式*/
 
@@ -1532,6 +1650,8 @@ body>div {
         }
     }
 }
+
+
 
 /***************************************************************
 *************************第三层页面结束**************************

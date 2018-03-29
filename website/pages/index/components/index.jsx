@@ -5,12 +5,14 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio, ViwePager, Table, ImgDisplay, Panel } from '../../../frame/componets/index';
+import { Vedio, ViwePager, Table, ImgDisplay, Panel, Vedios } from '../../../frame/componets/index';
+import { table2Excel } from '../../../frame/core/table2Excel';
 import Home from './home';
 import Port from './port';
 import Pier from './pier';
 import WareHouse from './wareHouse';
 import IWarning from './iWarning';
+import '../../../frame/less/magic.less';
 
 class Timer extends React.Component {
     state = { msg: '' }
@@ -117,6 +119,82 @@ class Warning extends React.Component {
     }
 }
 
+class Title extends React.Component {
+    export = () => {
+        console.log(this.props.id);
+        table2Excel(this.props.id);
+    }
+    render() {
+        return (
+            <div className='tableTitle'><div className='tableTitle-n'>{this.props.title}</div><div className='tableTitle-b' onClick={() => this.export()}></div></div>
+        )
+    }
+}
+
+class MyQuery extends React.Component {
+    state = {
+        index: 0
+    }
+    componentDidMount() {
+        console.log(this.props);
+    }
+    chooseItem = (index) => {
+        $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.query-t-b').removeClass('magictime holeOut animated');this.setState({index: index});});
+    }
+    render() {
+        let items = ['码头泊位', '集装箱', '仓库信息', '提单信息'];
+        let content = [];
+        let index = this.state.index;
+        let id1 = 'a', id2 = 'b';
+        let flds = [], datas = [];
+        let w = 1640, h = 916;
+        let data = [
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+        ];
+        if (index === 0) {
+            flds = [
+                {title: '泊位', dataIndex: 'a'},
+                {title: '船名', dataIndex: 'b'},
+                {title: '航次号', dataIndex: 'c'}
+            ];
+            datas = [
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+            ];
+            content = [
+                <Table key={1} rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id1} />} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
+                    <Vedios style={{ width: w, height: h }} datas={data} />
+                    <Vedios style={{ width: w, height: h }} datas={data} />
+                </div>
+            ];
+        }
+        
+        return (
+            <div className='queryBox'>
+                <div className='query' ref='target'>
+                    <div className='query-t'>
+                        <div className='query-t-t'>
+                            {items.map((e, i) => <div key={i} className={'query-t-t-item-' + (i + 1) + (i === this.state.index ? '-select' : '')} onClick={() => this.chooseItem(i)}></div>)}
+                        </div>
+                        <div className='query-t-b'>
+                            {content}
+                        </div>
+                    </div>
+                    <div className='query-b' onClick={this.props.close}></div>
+                </div>
+            </div>
+        );
+    }
+}
+
 export default class App extends React.Component {
     state = {
         index: null,
@@ -129,6 +207,7 @@ export default class App extends React.Component {
         jkname: null,
         img: null,
         warning: null,
+        myQuery: false,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
@@ -184,6 +263,7 @@ export default class App extends React.Component {
     }
     iQuery = () => {
         console.log('iQuery');
+        this.setState({myQuery: true}, () => $('.queryBox').addClass('magictime foolishIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime foolishIn animated')));
     }
     iCount = () => {
         console.log('iCount');
@@ -260,6 +340,7 @@ export default class App extends React.Component {
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
                 {this.state.warning ? <Warning warning={this.state.warning} /> : null}
+                {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.queryBox').removeClass('magictime foolishOut animated');this.setState({myQuery: false});})}/> : null}
             </div>
         )
     }

@@ -44,14 +44,14 @@ export default class WareHouseRight extends React.Component {
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
         const onyardFlds = [
-            { title: '码头', name: 'TERMINALCODE' },
-            { title: '堆场位置', name: 'YARD' },
-            { title: '堆存柜量', name: 'CNTRCOUNT' },
+            { title: '监控场所', name: 'a' },
+            { title: '线路编号', name: 'b' },
+            { title: '场所名称', name: 'c' },
         ];
         return (
             <div className='warehouse'>
                 <div className='warehouse-l'>
-                    <Table rowNo={true} title={<Title title={'仓库列表'} id={'id1'} />} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'监控视频列表'} id={'id1'} />} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
                     <div className='warehouse-v'>
                         <Vedios style={{ width: w, height: h }} datas={data} />
                     </div>
