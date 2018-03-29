@@ -12,6 +12,7 @@ import Port from './port';
 import Pier from './pier';
 import WareHouse from './wareHouse';
 import IWarning from './iWarning';
+import TableTitle from './tableTitle';
 import '../../../frame/less/magic.less';
 
 class Timer extends React.Component {
@@ -139,7 +140,7 @@ class MyQuery extends React.Component {
         console.log(this.props);
     }
     chooseItem = (index) => {
-        $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.query-t-b').removeClass('magictime holeOut animated');this.setState({index: index});});
+        $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.query-t-b').removeClass('magictime holeOut animated');this.setState({index: index}, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated')));});
     }
     render() {
         let items = ['码头泊位', '集装箱', '仓库信息', '提单信息'];
@@ -169,11 +170,79 @@ class MyQuery extends React.Component {
                 {a: 1, b: 2, c: 3},
             ];
             content = [
-                <Table key={1} rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id1} />} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={<TableTitle title={'泊位停靠船舶信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
                 <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
                     <Vedios style={{ width: w, height: h }} datas={data} />
                     <Vedios style={{ width: w, height: h }} datas={data} />
                 </div>
+            ];
+        }
+        else if (index === 1) {
+            flds = [
+                {title: '码头', dataIndex: 'a'},
+                {title: '堆位', dataIndex: 'b'},
+                {title: '位置', dataIndex: 'c'}
+            ];
+            datas = [
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+            ];
+            content = [
+                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
+                    <Vedios style={{ width: w, height: h }} datas={data} />
+                </div>
+            ];
+        }
+        else if (index === 2) {
+            flds = [
+                {title: '仓库名', dataIndex: 'a'},
+                {title: '当前库存量', dataIndex: 'b'},
+                {title: '所属单位', dataIndex: 'c'}
+            ];
+            datas = [
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+            ];
+            content = [
+                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
+                    <Vedios style={{ width: w, height: h }} datas={data} />
+                    <Vedios style={{ width: w, height: h }} datas={data} />
+                </div>
+            ];
+        }
+        else if (index === 3) {
+            flds = [
+                {title: '提单号', dataIndex: 'a'},
+                {title: '集装箱号', dataIndex: 'b'},
+                {title: '装船/出闸信息', dataIndex: 'c'}
+            ];
+            datas = [
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+                {a: 1, b: 2, c: 3},
+            ];
+            content = [
+                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2}/>} style={{ width: 3343, height: 969 }} id={id2} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
             ];
         }
         
