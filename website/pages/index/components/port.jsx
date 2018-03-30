@@ -78,7 +78,7 @@ class MapOperation extends React.Component {
         this.props.map.mapOper.setMapExtent(mapExtent);
 
         /** 港口码头划分 */
-        publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: '1 = 1 ' } }).then((res) => {
+        publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: 'LAYER=2' } }).then((res) => {
             this.handleMTSJ(res[0].data);
         })
 
@@ -572,7 +572,7 @@ class PortPie extends React.Component {
         var json = {};
         for (var o in mtJson) {
             json[mtJson[o].attributes.TYPE1] = mtJson[o].attributes.AMOUNT;
-        };
+        }
 
         publish('port_pie_gk', { value: json['Loading'] || 0 }).then((res) => {
             if (this.chart) this.chart.dispose();

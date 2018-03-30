@@ -7,6 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
+import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
@@ -88,7 +89,6 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.polygon(params);
             });
             if (this.props.datas.type == 1) {
-                this.handleMTSJ(this.props.datas);
                 /** 大船显示 */
                 publish('vessel_GetListAsync').then((res) => this.handleBigship(this.ScreenWharf(res[0], this.props.datas.name)));
                 /** 驳船显示 */
@@ -96,6 +96,7 @@ class MapOperation extends React.Component {
                 /** 外拖拖车 */
                 publish('truck_GetListAsync').then((res) => this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name)));
             }
+            this.drawVideos(this.props.datas);
         });
     }
 
@@ -111,7 +112,8 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
-    };
+        this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+    }
     /** 筛选 */
     ScreenWharf(data, name) {
         let datas = [];
@@ -122,60 +124,58 @@ class MapOperation extends React.Component {
         return datas;
     }
 
-    handleMTSJ = (datas) => {
-        if (datas.code === 'SCT') {
-            publish('webAction', { svn: 'QUERY_KHSJ', path: 'api/VideoMonitor/GetListAsync', data: {} }).then((res) => {
-                let data = JSON.parse(res).filter((e) => e.liveName.indexOf('SCT') >= 0);
-                initVideo(data);
-                this.setState({ JsonData: data, dataSource: data.map((e, i) => { return { key: i + 1, name: e.name, liveID: e.liveID, liveName: e.liveName } }) });
-            });
-            let clickVideo = (e) => {
-                let url = null;
-                let data = null;
-                if (typeof (e.attributes) !== 'undefined') {
-                    url = 'http://www.cheluyun.com/javascript/zsg?id=' + e.attributes.liveID + '&rtmp=' + e.attributes.rtmpReleaseAddr + '&hls=' + e.attributes.hlsReleaseAddr;
-                    data = e.attributes;
-                } else {
-                    url = 'http://www.cheluyun.com/javascript/zsg?id=' + e.liveID + '&rtmp=' + e.rtmpReleaseAddr + '&hls=' + e.hlsReleaseAddr;
-                    data = e;
-                }
-                publish('playVedio', { url: url, name: data.name });
-            }
-            let initVideo = (data) => {
-                this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
-                data.forEach((e, i) => {
-                    let point = e.coordinate.split(',');
-                    let param = {
-                        id: 'VIDEO_LAYER' + i,
-                        layerId: 'VIDEO_LAYER',
-                        src: VideoIcon,
-                        width: 140,
-                        height: 140,
-                        angle: 0,
-                        x: point[0],
-                        y: point[1],
-                        attr: { ...e },
-                        click: clickVideo,
-                        mouseover: function (g) {
-                            let symbol = g.symbol;
-                            if (symbol.setWidth) {
-                                symbol.setWidth(140 + 12);
-                                symbol.setHeight(140 + 12);
-                            }
-                            g.setSymbol(symbol);
-                        },
-                        mouseout: function (g) {
-                            let symbol = g.symbol;
-                            if (symbol.setWidth) {
-                                symbol.setWidth(140);
-                                symbol.setHeight(140);
-                            }
-                            g.setSymbol(symbol);
+    drawVideos = (datas) => {
+        console.log(datas.code);
+        Promise.all([
+            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: {tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.code + "'"} }),
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: {tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.code + "'"} }),
+        ]).then((res) => {
+            let videos = res[0][0].data;
+            let temp = {};
+            res[1][0].data.forEach((e) => temp[e.code] = e.geom);
+            videos.forEach((e) => e.geom = temp[e.VIDEOIMAPID]);
+            initVideo(videos);
+        });
+        let clickVideo = (e) => {
+            let url = e.attributes.VIDEOURL;
+            let name = e.attributes.VIDEOIMAPID;
+            publish('playVedio', { url: url, name: name });
+        }
+        let initVideo = (data) => {
+            this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+            data.forEach((e, i) => {
+                if (!e.geom) return;
+                let param = {
+                    id: 'VIDEO_LAYER' + i,
+                    layerId: 'VIDEO_LAYER',
+                    layerIndex: 999,
+                    src: VideoIcon,
+                    width: 140,
+                    height: 140,
+                    angle: 0,
+                    x: e.geom.x,
+                    y: e.geom.y,
+                    attr: { ...e },
+                    click: clickVideo,
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140 + 12);
+                            symbol.setHeight(140 + 12);
                         }
+                        g.setSymbol(symbol);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(140);
+                            symbol.setHeight(140);
+                        }
+                        g.setSymbol(symbol);
                     }
-                    this.props.map.mapDisplay.image(param);
-                });
-            }
+                }
+                this.props.map.mapDisplay.image(param);
+            });
         }
     };
 
