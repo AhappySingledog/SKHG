@@ -1129,7 +1129,7 @@ subscribes(
                 833,
                 411,
                 321,
-               
+
             ];
             let heightWidth = ['100%', 70];
             let barDataTwo = [];
@@ -1326,6 +1326,150 @@ subscribes(
 
                     }
                 },
+                ]
+            }
+        }
+    }, {
+
+        /** 散装码头柱形图 */
+        sub: 'port_2_bar',
+        fun: (e) => {
+            var xData = [{
+                "name": "船舶进港",
+                "value": 2134
+            }, {
+                "name": "船舶出港",
+                "value": 1327
+            }];
+            var yData = [{
+                "name": "船舶进港",
+                "value": 5212
+            }, {
+                "name": "船舶出港",
+                "value": 3213
+            }];
+            return {
+                backgroundColor: '#051658',
+                grid: {
+                    left: '0%',
+                    right: '0%',
+                    bottom: '5%',
+                    top: '7%',
+                    height: '85%',
+                    containLabel: true,
+                    z: 22
+                },
+
+                tooltip: {
+                    show: "true",
+                    trigger: 'item',
+                    backgroundColor: 'rgba(0,0,0,0.7)', // 背景
+                    padding: [8, 10], //内边距
+                    extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);', //添加阴影
+                    formatter: function (params) {
+                        return params.seriesName + ' ：  ' + params.value;
+                    }
+                },
+                yAxis: {
+                    type: 'value',
+                    axisTick: {
+                        show: false,
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#FFFFFF',
+                        }
+                    },
+                    splitLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#363e83 ',
+                        }
+                    },
+                    axisLabel: {
+                        textStyle: {
+                            color: '#fff',
+                            fontWeight: 'normal',
+                            fontSize: '12',
+                        },
+                    },
+                },
+                xAxis: [{
+                    type: 'category',
+                    axisTick: {
+                        show: false
+                    },
+                    axisLine: {
+                        show: true,
+                        lineStyle: {
+                            color: '#FFFFFF',
+                        }
+                    },
+                    axisLabel: {
+                        inside: false,
+                        textStyle: {
+                            color: '#fff',
+                            fontWeight: 'normal',
+                            fontSize: '58',
+                        },
+                    },
+                    data: ['昨日', '今日']
+                }
+                ],
+                series: [{
+                    name: '出港船舶',
+                    type: 'bar',
+                    barWidth: '-30%',
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius: [30, 30, 0, 0],
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#00feff'
+                                },
+                                {
+                                    offset: 0.5,
+                                    color: '#027eff'
+                                },
+                                {
+                                    offset: 1,
+                                    color: '#0286ff'
+                                }
+                                ]
+                            )
+                        }
+                    },
+                    barGap: '100%',
+                    data: ['10','15']
+                }, {
+                    name: '进港船舶',
+                    type: 'bar',
+                    barWidth: '28%',
+                    itemStyle: {
+                        normal: {
+                            barBorderRadius: [30, 30, 0, 0],
+                            color: new echarts.graphic.LinearGradient(
+                                0, 0, 0, 1, [{
+                                    offset: 0,
+                                    color: '#00feff'
+                                },
+                                {
+                                    offset: 0.5,
+                                    color: '#027eff'
+                                },
+                                {
+                                    offset: 1,
+                                    color: '#0286ff'
+                                }
+                                ]
+                            )
+                        }
+                    },
+                    barGap: '100%',
+                    data: ['25','28']
+                }
                 ]
             }
         }

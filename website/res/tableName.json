@@ -367,7 +367,7 @@
             "type": "scctyardFlds",
             "talbe": [
                 {
-                    "title": "场位",
+                    "title": "柜号",
                     "dataIndex": "YARDCELL"
                 },
                 {
@@ -471,6 +471,40 @@
                     "dataIndex": "g"
                 }
             ]
+        },{
+            "type" : "tableyard",
+            "table" : [
+                {
+                    "title": "栏位",
+                    "dataIndex": "YARDLANENO"
+                },{
+                    "title": "内外贸",
+                    "dataIndex": "abccc"
+                },{
+                    "title": "吨数",
+                    "dataIndex": "dsacc"
+                }
+            ]
+        },{
+            "type" : "anchor",
+            "table" : [
+                {
+                    "title": "泊位",
+                    "dataIndex": "berth"
+                },{
+                    "title": "内外贸",
+                    "dataIndex": "fsaafd"
+                },{
+                    "title": "船舶中文名",
+                    "dataIndex": "CVESSELNAME"
+                },{
+                    "title": "航线",
+                    "dataIndex": "service"
+                },{
+                    "title": "装/卸吨数",
+                    "dataIndex": "numbwes"
+                }
+            ] 
         }
     ]
 }

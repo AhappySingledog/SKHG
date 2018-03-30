@@ -271,10 +271,10 @@ export default class Home extends React.Component {
     }
     render() {
         let flds = [
-            { title: '港口名称', name: 'name' },
-            { title: '地点', name: 'addr' },
-            { title: '港口开埠时间', name: 'kbsj' },
-            { title: '招商局运营时间', name: 'yysj' },
+            { title: '港口名称', dataIndex: 'name' },
+            { title: '地点', dataIndex: 'addr' },
+            { title: '港口开埠时间', dataIndex: 'kbsj' },
+            { title: '招商局运营时间', dataIndex: 'yysj' },
         ];
         let temp = this.state.ports;
         let datas = temp.map((e) => { return { id: e.id, name: e.name, addr: e.addr, kbsj: 1983, yysj: 2012 } });

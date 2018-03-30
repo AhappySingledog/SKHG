@@ -41,8 +41,11 @@ export default class PierRightPanel extends React.Component {
         berthsFlds: [],
         scctyardFlds: [],
         shipsFlds: [],
+        tableyardFlds: [],
+        anchorFlds: [],
         vedios: [],
         vediosHeight: 1100,
+        housers: [],
     }
     componentDidMount() {
         let data = [
@@ -57,6 +60,8 @@ export default class PierRightPanel extends React.Component {
             cic: [[data, data], [data, data]],
             yth: [[data, data], [data, data], [data, data]],
             ylmg: [[data, data], [data, data], [data, data]],
+            cwgh: [[data, data]],
+            zsgw: [[data, data]],
         };
         publish('tableName_find').then((res) => {
             let temp = {};
@@ -76,14 +81,38 @@ export default class PierRightPanel extends React.Component {
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data.CUR_A }));
                 }
                 else if (this.props.datas.type == 4) {
+                    // var Mock = require('mockjs')
+                    //     var data = Mock.mock({
+                    //         // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+                    //         'list|1-10': [{
+                    //             // 属性 id 是一个自增数，起始值为 1，每次增 1
+                    //             'id|+1': 1,
+                    //             'ctitle': '@ctitle(4)',
+                    //         }]
+                    //     });
+
+                    let datas = [{ 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }]
                     publish('pire_right_yq_axis').then((res) => {
                         if (this.chart) this.chart.dispose();
                         this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
                         this.chart.setOption(res[0]);
                     });
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
-                } else if (this.props.datas.type === 2) {
 
+                    this.setState({ housers: datas });
+
+                } else if (this.props.datas.type == 2) {
+                    publish('pire_right_yq_axis').then((res) => {
+                        if (this.chart2) this.chart2.dispose();
+                        this.chart2 = echarts.init(ReactDOM.findDOMNode(this.refs.echart2));
+                        this.chart2.setOption(res[0]);
+                    });
+                    publish('pire_right_yq_axis').then((res) => {
+                        if (this.chart3) this.chart3.dispose();
+                        this.chart3 = echarts.init(ReactDOM.findDOMNode(this.refs.echart3));
+                        this.chart3.setOption(res[0]);
+                    });
+                    this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
                 }
                 else {
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 870 });
@@ -134,7 +163,7 @@ export default class PierRightPanel extends React.Component {
         let orsJson = {};
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
             khsj.push(res[0].data.CUR_A);
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'    " } }).then((ors) => {
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'    " } }).then((ors) => {
                 /** 匹配数据 */
                 for (let o in khsj[0]) {
                     let js = khsj[0][o].YARDLANENO + khsj[0][o].YARDBAYNO + khsj[0][o].YARDROWNO;
@@ -186,10 +215,11 @@ export default class PierRightPanel extends React.Component {
     }
 
     render() {
-        let { vedios, vediosHeight } = this.state;
+        let { vedios, vediosHeight, housers = [] } = this.state;
         let id1 = 'a1', id2 = 'a2', id3 = 'a3', id4 = 'a4';
         let items = [];
         let { type } = this.props.datas;
+        let datas = [{ 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }]
         if (type == 1) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
@@ -201,6 +231,27 @@ export default class PierRightPanel extends React.Component {
                     <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
                 </div>
             ];
+        } else if (type == 2) {
+            items = [
+                <div style={{ width: 3750 }} key='1'>
+                    <Table rowNo={true} title={<Title title={'堆场'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.tableyardFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.anchorFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                </div>,
+                <div style={{ width: 3750 }} key='2'>
+                    <div className="szmt">
+                        <div className="szmt-top">船舶进出港情况</div>
+                        <div className="szmt-left">
+                            <div style={{ height: '100%', width: '100%' }} ref="echart2"></div>
+                        </div>
+                    </div>
+                    <div className="szmt">
+                        <div className="szmt-top">游客进出港情况</div>
+                        <div className="szmt-right">
+                            <div style={{ height: '100%', width: '100%' }} ref="echart3"></div>
+                        </div>
+                    </div>
+                </div>
+            ];
         }
         else if (type == 4) {
             items = [
@@ -210,16 +261,7 @@ export default class PierRightPanel extends React.Component {
                    </div>
                     <div className="houseView-view">
                         <div className="houseView-view-cendiv">
-                            <div >仓库一</div>
-                            <div >仓库二</div>
-                            <div >仓库三</div>
-                            <div >仓库四</div>
-                            <div >仓库五</div>
-                            <div >仓库六</div>
-                            <div >仓库七</div>
-                            <div >仓库八</div>
-                            <div >仓库九</div>
-                            <div >仓库十</div>
+                            {datas.map((value, key) => { return <div key={key}>{value.name}</div> })}
                         </div>
                         <div className="houseView-view-ec">
                             <div className='houseView-view-ec-row' style={{ height: '100%', width: '100%' }} ref="echart1"></div>
