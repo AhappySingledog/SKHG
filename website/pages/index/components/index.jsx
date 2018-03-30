@@ -114,21 +114,9 @@ class Warning extends React.Component {
     render() {
         return (
             <div className='warning' ref='target'>
-                {this.props.warning.msg}
+                <div>{this.props.warning.msg}</div>
             </div>
         );
-    }
-}
-
-class Title extends React.Component {
-    export = () => {
-        console.log(this.props.id);
-        table2Excel(this.props.id);
-    }
-    render() {
-        return (
-            <div className='tableTitle'><div className='tableTitle-n'>{this.props.title}</div><div className='tableTitle-b' onClick={() => this.export()}></div></div>
-        )
     }
 }
 

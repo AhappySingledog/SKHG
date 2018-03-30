@@ -659,14 +659,24 @@ body>div {
 }
 
 .warning {
+    width: 770px;
+    height: 481px;
+    background: url('../images/报警信息.png') no-repeat;
+    background-size: 100% 100%;
     position: absolute;
-    top: 360px;
-    left: 4950px;
+    top: 2680px;
+    left: 10680px;
     z-index: 99999;
-    font-size: 100px;
-    color: red;
-    border: 2px solid red;
     width: fit-content;
+    > div {
+        width: 770px;
+        height: 360px;
+        margin-top: 115px;
+        line-height: 360px;
+        text-align: center;
+        font-size: 60px;
+        color: white;
+    }
 }
 
 .queryBox {
