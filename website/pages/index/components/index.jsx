@@ -122,7 +122,11 @@ class Warning extends React.Component {
 
 class MyQuery extends React.Component {
     state = {
-        index: 0
+        index: 0,
+        port: {datas1: []},
+        container: {datas1: [], datas2: []},
+        wareHouse: {datas1: []},
+        list: {datas1: [], datas2: []},
     }
     componentDidMount() {
         console.log(this.props);
@@ -135,8 +139,9 @@ class MyQuery extends React.Component {
         let content = [];
         let index = this.state.index;
         let id1 = 'a', id2 = 'b';
-        let flds = [], datas = [];
-        let w = 1640, h = 916;
+        let flds = [];
+        let width = 1642, height = 1930;
+        let w = 1640, h = 946;
         let data = [
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
@@ -147,44 +152,74 @@ class MyQuery extends React.Component {
                 {title: '船名', dataIndex: 'b'},
                 {title: '航次号', dataIndex: 'c'}
             ];
-            datas = [
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-            ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'泊位停靠船舶信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
-                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
+                <Table key={1} rowNo={true} title={<TableTitle title={'泊位停靠船舶信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={null} />,
+                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: width, margin: '30px 0', height: height - 20 }}>
                     <Vedios style={{ width: w, height: h }} datas={data} />
                     <Vedios style={{ width: w, height: h }} datas={data} />
                 </div>
             ];
         }
         else if (index === 1) {
+            let map = [
+                {title: 'IMO号', dataIndex: 'IMO'},
+                {title: '进口商业航次号', dataIndex: 'InBusinessVoy'},
+                {title: '出口商业航次号', dataIndex: 'OutBusinessVoy'},
+                {title: '船名航次', dataIndex: 'OutVesselVoyage'},
+                {title: '作业码头', dataIndex: 'DbId'},
+                {title: '总提运单号', dataIndex: 'BlNbr'},
+                {title: '订舱号', dataIndex: 'BookingEdo'},
+                {title: '箱号', dataIndex: 'ContainerNbr'},
+                {title: '箱型尺寸高度', dataIndex: 'SzTpHt'},
+                {title: '空重', dataIndex: 'Status'},
+                {title: '进出口状态', dataIndex: 'Category'},
+                {title: '箱主', dataIndex: 'LineId'},
+                {title: '当前位置', dataIndex: 'Location'},
+                {title: '装货港', dataIndex: 'PolAlias'},
+                {title: '卸货港', dataIndex: 'PodAlias'},
+                {title: '目的港', dataIndex: 'Destination'},
+                {title: '海关放行时间', dataIndex: 'CUS'},
+                {title: '国检放行时间', dataIndex: 'CIQ'},
+                {title: '集中查验时间', dataIndex: 'CicTime'},
+                {title: '集中查验状态', dataIndex: 'CicStatus'},
+                {title: '海关查验状态、国检查验状态、放行状态', dataIndex: 'ReleaseStatus'},
+                {title: '进场时间', dataIndex: 'InTime'},
+                {title: '离港时间', dataIndex: 'OutTime'},
+            ];
             flds = [
-                {title: '码头', dataIndex: 'a'},
-                {title: '堆位', dataIndex: 'b'},
-                {title: '位置', dataIndex: 'c'}
+                {title: '参数名', dataIndex: 'key'},
+                {title: '参数值', dataIndex: 'value'},
             ];
-            datas = [
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
+            let flds2 = [
+                {title: '港区', dataIndex: 'DbId'},
+                {title: '船公司', dataIndex: 'ContainerOwner'},
+                {title: '操作', dataIndex: 'OpType'},
+                {title: '操作时间', dataIndex: 'OpTime'},
+                {title: '操作服务', dataIndex: 'ColumnName'},
+                {title: '从', dataIndex: 'OldValue'},
+                {title: '到', dataIndex: 'NewValue'},
             ];
+            let query = (e) => {
+                Promise.all([
+                    publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: e } }),
+                    publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: e } }),
+                ]).then((res) => {
+                    let result = res[0][0].InnerList;
+                    if (result.length > 0) {
+                        let datas1 = map.map((e) => {return { key: e.title, value: result[0][e.dataIndex] }});
+                        this.setState({container:{datas1: datas1, datas2: res[1][0].InnerList}});
+                    }
+                });
+            }
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
-                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
-                    <Vedios style={{ width: w, height: h }} datas={data} />
+                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 1930}}>
+                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
+                        <Table key={1} rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query}/>} style={{ width: w, height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={null} />
+                        <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: w, margin: '30px 0', height: h - 20 }}>
+                            <Vedios style={{ width: w, height: h }} datas={data} />
+                        </div>
+                    </div>
+                    <Table rowNo={true} title={<TableTitle title={'集装箱历史轨迹'} id={id2}/>} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
         }
@@ -194,19 +229,9 @@ class MyQuery extends React.Component {
                 {title: '当前库存量', dataIndex: 'b'},
                 {title: '所属单位', dataIndex: 'c'}
             ];
-            datas = [
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-            ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
-                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: 3323, margin: '30px 0' }}>
+                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: width, margin: '30px 0', height: height - 20 }}>
                     <Vedios style={{ width: w, height: h }} datas={data} />
                     <Vedios style={{ width: w, height: h }} datas={data} />
                 </div>
@@ -218,19 +243,9 @@ class MyQuery extends React.Component {
                 {title: '集装箱号', dataIndex: 'b'},
                 {title: '装船/出闸信息', dataIndex: 'c'}
             ];
-            datas = [
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-                {a: 1, b: 2, c: 3},
-            ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)}/>} style={{ width: 3343, height: 969 }} id={id1} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
-                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2}/>} style={{ width: 3343, height: 969 }} id={id2} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
+                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2}/>} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
             ];
         }
         
