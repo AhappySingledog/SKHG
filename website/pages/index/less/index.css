@@ -919,14 +919,24 @@ body > div {
   color: white;
 }
 .warning {
+  width: 770px;
+  height: 481px;
+  background: url('../images/报警信息.png') no-repeat;
+  background-size: 100% 100%;
   position: absolute;
-  top: 360px;
-  left: 4950px;
+  top: 2680px;
+  left: 10680px;
   z-index: 99999;
-  font-size: 100px;
-  color: red;
-  border: 2px solid red;
   width: fit-content;
+}
+.warning > div {
+  width: 770px;
+  height: 360px;
+  margin-top: 115px;
+  line-height: 360px;
+  text-align: center;
+  font-size: 60px;
+  color: white;
 }
 .queryBox {
   background: rgba(0, 0, 0, 0.6);
@@ -1915,7 +1925,7 @@ body > div {
   justify-content: center;
 }
 .tableTitle-i {
-  width: 400px;
+  width: 500px;
   height: 80px;
 }
 .tableTitle-f {
@@ -2231,4 +2241,27 @@ body > div {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
+}
+.global-search-wrapper {
+  padding-right: 50px;
+}
+.global-search {
+  width: 100%;
+}
+.global-search.ant-select-auto-complete .ant-select-selection--single {
+  margin-right: -46px;
+}
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input:not(:last-child) {
+  padding-right: 62px;
+}
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix {
+  right: 0;
+}
+.global-search.ant-select-auto-complete .ant-input-affix-wrapper .ant-input-suffix button {
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.global-search-item-count {
+  position: absolute;
+  right: 16px;
 }

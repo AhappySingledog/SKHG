@@ -2,7 +2,7 @@
     "features": [
         {
             "type": "bigship",
-            "talbe": [
+            "table": [
                 {
                     "title": "船东",
                     "dataIndex": "shipowner"
@@ -73,7 +73,7 @@
         },
         {
             "type": "bargeship",
-            "talbe": [
+            "table": [
                 {
                     "title": "船东",
                     "dataIndex": "shipowner",
@@ -103,10 +103,10 @@
         },
         {
             "type": "onyard",
-            "talbe": [
+            "table": [
                 {
                     "title": "箱号",
-                    "dataIndex": "containerno"
+                    "dataIndex": "CONTAINERNO"
                 },
                 {
                     "title": "场位",
@@ -130,11 +130,11 @@
                 },
                 {
                     "title": "ISO代码",
-                    "dataIndex": "isocode"
+                    "dataIndex": "ISOCODE"
                 },
                 {
                     "title": "箱主",
-                    "dataIndex": "containerowner"
+                    "dataIndex": "CONTAINEROWNER"
                 },
                 {
                     "title": "堆存天数",
@@ -142,11 +142,11 @@
                 },
                 {
                     "title": "总重(kg)",
-                    "dataIndex": "grossweight"
+                    "dataIndex": "GROSSWEIGHT"
                 },
                 {
                     "title": "空(E)重(F)",
-                    "dataIndex": "emptyfull"
+                    "dataIndex": "EMPTYFULL"
                 },
                 {
                     "title": "尺寸",
@@ -202,11 +202,11 @@
                 },
                 {
                     "title": "订舱号",
-                    "dataIndex": "bl"
+                    "dataIndex": "BL"
                 },
                 {
                     "title": "提单号",
-                    "dataIndex": "do"
+                    "dataIndex": "DO"
                 },
                 {
                     "title": "单证锁",
@@ -348,7 +348,7 @@
         },
         {
             "type": "onyardFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "码头",
                     "dataIndex": "TERMINALCODE"
@@ -365,7 +365,7 @@
         },
         {
             "type": "scctyardFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "柜号",
                     "dataIndex": "YARDCELL"
@@ -378,7 +378,7 @@
         },
         {
             "type": "berthsFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "港区",
                     "dataIndex": "TERMINALCODE"
@@ -403,7 +403,7 @@
         },
         {
             "type": "shipsFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "港区",
                     "dataIndex": "TERMINALCODE"
@@ -428,20 +428,20 @@
         },
         {
             "type": "warehouseFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "仓库名称",
-                    "dataIndex": "name"
+                    "dataIndex": "NAME"
                 },
                 {
                     "title": "当前库存量",
-                    "dataIndex": "count"
+                    "dataIndex": "COUNT"
                 }
             ]
         },
         {
             "type": "parkFlds",
-            "talbe": [
+            "table": [
                 {
                     "title": "进闸车辆数",
                     "dataIndex": "a"
@@ -503,6 +503,44 @@
                 },{
                     "title": "装/卸吨数",
                     "dataIndex": "numbwes"
+                }
+            ] 
+        },{
+            "type" : "berthShip",
+            "table" : [
+                {
+                    "title": "港区",
+                    "dataIndex": "TERMINALCODE"
+                },{
+                    "title": "船舶类型",
+                    "dataIndex": "VESSELTYPE"
+                },{
+                    "title": "泊位",
+                    "dataIndex": "BERTHNO"
+                },{
+                    "title": "船舶编码",
+                    "dataIndex": "EVESSELNAM"
+                },{
+                    "title": "船舶中文名",
+                    "dataIndex": "CVESSELNAME"
+                },{
+                    "title": "卸船箱量",
+                    "dataIndex": "DISCHARGE"
+                },{
+                    "title": "装船箱量",
+                    "dataIndex": "LOADING"
+                },{
+                    "title": "卸船空箱量",
+                    "dataIndex": "DISCHARGE_E"
+                },{
+                    "title": "卸船重箱量",
+                    "dataIndex": "DISCHARGE_F"
+                },{
+                    "title": "装船空箱量",
+                    "dataIndex": "LOADING_E"
+                },{
+                    "title": "装船重箱量",
+                    "dataIndex": "LOADING_F"
                 }
             ] 
         }

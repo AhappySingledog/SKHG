@@ -65,7 +65,7 @@ export default class PierRightPanel extends React.Component {
         };
         publish('tableName_find').then((res) => {
             let temp = {};
-            res[0].features.forEach((value, key) => temp[value.type] = value.talbe);
+            res[0].features.forEach((value, key) => temp[value.type] = value.table);
             this.setState(temp, () => {
                 if (this.props.datas.type == 1) {
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 1100 });
@@ -131,7 +131,7 @@ export default class PierRightPanel extends React.Component {
     nocus90 = (e) => {
         let json = {};
         e.colname = 'onyard';
-        e.name = '超三个月的柜子';
+        e.name = '柜子';
         json.attributes = e;
         publish('box_location', e);
         publish('box_onIconClick', json);
@@ -182,6 +182,13 @@ export default class PierRightPanel extends React.Component {
         });
     }
 
+    /** 单击显示船舶定位 */
+    OnfindBerth = (e) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW = '" + this.props.datas.code + "' and CODE = '" + e.BERTHNO + "'" } }).then((ors) => {
+            /** 去展示船的定位和详细信息 */
+            publish('berth_ship', { a: e, b: ors });
+        })
+    }
     /** 画箱子 */
     huatu(res, ors) {
         this.props.map.mapDisplay.clearLayer('box_view');
@@ -224,7 +231,7 @@ export default class PierRightPanel extends React.Component {
             items = [
                 <div style={{ width: 3750 }} key='1'>
                     <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={this.OnfindBerth.bind(this)} trDbclick={null} />
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
                     <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />

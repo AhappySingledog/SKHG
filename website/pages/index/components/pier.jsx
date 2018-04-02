@@ -6,14 +6,14 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
+import { AutoComplete } from 'antd';
 import bmap from 'echarts/extension/bmap/bmap';
 import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
-import BigShipIcon from '../../../res/mapIcon/bigShip.png';
-import BargeIcon from '../../../res/mapIcon/Barge.png';
-import TruckIcon from '../../../res/mapIcon/car.png';
+import B from '../../../res/mapIcon/Barge.png';
+import S from '../../../res/mapIcon/bigShip.png';
 import VideoIcon from '../images/视频监控.png';
 import PierRightPanel from './pierRightPanel';
 import zb from '../images/倒三角.png';
@@ -65,6 +65,7 @@ class MapOperation extends React.Component {
         this.sub_boxModel = subscribe('box_model', this.boxModel);
         this.sub_location = subscribe('box_location', this.handleNbr);
         this.sub_onIconClick = subscribe('box_onIconClick', this.onIconClick);
+        this.sub_Berth_ship = subscribe('berth_ship', this.berth_ship);
         this.sub_handleCloseDesDailog = subscribe('box_handleCloseDesDailog', this.handleCloseDesDailog);
         Object.keys(this.props.datas.mapExtent).forEach((key) => this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]));
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
@@ -88,14 +89,6 @@ class MapOperation extends React.Component {
                 }
                 this.props.map.mapDisplay.polygon(params);
             });
-            if (this.props.datas.type == 1) {
-                /** 大船显示 */
-                publish('vessel_GetListAsync').then((res) => this.handleBigship(this.ScreenWharf(res[0], this.props.datas.name)));
-                /** 驳船显示 */
-                publish('barge_GetListAsync').then((res) => this.handleBarge(this.ScreenWharf(res[0], this.props.datas.name)));
-                /** 外拖拖车 */
-                publish('truck_GetListAsync').then((res) => this.handleOutcar(this.ScreenWharf(res[0], this.props.datas.name)));
-            }
             this.drawVideos(this.props.datas);
         });
     }
@@ -104,6 +97,7 @@ class MapOperation extends React.Component {
         if (this.sub_box) unsubscribe(this.sub_box);
         if (this.sub_boxModel) unsubscribe(this.sub_boxModel);
         if (this.sub_location) unsubscribe(this.sub_location);
+        if (this.sub_Berth_ship) unsubscribe(this.sub_Berth_ship);
         if (this.sub_onIconClick) unsubscribe(this.sub_onIconClick);
         if (this.sub_handleCloseDesDailog) unsubscribe(this.sub_handleCloseDesDailog);
         this.props.map.mapDisplay.clearLayer('box_view');
@@ -114,21 +108,11 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
     }
-    /** 筛选 */
-    ScreenWharf(data, name) {
-        let datas = [];
-        data.map((value, key) => {
-            if (value.terminal === name || value.Terminal === name) datas.push(value);
-            if (typeof (value.curstatus) !== 'undefined' && value.curstatus.indexOf(name)) datas.push(value);
-        })
-        return datas;
-    }
-
     drawVideos = (datas) => {
         console.log(datas.code);
         Promise.all([
-            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: {tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.code + "'"} }),
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: {tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.code + "'"} }),
+            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.code + "'" } }),
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.code + "'" } }),
         ]).then((res) => {
             let videos = res[0][0].data;
             let temp = {};
@@ -179,23 +163,32 @@ class MapOperation extends React.Component {
         }
     };
 
-    handleBigship = (json) => {
+
+    /** 船的定位 */
+    berth_ship = (datas) => {
         let that = this;
-        for (let o in json) {
-            json[o].key = '' + o;
-            json[o].name = '大船详情';
-            json[o].colname = 'bigship';
-            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
+        let json = datas.a;
+        let list = datas.b[0].data;
+        this.props.map.mapDisplay.clearLayer('SHIP_LAYER');
+        list.map((value, key) => {
+            if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
+                json.name = value.name;
+                json.colname = 'berthShip';
+                let scrs = null;
+                if (value.type === 'S') {
+                    scrs = S;
+                } else scrs = B;
+                this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                 let param = {
-                    id: 'BIG_SHIP_LAYER' + o,
-                    layerId: 'BIG_SHIP_LAYER',
-                    src: BigShipIcon,
+                    id: 'SHIP_LAYER' + key,
+                    layerId: 'SHIP_LAYER',
+                    src: scrs,
                     width: 70,
                     height: 140,
-                    angle: (Number(json[o].heading) / 100) - 90,
-                    x: json[o].longitude,
-                    y: json[o].latitude,
-                    attr: { ...json[o] },
+                    angle: value.angle,
+                    x: value.geom.x,
+                    y: value.geom.y,
+                    attr: { ...json },
                     click: this.onIconClick,
                     mouseover: function (g) {
                         let symbol = g.symbol;
@@ -209,62 +202,7 @@ class MapOperation extends React.Component {
                             layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
                             x: g.geometry.x,
                             y: g.geometry.y,
-                            text: g.attributes.cshipname || g.attributes.shipname,
-                            size: '10pt',
-                            color: 'red',
-                            offsetX: 0,
-                            offsetY: 132,
-                            visible: true,
-                            layerIndex: 10,
-                        }
-                        that.props.map.mapDisplay.text(param2);
-                    },
-                    mouseout: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(70);
-                            symbol.setHeight(140);;
-                        }
-                        g.setSymbol(symbol);
-                        that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
-                    }
-                }
-                this.props.map.mapDisplay.image(param);
-            }
-        }
-    }
-
-    handleBarge = (json) => {
-        let that = this;
-        for (let o in json) {
-            json[o].key = '' + o;
-            json[o].name = '驳船详情';
-            json[o].colname = 'bargeship';
-            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
-                let param = {
-                    id: 'BARGE_SHIP_LAYER' + o,
-                    layerId: 'BARGE_SHIP_LAYER',
-                    src: BargeIcon,
-                    width: 70,
-                    height: 140,
-                    angle: (Number(json[o].heading) / 100) - 90,
-                    x: json[o].longitude,
-                    y: json[o].latitude,
-                    attr: { ...json[o] },
-                    click: this.onIconClick,
-                    mouseover: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(70 + 9);
-                            symbol.setHeight(140 + 36);
-                        }
-                        g.setSymbol(symbol);
-                        let param2 = {
-                            id: 'BARGE_SHIP_LAYER',
-                            layerId: 'BARGE_SHIP_HOVERTEXT',
-                            x: g.geometry.x,
-                            y: g.geometry.y,
-                            text: g.attributes.cshipname || g.attributes.shipname,
+                            text: g.attributes.CVESSELNAME,
                             size: '10pt',
                             color: 'red',
                             offsetX: 0,
@@ -281,70 +219,13 @@ class MapOperation extends React.Component {
                             symbol.setHeight(140);
                         }
                         g.setSymbol(symbol);
-                        that.props.map.mapDisplay.clearLayer('BARGE_SHIP_HOVERTEXT');
+                        that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
                     }
-                }
+                };
                 this.props.map.mapDisplay.image(param);
-            }
-        }
+            };
+        })
     }
-
-
-    handleOutcar = (json) => {
-        let that = this;
-        for (let o in json) {
-            json[o].key = '' + o;
-            json[o].name = '拖车详情';
-            json[o].colname = 'outcar';
-            if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
-                let param = {
-                    id: 'TRUCK_LAYER' + o,
-                    layerId: 'TRUCK_LAYER',
-                    src: TruckIcon,
-                    width: 69,
-                    height: 34,
-                    x: json[o].Curlng,
-                    y: json[o].Curlat,
-                    attr: { ...json[o] },
-                    click: this.onIconClick,
-                    layerIndex: 30,
-                    mouseover: (g) => {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(69 + 36);
-                            symbol.setHeight(34 + 9);
-                        }
-                        g.setSymbol(symbol);
-                        let param2 = {
-                            id: 'TRUCK_LAYER',
-                            layerId: 'TRUCK_LAYER_HOVERTEXT',
-                            x: g.geometry.x,
-                            y: g.geometry.y,
-                            text: g.attributes.Truckno,
-                            size: '10pt',
-                            offsetX: 0,
-                            offsetY: 110,
-                            visible: true,
-                            layerIndex: 20,
-                        }
-                        that.props.map.mapDisplay.text(param2);
-                    },
-                    mouseout: (g) => {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(69);
-                            symbol.setHeight(34);
-                        }
-                        g.setSymbol(symbol);
-                        that.props.map.mapDisplay.clearLayer('TRUCK_LAYER_HOVERTEXT');
-                    }
-                }
-                this.props.map.mapDisplay.image(param);
-            }
-
-        };
-    }
-
 
     /** 图标点击事件 */
     onIconClick = (e) => {
@@ -354,7 +235,7 @@ class MapOperation extends React.Component {
             res[0].features.forEach((value, key) => {
                 if (value.type === attr.colname) {
                     this.setState({
-                        desColumns: value.talbe,
+                        desColumns: value.table,
                         desTitle: attr.name,
                         desItem: attr,
                         isShowDes: true
@@ -399,22 +280,11 @@ class MapOperation extends React.Component {
         let khsj = this.old_khsj;
         let bdsj = this.old_bdsj;
         let new_data = {};
-        if (0 < e.length && e.length < 3 && e.trim() !== '') {
-            khsj = khsj.filter((d) => d.YARDROWNO === e);
+        if (e.trim() !== '') {
+            khsj = khsj.filter((d) => d.CONTAINERNO === e);
             this.setState({
                 dataSource: khsj,
             });
-        } else if (2 < e.length && e.length < 4 && e.trim() !== '') {
-            khsj = khsj.filter((d) => d.YARDBAYNO === e);
-            this.setState({
-                dataSource: khsj,
-            });
-        } else if (4 < e.length && e.trim() !== '') {
-            if (typeof (bdsj[e]) !== 'undefined') {
-                this.setState({
-                    dataSource: bdsj[e],
-                });
-            }
         } else if (e.trim() === '') {
             this.setState({
                 dataSource: this.old_khsj,
@@ -517,6 +387,7 @@ class MapOperation extends React.Component {
         };
         const shipsFlds = [
             { title: '场位', dataIndex: 'YARDCELL' },
+            { title: '柜号', dataIndex: 'CONTAINERNO' },
             { title: '栏位', dataIndex: 'YARDLANENO' },
             { title: '贝位', dataIndex: 'YARDBAYNO' },
             { title: '列号', dataIndex: 'YARDROWNO' },
@@ -533,7 +404,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} id={'a1'} onClose={this.handleCloseTitle} />} style={{ width: 1200, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={this.handleCloseTitle} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }
@@ -587,6 +458,12 @@ class PortMsg extends React.Component {
 
 /** 标题 */
 class Title extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            recommendUsers: []
+        };
+    }
     componentDidMount() {
         document.addEventListener('keydown', this.handleEnterKey);
     }
@@ -600,7 +477,25 @@ class Title extends React.Component {
         }
     }
 
+    handleOwnerIdChange(value) {
+        this.setState({ recommendUsers: [] });
+        if (value) {
+            if (this.props.datas) {
+                this.setState({
+                    recommendUsers: this.props.datas.map((value) => {
+                        return {
+                            text: `${value.CONTAINERNO}`,
+                            value: value.CONTAINERNO
+                        };
+                    })
+                });
+            }
+        }
+    }
+
     render() {
+        const { recommendUsers } = this.state;
+        const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
         return (
             <div className='tableTitle'>
                 <div className='tableTitle-n'>
