@@ -6,8 +6,6 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
-import { AutoComplete } from 'antd';
-import bmap from 'echarts/extension/bmap/bmap';
 import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/componets/index';

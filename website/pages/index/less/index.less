@@ -300,7 +300,7 @@ body>div {
         align-items: center;
         justify-content: space-around;
         &-msg {
-            width: 1100px;
+            width: 1165px;
             height: 616px;
             color: white;
             font-size: 50px;
@@ -659,31 +659,40 @@ body>div {
 }
 
 .warning {
-    width: 770px;
-    height: 481px;
+    height: 1750px;
     background: url('../images/报警信息.png') no-repeat;
     background-size: 100% 100%;
     position: absolute;
-    top: 2680px;
-    left: 10680px;
+    top: 615px;
+    left: 8160px;
     z-index: 99999;
     width: fit-content;
-    > div {
-        width: 770px;
-        height: 360px;
-        margin-top: 115px;
-        line-height: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    > div:nth-of-type(1) {
+        width: 2800px;
+        height: 415px;
+    }
+    > div:nth-of-type(2) {
+        width: 2800px;
+        height: 1310px;
         text-align: center;
         font-size: 60px;
         color: white;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 }
 
 .queryBox {
-    background: rgba(0, 0, 0, 0.6);
+    //background: rgba(0, 0, 0, 0.6);
     position: absolute;
     top: 433px;
-    left: 7711px;
+    left: 4770px;
     z-index: 99999;
     border-radius: 10px;
     padding: 0 62px;
@@ -694,10 +703,10 @@ body>div {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 2729px;
+    height: 2000px;
     &-t {
-        width: 3612px;
-        height: 2354px;
+        width: 2800px;
+        height: 1702px;
         background: url('../images/智能查询底框.png') no-repeat;
         background-size: 100% 100%;
         display: flex;
@@ -705,7 +714,7 @@ body>div {
         align-items: center;
         justify-content: flex-start;
         &-t {
-            width: 3343px;
+            width: 2600px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -714,57 +723,57 @@ body>div {
             margin-bottom: 30px;
             &-item {
                 &-1 {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/码头泊位.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-1-select {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/码头泊位_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-2 {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/集装箱信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-2-select {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/集装箱信息_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-3 {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/仓库信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-3-select {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/仓库信息_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-4 {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/提单信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-4-select {
-                    width: 737px;
-                    height: 178px;
+                    width: 580px;
+                    height: 140px;
                     background: url('../images/buttons/提单信息_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
@@ -776,7 +785,7 @@ body>div {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            width: 3343px;
+            width: 2600px;
             &-c {
                 display: flex;
                 flex-direction: column;
@@ -1741,6 +1750,14 @@ body>div {
     }
     &-c{
         background: url('../images/buttons/关闭.png') no-repeat;
+        background-size: 100% 100%;
+        width: 86px;
+        height: 80px;
+        margin-right: 40px;
+        cursor: pointer;
+    }
+    &-cl{
+        background: url('../images/buttons/查询.png') no-repeat;
         background-size: 100% 100%;
         width: 86px;
         height: 80px;

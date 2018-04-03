@@ -106,6 +106,23 @@ class MyLink extends React.Component {
     }
 }
 
+class WarningTitle extends React.Component {
+    render() {
+        return (
+            <div className='tableTitle'>
+                <div className='tableTitle-n'>
+                    {this.props.title}
+                </div>
+                <div className='tableTitle-s'>
+                    <input placeholder='请输入处理意见' className='tableTitle-i' ref='target' />
+                    <div className='tableTitle-cl' onClick={() => this.props.handle($(ReactDOM.findDOMNode(this.refs.target)).val())}>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
 class Warning extends React.Component {
     componentDidMount() {
         let target = ReactDOM.findDOMNode(this.refs.target);
@@ -114,25 +131,42 @@ class Warning extends React.Component {
     render() {
         return (
             <div className='warning' ref='target'>
-                <div>{this.props.warning.msg}</div>
+                <div onClick={this.props.close}></div>
+                <div>{this.props.warning}</div>
             </div>
         );
+    }
+}
+
+class QueryTitle extends React.Component {
+    render() {
+        return (
+            <div className='tableTitle'>
+                <div className='tableTitle-n'>
+                    {this.props.title}
+                </div>
+                <div className='tableTitle-s'>
+                    码头<input style={{width: 310}} placeholder='请输入码头' className='tableTitle-i' id='mt' />
+                    IMO号<input style={{width: 380}} placeholder='请输入IMO号' className='tableTitle-i' id='imo' />
+                    航次号<input placeholder='请输入航次号' className='tableTitle-i' id='hc' />
+                    <div className='tableTitle-cl' onClick={() => this.props.query($('#mt').val(), $('#imo').val(), $('#hc').val())}>
+                    </div>
+                </div>
+            </div>
+        )
     }
 }
 
 class MyQuery extends React.Component {
     state = {
         index: 0,
-        port: {datas1: []},
-        container: {datas1: [], datas2: []},
-        wareHouse: {datas1: []},
-        list: {datas1: [], datas2: []},
-    }
-    componentDidMount() {
-        console.log(this.props);
+        port: { datas1: [] },
+        container: { datas1: [], datas2: [] },
+        wareHouse: { datas1: [] },
+        list: { datas1: [], datas2: [] },
     }
     chooseItem = (index) => {
-        $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.query-t-b').removeClass('magictime holeOut animated');this.setState({index: index}, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated')));});
+        $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.query-t-b').removeClass('magictime holeOut animated'); this.setState({ index: index }, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated'))); });
     }
     render() {
         let items = ['码头泊位', '集装箱', '仓库信息', '提单信息'];
@@ -140,64 +174,71 @@ class MyQuery extends React.Component {
         let index = this.state.index;
         let id1 = 'a', id2 = 'b';
         let flds = [];
-        let width = 1642, height = 1930;
-        let w = 1640, h = 946;
-        let data = [
-            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
-            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
-        ];
+        let width = 1280, height = 1360;
+        let h = 660;
         if (index === 0) {
+            let query = (mt, imo, hc) => {
+                let pa = [{
+                    paramName: 'P_TERMINALCODE',
+                    value: mt
+                }, {
+                    paramName: 'P_IMO',
+                    value: imo
+                }, {
+                    paramName: 'P_BUSINESSVOY',
+                    value: hc
+                }];
+                publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCT_SHIPSCHEDULE', parms: JSON.stringify(pa) } }).then((res) => {
+                    console.log(res);
+                });
+            }
             flds = [
-                {title: '泊位', dataIndex: 'a'},
-                {title: '船名', dataIndex: 'b'},
-                {title: '航次号', dataIndex: 'c'}
+                { title: '泊位', dataIndex: 'a' },
+                { title: '船名', dataIndex: 'b' },
+                { title: '航次号', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'泊位停靠船舶信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={null} />,
-                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: width, margin: '30px 0', height: height - 20 }}>
-                    <Vedios style={{ width: w, height: h }} datas={data} />
-                    <Vedios style={{ width: w, height: h }} datas={data} />
-                </div>
+                <Table key={1} rowNo={true} title={<QueryTitle title={'泊位停靠船舶信息'} id={id1} query={query} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 1) {
             let map = [
-                {title: 'IMO号', dataIndex: 'IMO'},
-                {title: '进口商业航次号', dataIndex: 'InBusinessVoy'},
-                {title: '出口商业航次号', dataIndex: 'OutBusinessVoy'},
-                {title: '船名航次', dataIndex: 'OutVesselVoyage'},
-                {title: '作业码头', dataIndex: 'DbId'},
-                {title: '总提运单号', dataIndex: 'BlNbr'},
-                {title: '订舱号', dataIndex: 'BookingEdo'},
-                {title: '箱号', dataIndex: 'ContainerNbr'},
-                {title: '箱型尺寸高度', dataIndex: 'SzTpHt'},
-                {title: '空重', dataIndex: 'Status'},
-                {title: '进出口状态', dataIndex: 'Category'},
-                {title: '箱主', dataIndex: 'LineId'},
-                {title: '当前位置', dataIndex: 'Location'},
-                {title: '装货港', dataIndex: 'PolAlias'},
-                {title: '卸货港', dataIndex: 'PodAlias'},
-                {title: '目的港', dataIndex: 'Destination'},
-                {title: '海关放行时间', dataIndex: 'CUS'},
-                {title: '国检放行时间', dataIndex: 'CIQ'},
-                {title: '集中查验时间', dataIndex: 'CicTime'},
-                {title: '集中查验状态', dataIndex: 'CicStatus'},
-                {title: '海关查验状态、国检查验状态、放行状态', dataIndex: 'ReleaseStatus'},
-                {title: '进场时间', dataIndex: 'InTime'},
-                {title: '离港时间', dataIndex: 'OutTime'},
+                { title: 'IMO号', dataIndex: 'IMO' },
+                { title: '进口商业航次号', dataIndex: 'InBusinessVoy' },
+                { title: '出口商业航次号', dataIndex: 'OutBusinessVoy' },
+                { title: '船名航次', dataIndex: 'OutVesselVoyage' },
+                { title: '作业码头', dataIndex: 'DbId' },
+                { title: '总提运单号', dataIndex: 'BlNbr' },
+                { title: '订舱号', dataIndex: 'BookingEdo' },
+                { title: '箱号', dataIndex: 'ContainerNbr' },
+                { title: '箱型尺寸高度', dataIndex: 'SzTpHt' },
+                { title: '空重', dataIndex: 'Status' },
+                { title: '进出口状态', dataIndex: 'Category' },
+                { title: '箱主', dataIndex: 'LineId' },
+                { title: '当前位置', dataIndex: 'Location' },
+                { title: '装货港', dataIndex: 'PolAlias' },
+                { title: '卸货港', dataIndex: 'PodAlias' },
+                { title: '目的港', dataIndex: 'Destination' },
+                { title: '海关放行时间', dataIndex: 'CUS' },
+                { title: '国检放行时间', dataIndex: 'CIQ' },
+                { title: '集中查验时间', dataIndex: 'CicTime' },
+                { title: '集中查验状态', dataIndex: 'CicStatus' },
+                { title: '海关查验状态、国检查验状态、放行状态', dataIndex: 'ReleaseStatus' },
+                { title: '进场时间', dataIndex: 'InTime' },
+                { title: '离港时间', dataIndex: 'OutTime' },
             ];
             flds = [
-                {title: '参数名', dataIndex: 'key'},
-                {title: '参数值', dataIndex: 'value'},
+                { title: '参数名', dataIndex: 'key' },
+                { title: '参数值', dataIndex: 'value' },
             ];
             let flds2 = [
-                {title: '港区', dataIndex: 'DbId'},
-                {title: '船公司', dataIndex: 'ContainerOwner'},
-                {title: '操作', dataIndex: 'OpType'},
-                {title: '操作时间', dataIndex: 'OpTime'},
-                {title: '操作服务', dataIndex: 'ColumnName'},
-                {title: '从', dataIndex: 'OldValue'},
-                {title: '到', dataIndex: 'NewValue'},
+                { title: '港区', dataIndex: 'DbId' },
+                { title: '船公司', dataIndex: 'ContainerOwner' },
+                { title: '操作', dataIndex: 'OpType' },
+                { title: '操作时间', dataIndex: 'OpTime' },
+                { title: '操作服务', dataIndex: 'ColumnName' },
+                { title: '从', dataIndex: 'OldValue' },
+                { title: '到', dataIndex: 'NewValue' },
             ];
             let query = (e) => {
                 Promise.all([
@@ -206,49 +247,40 @@ class MyQuery extends React.Component {
                 ]).then((res) => {
                     let result = res[0][0].InnerList;
                     if (result.length > 0) {
-                        let datas1 = map.map((e) => {return { key: e.title, value: result[0][e.dataIndex] }});
-                        this.setState({container:{datas1: datas1, datas2: res[1][0].InnerList}});
+                        let datas1 = map.map((e) => { return { key: e.title, value: result[0][e.dataIndex] } });
+                        this.setState({ container: { datas1: datas1, datas2: res[1][0].InnerList } });
                     }
                 });
             }
             content = [
-                <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: 1930}}>
-                    <div style={{display: 'flex', flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', width: '100%'}}>
-                        <Table key={1} rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query}/>} style={{ width: w, height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={null} />
-                        <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: w, margin: '30px 0', height: h - 20 }}>
-                            <Vedios style={{ width: w, height: h }} datas={data} />
-                        </div>
-                    </div>
-                    <Table rowNo={true} title={<TableTitle title={'集装箱历史轨迹'} id={id2}/>} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
+                <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
+                    <Table rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query} />} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<TableTitle title={'集装箱历史轨迹'} id={id2} />} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
         }
         else if (index === 2) {
             flds = [
-                {title: '仓库名', dataIndex: 'a'},
-                {title: '当前库存量', dataIndex: 'b'},
-                {title: '所属单位', dataIndex: 'c'}
+                { title: '仓库名', dataIndex: 'a' },
+                { title: '当前库存量', dataIndex: 'b' },
+                { title: '所属单位', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
-                <div key={2} className='query-t-b-c' style={{ padding: '10px', border: '2px solid #1890ff', width: width, margin: '30px 0', height: height - 20 }}>
-                    <Vedios style={{ width: w, height: h }} datas={data} />
-                    <Vedios style={{ width: w, height: h }} datas={data} />
-                </div>
+                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 3) {
             flds = [
-                {title: '提单号', dataIndex: 'a'},
-                {title: '集装箱号', dataIndex: 'b'},
-                {title: '装船/出闸信息', dataIndex: 'c'}
+                { title: '提单号', dataIndex: 'a' },
+                { title: '集装箱号', dataIndex: 'b' },
+                { title: '装船/出闸信息', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)}/>} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
-                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2}/>} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)} />} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
+                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2} />} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
             ];
         }
-        
+
         return (
             <div className='queryBox'>
                 <div className='query' ref='target'>
@@ -287,9 +319,19 @@ export default class App extends React.Component {
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
         publish('changeLayer', { index: 0, props: {} });
-        this.timer = setInterval(() => {
-            this.setState({ warning: null }, () => this.setState({ warning: { msg: '您有一条新的报警信息！' } }));
-        }, 10 * 1000);
+        let work = () => Promise.all([
+            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
+        ]).then((res) => {
+            console.log(res);
+            let temp = res[0][0];
+            let flds = [
+                { title: '参数名', dataIndex: 'key' },
+                { title: '参数值', dataIndex: 'value' }
+            ];
+            let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
+            this.setState({ warning: <Table title={<WarningTitle title={'空柜有货'} id={'aaaa'} handle={null} />} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> });
+        });
+        setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -335,7 +377,7 @@ export default class App extends React.Component {
     }
     iQuery = () => {
         console.log('iQuery');
-        this.setState({myQuery: true}, () => $('.queryBox').addClass('magictime foolishIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime foolishIn animated')));
+        this.setState({ myQuery: true }, () => $('.queryBox').addClass('magictime foolishIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime foolishIn animated')));
     }
     iCount = () => {
         console.log('iCount');
@@ -411,8 +453,8 @@ export default class App extends React.Component {
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
-                {this.state.warning ? <Warning warning={this.state.warning} /> : null}
-                {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.queryBox').removeClass('magictime foolishOut animated');this.setState({myQuery: false});})}/> : null}
+                {this.state.warning ? <Warning warning={this.state.warning} close={() => this.setState({ warning: null })} /> : null}
+                {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime foolishOut animated'); this.setState({ myQuery: false }); })} /> : null}
             </div>
         )
     }
