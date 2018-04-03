@@ -840,6 +840,88 @@ body>div {
 }
 
 
+/** 智能统计 */
+
+.OpenIm{
+    background: url('../images/port/放大统计图框.png') no-repeat;
+    background-size: 100% 100%;
+    position: absolute;
+    top: 433px;
+    left: 50px;
+    z-index: 99999;
+    padding: 20px;
+    width: 7550px;
+    height: 2678px;
+    &-a{
+        width: 7270px;
+        height: 2520px;
+        border: 5px solid #0682ce;
+        margin-left: 136px;
+        margin-top: 77px;
+    }
+    &-ons{
+        width: 160px;
+        height: 160px;
+        z-index: 99999;
+        background: url('../images/关闭按钮.png') no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        position: absolute;
+        top: 90px;
+        right: 156px;
+    }
+}
+
+.queryCount{
+    background: rgba(0, 0, 0, 0.6);
+    position: absolute;
+    top: 433px;
+    left: 7702px;
+    z-index: 99999;
+    padding: 20px;
+    border: 5px solid #0682ce;
+}
+.queryCounts{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    height: 2680px;
+    width: 3700px;
+    &-closes{
+        width: 160px;
+        height: 160px;
+        z-index: 99999;
+        background: url('../images/关闭按钮.png') no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+        position: absolute;
+        top: 50px;
+        right: 55px;
+    }
+    >div{
+        width: 905px;
+        height: 635px;
+        border: 3px solid #0682ce;
+    }
+    >div:nth-of-type(1){
+        width: 1220px;
+        height: 700px;
+        border: 3px solid #0682ce;
+    }
+    >div:nth-of-type(2){
+        width: 1220px;
+        height: 700px;
+        border: 3px solid #0682ce;
+    }
+    >div:nth-of-type(3){
+        width: 1220px;
+        height: 700px;
+        border: 3px solid #0682ce;
+    }
+}
+
 /**港口样式*/
 
 .map-view {
@@ -1560,17 +1642,20 @@ body>div {
             text-align: center;
             color: #0682ec;
             >div:first-child{
-                margin-top: 95px;
+                margin-top: 90px;
             }
             >div{
-                margin-top: 45px;
-                background: url('../images/port/Tab.png') no-repeat;
+                margin-top: 39px;
+                border: 3px solid #0682ce;
+                background: rgba(255,255,255,0);
                 background-size: 100% 100%;
+                border-top-left-radius: 35px;
+                border-bottom-left-radius: 35px;
                 font-size: 50px;
                 cursor: pointer;
             }
             >div:hover{
-                background: url('../images/port/onTab.png') no-repeat;
+                background: rgba(38,138,250,0.7);
                 background-size: 100% 100%;
             }
         }
@@ -1623,6 +1708,24 @@ body>div {
         }
     }
     
+    .test-1::-webkit-scrollbar {
+        /*滚动条整体样式*/
+        width: 10px;
+        /*高宽分别对应横竖滚动条的尺寸*/
+        height: 1px;
+    }
+    .test-1::-webkit-scrollbar-thumb {
+        /*滚动条里面小方块*/
+        border-radius: 10px;
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        background: #535353;
+    }
+    .test-1::-webkit-scrollbar-track {
+        /*滚动条里面轨道*/
+        -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        background: #EDEDED;
+    }
 }
 .mtables{
     position: absolute;
@@ -1664,13 +1767,12 @@ body>div {
 }
 
 .szmt{
-    width: 50%;
-    height: 775px;
+    width: 1863px;
+    height: 960px;
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    border: 1px solid #0682ec;
-    margin-left: 15px;
+    justify-content: space-between;
+    border: 3px solid #0682ec;
     &-top{
         background: #0A6EC8;
         background-size: 100% 100%;
@@ -1680,11 +1782,11 @@ body>div {
     }
     &-left{
         width: 100%;
-        height: 100%;
+        height: 90%;
     }
     &-right{
         width: 100%;
-        height: 100%;
+        height: 90%;
     }
 }
 

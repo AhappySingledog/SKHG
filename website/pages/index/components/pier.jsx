@@ -6,6 +6,7 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
+import bmap from 'echarts/extension/bmap/bmap';
 import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/componets/index';
@@ -318,7 +319,7 @@ class MapOperation extends React.Component {
             let json = {};
             e['colname'] = 'onyard';
             e['name'] = '柜子';
-            let obj = Object.assign(res[0].data.CUR_A[0], e);
+            let obj = Object.assign(res[0].data[0], e);
             json['attributes'] = obj;
             this.onIconClick(json);
         });
@@ -335,7 +336,7 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'GIS_CCT', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
             let orsJson = {};
             for (let i in ors[0].data) {
                 orsJson[ors[0].data[i].name] = [ors[0].data[i]];
@@ -384,8 +385,8 @@ class MapOperation extends React.Component {
             'transformOrigin': 'right center ',
         };
         const shipsFlds = [
-            { title: '场位', dataIndex: 'YARDCELL' },
             { title: '柜号', dataIndex: 'CONTAINERNO' },
+            { title: '场位', dataIndex: 'YARDCELL' },
             { title: '栏位', dataIndex: 'YARDLANENO' },
             { title: '贝位', dataIndex: 'YARDBAYNO' },
             { title: '列号', dataIndex: 'YARDROWNO' },
@@ -402,7 +403,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={this.handleCloseTitle} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={this.handleCloseTitle.bind(this)} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }

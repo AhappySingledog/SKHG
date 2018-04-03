@@ -78,7 +78,10 @@ export default class PierRightPanel extends React.Component {
                     /** 泊位停靠船舶信息 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ berths: res[0].data }));
                     /** 超三个月海关未放行的柜列表  */
-                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data.CUR_A }));
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
+                        
+                        this.setState({ scctyard: res[0].data })
+                    });
                 }
                 else if (this.props.datas.type == 4) {
                     // var Mock = require('mockjs')
@@ -102,12 +105,12 @@ export default class PierRightPanel extends React.Component {
                     this.setState({ housers: datas });
 
                 } else if (this.props.datas.type == 2) {
-                    publish('pire_right_yq_axis').then((res) => {
+                    publish('port_2_bar').then((res) => {
                         if (this.chart2) this.chart2.dispose();
                         this.chart2 = echarts.init(ReactDOM.findDOMNode(this.refs.echart2));
                         this.chart2.setOption(res[0]);
                     });
-                    publish('pire_right_yq_axis').then((res) => {
+                    publish('port_2_bar').then((res) => {
                         if (this.chart3) this.chart3.dispose();
                         this.chart3 = echarts.init(ReactDOM.findDOMNode(this.refs.echart3));
                         this.chart3.setOption(res[0]);
@@ -162,7 +165,7 @@ export default class PierRightPanel extends React.Component {
         let resjson = {};
         let orsJson = {};
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
-            khsj.push(res[0].data.CUR_A);
+            khsj.push(res[0].data);
             publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'    " } }).then((ors) => {
                 /** 匹配数据 */
                 for (let o in khsj[0]) {
@@ -235,7 +238,7 @@ export default class PierRightPanel extends React.Component {
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
                     <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={this.state.berths} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={ [] } trClick={null} trDbclick={null} />
                 </div>
             ];
         } else if (type == 2) {
@@ -266,7 +269,7 @@ export default class PierRightPanel extends React.Component {
                     <div className="houseView-leftspan">
                         仓<br />库<br />库<br />存<br />情<br />况
                    </div>
-                    <div className="houseView-view">
+                    <div className="houseView-view test-1">
                         <div className="houseView-view-cendiv">
                             {datas.map((value, key) => { return <div key={key}>{value.name}</div> })}
                         </div>

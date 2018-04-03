@@ -4,6 +4,7 @@ import $ from 'jquery';
 import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import echarts from 'echarts';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import { Vedio, ViwePager, Table, ImgDisplay, Panel, Vedios } from '../../../frame/componets/index';
 import { table2Excel } from '../../../frame/core/table2Excel';
@@ -311,6 +312,147 @@ class MyQuery extends React.Component {
     }
 }
 
+class ICountimg extends React.Component {
+    state = {
+        showIm: false,
+    }
+    componentDidMount() {
+        let json = {};
+        var d = new Date();
+        var result = [];
+        for (var i = 0; i < 12; i++) {
+            d.setMonth(d.getMonth() - 1);
+            var m = d.getMonth() + 1;
+            m = m < 10 ? "0" + m : m;
+            result.push(d.getFullYear() + "年" + m + '月');
+        };
+        var data = [];
+        for (var i = 1; i < 13; i++) {
+            data.push(Math.floor(Math.random() * 50));
+        }
+        json.result = result;
+        json.color = '#051658';
+        json.data = data;
+        json.fonts = 40;
+        console.log(json);
+        for (let i = 1; i < 16; i++) {
+            publish('ICountimg_' + i, json).then((res) => {
+                // chars = (ReactDOM.findDOMNode(this.refs.echart3));
+                let chars = echarts.init(ReactDOM.findDOMNode(this.refs['echart' + i]));
+                chars.setOption(res[0]);
+            });
+        }
+    }
+
+    handleOnsle = () => {
+        this.setState({ showIm: false })
+    }
+
+    handleOpen = (e) => {
+        let json = {};
+        var d = new Date();
+        var result = [];
+        for (var i = 0; i < 12; i++) {
+            d.setMonth(d.getMonth() - 1);
+            var m = d.getMonth() + 1;
+            m = m < 10 ? "0" + m : m;
+            result.push(d.getFullYear() + "年" + m + '月');
+        };
+        var data = [];
+        for (var i = 1; i < 13; i++) {
+            data.push(Math.floor(Math.random() * 50));
+        }
+        json.result = result;
+        json.color = '#051658';
+        json.data = data;
+        json.fonts = 80;
+        this.setState({ showIm: true })
+        publish('ICountimg_' + e.currentTarget.id, json).then((res) => {
+            if (this.chart) this.chart.dispose();
+            this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
+            this.chart.setOption(res[0]);
+        });
+    }
+    render() {
+        return (
+            <div>
+                <div className='queryCount'>
+                    <div className='queryCounts'>
+                        <div id="1" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart1"></div>
+                        </div>
+
+                        <div id="2" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart2"></div>
+                        </div>
+
+                        <div id="3" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart3"></div>
+                        </div>
+
+                        <div id="4" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart4"></div>
+                        </div>
+
+                        <div id="5" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart5"></div>
+                        </div>
+
+                        <div id="6" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart6"></div>
+                        </div>
+
+                        <div id="7" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart7"></div>
+                        </div>
+
+                        <div id="8" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart8"></div>
+                        </div>
+
+                        <div id="9" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart9"></div>
+                        </div>
+
+                        <div id="10" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart10"></div>
+                        </div>
+
+                        <div id="11" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart11"></div>
+                        </div>
+
+                        <div id="12" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart12"></div>
+                        </div>
+
+                        <div id="13" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart13"></div>
+                        </div>
+
+                        <div id="14" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart14"></div>
+                        </div>
+
+                        <div id="15" onClick={this.handleOpen}>
+                            <div style={{ height: '100%', width: '100%' }} ref="echart15"></div>
+                        </div>
+                    </div>
+                    <div className="queryCounts-closes" onClick={() => this.props.close()}></div>
+                </div>
+                {this.state.showIm ?
+                    <div className="OpenIm">
+                        <div className="OpenIm-a">
+                            <div style={{ height: '100%', width: '100%' }} ref="echart"></div>
+                        </div>
+                        <div className="OpenIm-ons" onClick={this.handleOnsle}></div>
+                    </div>
+                    : null}
+            </div>
+        )
+    }
+}
+
 export default class App extends React.Component {
     state = {
         index: null,
@@ -324,27 +466,28 @@ export default class App extends React.Component {
         img: null,
         warning: null,
         myQuery: false,
+        iCountBtn: false,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
-        publish('changeLayer', { index: 0, props: {} });
-        // let work = () => Promise.all([
-        //     publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
-        // ]).then((res) => {
-        //     console.log(res);
-        //     let temp = res[0][0];
-        //     let flds = [
-        //         { title: '参数名', dataIndex: 'key' },
-        //         { title: '参数值', dataIndex: 'value' }
-        //     ];
-        //     let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
-        //     this.setState({ warning: {title: '空柜有货', msg:<Table className='mtable-warning' title={null} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> }});
-        // });
-        // work();
-        // setInterval(work, 1000 * 60 * 2);
+        publish('changeLayer', { index: 1, props: {} });
+        let work = () => Promise.all([
+            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
+        ]).then((res) => {
+            console.log(res);
+            let temp = res[0][0];
+            let flds = [
+                { title: '参数名', dataIndex: 'key' },
+                { title: '参数值', dataIndex: 'value' }
+            ];
+            let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
+            this.setState({ warning: {title: '空柜有货', msg:<Table className='mtable-warning' title={null} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> }});
+        });
+        work();
+        setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -394,6 +537,7 @@ export default class App extends React.Component {
     }
     iCount = () => {
         console.log('iCount');
+        this.setState({ iCountBtn: true });
     }
     iCommand = () => {
         console.log('iCommand');
@@ -468,6 +612,7 @@ export default class App extends React.Component {
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
                 {this.state.warning ? <Warning title={this.state.warning.title} warning={this.state.warning.msg} close={() => this.setState({ warning: null })} /> : null}
                 {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime foolishOut animated'); this.setState({ myQuery: false }); })} /> : null}
+                {this.state.iCountBtn ? <ICountimg close={() => this.setState({ iCountBtn: false })} /> : null}
             </div>
         )
     }

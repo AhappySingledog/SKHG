@@ -405,24 +405,27 @@
             "type": "shipsFlds",
             "table": [
                 {
-                    "title": "港区",
-                    "dataIndex": "TERMINALCODE"
+                    "title": "柜号",
+                    "dataIndex": "vfdsvds"
                 },
                 {
-                    "title": "船舶类型",
-                    "dataIndex": "VESSELTYPE"
+                    "title": "场位",
+                    "dataIndex": "fdaf"
                 },
                 {
-                    "title": "泊位",
-                    "dataIndex": "BERTHNO"
+                    "title": "进场时间",
+                    "dataIndex": "fdsafdas"
                 },
                 {
-                    "title": "船舶中文名",
-                    "dataIndex": "CVESSELNAME"
+                    "title": "一程船",
+                    "dataIndex": "fdsafdsa"
                 },
                 {
-                    "title": "船舶编码",
-                    "dataIndex": "EVESSELNAME"
+                    "title": "二程船",
+                    "dataIndex": "fdsafdsa"
+                },{
+                    "title": "预计装配时间",
+                    "dataIndex": "dsafdsafdsa"
                 }
             ]
         },
@@ -472,7 +475,7 @@
                 }
             ]
         },{
-            "type" : "tableyard",
+            "type" : "tableyardFlds",
             "table" : [
                 {
                     "title": "栏位",
@@ -486,7 +489,7 @@
                 }
             ]
         },{
-            "type" : "anchor",
+            "type" : "anchorFlds",
             "table" : [
                 {
                     "title": "泊位",
