@@ -672,8 +672,40 @@ body>div {
     align-items: center;
     justify-content: flex-start;
     > div:nth-of-type(1) {
+        margin-top: 300px;
         width: 2800px;
-        height: 415px;
+        height: 160px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        > div:nth-of-type(1) {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            > div:nth-of-type(1) {
+                margin-left: 35px;
+                width: 15px;
+                height: 100px;
+                background: url('../images/矩形36.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            > div:nth-of-type(2) {
+                color: white;
+                font-size: 70px;
+                margin-left: 50px;
+            }
+        }
+        > div:nth-of-type(2) {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-end;
+            > input {
+                height: 85px;
+            }
+        }
     }
     > div:nth-of-type(2) {
         width: 2800px;

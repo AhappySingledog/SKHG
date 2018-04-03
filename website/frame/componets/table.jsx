@@ -69,7 +69,7 @@ export default class Table extends React.Component {
             datas.forEach((d, i) => d.rowNo = i + 1);
         }
         return (
-            <div className='mtable' style={this.props.style} ref='table'>
+            <div className={this.props.className || 'mtable'} style={this.props.style} ref='table'>
                 {this.props.title ? <div className='mttitle'>{this.props.title}</div> : null}
                 <div className='mhead'>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
                 <div className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>

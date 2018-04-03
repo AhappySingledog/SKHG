@@ -131,7 +131,16 @@ class Warning extends React.Component {
     render() {
         return (
             <div className='warning' ref='target'>
-                <div onClick={this.props.close}></div>
+                <div onClick={this.props.close}>
+                    <div>
+                        <div></div>
+                        <div>{this.props.title}</div>
+                    </div>
+                    <div>
+                        <input/>
+                        <div></div>
+                    </div>
+                </div>
                 <div>{this.props.warning}</div>
             </div>
         );
@@ -189,13 +198,16 @@ class MyQuery extends React.Component {
                     value: hc
                 }];
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCT_SHIPSCHEDULE', parms: JSON.stringify(pa) } }).then((res) => {
-                    console.log(res);
+                    if (res[0].data.length > 0) {
+                        let attr = res[0].attr;
+                        let datas = Object.keys(attr).map((e) => {return {key: attr[e], value: res[0].data[0][e]}});
+                        this.setState({port: { datas1: datas }});
+                    }
                 });
             }
             flds = [
-                { title: '泊位', dataIndex: 'a' },
-                { title: '船名', dataIndex: 'b' },
-                { title: '航次号', dataIndex: 'c' }
+                {title: '参数名', dataIndex: 'key'},
+                {title: '参数值', dataIndex: 'value'},
             ];
             content = [
                 <Table key={1} rowNo={true} title={<QueryTitle title={'泊位停靠船舶信息'} id={id1} query={query} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={null} />,
@@ -319,19 +331,20 @@ export default class App extends React.Component {
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
         publish('changeLayer', { index: 0, props: {} });
-        let work = () => Promise.all([
-            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
-        ]).then((res) => {
-            console.log(res);
-            let temp = res[0][0];
-            let flds = [
-                { title: '参数名', dataIndex: 'key' },
-                { title: '参数值', dataIndex: 'value' }
-            ];
-            let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
-            this.setState({ warning: <Table title={<WarningTitle title={'空柜有货'} id={'aaaa'} handle={null} />} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> });
-        });
-        setInterval(work, 1000 * 60 * 2);
+        // let work = () => Promise.all([
+        //     publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
+        // ]).then((res) => {
+        //     console.log(res);
+        //     let temp = res[0][0];
+        //     let flds = [
+        //         { title: '参数名', dataIndex: 'key' },
+        //         { title: '参数值', dataIndex: 'value' }
+        //     ];
+        //     let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
+        //     this.setState({ warning: {title: '空柜有货', msg:<Table className='mtable-warning' title={null} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> }});
+        // });
+        // work();
+        // setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -453,7 +466,7 @@ export default class App extends React.Component {
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
-                {this.state.warning ? <Warning warning={this.state.warning} close={() => this.setState({ warning: null })} /> : null}
+                {this.state.warning ? <Warning title={this.state.warning.title} warning={this.state.warning.msg} close={() => this.setState({ warning: null })} /> : null}
                 {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime foolishOut animated'); this.setState({ myQuery: false }); })} /> : null}
             </div>
         )
