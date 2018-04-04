@@ -131,18 +131,24 @@ class Warning extends React.Component {
     }
     render() {
         return (
-            <div className='warning' ref='target'>
-                <div onClick={this.props.close}>
+            <div className='warningBox'>
+                <div className='warning' ref='target'>
                     <div>
-                        <div></div>
-                        <div>{this.props.title}</div>
+                        <div onClick={this.props.close}></div>
                     </div>
                     <div>
-                        <input/>
-                        <div></div>
+                        <div>
+                            <div></div>
+                            <div>{this.props.title}</div>
+                        </div>
+                        <div>
+                            <input placeholder='请输入处理人' />
+                            <input placeholder='请输入处理意见' />
+                            <div>处理</div>
+                        </div>
                     </div>
+                    <div>{this.props.warning}</div>
                 </div>
-                <div>{this.props.warning}</div>
             </div>
         );
     }
@@ -156,8 +162,8 @@ class QueryTitle extends React.Component {
                     {this.props.title}
                 </div>
                 <div className='tableTitle-s'>
-                    码头<input style={{width: 310}} placeholder='请输入码头' className='tableTitle-i' id='mt' />
-                    IMO号<input style={{width: 380}} placeholder='请输入IMO号' className='tableTitle-i' id='imo' />
+                    码头<input style={{ width: 310 }} placeholder='请输入码头' className='tableTitle-i' id='mt' />
+                    IMO号<input style={{ width: 380 }} placeholder='请输入IMO号' className='tableTitle-i' id='imo' />
                     航次号<input placeholder='请输入航次号' className='tableTitle-i' id='hc' />
                     <div className='tableTitle-cl' onClick={() => this.props.query($('#mt').val(), $('#imo').val(), $('#hc').val())}>
                     </div>
@@ -201,17 +207,24 @@ class MyQuery extends React.Component {
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCT_SHIPSCHEDULE', parms: JSON.stringify(pa) } }).then((res) => {
                     if (res[0].data.length > 0) {
                         let attr = res[0].attr;
-                        let datas = Object.keys(attr).map((e) => {return {key: attr[e], value: res[0].data[0][e]}});
-                        this.setState({port: { datas1: datas }});
+                        let datas = Object.keys(attr).map((e) => { return { key: attr[e], value: res[0].data[0][e] } });
+                        this.setState({ port: { datas1: datas } });
                     }
                 });
             }
+            let trClick = (data, index, datas) => {
+                console.log(datas);
+                // let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
+                // publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + zymt + "'" } }).then((res) => {
+                //     publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: datas} } });
+                // })
+            }
             flds = [
-                {title: '参数名', dataIndex: 'key'},
-                {title: '参数值', dataIndex: 'value'},
+                { title: '参数名', dataIndex: 'key' },
+                { title: '参数值', dataIndex: 'value' },
             ];
             content = [
-                <Table key={1} rowNo={true} title={<QueryTitle title={'泊位停靠船舶信息'} id={id1} query={query} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={<QueryTitle title={'泊位停靠船舶信息'} id={id1} query={query} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
             ];
         }
         else if (index === 1) {
@@ -265,9 +278,15 @@ class MyQuery extends React.Component {
                     }
                 });
             }
+            let trClick = (data, index, datas) => {
+                let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
+                publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + zymt + "'" } }).then((res) => {
+                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: datas} } });
+                })
+            }
             content = [
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
-                    <Table rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query} />} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query} />} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
                     <Table rowNo={true} title={<TableTitle title={'集装箱历史轨迹'} id={id2} />} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
@@ -323,9 +342,9 @@ class ICountimg extends React.Component {
         for (var i = 0; i < 12; i++) {
             d.setMonth(d.getMonth() - 1);
             var m = d.getMonth() + 1;
-            m = m < 10 ? "0" + m : m;
-            result.push(d.getFullYear() + "年" + m + '月');
-        };
+            m = m < 10 ? '0' + m : m;
+            result.push(d.getFullYear() + '年' + m + '月');
+        }
         var data = [];
         for (var i = 1; i < 13; i++) {
             data.push(Math.floor(Math.random() * 50));
@@ -337,7 +356,6 @@ class ICountimg extends React.Component {
         console.log(json);
         for (let i = 1; i < 16; i++) {
             publish('ICountimg_' + i, json).then((res) => {
-                // chars = (ReactDOM.findDOMNode(this.refs.echart3));
                 let chars = echarts.init(ReactDOM.findDOMNode(this.refs['echart' + i]));
                 chars.setOption(res[0]);
             });
@@ -355,9 +373,9 @@ class ICountimg extends React.Component {
         for (var i = 0; i < 12; i++) {
             d.setMonth(d.getMonth() - 1);
             var m = d.getMonth() + 1;
-            m = m < 10 ? "0" + m : m;
-            result.push(d.getFullYear() + "年" + m + '月');
-        };
+            m = m < 10 ? '0' + m : m;
+            result.push(d.getFullYear() + '年' + m + '月');
+        }
         var data = [];
         for (var i = 1; i < 13; i++) {
             data.push(Math.floor(Math.random() * 50));
@@ -441,11 +459,13 @@ class ICountimg extends React.Component {
                     <div className="queryCounts-closes" onClick={() => this.props.close()}></div>
                 </div>
                 {this.state.showIm ?
-                    <div className="OpenIm">
-                        <div className="OpenIm-a">
-                            <div style={{ height: '100%', width: '100%' }} ref="echart"></div>
+                    <div className='OpenImBox'>
+                        <div className="OpenIm">
+                            <div className="OpenIm-a">
+                                <div style={{ height: '100%', width: '100%' }} ref="echart"></div>
+                            </div>
+                            <div className="OpenIm-ons" onClick={this.handleOnsle}></div>
                         </div>
-                        <div className="OpenIm-ons" onClick={this.handleOnsle}></div>
                     </div>
                     : null}
             </div>
@@ -473,7 +493,7 @@ export default class App extends React.Component {
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
-        publish('changeLayer', { index: 1, props: {} });
+        publish('changeLayer', { index: 0, props: {} });
         let work = () => Promise.all([
             publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
         ]).then((res) => {
@@ -484,7 +504,7 @@ export default class App extends React.Component {
                 { title: '参数值', dataIndex: 'value' }
             ];
             let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
-            this.setState({ warning: {title: '空柜有货', msg:<Table className='mtable-warning' title={null} style={{ width: 2720, height: 1275, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> }});
+            this.setState({ warning: { title: '空柜有货', msg: <Table className='mtable-warning' title={null} style={{ width: 2720, height: 1240, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> } });
         });
         work();
         setInterval(work, 1000 * 60 * 2);

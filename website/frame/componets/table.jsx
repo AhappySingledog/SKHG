@@ -21,7 +21,7 @@ export default class Table extends React.Component {
             let datas = this.props.datas;
             $(ReactDOM.findDOMNode(this.refs.table)).find('tbody>tr').each((i, e) => {
                 e.onclick = (a) => {
-                    this.props.trClick(datas[i], i);
+                    this.props.trClick(datas[i], i, datas);
                 }
             });
         }
@@ -29,7 +29,7 @@ export default class Table extends React.Component {
             let datas = this.props.datas;
             $(ReactDOM.findDOMNode(this.refs.table)).find('tbody>tr').each((i, e) => {
                 e.ondblclick = () => {
-                    this.props.trDbclick(datas[i], i);
+                    this.props.trDbclick(datas[i], i, datas);
                 }
             });
         }

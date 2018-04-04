@@ -60,6 +60,17 @@ class MapOperation extends React.Component {
     }
 
     componentDidMount() {
+        let drawDefaultLayer = () => {
+            if (this.props.defaultLayer) {
+                let defaultLayer = this.props.defaultLayer;
+                if (defaultLayer.container) {
+                    let wz = defaultLayer.container.filter((e) => e.key == '当前位置')[0].value.substring(5, 13);
+                    publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + this.props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
+                        console.log(res);
+                    });
+                }
+            }
+        }
         this.sub_box = subscribe('box', this.box);
         this.sub_boxModel = subscribe('box_model', this.boxModel);
         this.sub_location = subscribe('box_location', this.handleNbr);
@@ -89,7 +100,7 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.polygon(params);
             });
             this.drawVideos(this.props.datas);
-        });
+        }).then(drawDefaultLayer);
     }
 
     componentWillUnmount() {
@@ -412,7 +423,6 @@ class MapOperation extends React.Component {
     }
 }
 
-
 /** 内部信息 */
 class PortMsg extends React.Component {
     state = {
@@ -539,12 +549,12 @@ class PortPie extends React.Component {
         )
     }
 }
+
 // 码头
 export default class Pier extends React.Component {
     state = { map: null }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
-        // this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=MCT');
     }
 
     /**

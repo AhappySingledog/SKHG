@@ -15,6 +15,12 @@ const x_PI = 3.14159265358979324 * 3000.0 / 180.0;
 const PI = 3.1415926535897932384626;
 const a = 6378245.0;
 const ee = 0.00669342162296594323;
+const textStyle = {
+    color: 'white',
+    fontSize: 40,
+};
+const bgColor = '#051658';
+const fonts = 40;
 
 function transformlat(lng, lat) {
     var ret = -100.0 + 2.0 * lng + 3.0 * lat + 0.2 * lat * lat + 0.1 * lng * lat + 0.2 * Math.sqrt(Math.abs(lng));
@@ -93,8 +99,8 @@ var result = [];
 for (var i = 0; i < 12; i++) {
     d.setMonth(d.getMonth() - 1);
     var m = d.getMonth() + 1;
-    m = m < 10 ? "0" + m : m;
-    result.push(d.getFullYear() + "年" + m + '月');
+    m = m < 10 ? '0' + m : m;
+    result.push(d.getFullYear() + '年' + m + '月');
 }
 function newDats() {
     var data = [];
@@ -1130,27 +1136,8 @@ subscribes(
         /** 园区今日数量展示图 */
         sub: 'pire_right_yq_axis',
         func: (ops) => {
-            let yAxisMonth = [
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-            ];
-            let barData = [
-                543,
-                765,
-                548,
-                122,
-                913,
-                894,
-                884,
-                833,
-                411,
-                321,
-
-            ];
+            let yAxisMonth = [' ', ' ', ' ', ' ', ' ', ' '];
+            let barData = [543, 765, 548, 122, 913, 894, 884, 833, 411, 321];
             let heightWidth = ['100%', 70];
             let barDataTwo = [];
             let coordData2 = [];
@@ -1158,14 +1145,14 @@ subscribes(
             for (let i = 0; i < barData.length; i++) {
                 barDataTwo.push(Math.max.apply(Math, barData) + 5000);
                 coordData.push({
-                    "coord": [Number(barData[i]) - 1, i]
+                    'coord': [Number(barData[i]) - 1, i]
                 });
                 coordData2.push({
-                    "coord": [Math.max.apply(Math, barData) + 5000, i]
+                    'coord': [Math.max.apply(Math, barData) + 5000, i]
                 })
-            };
+            }
             return {
-                backgroundColor: "#051658",
+                backgroundColor: '#051658',
                 title: {
                     text: ''
                 },
@@ -1181,10 +1168,10 @@ subscribes(
                 },
                 grid: {
                     containLabel: true,
-                    top: "50px",
-                    bottom: "37%",
-                    left: "0%",
-                    right: "0",
+                    top: '50px',
+                    bottom: '37%',
+                    left: '0%',
+                    right: '0',
 
                 },
                 yAxis: [{
@@ -1212,7 +1199,7 @@ subscribes(
                 },
                 ],
                 xAxis: [{
-                    type: "value",
+                    type: 'value',
                     splitLine: {
                         show: false
                     },
@@ -1226,7 +1213,7 @@ subscribes(
                         show: false
                     }
                 }, {
-                    type: "value",
+                    type: 'value',
                     splitLine: {
                         show: false
                     },
@@ -1355,18 +1342,18 @@ subscribes(
         func: (ops) => {
 
             var xData = [{
-                "name": "船舶进港",
-                "value": 2134
+                'name': '船舶进港',
+                'value': 2134
             }, {
-                "name": "船舶出港",
-                "value": 1327
+                'name': '船舶出港',
+                'value': 1327
             }];
             var yData = [{
-                "name": "船舶进港",
-                "value": 5212
+                'name': '船舶进港',
+                'value': 5212
             }, {
-                "name": "船舶出港",
-                "value": 3213
+                'name': '船舶出港',
+                'value': 3213
             }];
             return {
                 backgroundColor: '#051658',
@@ -1380,7 +1367,7 @@ subscribes(
                     z: 22
                 },
                 tooltip: {
-                    show: "true",
+                    show: 'true',
                     trigger: 'item',
                     backgroundColor: 'rgba(0,0,0,0.7)', // 背景
                     padding: [8, 10], //内边距
@@ -1498,35 +1485,31 @@ subscribes(
             console.log(ops);
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
-            var fonts = ops.fonts;
             var stat = {
                 fontSize: fonts,
                 color: 'red'
             };
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 tooltip: {
-                    textStyle: {
-                        fontSize : fonts,
-                    }
+                    textStyle: textStyle
                 },
                 angleAxis: {
                     type: 'category',
                     data: [{
-                            value: result[0],
-                            textStyle: stat
-                        }, result[1],
-                        result[2],
-                        result[3],
-                        result[4],
-                        result[5],
-                        result[6],
-                        result[7],
-                        result[8],
-                        result[9],
-                        result[10],
-                        result[11]
+                        value: result[0],
+                        textStyle: textStyle
+                    }, result[1],
+                    result[2],
+                    result[3],
+                    result[4],
+                    result[5],
+                    result[6],
+                    result[7],
+                    result[8],
+                    result[9],
+                    result[10],
+                    result[11]
                     ],
                     z: 10
                 },
@@ -1568,27 +1551,20 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
-            var fonts = ops.fonts;
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 title: {
                     text: '雷达图'
                 },
                 tooltip: {
-                    textStyle: {
-                        fontSize : fonts,
-                    }
+                    textStyle: textStyle
                 },
                 legend: {
                     top: 20,
                     itemWidth: fonts,
                     itemHeight: fonts,
                     data: ['红色', '绿色'],
-                    textStyle: {
-                        fontSize : fonts,
-                        color: '#fff'
-                    }
+                    textStyle: textStyle
                 },
                 radar: {
                     radius: '60%',
@@ -1596,13 +1572,11 @@ subscribes(
                     axisLine: {
                         lineStyle: {
                             color: '#fff',
-                            opacity: .2
                         }
                     },
                     splitLine: {
                         lineStyle: {
                             color: '#fff',
-                            opacity: .2
                         }
                     },
                     splitArea: {
@@ -1631,10 +1605,7 @@ subscribes(
                     ],
                     name: {
                         formatter: '{value}',
-                        textStyle: {
-                            color: 'white',
-                            fontSize : fonts,
-                        }
+                        textStyle: textStyle
                     },
                 },
                 series: [{
@@ -1664,7 +1635,7 @@ subscribes(
                 //     x: 0.4,
                 //     y: 0.4,
                 //     r: 0.35,
-                //     colorStops: [{
+                //     bgColortops: [{
                 //         offset: 0,
                 //         color: '#895355' // 0% 处的颜色
                 //     }, {
@@ -1684,30 +1655,28 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
-            var fonts = ops.fonts;
             var stat = {
                 fontSize: fonts,
                 color: 'red'
             };
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 angleAxis: {
                     type: 'category',
                     data: [{
-                            value: result[0],
-                            textStyle: stat
-                        }, result[1],
-                        result[2],
-                        result[3],
-                        result[4],
-                        result[5],
-                        result[6],
-                        result[7],
-                        result[8],
-                        result[9],
-                        result[10],
-                        result[11]
+                        value: result[0],
+                        textStyle: textStyle
+                    }, result[1],
+                    result[2],
+                    result[3],
+                    result[4],
+                    result[5],
+                    result[6],
+                    result[7],
+                    result[8],
+                    result[9],
+                    result[10],
+                    result[11]
                     ],
                     z: 10
                 },
@@ -1716,9 +1685,7 @@ subscribes(
                 polar: {
                 },
                 tooltip: {
-                    textStyle: {
-                        fontSize : fonts,
-                    }
+                    textStyle: textStyle
                 },
                 series: [{
                     type: 'bar',
@@ -1753,10 +1720,8 @@ subscribes(
         sub: 'ICountimg_4',
         func: (ops) => {
             var result = ops.result;
-            var colors = ops.color;
             var xData = ops.data;
             var yData = ops.data;
-            var fonts = ops.fonts;
             var maxXData = ceshi(xData);
             var maxyData = ceshi(yData);
             function ceshi(val) {
@@ -1767,9 +1732,9 @@ subscribes(
                 return data;
             }
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 title: {
-                    text: "报关单量",
+                    text: '报关单量',
                     textStyle: {
                         color: '#00FFFF',
                         fontSize: 24
@@ -1777,9 +1742,7 @@ subscribes(
                 },
                 legend: {
                     bottom: 20,
-                    textStyle: {
-                        color: '#fff',
-                    },
+                    textStyle: textStyle,
                     data: ['5349', '总关区']
                 },
                 grid: {
@@ -1790,7 +1753,7 @@ subscribes(
                 },
 
                 tooltip: {
-                    show: "true",
+                    show: 'true',
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -1851,7 +1814,6 @@ subscribes(
                     name: '5349',
                     type: 'bar',
                     xAxisIndex: 1,
-
                     itemStyle: {
                         normal: {
                             show: true,
@@ -1867,7 +1829,6 @@ subscribes(
                     name: '总关区',
                     type: 'bar',
                     xAxisIndex: 1,
-
                     itemStyle: {
                         normal: {
                             show: true,
@@ -1902,10 +1863,7 @@ subscribes(
                         normal: {
                             show: true,
                             position: 'top',
-                            textStyle: {
-                                fontSize: fonts,
-                                color: '#fff'
-                            }
+                            textStyle: textStyle
                         }
                     },
                     barWidth: '20%',
@@ -1933,10 +1891,7 @@ subscribes(
                         normal: {
                             show: true,
                             position: 'top',
-                            textStyle: {
-                                fontSize: fonts,
-                                color: '#fff'
-                            }
+                            textStyle: textStyle
                         }
                     },
                     barGap: '100%',
@@ -1952,12 +1907,12 @@ subscribes(
         func: (ops) => {
             // var result = ops.result;
             // var data = ops.data;
-            var colors = ops.color;
+            
             var data = newDats();
             var data1 = newDats();
             var data2 = newDats();
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -2029,9 +1984,9 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 color: ['#3398DB'],
                 title: {
                     text: '通关效率',
@@ -2128,9 +2083,9 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 color: ['#3398DB'],
                 title: {
                     text: '查验时效',
@@ -2227,9 +2182,9 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -2295,9 +2250,9 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {            // 坐标轴指示器，坐标轴触发有效
@@ -2363,10 +2318,10 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var datas = (ops.data).sort(sortNumber);
-            var colors = ops.color;
+            
             //亮色图片
-            var uploadedDataURL1 = " ";  //黄色五角星
-            var uploadedDataURL2 = " ";  //灰色五角星
+            var uploadedDataURL1 = ' ';  //黄色五角星
+            var uploadedDataURL2 = ' ';  //灰色五角星
             var grayBar = [1, 1, 1, 1, 1, 1, 1];
             var paiming = [7, 6, 5, 4, 3, 2, 1];
             var zongjine = [7000, 7000, 7000, 7000, 7000, 7000, 7000];
@@ -2376,7 +2331,7 @@ subscribes(
             };
             var city = ['船代7', '船代6', '船代5', '船代4', '船代3', '船代2', '船代1'];
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 title: {
                     text: '本月报关行录入提单排名统计图',
                     left: 'center'
@@ -2514,11 +2469,11 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             var x = newDats();
             var y = newDats();
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 legend: {
                     bottom: 20,
                     textStyle: {
@@ -2534,7 +2489,7 @@ subscribes(
                 },
 
                 tooltip: {
-                    show: "true",
+                    show: 'true',
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
                         type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
@@ -2621,12 +2576,12 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             // var data = ops.data;
-            var colors = ops.color;
+            
             var data = newDats();
             var data1 = newDats();
             var data2 = newDats();
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 ttooltip: {
                     trigger: 'axis',
                     axisPointer: {
@@ -2698,11 +2653,11 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             // var data = ops.data;
-            var colors = ops.color;
+            
             var data1 = newDats();
             var data2 = newDats();
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 title: {
                     text: '园区车辆情况',
                 },
@@ -2775,7 +2730,7 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             // var data = ops.data;
-            var colors = ops.color;
+            
 
             var data = [];
             for (var i = 1; i < 13; i++) {
@@ -2788,11 +2743,11 @@ subscribes(
             }
 
             return {
-                backgroundColor: colors,
-                color: ["#37A2DA", "#FF9F7F"],
+                backgroundColor: bgColor,
+                color: ['#37A2DA', '#FF9F7F'],
                 legend: {
                     data: ['入库', '出库'],
-                    x: "43%",
+                    x: '43%',
                 },
                 grid: {
                     containLabel: true
@@ -2838,9 +2793,9 @@ subscribes(
         func: (ops) => {
             var result = ops.result;
             var data = ops.data;
-            var colors = ops.color;
+            
             return {
-                backgroundColor: colors,
+                backgroundColor: bgColor,
                 title: {
                     text: '进出口备案制清单数',
                 },
@@ -2849,7 +2804,7 @@ subscribes(
                     axisPointer: {
                         type: 'shadow'
                     },
-                    formatter: "{a} <br/>{b} : {c}"
+                    formatter: '{a} <br/>{b} : {c}'
                 },
                 grid: {
                     left: '3%',
@@ -2860,8 +2815,8 @@ subscribes(
                 xAxis: {
                     type: 'value',
                     boundaryGap: [0, 0.01],
-                    "axisLabel": {
-                        "interval": 0,
+                    'axisLabel': {
+                        'interval': 0,
                         formatter: '{value}',
                     }
                 },

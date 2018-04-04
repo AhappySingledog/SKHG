@@ -41,17 +41,17 @@
       "name": "skhg_service",
       "description": "数据服务接口",
       "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/SKHGServer",
-      "proxy": ""
+      "proxy": "proxy"
     },{
       "name": "skhg_loader_service",
       "description": "数据服务接口",
       "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/SKHGLoaderServer",
-      "proxy": ""
+      "proxy": "proxy"
     },{
       "name": "skhg_stage_service",
       "description": "数据服务接口",
       "url": "http://172.18.15.96:8080/ServiceEngine/rest/services/SKHGStageServer",
-      "proxy": ""
+      "proxy": "proxy"
     },{
       "name": "eportapisct",
       "description": "数据服务接口",
