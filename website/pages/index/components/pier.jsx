@@ -173,7 +173,6 @@ class MapOperation extends React.Component {
         }
     };
 
-
     /** 船的定位 */
     berth_ship = (datas) => {
         let that = this;
@@ -233,7 +232,7 @@ class MapOperation extends React.Component {
                     }
                 };
                 this.props.map.mapDisplay.image(param);
-            };
+            }
         })
     }
 
@@ -248,7 +247,8 @@ class MapOperation extends React.Component {
                         desColumns: value.table,
                         desTitle: attr.name,
                         desItem: attr,
-                        isShowDes: true
+                        isShowDes: true,
+                        box: true,
                     });
                 }
             });
@@ -328,13 +328,18 @@ class MapOperation extends React.Component {
         this.handleNbr(e);
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
             let json = {};
-            e['colname'] = 'onyard';
-            e['name'] = '柜子';
+            e.colname = 'onyard';
+            e.name = [<div className='gjTitle' onClick={() => this.clickTitle(1)}>柜子</div>, <div className='gjTitle' onClick={() => this.clickTitle(2)}>柜子轨迹</div>];
             let obj = Object.assign(res[0].data[0], e);
-            json['attributes'] = obj;
+            json.attributes = obj;
             this.onIconClick(json);
         });
     }
+
+    clickTitle = (key) => {
+        console.log(key);
+    }
+
     /** 关闭集装箱查询窗口 */
     handleCloseTitle() {
         this.setState({ visible_duiwei: false, isShowDes: false });
@@ -407,7 +412,7 @@ class MapOperation extends React.Component {
         return (
             <div>
                 {/* {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null} */}
-                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
+                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} box={this.state.box} close={this.handleCloseDesDailog} /> : null}
                 {
                     this.state.showMT ? <div className="portTip animated" > </div> : null
                 }
