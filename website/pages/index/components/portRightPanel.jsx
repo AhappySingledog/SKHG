@@ -7,9 +7,6 @@ import { Panel, WordsContent, Vedios } from '../../../frame/componets/index';
 import echarts from 'echarts';
 import $ from 'jquery';
 import _ from 'lodash';
-import violet from '../../../res/mapIcon/1.png';
-import blue from '../../../res/mapIcon/2.png';
-import green from '../../../res/mapIcon/3.png';
 
 
 /** 计算数量得到小数点和前面加0 */
@@ -155,7 +152,7 @@ class PortRightCen extends React.Component {
                         </div>
                         <div className="Cen-right-bot-span">
                             <div className="Cen-right-bot-span-blue">
-                                <span>出入境旅客<br/>总人数</span>
+                                <span>出入境旅客<br />总人数</span>
                                 <div>500.00</div>
                             </div>
                             <div className="Cen-right-bot-span-green">
