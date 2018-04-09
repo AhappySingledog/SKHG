@@ -336,26 +336,8 @@ class ICountimg extends React.Component {
         showIm: false,
     }
     componentDidMount() {
-        let json = {};
-        var d = new Date();
-        var result = [];
-        for (var i = 0; i < 12; i++) {
-            d.setMonth(d.getMonth() - 1);
-            var m = d.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            result.push(d.getFullYear() + '年' + m + '月');
-        }
-        var data = [];
-        for (var i = 1; i < 13; i++) {
-            data.push(Math.floor(Math.random() * 50));
-        }
-        json.result = result;
-        json.color = '#051658';
-        json.data = data;
-        json.fonts = 40;
-        console.log(json);
         for (let i = 1; i < 16; i++) {
-            publish('ICountimg_' + i, json).then((res) => {
+            publish('ICountimg_' + i).then((res) => {
                 let chars = echarts.init(ReactDOM.findDOMNode(this.refs['echart' + i]));
                 chars.setOption(res[0]);
             });
@@ -367,25 +349,8 @@ class ICountimg extends React.Component {
     }
 
     handleOpen = (e) => {
-        let json = {};
-        var d = new Date();
-        var result = [];
-        for (var i = 0; i < 12; i++) {
-            d.setMonth(d.getMonth() - 1);
-            var m = d.getMonth() + 1;
-            m = m < 10 ? '0' + m : m;
-            result.push(d.getFullYear() + '年' + m + '月');
-        }
-        var data = [];
-        for (var i = 1; i < 13; i++) {
-            data.push(Math.floor(Math.random() * 50));
-        }
-        json.result = result;
-        json.color = '#051658';
-        json.data = data;
-        json.fonts = 80;
         this.setState({ showIm: true })
-        publish('ICountimg_' + e.currentTarget.id, json).then((res) => {
+        publish('ICountimg_' + e.currentTarget.id, 'ICountimg_' + e.currentTarget.id).then((res) => {
             if (this.chart) this.chart.dispose();
             this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
             this.chart.setOption(res[0]);
