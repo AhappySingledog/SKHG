@@ -546,6 +546,32 @@
                     "dataIndex": "LOADING_F"
                 }
             ] 
+        },{
+            "type" : "ShipTrackFlds",
+            "table" : [
+                {
+                    "title": "港区",
+                    "dataIndex": "DbId"
+                },{
+                    "title": "船公司",
+                    "dataIndex": "ContainerOwner"
+                },{
+                    "title": "操作",
+                    "dataIndex": "OpType"
+                },{
+                    "title": "操作时间",
+                    "dataIndex": "OpTime"
+                },{
+                    "title": "操作服务",
+                    "dataIndex": "ColumnName"
+                },{
+                    "title": "从",
+                    "dataIndex": "OldValue"
+                },{
+                    "title": "到",
+                    "dataIndex": "NewValue"
+                }
+            ] 
         }
     ]
 }

@@ -985,6 +985,7 @@ body > div {
 }
 .warning > div:nth-of-type(2) > div:nth-of-type(2) > input {
   height: 85px;
+  font-size: 50px;
 }
 .warning > div:nth-of-type(2) > div:nth-of-type(2) > div {
   text-decoration: underline;
@@ -1203,6 +1204,15 @@ body > div {
   height: 700px;
   border: 3px solid #0682ce;
 }
+.gjTitle {
+  padding: 0 20px;
+  cursor: pointer;
+  color: #1890ff;
+}
+.gjTitle:hover {
+  text-decoration: underline;
+  color: #FFFFFF;
+}
 /**港口样式*/
 .map-view {
   padding: 0;
@@ -1245,21 +1255,7 @@ body > div {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 450px;
-}
-.mapbtn-btn1 {
-  width: 100px;
-  height: 60px;
-  background: #CF433F;
-  border-radius: 10px;
-  color: white;
-  font-size: 30px;
-  line-height: 60px;
-  text-align: center;
-  cursor: pointer;
-}
-.mapbtn-btn1:hover {
-  background: #E34945;
+  width: 300px;
 }
 .mapbtn-btn2 {
   width: 100px;
@@ -1988,15 +1984,46 @@ body > div {
   background-size: 100% 100%;
   display: flex;
   flex-direction: column;
+  padding: 25px 25px 0px 30px;
 }
-.mtables-center-value {
-  margin-top: 10px;
+.mtables-center-corner {
+  background: url('../images/port/corner.png') no-repeat;
+  background-size: 100% 100%;
+  padding: 8px;
+  margin-top: 15px;
+}
+.mtables-center-corner-view {
+  border: 3px solid #0682ce;
+  display: flex;
+  flex-direction: column;
+  font-size: 85px;
+}
+.mtables-center-corner-view-1 {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  padding: 15px 25px 15px 25px;
 }
-.mtables-center-value > span {
-  padding: 10px 80px 30px 80px;
+.mtables-center-corner-view-1 > span {
+  width: 475px;
+  text-align: end;
+  padding-right: 30px;
+}
+.mtables-center-corner-view-2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px 25px 15px 25px;
+}
+.mtables-center-corner-view-2-lastNum {
+  font-size: 100px;
+  padding: 25px;
+  background: black;
+  border: 3px solid rgba(6, 130, 206, 0.5);
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
 }
 .mtables-bot {
   background: url('../images/port/下.png') no-repeat;
@@ -2206,82 +2233,82 @@ body > div {
 .number-0 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/0.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-1 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/1.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-2 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/2.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-3 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/3.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-4 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/4.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-5 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/5.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-6 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/6.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-7 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/7.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-8 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/8.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-9 {
   width: 122px;
   height: 195px;
-  margin: 0 9px;
+  margin: 0 10px;
   background: url('../images/port/number/9.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-break {
-  width: 25px;
-  height: 36px;
+  width: 20px;
+  height: 25px;
   margin: 0 0px;
   background: url('../images/port/number/break.png') no-repeat;
   background-size: 100% 103%;
 }
 .number-point {
-  width: 25px;
+  width: 20px;
   height: 25px;
   margin: 0 0px;
   background: url('../images/port/number/point.png') no-repeat;

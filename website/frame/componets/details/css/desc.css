@@ -51,7 +51,7 @@
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  padding-right: 15px;
+  padding-right: 40px;
   background: url('../images/底块.png');
   background-repeat: no-repeat;
   background-size: 100% 100%;
@@ -68,15 +68,15 @@
 }
 .descTip .test-1::-webkit-scrollbar {
   /*滚动条整体样式*/
-  width: 10px;
+  width: 20px;
   /*高宽分别对应横竖滚动条的尺寸*/
   height: 1px;
 }
 .descTip .test-1::-webkit-scrollbar-thumb {
   /*滚动条里面小方块*/
   border-radius: 10px;
-  -webkit-box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.2);
-  background: #535353;
+  -webkit-box-shadow: inset 0 0 5px #000000;
+  background: #529EE9;
 }
 .descTip .test-1::-webkit-scrollbar-track {
   /*滚动条里面轨道*/
