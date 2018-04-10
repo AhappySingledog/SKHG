@@ -471,8 +471,8 @@ export default class App extends React.Component {
             let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
             this.setState({ warning: { title: '空柜有货', msg: <Table className='mtable-warning' title={null} style={{ width: 2720, height: 1240, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> } });
         });
-        work();
-        setInterval(work, 1000 * 60 * 2);
+        // work();
+        // setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -485,7 +485,7 @@ export default class App extends React.Component {
         let oldProps = this.state.curProps;
         let curProps = ops.props;
         let index = ops.index;
-        if (index != idx) {
+        if (index != idx || curProps.defaultLayer) {
             let curLayer = null;
             switch (index) {
                 case 1:

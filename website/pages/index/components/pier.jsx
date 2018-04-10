@@ -59,18 +59,11 @@ class MapOperation extends React.Component {
         visible_duiwei: false,
     }
 
+    componentWillReceiveProps(nextProps) {
+        this.drawDefaultLayer(nextProps);
+    }
+
     componentDidMount() {
-        let drawDefaultLayer = () => {
-            if (this.props.defaultLayer) {
-                let defaultLayer = this.props.defaultLayer;
-                if (defaultLayer.container) {
-                    let wz = defaultLayer.container.filter((e) => e.key == '当前位置')[0].value.substring(5, 13);
-                    publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + this.props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
-                        console.log(res);
-                    });
-                }
-            }
-        }
         this.sub_box = subscribe('box', this.box);
         this.sub_boxModel = subscribe('box_model', this.boxModel);
         this.sub_location = subscribe('box_location', this.handleNbr);
@@ -100,7 +93,7 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.polygon(params);
             });
             this.drawVideos(this.props.datas);
-        }).then(drawDefaultLayer);
+        }).then(() => this.drawDefaultLayer(this.props));
     }
 
     componentWillUnmount() {
@@ -118,6 +111,37 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
     }
+
+    drawDefaultLayer = (props) => {
+        if (props.defaultLayer) {
+            let defaultLayer = props.defaultLayer;
+            if (defaultLayer.container) {
+                let wz = defaultLayer.container.filter((e) => e.key == '当前位置')[0].value.substring(5, 13);
+                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
+                    console.log(res);
+                    props.map.mapDisplay.clearLayer('QUERY_LAYER');
+                    res[0].data.forEach((e, i) => {
+                        let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                        let points = dots.slice(0, 4);
+                        let x = points[0].x + points[1].x + points[2].x + points[3].x;
+                        let y = points[0].y + points[1].y + points[2].y + points[3].y;
+                        let params = {
+                            id: 'query_' + i,
+                            linecolor: [255, 0, 0, 1],
+                            fillcolor: [255, 0, 0, 1],
+                            layerId: 'QUERY_LAYER',
+                            dots: dots,
+                            linewidth: 0,
+                        }
+                        let point = { x: x / 4, y: y / 4 };
+                        props.map.mapOper.centerAndZoom(point, 5);
+                        props.map.mapDisplay.polygon(params);
+                    })
+                });
+            }
+        }
+    }
+
     drawVideos = (datas) => {
         console.log(datas.code);
         Promise.all([
@@ -628,7 +652,7 @@ export default class Pier extends React.Component {
             <div className='pierMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='pierleft'>
                     <div ref="iframe"></div>
-                    {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
+                    {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} defaultLayer={this.props.defaultLayer} /> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
                     <PierRightPanel datas={this.props.datas} map={this.state.map} />

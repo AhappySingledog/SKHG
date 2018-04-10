@@ -75,11 +75,11 @@ export default class IWarningRightPanel extends React.Component {
             let data2 = res[1][0].data;
             let datas = this.state.datas;
             if (data1.length > 0) {
-                Object.keys(datas[0]).forEach((e) => datas[0][e] = data1[0][e]);
+                Object.keys(datas[0]).forEach((e) => datas[0][e].value = data1[0][e.toUpperCase()]);
             }
             if (data2.length > 0) {
-                Object.keys(datas[1]).forEach((e) => datas[1][e] = data2[0][e]);
-                Object.keys(datas[2]).forEach((e) => datas[2][e] = data2[0][e]);
+                Object.keys(datas[1]).forEach((e) => datas[1][e].value = data2[0][e.toUpperCase()]);
+                Object.keys(datas[2]).forEach((e) => datas[2][e].value = data2[0][e.toUpperCase()]);
             }
             if (data1.length > 0 || data2.length > 0) this.setState({ datas: datas });
         });
@@ -90,48 +90,38 @@ export default class IWarningRightPanel extends React.Component {
         if (this.sub_showTable) unsubscribe(this.sub_showTable);
         if (this.timer) clearInterval(this.timer);
     }
-    onClick = (data) => {
-        console.log(data);
-        this.setState({ table: true });
+    onClick = (key) => {
+        const map = {
+            warning1: {title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }}
+        };
+        publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: map[key].query }).then((res) => {
+            let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}});
+            let table = <Table title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={null} />
+            this.setState({ table: table });
+        });
     }
     render() {
-        let flds = [
-            { title: '港口名称', name: 'name' },
-            { title: '地点', name: 'addr' },
-            { title: '港口开埠时间', name: 'kbsj' },
-            { title: '招商局运营时间', name: 'yysj' },
-        ];
-        let data = [
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-            { name: 1, addr: 2, kbsj: 3, yysj: 4 },
-        ];
         let { datas } = this.state;
         return (
             <div className='homeRightP'>
                 <div className='homeRightP-l'>
                     <Panel style={{ width: 3680, padding: '20px 25px' }}>
                         <div className='iWarning-yj'>
-                            {Object.keys(datas[0]).map((e, i) => <Warning key={i} style={{ color: '#F89824' }} className={'iWarning-G' + datas[0][e].background} data={datas[0][e].value} onClick={this.onClick} />)}
+                            {Object.keys(datas[0]).map((e, i) => <Warning key={i} style={{ color: '#F89824' }} className={'iWarning-G' + datas[0][e].background} data={datas[0][e].value} onClick={() => this.onClick(e)} />)}
                         </div>
                     </Panel>
                 </div>
                 <div className='homeRightP-r'>
                     <Panel style={{ padding: '20px 25px', width: 3680, height: 1760, justifyContent: 'space-between' }}>
                         <div className='iWarning-yj'>
-                            {Object.keys(datas[1]).map((e, i) => <Warning key={i} style={{ color: '#E75656' }} className={'iWarning-G' + datas[1][e].background} data={datas[1][e].value} onClick={this.onClick} />)}
+                            {Object.keys(datas[1]).map((e, i) => <Warning key={i} style={{ color: '#E75656' }} className={'iWarning-G' + datas[1][e].background} data={datas[1][e].value} onClick={() => this.onClick(e)} />)}
                         </div>
                         <div className='iWarning-yj'>
-                            {Object.keys(datas[2]).map((e, i) => <Warning key={i} style={{ color: '#E75656' }} className={'iWarning-G' + datas[2][e].background} data={datas[2][e].value} onClick={this.onClick} />)}
+                            {Object.keys(datas[2]).map((e, i) => <Warning key={i} style={{ color: '#E75656' }} className={'iWarning-G' + datas[2][e].background} data={datas[2][e].value} onClick={() => this.onClick(e)} />)}
                         </div>
                     </Panel>
                 </div>
-                {this.state.table ? <div style={{ position: 'absolute', top: 65, right: 3821 }}>
-                    <Table title={<Title title={'各栏堆存柜量'} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={data} trClick={null} trDbclick={null} />
-                </div> : null}
+                {this.state.table ? <div style={{ position: 'absolute', top: 65, right: 3821, background: '#051658' }}>{this.state.table}</div> : null}
             </div>
         )
     }
