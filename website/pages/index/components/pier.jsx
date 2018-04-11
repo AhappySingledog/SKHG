@@ -116,27 +116,31 @@ class MapOperation extends React.Component {
         if (props.defaultLayer) {
             let defaultLayer = props.defaultLayer;
             if (defaultLayer.container) {
-                let wz = defaultLayer.container.filter((e) => e.key == '当前位置')[0].value.substring(5, 13);
-                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
-                    console.log(res);
-                    props.map.mapDisplay.clearLayer('QUERY_LAYER');
-                    res[0].data.forEach((e, i) => {
-                        let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
-                        let points = dots.slice(0, 4);
-                        let x = points[0].x + points[1].x + points[2].x + points[3].x;
-                        let y = points[0].y + points[1].y + points[2].y + points[3].y;
-                        let params = {
-                            id: 'query_' + i,
-                            linecolor: [255, 0, 0, 1],
-                            fillcolor: [255, 0, 0, 1],
-                            layerId: 'QUERY_LAYER',
-                            dots: dots,
-                            linewidth: 0,
-                        }
-                        let point = { x: x / 4, y: y / 4 };
-                        props.map.mapOper.centerAndZoom(point, 5);
-                        props.map.mapDisplay.polygon(params);
-                    })
+                publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: defaultLayer.container } }).then((res) => {
+                    let result = res[0].InnerList;
+                    if (result.length > 0) {
+                        let wz = result[0].Location.substring(5, 13);
+                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
+                            props.map.mapDisplay.clearLayer('QUERY_LAYER');
+                            res[0].data.forEach((e, i) => {
+                                let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                                let points = dots.slice(0, 4);
+                                let x = points[0].x + points[1].x + points[2].x + points[3].x;
+                                let y = points[0].y + points[1].y + points[2].y + points[3].y;
+                                let params = {
+                                    id: 'query_' + i,
+                                    linecolor: [255, 0, 0, 1],
+                                    fillcolor: [255, 0, 0, 1],
+                                    layerId: 'QUERY_LAYER',
+                                    dots: dots,
+                                    linewidth: 0,
+                                }
+                                let point = { x: x / 4, y: y / 4 };
+                                props.map.mapOper.centerAndZoom(point, 5);
+                                props.map.mapDisplay.polygon(params);
+                            });
+                        });
+                    }
                 });
             }
         }

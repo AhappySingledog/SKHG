@@ -64,6 +64,7 @@ export default class IWarningRightPanel extends React.Component {
             }
         ],
         table: null,
+        key: null,
     }
     componentDidMount() {
         this.sub_showTable = subscribe('showTable', () => this.setState({ table: null }));
@@ -90,15 +91,76 @@ export default class IWarningRightPanel extends React.Component {
         if (this.sub_showTable) unsubscribe(this.sub_showTable);
         if (this.timer) clearInterval(this.timer);
     }
+    // 右侧面板点击事件
     onClick = (key) => {
         const map = {
             warning1: {title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }}
         };
         publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: map[key].query }).then((res) => {
-            let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}});
-            let table = <Table title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={null} />
-            this.setState({ table: table });
+            let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}}).concat([{title: '操作', dataIndex: 'cl'}]);
+            let table = <Table title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={this.trDbclick} myTd={this.myTd} />
+            this.setState({ table: table, key: key }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
         });
+    }
+    trDbclick = (data, index, datas) => {
+        let drawDefaultLayer = (props, pier, cno) => {
+            if (cno) {
+                publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: cno } }).then((res) => {
+                    let result = res[0].InnerList;
+                    if (result.length > 0) {
+                        let wz = result[0].Location.substring(5, 13);
+                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + pier + "' and NAME='" + wz + "'" } }).then((res) => {
+                            props.map.mapDisplay.clearLayer('QUERY_LAYER');
+                            res[0].data.forEach((e, i) => {
+                                let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                                let points = dots.slice(0, 4);
+                                let x = points[0].x + points[1].x + points[2].x + points[3].x;
+                                let y = points[0].y + points[1].y + points[2].y + points[3].y;
+                                let params = {
+                                    id: 'query_' + i,
+                                    linecolor: [255, 0, 0, 1],
+                                    fillcolor: [255, 0, 0, 1],
+                                    layerId: 'QUERY_LAYER',
+                                    dots: dots,
+                                    linewidth: 0,
+                                }
+                                let point = { x: x / 4, y: y / 4 };
+                                props.map.mapOper.centerAndZoom(point, 5);
+                                props.map.mapDisplay.polygon(params);
+                            });
+                        });
+                    }
+                });
+            }
+        }
+        drawDefaultLayer(this.props, data.TERMINALCODE, data.CONTNO);
+    }
+    // 自定义td
+    myTd = (trIndex, data, fld, tdIndex) => {
+        if (fld.dataIndex === 'cl') {
+            return <div style={{ display: 'flex', flexDirection: 'row' }}>
+                <div className='link-cl' onClick={() => this.cl(data, fld)}>处理</div>
+            </div>
+        }
+        return data[fld.dataIndex];
+    }
+    // 处理事件
+    cl = (data, fld) => {
+        console.log(data);
+        console.log(fld);
+        let json = {
+            title: '处理详情',
+            // msg:'',
+            input: [{ id: 'name', type: 'text', placeholder: '请输入处理人', title: '处理人  ' }, { id: 'value', type: 'text', placeholder: '请输入处理意见', title: '处理意见' }],
+            buttons: [
+                { title: '确认', click: (data) => {
+                    console.log(data);
+                } },
+                { title: '取消' }
+            ]
+        }
+        $.alertView(json);
+        this.onClick(this.state.key);
     }
     render() {
         let { datas } = this.state;
@@ -121,7 +183,7 @@ export default class IWarningRightPanel extends React.Component {
                         </div>
                     </Panel>
                 </div>
-                {this.state.table ? <div style={{ position: 'absolute', top: 65, right: 3821, background: '#051658' }}>{this.state.table}</div> : null}
+                {this.state.table ? <div id='warningDesc' style={{ position: 'absolute', top: 65, right: 3821, background: '#051658' }}>{this.state.table}</div> : null}
             </div>
         )
     }

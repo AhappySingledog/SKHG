@@ -15,6 +15,7 @@ import WareHouse from './wareHouse';
 import IWarning from './iWarning';
 import TableTitle from './tableTitle';
 import '../../../frame/less/magic.less';
+import '../../../frame/less/uiAlertView-1.0.0.less';
 
 class Timer extends React.Component {
     state = { msg: '' }
@@ -280,8 +281,9 @@ class MyQuery extends React.Component {
             }
             let trClick = (data, index, datas) => {
                 let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
+                let cno = datas.filter((e) => e.key == '箱号')[0].value;
                 publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + zymt + "'" } }).then((res) => {
-                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: datas} } });
+                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: cno} } });
                 })
             }
             content = [

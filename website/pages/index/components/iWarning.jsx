@@ -22,6 +22,29 @@ class MapOperation extends React.Component {
             ymin: 22.446418229209208,
         };
         this.props.map.mapOper.setMapExtent(mapExtent);
+        /** 港口码头划分 */
+        publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: 'LAYER=2' } }).then((res) => {
+            let color = {
+                1: [250, 22, 80, 1],       //红色
+                2: [57, 255, 95, 1],       //绿色
+                3: [255, 255, 255, 1],       //蓝色
+                4: [251, 251, 0, 1],       //黄色
+            };
+            res[0].data.forEach((data, i) => {
+                let dots = data.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                let fillColor = color[data.type];
+                let params = {
+                    id: 'port_view_' + i,
+                    linecolor: fillColor,
+                    layerId: 'port_view',
+                    dots: dots,
+                    attr: { ...data },
+                    click: (e) => publish('changeLayer', { index: 2, props: { datas: e.attributes } }),
+                    linewidth: 6,
+                }
+                this.props.map.mapDisplay.polygon(params);
+            });
+        });
     }
     render() {
         return (
@@ -105,7 +128,7 @@ export default class IWarning extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} /> : null}
                 </div>
                 <div className='homeRight' style={{ paddingLeft: 20 }}>
-                    <IWarningRightPanel />
+                    <IWarningRightPanel map={this.state.map}/>
                 </div>
             </div>
         )

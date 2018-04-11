@@ -79,8 +79,37 @@ class MapOperation extends React.Component {
 
         /** 港口码头划分 */
         publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: 'LAYER=2' } }).then((res) => {
-            this.handleMTSJ(res[0].data);
-        })
+            let color = {
+                1: [250, 22, 80, 1],       //红色
+                2: [57, 255, 95, 1],       //绿色
+                3: [255, 255, 255, 1],       //蓝色
+                4: [251, 251, 0, 1],       //黄色
+            };
+            res[0].data.forEach((data, i) => {
+                let dots = data.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                let fillColor = color[data.type];
+                let params = {
+                    id: 'port_view_' + i,
+                    linecolor: fillColor,
+                    layerId: 'port_view',
+                    dots: dots,
+                    attr: { ...data },
+                    click: (e) => publish('changeLayer', { index: 2, props: { datas: e.attributes } }),
+                    linewidth: 6,
+                    mouseover: (g) => {
+                        this.toolTipIn(g)
+                    },
+                    mouseout: (g) => {
+                        this.setState({
+                            showMT: false,
+                            Amap: false,
+                        });
+                        this.props.map.mapDisplay.clearLayer('port_view1');
+                    },
+                }
+                this.props.map.mapDisplay.polygon(params);
+            });
+        });
 
         // let insertArea = () => {// 插入区域信息
         //     $.ajax({
@@ -134,40 +163,6 @@ class MapOperation extends React.Component {
             })
         })
     }
-
-    handleMTSJ = (datas) => {
-        let color = {
-            1: [250, 22, 80, 1],       //红色
-            2: [57, 255, 95, 1],       //绿色
-            3: [255, 255, 255, 1],       //蓝色
-            4: [251, 251, 0, 1],       //黄色
-        };
-        for (let o in datas) {
-            let dots = datas[o].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
-            let name = datas[o].name;
-            let fillColor = color[datas[o].type];
-            let params = {
-                id: 'port_view' + o,
-                linecolor: fillColor,
-                layerId: 'port_view',
-                dots: dots,
-                attr: { ...datas[o] },
-                click: this.showContainerModal,
-                linewidth: 6,
-                mouseover: (g) => {
-                    this.toolTipIn(g)
-                },
-                mouseout: (g) => {
-                    this.setState({
-                        showMT: false,
-                        Amap: false
-                    });
-                    this.props.map.mapDisplay.clearLayer('port_view1');
-                },
-            }
-            this.props.map.mapDisplay.polygon(params);
-        }
-    };
 
     handleBigship = (json) => {
         let that = this;
@@ -448,11 +443,6 @@ class MapOperation extends React.Component {
             isShowDes: false
         });
     }
-
-    /** 进入下一层 */
-    showContainerModal = (e) => {
-        publish('changeLayer', { index: 2, props: { datas: e.attributes } });
-    };
 
     /** 地图内容展示状态切换 */
     mapItemsDisplay = (key) => {
