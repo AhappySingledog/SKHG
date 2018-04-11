@@ -13,7 +13,7 @@ export default class Desc extends React.Component {
         };
         let tipstyle = {
             'bottom': 0,
-            'right': 0,
+            'right': '15px',
             'animation': 'showAnimete 0.5s ease',
             'transformOrigin': 'right center 0px',
             'position': 'absolute',

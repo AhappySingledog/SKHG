@@ -59,9 +59,8 @@ class MapOperation extends React.Component {
             mapDesc: [],   //勾画出码头页面信息
         },
         /** 假数据 */
-        mocksJS : null,
+        mocksJS: null,
         /** ------- */
-        TRUCK_LAYER: true,
         SHIP_LAYER: true,
         BARGE_SHIP_LAYER: true,
         map: true,
@@ -151,15 +150,10 @@ class MapOperation extends React.Component {
             this.handleBarge(res[0]);
         })
 
-        /** 外拖拖车 */
-        publish('truck_GetListAsync').then((res) => {
-            this.handleOutcar(res[0]);
-        })
-
         /** 假数据---其他的 */
         publish('map_view_init').then((res) => {
             this.setState({
-                mocksJS : res[0]
+                mocksJS: res[0]
             })
         })
     }
@@ -276,109 +270,20 @@ class MapOperation extends React.Component {
         }
     }
 
-    handleOutcar = (json) => {
-        let that = this;
-        for (let o in json) {
-            json[o]['key'] = "" + o + "";
-            json[o]['name'] = "拖车详情";
-            json[o]['colname'] = 'outcar';
-            if (Number(json[o].lon) !== 0 && Number(json[o].lat) !== 0) {
-                let param = {
-                    id: 'TRUCK_LAYER' + o,
-                    layerId: 'TRUCK_LAYER',
-                    src: TruckIcon,
-                    width: 69,
-                    height: 34,
-                    x: json[o].Curlng,
-                    y: json[o].Curlat,
-                    attr: { ...json[o] },
-                    click: this.onIconClick,
-                    layerIndex: 30,
-                    mouseover: (g) => {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(69 + 36);
-                            symbol.setHeight(34 + 9);
-                        }
-                        g.setSymbol(symbol);
-                        let param2 = {
-                            id: 'TRUCK_LAYER',
-                            layerId: 'TRUCK_LAYER_HOVERTEXT',
-                            x: g.geometry.x,
-                            y: g.geometry.y,
-                            text: g.attributes.Truckno,
-                            size: '10pt',
-                            offsetX: 0,
-                            offsetY: 110,
-                            visible: true,
-                            layerIndex: 20,
-                        }
-                        that.props.map.mapDisplay.text(param2);
-                    },
-                    mouseout: (g) => {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(69);
-                            symbol.setHeight(34);
-                        }
-                        g.setSymbol(symbol);
-                        that.props.map.mapDisplay.clearLayer('TRUCK_LAYER_HOVERTEXT');
-                    }
-                }
-                this.props.map.mapDisplay.image(param);
-                this.props.map.mapDisplay.hide("TRUCK_LAYER");
-            }
-
-        };
-    }
-
     /** 图标点击事件 */
     onIconClick = (e) => {
         this.setState({ isShowDes: false });
         let attr = e.attributes;
-        let bigship = [
-            { title: "船东", dataIndex: "shipowner" }, { title: "泊位", dataIndex: "berth" }, { title: "航线", dataIndex: "service" },
-            { title: "航次", dataIndex: "voyage" }, { title: "船长", dataIndex: "vessellength" }, { title: "船高", dataIndex: "vesselheight" },
-            { title: "吃水", dataIndex: "depth" }, { title: "分线", dataIndex: "qcnums" }, { title: "ETA", dataIndex: "etatime" },
-            { title: "ETD", dataIndex: "etdtime" }, { title: "POB", dataIndex: "pobtime" }, { title: "ATB", dataIndex: "atbtime" },
-            { title: "ATD", dataIndex: "atdtime" }, { title: "状态", dataIndex: "curstatus" }, { title: "装卸", dataIndex: "ldds", colspan: true },
-            { title: "航道", dataIndex: "fairwayname", colspan: true }
-        ];
-        let bargeship = [
-            { title: "船东", dataIndex: "shipowner", colspan: true },
-            { title: "进口航次", dataIndex: "voyagein", colspan: true },
-            { title: "出口航次", dataIndex: "voyageout", colspan: true },
-            { title: "ETA", dataIndex: "etatime", colspan: true },
-            { title: "状态", dataIndex: "curstatus", colspan: true }
-        ];
-        let outcar = [
-            { title: "车牌", dataIndex: "Truckno", colspan: true },
-            { title: "单号", dataIndex: "Bookingno", colspan: true },
-            { title: "箱号", dataIndex: "Containerno", colspan: true },
-            { title: "箱型", dataIndex: "Containertype", colspan: true },
-            { title: "尺寸", dataIndex: "Containersize", colspan: true },
-            { title: "箱高", dataIndex: "Containerheight", colspan: true },
-            { title: "空重", dataIndex: "Emptyfull", colspan: true },
-            { title: "收提", dataIndex: "Inout", colspan: true }
-        ];
-        if (attr.colname === 'bigship') {
+        publish('tableName_find').then((res) => {
+            let temp = {};
+            res[0].features.forEach((value, key) => temp[value.type] = value.table);
+            this.setState(temp);
             this.setState({
-                desColumns: bigship
-            })
-        } else if (attr.colname === 'bargeship') {
-            this.setState({
-                desColumns: bargeship
-            })
-        } else if (attr.colname === 'outcar') {
-            this.setState({
-                desColumns: outcar
-            })
-        };
-
-        this.setState({
-            desTitle: attr.name,
-            desItem: attr,
-            isShowDes: true
+                desColumns: temp[attr.colname],
+                desTitle: attr.name,
+                desItem: attr,
+                isShowDes: true
+            });
         });
     }
 
@@ -394,7 +299,6 @@ class MapOperation extends React.Component {
             linewidth: 6,
         }
         this.props.map.mapDisplay.polygon(params);
-        let codes = datajson.code;
         publish('getData', { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE = '" + datajson.code + "' " } }).then((res) => {
             if (datajson.name.indexOf('码头') >= 0) {
                 this.setState({
@@ -416,8 +320,8 @@ class MapOperation extends React.Component {
                 });
             } else {
                 let datas = this.state.mocksJS;
-                for(let a in datas){
-                    if(datas[a].code === datajson.code){
+                for (let a in datas) {
+                    if (datas[a].code === datajson.code) {
                         this.setState({
                             showMT: false,
                             Amap: true,
@@ -435,14 +339,6 @@ class MapOperation extends React.Component {
     }
 
 
-    /**
-    * 取消关闭详情框
-    */
-    handleCloseDesDailog = (e) => {
-        this.setState({
-            isShowDes: false
-        });
-    }
 
     /** 地图内容展示状态切换 */
     mapItemsDisplay = (key) => {
@@ -464,7 +360,6 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <div onClick={() => this.mapItemsDisplay('TRUCK_LAYER')} className={this.state.TRUCK_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>拖车</div>
                     <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
                     <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
                     {/* <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div> */}
@@ -482,7 +377,7 @@ class MapOperation extends React.Component {
                         <Tables flds={this.state.tip.mapDesc.name} datas={this.state.tip.mtJson}></Tables>
                         : null
                 }
-                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={this.handleCloseDesDailog} /> : null}
+                {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={() => this.setState({ isShowDes: false })} /> : null}
             </div>
         )
     }
@@ -492,17 +387,53 @@ class MapOperation extends React.Component {
 /** 园区、仓库等信息 */
 class Tables extends React.Component {
     render() {
-        let { flds = [], datas = [] } = this.props;
+        let { flds = [], datas = {} } = this.props;
         return (
             <div className='mtables animated' style={this.props.style}>
                 <div className="mtables-top">{flds}</div>
                 <div className='mtables-center'>
-                    {datas.data.map((value, key) => {
-                        return <div key={key} className="mtables-center-value" >
-                            <span>{value.name}</span>
-                            <span>{value.number}</span>
-                        </div>
-                    })}
+                    {
+                        datas.data.map((e, a) => {
+                            if (a % 2 != 0) {
+                                return <div key={a} className="mtables-center-corner">
+                                    <div className="mtables-center-corner-view">
+                                        <div className="mtables-center-corner-view-1">
+                                            <span>{datas.data[a - 1].name} :</span>
+                                            <div className='number-view'>
+                                                {(getNumberArr(Number(datas.data[a - 1].number) || 0)).map((num, i) => {
+                                                    if (num === 'break' || num === 'point') {
+                                                        return <div key={i} className={'number-' + num}></div>
+                                                    } else return <div key={i} style={{ width: 85, height: 120 }} className={'number-' + num}></div>
+                                                })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="mtables-center-corner-view-1">
+                                            <span>{datas.data[a].name} :</span>
+                                            <div className='number-view'>
+                                                {(getNumberArr(Number(datas.data[a].number) || 0)).map((num, i) => {
+                                                    if (num === 'break' || num === 'point') {
+                                                        return <div key={i} className={'number-' + num}></div>
+                                                    } else return <div key={i} style={{ width: 85, height: 120 }} className={'number-' + num}></div>
+                                                })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            } else if (a > datas.data.length - 2 && a % 2 == 0) {
+                                return <div key={a} className="mtables-center-corner">
+                                    <div className="mtables-center-corner-view">
+                                        <div className="mtables-center-corner-view-2">
+                                            <span>{datas.data[a].name} :</span>
+                                            <span className="mtables-center-corner-view-2-lastNum">{datas.data[a].number}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        })
+                    }
                 </div>
                 <div className="mtables-bot"></div>
             </div>

@@ -15,7 +15,7 @@ import B from '../../../res/mapIcon/Barge.png';
 import S from '../../../res/mapIcon/bigShip.png';
 import VideoIcon from '../images/视频监控.png';
 import PierRightPanel from './pierRightPanel';
-import zb from '../images/倒三角.png';
+import zb from '../images/下手势.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -55,7 +55,10 @@ class MapOperation extends React.Component {
             desTitle: '显示详情',
             desItem: {},
             desColumns: [],
+            items: 1,
+            itemData: [],
         },
+        ShipTrackFlds: [],
         visible_duiwei: false,
     }
 
@@ -269,16 +272,16 @@ class MapOperation extends React.Component {
         this.setState({ isShowDes: false });
         let attr = e.attributes;
         publish('tableName_find').then((res) => {
-            res[0].features.forEach((value, key) => {
-                if (value.type === attr.colname) {
-                    this.setState({
-                        desColumns: value.table,
-                        desTitle: attr.name,
-                        desItem: attr,
-                        isShowDes: true,
-                        box: true,
-                    });
-                }
+            let temp = {};
+            res[0].features.forEach((value, key) => temp[value.type] = value.table);
+            this.setState(temp);
+            this.setState({
+                desColumns: temp[attr.colname],
+                desTitle: attr.name,
+                desItem: attr,
+                isShowDes: true,
+                box: true,
+                items: 1,
             });
         });
     }
@@ -304,6 +307,13 @@ class MapOperation extends React.Component {
 
     /** 点击右侧的堆存柜量后，订阅过来的数据，做展示出当前堆位的所有场位数据 */
     box = (e) => {
+        this.props.map.mapDisplay.clearLayer('box_view');
+        this.props.map.mapDisplay.clearLayer('TRUCK_LAYER');
+        this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+        this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
         this.setState({ visible_duiwei: false }, () => this.setState({
             visible_duiwei: true,
             dataSource: e.khsj,
@@ -333,15 +343,17 @@ class MapOperation extends React.Component {
 
     /** 点击地图的时候，出现集装箱信息 */
     boxModel = (e) => {
-        this.setState({ visible_duiwei: false, isShowDes: false });
-        let attr = e.attributes;
-        let data = Object.keys(attr).map((key, i) => attr[key]);
-        data = data.filter((d) => d.YARDLANENO);
-        data.sort((a, b) => Number(a.YARDLANENO) - Number(b.YARDLANENO));
-        this.setState({
-            visible_duiwei: true,
-            dataSource: data,
+        this.setState({ visible_duiwei: false, isShowDes: false }, () => {
+            let attr = e.attributes;
+            let data = Object.keys(attr).map((key, i) => attr[key]);
+            data = data.filter((d) => d.YARDLANENO);
+            data.sort((a, b) => Number(a.YARDLANENO) - Number(b.YARDLANENO));
+            this.setState({
+                visible_duiwei: true,
+                dataSource: data,
+            });
         });
+
     }
 
     /** 点击场位后，展现详细信息 */
@@ -357,7 +369,7 @@ class MapOperation extends React.Component {
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
             let json = {};
             e.colname = 'onyard';
-            e.name = [<div className='gjTitle' onClick={() => this.clickTitle(1)}>柜子</div>, <div className='gjTitle' onClick={() => this.clickTitle(2)}>柜子轨迹</div>];
+            e.name = [<div className='gjTitle' onClick={() => this.setState({ items: 1 })}>柜子</div>, <div className='gjTitle' onClick={() => this.clickTitle(e)}>柜子轨迹</div>];
             let obj = Object.assign(res[0].data[0], e);
             json.attributes = obj;
             this.onIconClick(json);
@@ -365,12 +377,9 @@ class MapOperation extends React.Component {
     }
 
     clickTitle = (key) => {
-        console.log(key);
-    }
-
-    /** 关闭集装箱查询窗口 */
-    handleCloseTitle() {
-        this.setState({ visible_duiwei: false, isShowDes: false });
+        publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: key.CONTAINERNO } }).then((res) => {
+            this.setState({ itemData: res[0].InnerList, items: 2 });
+        });
     }
 
 
@@ -396,8 +405,8 @@ class MapOperation extends React.Component {
                     x: x / 4,
                     y: (y / 4) + 0.00004,
                     src: zb,
-                    width: 48,
-                    height: 48,
+                    width: 80,
+                    height: 100,
                     layerIndex: 30,
                 };
                 let params = {
@@ -420,8 +429,8 @@ class MapOperation extends React.Component {
     }
 
     render() {
-        let { tip = {} } = this.state;
-        let descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
+        let id2 = 'b';
+        let { tip = {}, items = 1 } = this.state;
         let StyleView = {
             'bottom': '5%',
             'right': '0',
@@ -436,7 +445,13 @@ class MapOperation extends React.Component {
             { title: '列号', dataIndex: 'YARDROWNO' },
             { title: '层高', dataIndex: 'YARDTIERNO' },
         ];
-
+        let descmsg = [];
+        if (items === 1) {
+            descmsg = <Details columns={this.state.desColumns} columnTotal={2} item={this.state.desItem}></Details>;
+        }
+        if (items === 2) {
+            descmsg = <Table rowNo={true} style={{ width: '100%', height: 1740 }} id={id2} selectedIndex={null} flds={this.state.ShipTrackFlds} datas={this.state.itemData} trClick={null} trDbclick={null} />
+        }
         return (
             <div>
                 {/* {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null} */}
@@ -447,7 +462,7 @@ class MapOperation extends React.Component {
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={this.handleCloseTitle.bind(this)} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={() => this.setState({ visible_duiwei: false, isShowDes: false })} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }
