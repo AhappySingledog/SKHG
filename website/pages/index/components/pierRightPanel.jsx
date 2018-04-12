@@ -45,7 +45,6 @@ export default class PierRightPanel extends React.Component {
         anchorFlds: [],
         vedios: [],
         vediosHeight: 1100,
-        housers: [],
     }
     componentDidMount() {
         let data = [
@@ -76,7 +75,16 @@ export default class PierRightPanel extends React.Component {
                     /** 各栏堆存柜量 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ onyard: res[0].data }));
                     /** 泊位停靠船舶信息 */
-                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ berths: res[0].data }));
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
+                        res[0].data.forEach((value, key) => {
+                            if (value.VESSELTYPE === 'B') {
+                                value.VESSELTYPE = '驳   船';
+                            } else if (value.VESSELTYPE === 'S') {
+                                value.VESSELTYPE = '大   船';
+                            }
+                        })
+                        this.setState({ berths: res[0].data })
+                    });
                     /** 超三个月海关未放行的柜列表  */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
                         
@@ -84,26 +92,12 @@ export default class PierRightPanel extends React.Component {
                     });
                 }
                 else if (this.props.datas.type == 4) {
-                    // var Mock = require('mockjs')
-                    //     var data = Mock.mock({
-                    //         // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
-                    //         'list|1-10': [{
-                    //             // 属性 id 是一个自增数，起始值为 1，每次增 1
-                    //             'id|+1': 1,
-                    //             'ctitle': '@ctitle(4)',
-                    //         }]
-                    //     });
-
-                    let datas = [{ 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }]
-                    publish('pire_right_yq_axis').then((res) => {
+                    publish('pire_right_yq_axis', { value: Nowdata }).then((res) => {
                         if (this.chart) this.chart.dispose();
                         this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
                         this.chart.setOption(res[0]);
                     });
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
-
-                    this.setState({ housers: datas });
-
                 } else if (this.props.datas.type == 2) {
                     publish('port_2_bar').then((res) => {
                         if (this.chart2) this.chart2.dispose();
@@ -136,7 +130,9 @@ export default class PierRightPanel extends React.Component {
         e.colname = 'onyard';
         e.name = '柜子';
         json.attributes = e;
+        /** 缩放 */
         publish('box_location', e);
+        /** 详情 */
         publish('box_onIconClick', json);
     }
 
@@ -225,7 +221,7 @@ export default class PierRightPanel extends React.Component {
     }
 
     render() {
-        let { vedios, vediosHeight, housers = [] } = this.state;
+        let { vedios, vediosHeight } = this.state;
         let id1 = 'a1', id2 = 'a2', id3 = 'a3', id4 = 'a4';
         let items = [];
         let { type } = this.props.datas;
@@ -238,7 +234,7 @@ export default class PierRightPanel extends React.Component {
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
                     <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={ [] } trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         } else if (type == 2) {
