@@ -15,7 +15,7 @@ import WareHouse from './wareHouse';
 import IWarning from './iWarning';
 import TableTitle from './tableTitle';
 import '../../../frame/less/magic.less';
-import '../../../frame/less/uiAlertView-1.0.0.less';
+import '../../../frame/less/xcConfirm.less';
 
 class Timer extends React.Component {
     state = { msg: '' }

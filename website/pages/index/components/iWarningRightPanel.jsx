@@ -7,6 +7,7 @@ import { Panel, WordsContent, Table } from '../../../frame/componets/index';
 import echarts from 'echarts';
 import $ from 'jquery';
 import _ from 'lodash';
+import '../../../frame/core/xcConfirm';
 
 class Warning extends React.Component {
     onMouseOver = () => {
@@ -145,22 +146,27 @@ export default class IWarningRightPanel extends React.Component {
         return data[fld.dataIndex];
     }
     // 处理事件
-    cl = (data, fld) => {
-        console.log(data);
-        console.log(fld);
-        let json = {
-            title: '处理详情',
-            // msg:'',
-            input: [{ id: 'name', type: 'text', placeholder: '请输入处理人', title: '处理人  ' }, { id: 'value', type: 'text', placeholder: '请输入处理意见', title: '处理意见' }],
-            buttons: [
-                { title: '确认', click: (data) => {
-                    console.log(data);
-                } },
-                { title: '取消' }
+    cl = (row, fld) => {
+        window.wxc.xcConfirm('', window.wxc.xcConfirm.typeEnum.inputs, {
+            autoClose: false,
+            onOk: function(data) {
+                console.log(data);
+                if (data.name == '' || data.value == '') {
+                    window.wxc.xcConfirm('请输入处理人或处理意见', window.wxc.xcConfirm.typeEnum.warning);
+                    return false;
+                }
+                else {
+                    publish('webAction', { svn: 'skhg_stage_service', path: 'excuteSqlNoQuery', data: {sql: "UPDATE IMAP_WARNING_LOG1 SET ISHANDLED='Y', HANDLER='" + data.name + "', HANDLINGRESULT='" + data.value + "', HANDLINGTIME=SYSDATE WHERE GKEY=" + row.GKEY + ';UPDATE IMAP_WARNING SET WARNING1=WARNING1-1'} }).then((res) => {
+                        if (!res[0].success) window.wxc.xcConfirm(res[0].msg, window.wxc.xcConfirm.typeEnum.error);
+                    });
+                    return true;
+                }
+            },
+            inputs: [
+                {id: 'name', title: '处理人', type: 'text', placeholder: '请输入处理人'},
+                {id: 'value', title: '处理意见', type: 'text', placeholder: '请输入处理意见'}
             ]
-        }
-        $.alertView(json);
-        this.onClick(this.state.key);
+        });
     }
     render() {
         let { datas } = this.state;

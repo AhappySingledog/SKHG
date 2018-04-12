@@ -12,10 +12,14 @@
 }
 
 
-body>div {
+body>div:nth-of-type(1) {
     width: @scale * 3840px;
     height: @scale * 1080px;
     background: #051658;
+}
+body>div:nth-of-type(n+1) {
+    width: @scale * 3840px;
+    height: @scale * 1080px;
 }
 
 .mframe {
