@@ -99,7 +99,7 @@ export default class IWarningRightPanel extends React.Component {
         };
         publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: map[key].query }).then((res) => {
             let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}}).concat([{title: '操作', dataIndex: 'cl'}]);
-            let table = <Table title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={this.trDbclick} myTd={this.myTd} />
+            let table = <Table rowNo={true} title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={this.trDbclick} myTd={this.myTd} hide={{GKEY: true}}/>
             this.setState({ table: table, key: key }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
         });
     }

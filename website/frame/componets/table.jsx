@@ -68,6 +68,7 @@ export default class Table extends React.Component {
             flds = [{ title: '序号', dataIndex: 'rowNo' }].concat(flds);
             datas.forEach((d, i) => d.rowNo = i + 1);
         }
+        if (this.props.hide) flds = flds.filter((e) => !this.props.hide[e.dataIndex]);
         return (
             <div className={this.props.className || 'mtable'} style={this.props.style} ref='table'>
                 {this.props.title ? <div className='mttitle'>{this.props.title}</div> : null}
