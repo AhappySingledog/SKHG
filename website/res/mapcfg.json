@@ -24,7 +24,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -40,9 +40,9 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT_TIF/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -50,7 +50,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/SCT/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -66,9 +66,9 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SMC_TIF/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -92,9 +92,9 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -117,9 +117,9 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -127,7 +127,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/CCT/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -142,9 +142,9 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt3/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -152,7 +152,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/MCT/MapServer",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/MCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -169,7 +169,7 @@
                     "id": "tianimage",
                     "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
                     "type": "tiled",
-                    "name": "天地影响图",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""
@@ -185,6 +185,51 @@
                     "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT_CYC/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "CWGH",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SZCWH_TIF/MapServer",
+                    "type": "tiled",
+                    "name": "天地图影像",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "YLMG",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/YLMG_TIF/MapServer",
+                    "type": "tiled",
+                    "name": "天地图影像",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },{
+            "group": "ZSGW",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "tianimage",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSGW_TIF/MapServer",
+                    "type": "tiled",
+                    "name": "天地图影像",
                     "params": {
                         "maxscale": "",
                         "minscale": ""

@@ -367,7 +367,7 @@
             "type": "scctyardFlds",
             "table": [
                 {
-                    "title": "柜号",
+                    "title": "场位",
                     "dataIndex": "YARDCELL"
                 },
                 {

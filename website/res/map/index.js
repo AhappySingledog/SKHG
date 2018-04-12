@@ -47,14 +47,14 @@ require([
             // { "level": 1, "resolution":  2.97432625728785E-4, "scale": 125000},
             // { "level": 2, "resolution":  1.5228550437313792E-4, "scale": 64000},
             // { "level": 3, "resolution":  7.614275218656896E-5, "scale": 32000},
-            { "level": 4, "resolution":  3.807137609328448E-5, "scale": 16000},
-            { "level": 5, "resolution":  1.903568804664224E-5, "scale": 8000},
-            { "level": 6, "resolution":  9.51784402332112E-6, "scale": 4000},
-            { "level": 7, "resolution":  4.75892201166056E-6, "scale": 2000},
-            { "level": 8, "resolution":  2.37946100583028E-6, "scale": 1000},
-            { "level": 9, "resolution":  1.18973050291514E-6, "scale": 500},
-            { "level": 10, "resolution": 5.9486525145757E-7, "scale": 250},
-            { "level": 11, "resolution":  2.97432625728785E-7, "scale": 125}
+            { "level": 0, "resolution":  3.807137609328448E-5, "scale": 16000},
+            { "level": 1, "resolution":  1.903568804664224E-5, "scale": 8000},
+            { "level": 2, "resolution":  9.51784402332112E-6, "scale": 4000},
+            { "level": 3, "resolution":  4.75892201166056E-6, "scale": 2000},
+            { "level": 4, "resolution":  2.37946100583028E-6, "scale": 1000},
+            { "level": 5, "resolution":  1.18973050291514E-6, "scale": 500},
+            { "level": 6, "resolution": 5.9486525145757E-7, "scale": 250},
+            { "level": 7, "resolution":  2.97432625728785E-7, "scale": 125}
     ];
 
     /**

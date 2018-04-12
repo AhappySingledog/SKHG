@@ -23,6 +23,18 @@ class Title extends React.Component {
     }
 }
 
+var Mock = require('mockjs')
+var Nowdata = Mock.mock({
+    // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
+    'list|1-9': [{
+        // 属性 id 是一个自增数，起始值为 1，每次增 1
+        'id|+1': 1,
+        'today|1-1000': 10,
+        'yesterday|1-1000': 10,
+        'cname': '@cword("一二三四五六七八九十",1,1)',
+    }]
+});
+
 // 智能预警右侧组件
 export default class PierRightPanel extends React.Component {
     state = {
@@ -87,7 +99,7 @@ export default class PierRightPanel extends React.Component {
                     });
                     /** 超三个月海关未放行的柜列表  */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
-                        
+
                         this.setState({ scctyard: res[0].data })
                     });
                 }
@@ -225,7 +237,6 @@ export default class PierRightPanel extends React.Component {
         let id1 = 'a1', id2 = 'a2', id3 = 'a3', id4 = 'a4';
         let items = [];
         let { type } = this.props.datas;
-        let datas = [{ 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }, { 'name': '仓库一' }]
         if (type == 1) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
@@ -260,6 +271,7 @@ export default class PierRightPanel extends React.Component {
             ];
         }
         else if (type == 4) {
+            console.log(Nowdata);
             items = [
                 <div className="houseView" key='1'>
                     <div className="houseView-leftspan">
@@ -267,7 +279,7 @@ export default class PierRightPanel extends React.Component {
                    </div>
                     <div className="houseView-view test-1">
                         <div className="houseView-view-cendiv">
-                            {datas.map((value, key) => { return <div key={key}>{value.name}</div> })}
+                            {Nowdata.list.map((value, key) => { return <div key={key}>仓库{value.cname}</div> })}
                         </div>
                         <div className="houseView-view-ec">
                             <div className='houseView-view-ec-row' style={{ height: '100%', width: '100%' }} ref="echart1"></div>
@@ -279,65 +291,19 @@ export default class PierRightPanel extends React.Component {
                                 <div>同比</div>
                             </div>
                             <div className="houseView-view-rig-num">
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-green">3.75%</div>
-                                </div>
-
-                                <div >
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-green">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-green">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
-
-                                <div>
-                                    <div>913</div>
-                                    <div>880</div>
-                                    <div className="houseView-view-rig-num-red">3.75%</div>
-                                </div>
+                                {Nowdata.list.map((value, key) => {
+                                    if (value.today > value.yesterday) {
+                                        return <div key={key}>
+                                            <div>{value.today}</div>
+                                            <div>{value.yesterday}</div>
+                                            <div className="houseView-view-rig-num-green">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
+                                        </div>
+                                    } else return <div key={key}>
+                                        <div>{value.today}</div>
+                                        <div>{value.yesterday}</div>
+                                        <div className="houseView-view-rig-num-red">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
+                                    </div>
+                                })}
                             </div>
                         </div>
                     </div>
