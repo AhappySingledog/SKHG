@@ -13,6 +13,7 @@ import Port from './port';
 import Pier from './pier';
 import WareHouse from './wareHouse';
 import IWarning from './iWarning';
+import ICommand from './iCommand';
 import TableTitle from './tableTitle';
 import '../../../frame/less/magic.less';
 import '../../../frame/less/xcConfirm.less';
@@ -454,6 +455,7 @@ export default class App extends React.Component {
         warning: null,
         myQuery: false,
         iCountBtn: false,
+        iCommand: false,
     }
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
@@ -518,16 +520,19 @@ export default class App extends React.Component {
             this.setState({ index, curLayer, oldProps, curProps });
         }
     }
-    iQuery = () => {
+    iQuery = (flag) => {
         console.log('iQuery');
-        this.setState({ myQuery: true }, () => $('.queryBox').addClass('magictime foolishIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime foolishIn animated')));
+        if (flag) this.setState({ myQuery: true }, () => $('.queryBox').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime spaceInUp animated')));
+        else $('.queryBox').addClass('magictime spaceOutUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime spaceOutUp animated'); this.setState({ myQuery: false }); })
     }
     iCount = () => {
         console.log('iCount');
         this.setState({ iCountBtn: true });
     }
-    iCommand = () => {
+    iCommand = (flag) => {
         console.log('iCommand');
+        if (flag) this.setState({iCommand: flag}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
+        else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.ic').removeClass('magictime spaceOutLeft animated');this.setState({iCommand: flag});});
     }
     warning = () => {
         console.log('warning');
@@ -580,9 +585,9 @@ export default class App extends React.Component {
                     <div className='mheader-top'>
                         <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-home' onClick={() => this.changeLayer(0, {})} />
-                        <div className='mheader-iQuery' onClick={this.iQuery} />
+                        <div className='mheader-iQuery' onClick={() => this.iQuery(!this.state.myQuery)} />
                         <div className='mheader-iCount' onClick={this.iCount} />
-                        <div className='mheader-iCommand' onClick={this.iCommand} />
+                        <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
@@ -598,8 +603,9 @@ export default class App extends React.Component {
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
                 {this.state.warning ? <Warning title={this.state.warning.title} warning={this.state.warning.msg} close={() => this.setState({ warning: null })} /> : null}
-                {this.state.myQuery ? <MyQuery close={() => $('.queryBox').addClass('magictime foolishOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime foolishOut animated'); this.setState({ myQuery: false }); })} /> : null}
+                {this.state.myQuery ? <MyQuery close={() => this.iQuery(false)} /> : null}
                 {this.state.iCountBtn ? <ICountimg close={() => this.setState({ iCountBtn: false })} /> : null}
+                {this.state.iCommand ? <ICommand close={() => this.iCommand(false)}/> : null}
             </div>
         )
     }

@@ -95,7 +95,7 @@ class MapOperation extends React.Component {
                 }
                 this.props.map.mapDisplay.polygon(params);
             });
-            this.drawVideos(this.props.datas);
+            //this.drawVideos(this.props.datas);
         }).then(() => this.drawDefaultLayer(this.props));
     }
 

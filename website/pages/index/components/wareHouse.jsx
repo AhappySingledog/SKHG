@@ -8,6 +8,7 @@ import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { publish } from '../../../frame/core/arbiter';
 import WareHouseRight from './wareHouseRight';
+import VideoIcon from '../images/视频监控.png';
 
 class MapOperation extends React.Component {
     componentDidMount() {
@@ -20,6 +21,61 @@ class MapOperation extends React.Component {
             ymax: Number(datas.ymax),
         }
         this.props.map.mapOper.setMapExtent(mapExtent);
+        let drawVideos = (datas) => {
+            console.log(datas.code);
+            Promise.all([
+                publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.ssdw + "'" } }),
+                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.ssdw + "'" } }),
+            ]).then((res) => {
+                let videos = res[0][0].data;
+                let temp = {};
+                res[1][0].data.forEach((e) => temp[e.code] = e.geom);
+                videos.forEach((e) => e.geom = temp[e.VIDEOIMAPID]);
+                initVideo(videos);
+            });
+            let clickVideo = (e) => {
+                let url = e.attributes.VIDEOURL;
+                let name = e.attributes.VIDEOIMAPID;
+                publish('playVedio', { url: url, name: name });
+            }
+            let initVideo = (data) => {
+                this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+                data.forEach((e, i) => {
+                    if (!e.geom) return;
+                    let param = {
+                        id: 'VIDEO_LAYER' + i,
+                        layerId: 'VIDEO_LAYER',
+                        layerIndex: 999,
+                        src: VideoIcon,
+                        width: 140,
+                        height: 140,
+                        angle: 0,
+                        x: e.geom.x,
+                        y: e.geom.y,
+                        attr: { ...e },
+                        click: clickVideo,
+                        mouseover: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(140 + 12);
+                                symbol.setHeight(140 + 12);
+                            }
+                            g.setSymbol(symbol);
+                        },
+                        mouseout: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(140);
+                                symbol.setHeight(140);
+                            }
+                            g.setSymbol(symbol);
+                        }
+                    }
+                    this.props.map.mapDisplay.image(param);
+                });
+            }
+        };
+        drawVideos(this.props.datas);
     }
     render() {
         return (<div></div>)
