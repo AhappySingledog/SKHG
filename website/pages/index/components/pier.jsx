@@ -90,7 +90,7 @@ class MapOperation extends React.Component {
                     layerId: 'port_view',
                     dots: dots,
                     attr: { ...e },
-                    click: () => publish('changeLayer', { index: 3, props: { datas: e } }),
+                    click: (e) => publish('changeLayer', { index: 3, props: { datas: e.attributes,res : res[0].data } }),
                     linewidth: 6,
                 }
                 this.props.map.mapDisplay.polygon(params);
@@ -210,6 +210,7 @@ class MapOperation extends React.Component {
         let json = datas.a;
         let list = datas.b[0].data;
         this.props.map.mapDisplay.clearLayer('SHIP_LAYER');
+        this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         list.map((value, key) => {
             if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                 json.name = value.name;
@@ -263,6 +264,17 @@ class MapOperation extends React.Component {
                     }
                 };
                 this.props.map.mapDisplay.image(param);
+                let mText = {
+                    id: 'text_box',
+                    layerId: 'CONTAINERVIEW_LAYER_BOX',
+                    x: value.geom.x / 4,
+                    y: (value.geom.y / 4) + 0.00004,
+                    src: zb,
+                    width: 80,
+                    height: 100,
+                    layerIndex: 30,
+                };
+                this.props.map.mapDisplay.image(mText);
             }
         })
     }

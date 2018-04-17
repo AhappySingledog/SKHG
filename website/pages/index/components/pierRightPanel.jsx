@@ -73,6 +73,8 @@ export default class PierRightPanel extends React.Component {
             ylmg: [[data, data], [data, data], [data, data]],
             cwgh: [[data, data]],
             zsgw: [[data, data]],
+            zgms_ck: [[data, data], [data, data], [data, data]],
+            szms_ck: [[data, data], [data, data], [data, data]],
         };
         publish('tableName_find').then((res) => {
             let temp = {};
@@ -98,10 +100,7 @@ export default class PierRightPanel extends React.Component {
                         this.setState({ berths: res[0].data })
                     });
                     /** 超三个月海关未放行的柜列表  */
-                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => {
-
-                        this.setState({ scctyard: res[0].data })
-                    });
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data }));
                 }
                 else if (this.props.datas.type == 4) {
                     publish('pire_right_yq_axis', { value: Nowdata }).then((res) => {
@@ -271,7 +270,6 @@ export default class PierRightPanel extends React.Component {
             ];
         }
         else if (type == 4) {
-            console.log(Nowdata);
             items = [
                 <div className="houseView" key='1'>
                     <div className="houseView-leftspan">

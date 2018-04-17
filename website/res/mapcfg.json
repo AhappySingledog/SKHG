@@ -3,10 +3,10 @@
     "centery": -1,
     "initlevel": -1,
     "extent": {
-        "xmax":113.940401003,
-        "xmin":113.847341287,
-        "ymax":22.510245079,
-        "ymin":22.43584891
+        "xmax": 113.940401003,
+        "xmin": 113.847341287,
+        "ymax": 22.510245079,
+        "ymin": 22.43584891
     },
     "isJwd": 1,
     "overview": 0,
@@ -16,7 +16,6 @@
         "x": "经度",
         "y": "纬度"
     },
-
     "map_base": [
         {
             "group": "two_layer",
@@ -87,7 +86,7 @@
             ]
         },
         {
-            "group": "SZMS",
+            "group": "SZMS_CK",
             "visible": 1,
             "maps": [
                 {
@@ -111,7 +110,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "CCT",
             "visible": 1,
             "maps": [
@@ -136,7 +136,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "MCT",
             "visible": 1,
             "maps": [
@@ -161,7 +162,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "CMBL",
             "visible": 1,
             "maps": [
@@ -176,7 +178,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "SCT_CYC",
             "visible": 1,
             "maps": [
@@ -191,7 +194,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "CWGH",
             "visible": 1,
             "maps": [
@@ -206,7 +210,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "YLMG",
             "visible": 1,
             "maps": [
@@ -221,7 +226,8 @@
                     }
                 }
             ]
-        },{
+        },
+        {
             "group": "ZSGW",
             "visible": 1,
             "maps": [
@@ -230,6 +236,214 @@
                     "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSGW_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "ONE_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "TWO_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_2_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "TWO_CK_2",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_2_2/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "THREE_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_3_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "THREE_CK_2",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_3_2/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "FOUR_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_4_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "FIVE_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_5_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "FIVE_CK_2",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_5_2/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SIX_CK_1",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_1/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SIX_CK_2",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_2/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SIX_CK_3",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_3/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SIX_CK_4",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_4/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
+                    "params": {
+                        "maxscale": "",
+                        "minscale": ""
+                    }
+                }
+            ]
+        },
+        {
+            "group": "SIX_CK_5",
+            "visible": 1,
+            "maps": [
+                {
+                    "id": "cehui",
+                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_5/MapServer",
+                    "type": "dynamic",
+                    "name": "测绘图",
                     "params": {
                         "maxscale": "",
                         "minscale": ""

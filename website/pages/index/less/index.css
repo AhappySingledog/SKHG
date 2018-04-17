@@ -26,10 +26,14 @@ body > div {
   src: url('DS-DIGIB_0.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */ url('DS-DIGIB_0.woff') format('woff'), /* chrome、firefox */ url('DS-DIGIB_0.ttf') format('truetype'), /* chrome、firefox、opera、Safari, Android, iOS 4.2+*/ url('DS-DIGIB_0.svg#DS-DIGIB_0') format('svg');
   /* iOS 4.1- */
 }
-body > div {
+body > div:nth-of-type(1) {
   width: 11520px;
   height: 3240px;
   background: #051658;
+}
+body > div:nth-of-type(n+1) {
+  width: 11520px;
+  height: 3240px;
 }
 .mframe {
   height: 100%;
@@ -2205,6 +2209,34 @@ body > div {
 /***************************************************************
 *************************第四层页面开始**************************
 ***************************************************************/
+.houseMap {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.houseleft {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  width: 67%;
+}
+.houseleft > div:first-child {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  border: 5px solid rgba(6, 130, 206, 0.5);
+  padding: 20px;
+}
+.houseleft > div:first-child > iframe {
+  border: 2px solid #0682ce;
+  flex-grow: 1;
+}
+.houseRight {
+  display: flex;
+  flex-direction: column;
+  width: 33%;
+}
 .warehouse {
   display: flex;
   flex-direction: row;
@@ -2222,6 +2254,72 @@ body > div {
 .warehouse-v {
   padding: 10px;
   border: 2px solid #1890ff;
+}
+/** 仓库切换  */
+.ckall {
+  position: absolute;
+  width: 100%;
+}
+.ckall_left {
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  left: 0;
+  top: 0;
+  text-align: center;
+  line-height: 2610px;
+  cursor: pointer;
+  height: 2610px;
+  width: 233px;
+}
+.ckall_right {
+  width: 233px;
+  height: 2610px;
+  background: rgba(0, 0, 0, 0.1);
+  position: absolute;
+  right: 48px;
+  top: 2px;
+  text-align: center;
+  line-height: 2610px;
+  cursor: pointer;
+}
+.ckall_left:hover,
+.ckall_right:hover {
+  background: rgba(0, 0, 0, 0.5);
+}
+.ckall_top {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-start;
+}
+.ckall_top > div {
+  margin: 15px;
+  width: 500px;
+  height: 300px;
+}
+.ckall_top > div :hover {
+  transform: scale(1.5);
+  border: 3px solid #ff6600;
+}
+.ckall_bot {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+}
+.ckall_bot > div {
+  margin: 15px;
+  width: 100px;
+  height: 100px;
+  font-size: 50px;
+  line-height: 100px;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 /***************************************************************
 *************************第四层页面结束**************************
