@@ -40,57 +40,72 @@ class Timer extends React.Component {
     }
 }
 
-let temp = [
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-    { name: '华夏号', hc: 'hxh', gq: 'SCT', bw: 'E501P2', sj: '2018/03/19 12:21', sl: '200/300', cl: '确认 | 取消' },
-];
 class MyLink extends React.Component {
     state = {
         items: [
             { name: '旅检移泊确认', show: true },
-            { name: '整泊换装确认', show: false }
+            { name: '旅检到泊确认', show: false },
+            { name: '整船换装确认', show: false }
         ],
-        datas: temp
+        flds: [],
+        datas: []
     }
     clickTitle = (index) => {
         let items = this.state.items;
-        let datas = temp.slice((Math.random() * 7).toFixed(0));
         items.forEach((e, i) => e.show = (i === index));
-        this.setState({ items: items, datas: datas });
+        if (index == 0) {
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SK_LJYBSQB', where: "VALID='Y' AND PERMIT IS NULL" } }).then((res) => {
+                let f = res[0].attr;
+                let flds = Object.keys(f).map((k) => {return {title: f[k], dataIndex: k}}).concat([{title: '操作', dataIndex: 'cl'}]);
+                let datas = res[0].data;
+                this.setState({ items: items, flds: flds, datas: datas });
+            });
+        }
+        else if (index == 1) {
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SK_LJDBSQB', where: "VALID='Y' AND PERMIT IS NULL" } }).then((res) => {
+                let f = res[0].attr;
+                let flds = Object.keys(f).map((k) => {return {title: f[k], dataIndex: k}}).concat([{title: '操作', dataIndex: 'cl'}]);
+                let datas = res[0].data;
+                this.setState({ items: items, flds: flds, datas: datas });
+            });
+        }
+        else {
+            this.setState({ items: items, flds: [], datas: [] });
+        }
     }
     cl = (data, fld) => {
-        console.log(data);
+        let index = 0;
+        this.state.items.forEach((e, i) => e.show ? index = i : '');
+        if (index == 0 || index == 1) {
+            publish('webAction', { svn: 'skhg_loader_service', path: index == 0 ? 'ljybTy' : 'ljdbTy', data: { mmsi: data.MMSI } }).then((res) => {
+                this.clickTitle(index);
+            });
+        }
     }
     qx = (data, fld) => {
-        console.log(data);
+        let index = 0;
+        this.state.items.forEach((e, i) => e.show ? index = i : '');
+        if (index == 0 || index == 1) {
+            publish('webAction', { svn: 'skhg_loader_service', path: index == 0 ? 'ljybQx' : 'ljdbQx', data: { mmsi: data.MMSI } }).then((res) => {
+                this.clickTitle(index);
+            });
+        }
+        
     }
     myTd = (trIndex, data, fld, tdIndex) => {
         if (fld.dataIndex === 'cl') {
             return <div style={{ display: 'flex', flexDirection: 'row' }}>
-                <div className='link-cl' onClick={() => this.cl(data, fld)}>处理</div>
+                <div className='link-cl' onClick={() => this.cl(data, fld)}>同意</div>
                 <div style={{ margin: '0 5px' }}>|</div>
                 <div className='link-qx' onClick={() => this.qx(data, fld)}>取消</div>
             </div>
         }
         return data[fld.dataIndex];
     }
+    componentDidMount() {
+        this.clickTitle(0);
+    }
     render() {
-        let flds = [
-            { title: '船名', dataIndex: 'name' },
-            { title: '航次', dataIndex: 'hc' },
-            { title: '预计靠泊港区', dataIndex: 'gq' },
-            { title: '预计靠泊泊位', dataIndex: 'bw' },
-            { title: '预计靠泊时间', dataIndex: 'sj' },
-            { title: '整船柜数量(E/F)', dataIndex: 'sl' },
-            { title: '处理', dataIndex: 'cl' },
-        ];
         return (
             <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950, zIndex: 99999 }}>
                 <div className='warningTip-t'></div>
@@ -100,7 +115,7 @@ class MyLink extends React.Component {
                             {this.state.items.map((e, i) => <div onClick={() => this.clickTitle(i)} className={e.show ? 'warningTip-b-title-1' : 'warningTip-b-title-2'} key={i}>{e.name}</div>)}
                         </div>
                         <div className='warningTip-b-body'>
-                            <Table style={{ width: 2361, height: 954, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd} />
+                            <Table style={{ width: 2361, height: 954, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={this.state.flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd} />
                         </div>
                     </Panel>
                 </div>

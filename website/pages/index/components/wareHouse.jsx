@@ -86,9 +86,14 @@ class MapOperation extends React.Component {
 export default class WareHouse extends React.Component {
     state = { map: null, iframes: [], num: 0, }
     componentDidMount() {
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
-            this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
-        });
+        if (this.props.datas.type == 3) {
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
+                this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
+            });
+        }
+        else {
+            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
+        }
     }
 
     /**
@@ -195,11 +200,11 @@ export default class WareHouse extends React.Component {
         let item = [
             <div key="ckass" className="ckall">
                 <div className="ckall_left" onClick={this.prevImg.bind(this)}>
-                    <img src="./portImages/left.png" alt="左箭头" />
+                    <img src="../portImages/left.png" alt="左箭头" />
                 </div>
                 <div className="ckall_top" >
                     {
-                        this.props.res.map((value, i) => { return <div key={i} onClick={this.topBut.bind(this)}> <img id={i} src={"./portImages/0" + i + ".jpg"} /> </div> })
+                        this.props.res.map((value, i) => { return <div key={i} onClick={this.topBut.bind(this)}> <img id={i} src={"../portImages/0" + i + ".jpg"} /> </div> })
                     }
                 </div>
                 <div className="ckall_bot" >
@@ -208,7 +213,7 @@ export default class WareHouse extends React.Component {
                     }
                 </div>
                 <div className="ckall_right" onClick={this.nextImg.bind(this)}>
-                    <img src="./portImages/right.png" alt="右箭头" />
+                    <img src="../portImages/right.png" alt="右箭头" />
                 </div>
             </div>
         ];

@@ -25,12 +25,13 @@ class V extends React.Component {
 
 class Msg extends React.Component {
     render() {
+        let msg = this.props.msg;
         return (
             <div className='ic-record-one'>
-                <div className='ic-record-one-name'>张三啊</div>
+                <div className='ic-record-one-name'>{msg.sender}</div>
                 <div className='ic-record-one-body'>
-                    <div className='ic-record-one-body-time'>2018/03/09 10:50</div>
-                    <div className='ic-record-one-body-msg'>哈哈哈哈</div>
+                    <div className='ic-record-one-body-time'>{msg.sendTime}</div>
+                    <div className='ic-record-one-body-msg'>{msg.msg}</div>
                 </div>
             </div>
         )
@@ -39,41 +40,49 @@ class Msg extends React.Component {
 
 // 智能指挥
 export default class iCommand extends React.Component {
+    state = {
+        msgs: [],
+        number: 100,
+    }
     send = () => {
         let msg = $.trim($('#msg').val());
-        console.log(msg);
+        publish('webAction', { svn: 'skhg_service', path: 'sendICMsg', data: { sender: 'admin', senderId: '1', msg: msg } }).then((res) => {
+            if (res.success) this.update();
+        });
+    }
+    update = () => {
+        publish('webAction', { svn: 'skhg_service', path: 'getNewestICMsgs', data: { number: this.state.number } }).then((res) => {
+            this.setState({msgs: res[0].data}, () => document.getElementById('record').scrollTop = document.getElementById('record').scrollHeight);
+        });
     }
     up = () => {
         console.log();
     }
+    more = () => {
+        console.log();
+        let number = this.state.number;
+        this.setState({number: number + 100}, this.update);
+    }
     componentDidMount() {
-        $('#record').scrollTop = $('#record').scrollHeight;
+        this.update();
+        this.timer = setInterval(this.update, 1000 * 10);
+    }
+    componentWillUnmount() {
+        if (this.timer) clearInterval(this.timer);
     }
     render() {
         let url = 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600';
         return (
             <div className='ic' style={{ overflow: 'hidden' }}>
                 <div className='ic-close' onClick={this.props.close}></div>
-                <div className='ic-record-more'>更多记录︽</div>
+                <div className='ic-record-more' onClick={this.more}>更多记录︽</div>
                 <div className='ic-box'>
                     <div className='ic-video'>
                         <V data={{url: url}}/>
                         <V data={{url: url}}/>
                     </div>
                     <div id='record' className='ic-record scrollbar'>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
-                        <Msg/>
+                        {this.state.msgs.map((e, i) => <Msg key={i} msg={e}/>)}
                     </div>
                     <div className='ic-msg'>
                         <div className='ic-msg-text'>
