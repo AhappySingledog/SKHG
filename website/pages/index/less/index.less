@@ -2270,35 +2270,38 @@ body>div:nth-of-type(n+1) {
 /** 仓库切换  */
 
 .ckall{
-    position : absolute;
-    width: 100%;
+    position: absolute;
+    width: 25%;
+    left: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     &_left{
         background: rgba(0,0,0,0.1);
         position: absolute;
-        left: 0;
-        top: 0;
+        left: -2200px;
+        top: 1080px;
         text-align: center;
-        line-height: 2610px;
         cursor: pointer;
-        height: 2610px;
+        height: 580px;
         width: 233px;
+        line-height: 580px;
     }
     &_right{
         width: 233px;
-        height: 2610px;
+        height: 580px;
         background: rgba(0,0,0,0.1);
         position: absolute;
-        right: 48px;
-        top: 2px;
+        left: 5082px;
+        top: 1080px;
         text-align: center;
-        line-height: 2610px;
+        line-height: 580px;
         cursor: pointer;
     }
     &_left:hover,&_right:hover{
         background: rgba(0,0,0,0.5);
     }
     &_top{
-        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
@@ -2314,7 +2317,6 @@ body>div:nth-of-type(n+1) {
         }
     }
     &_bot{
-        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;

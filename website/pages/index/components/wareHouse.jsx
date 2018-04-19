@@ -154,45 +154,50 @@ export default class WareHouse extends React.Component {
 
     /** 下一张 */
     nextImg = (e) => {
-        console.log("下一张");
-        let a = this.state.num;
-        let b = this.state.iframes.length;
-        if (a < b - 1) {
-            a++;
-            this.setState({ num: a }, () => {
-                this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.state.iframes[a].code);
-            })
-        } else {
-            this.setState({ num: 0 }, () => {
-                this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.state.iframes[0].code);
-            });
+        if (this.props.datas.type === 3) {
+            let a = this.state.num;
+            let b = this.state.iframes.length;
+            if (a < b - 1) {
+                a++;
+                this.setState({ num: a }, () => {
+                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[a].code);
+                })
+            } else {
+                this.setState({ num: 0 }, () => {
+                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code);
+                });
+            }
         }
     }
 
     /** 上一张 */
     prevImg = (e) => {
-        console.log("上一张");
-        let a = this.state.num;
-        let b = this.state.iframes.length;
-        if (a < 0) {
-            a = b - 1;
-            this.setState({ num: a }, () => {
-                this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.state.iframes[a].code);
-            })
-        } else {
-            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype='+this.state.iframes[0].code);
+        if (this.props.datas.type === 3) {
+            let a = this.state.num;
+            let b = this.state.iframes.length;
+            if (a < 0) {
+                a = b - 1;
+                this.setState({ num: a }, () => {
+                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[a].code);
+                })
+            } else {
+                this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code);
+            }
         }
     }
 
     /** 可以选择仓库的 */
     topBut = (e) => {
-        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.res[e.target.id].code + '_1');
+        if (this.props.datas.type === 3) {
+            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.res[e.target.id].code + '_1');
+        }
     }
 
     /** 可以选择第几层 */
     botBtn = (e) => {
-        this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[(e.target.id)].code);
-        console.log(e.target.id);
+        if (this.props.datas.type === 3) {
+            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[(e.target.id)].code);
+        }
     }
 
     render() {
@@ -221,11 +226,10 @@ export default class WareHouse extends React.Component {
         return (
             <div className='houseMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='houseleft'>
-                    <div ref="iframe">
-                        {this.state.map ? item : null}
-                    </div>
+                    <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
+                {this.state.map ? item : null}
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight />
                 </div>

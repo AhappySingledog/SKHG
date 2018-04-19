@@ -211,6 +211,7 @@ class MapOperation extends React.Component {
         let list = datas.b[0].data;
         this.props.map.mapDisplay.clearLayer('SHIP_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+        that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
         list.map((value, key) => {
             if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                 json.name = value.name;
@@ -238,20 +239,6 @@ class MapOperation extends React.Component {
                             symbol.setHeight(140 + 36);
                         }
                         g.setSymbol(symbol);
-                        let param2 = {
-                            id: 'BIG_SHIP_LAYER',
-                            layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
-                            x: g.geometry.x,
-                            y: g.geometry.y,
-                            text: g.attributes.CVESSELNAME,
-                            size: '10pt',
-                            color: 'red',
-                            offsetX: 0,
-                            offsetY: 132,
-                            visible: true,
-                            layerIndex: 10,
-                        }
-                        that.props.map.mapDisplay.text(param2);
                     },
                     mouseout: function (g) {
                         let symbol = g.symbol;
@@ -260,9 +247,22 @@ class MapOperation extends React.Component {
                             symbol.setHeight(140);
                         }
                         g.setSymbol(symbol);
-                        that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
                     }
                 };
+                let param2 = {
+                    id: 'BIG_SHIP_LAYER',
+                    layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
+                    x: value.geom.x,
+                    y: value.geom.y,
+                    text: json.CVESSELNAME,
+                    size: '10pt',
+                    color: 'red',
+                    offsetX: 0,
+                    offsetY: 132,
+                    visible: true,
+                    layerIndex: 10,
+                }
+                this.props.map.mapDisplay.text(param2);
                 this.props.map.mapDisplay.image(param);
                 let mText = {
                     id: 'text_box',

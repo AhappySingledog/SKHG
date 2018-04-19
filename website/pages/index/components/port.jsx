@@ -14,7 +14,7 @@ import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.png';
 import BargeIcon from '../../../res/mapIcon/Barge.png';
 import TruckIcon from '../../../res/mapIcon/car.png';
-import yl from '../../../res/mapIcon/12.gif';
+import yl from '../../../res/mapIcon/游轮.png';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -175,9 +175,9 @@ class MapOperation extends React.Component {
                 id: 'SHIP_CRUISE' + o,
                 layerId: 'SHIP_CRUISE',
                 src: yl,
-                width: 283,
-                height: 265,
-                angle: (Number(json[o].HEADING) / 100) - 90,
+                width: 140,
+                height: 140,
+                // angle: (Number(json[o].HEADING) / 100) - 90,
                 x: json[o].LONGITUDE,
                 y: json[o].LATITUDE,
                 attr: { ...json[o] },
@@ -185,8 +185,8 @@ class MapOperation extends React.Component {
                 mouseover: function (g) {
                     let symbol = g.symbol;
                     if (symbol.setWidth) {
-                        symbol.setWidth(283 + 9);
-                        symbol.setHeight(265 + 36);
+                        symbol.setWidth(140 + 9);
+                        symbol.setHeight(140 + 36);
                     }
                     g.setSymbol(symbol);
                     let param2 = {
@@ -207,8 +207,8 @@ class MapOperation extends React.Component {
                 mouseout: function (g) {
                     let symbol = g.symbol;
                     if (symbol.setWidth) {
-                        symbol.setWidth(283);
-                        symbol.setHeight(265);
+                        symbol.setWidth(140);
+                        symbol.setHeight(140);
                     }
                     g.setSymbol(symbol);
                     that.props.map.mapDisplay.clearLayer('SHIP_CRUISE_HOVERTEXT');

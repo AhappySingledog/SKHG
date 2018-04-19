@@ -2440,28 +2440,32 @@ body > div:nth-of-type(n+1) {
 /** 仓库切换  */
 .ckall {
   position: absolute;
-  width: 100%;
+  width: 25%;
+  left: 20%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .ckall_left {
   background: rgba(0, 0, 0, 0.1);
   position: absolute;
-  left: 0;
-  top: 0;
+  left: -2200px;
+  top: 1080px;
   text-align: center;
-  line-height: 2610px;
   cursor: pointer;
-  height: 2610px;
+  height: 580px;
   width: 233px;
+  line-height: 580px;
 }
 .ckall_right {
   width: 233px;
-  height: 2610px;
+  height: 580px;
   background: rgba(0, 0, 0, 0.1);
   position: absolute;
-  right: 48px;
-  top: 2px;
+  left: 5082px;
+  top: 1080px;
   text-align: center;
-  line-height: 2610px;
+  line-height: 580px;
   cursor: pointer;
 }
 .ckall_left:hover,
@@ -2469,7 +2473,6 @@ body > div:nth-of-type(n+1) {
   background: rgba(0, 0, 0, 0.5);
 }
 .ckall_top {
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
@@ -2485,7 +2488,6 @@ body > div:nth-of-type(n+1) {
   border: 3px solid #ff6600;
 }
 .ckall_bot {
-  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
