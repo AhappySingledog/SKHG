@@ -1125,6 +1125,174 @@ body > div:nth-of-type(n+1) {
 .query-b:hover {
   transform: rotate(45deg);
 }
+.ic {
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 9999;
+  position: absolute;
+  top: 433px;
+  left: 7711px;
+}
+.ic-close {
+  position: absolute;
+  bottom: 20px;
+  right: 1750px;
+  width: 100px;
+  height: 100px;
+  background: url('../images/buttons/关闭.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.ic-close:hover {
+  transform: scale(1.2);
+}
+.ic-box {
+  width: 3736px;
+  height: 2729px;
+  background: url('../images/智能查询底框.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.ic-video {
+  margin-top: 30px;
+  width: 3450px;
+  height: 1000px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.ic-video-v {
+  width: 1715px;
+  height: 100%;
+  background: url('../images/视频边框.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.ic-video-v > div {
+  width: 1660px;
+  height: 70px;
+}
+.ic-video-v > div > div {
+  width: 56px;
+  height: 56px;
+  background: url('../images/全屏按钮.png') no-repeat;
+  background-size: 100% 100%;
+  position: relative;
+  left: 1605px;
+  cursor: pointer;
+}
+.ic-video-v > iframe {
+  width: 1660px;
+  height: 880px;
+  border: none;
+}
+.ic-record {
+  width: 3450px;
+  height: 1200px;
+  overflow: auto;
+  background: url('../images/对话框底.png') no-repeat;
+  background-size: 100% 100%;
+  margin: 10px;
+}
+.ic-record-one {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  width: 3366px;
+  height: fit-content;
+  margin: 30px 30px;
+}
+.ic-record-one-name {
+  width: 210px;
+  height: 210px;
+  line-height: 210px;
+  background: #1890ff;
+  border-radius: 10px;
+  text-align: center;
+  color: white;
+  font-size: 55px;
+  margin-right: 50px;
+}
+.ic-record-one-body {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: space-between;
+}
+.ic-record-one-body-time {
+  color: white;
+  font-size: 50px;
+  margin: 20px 0;
+}
+.ic-record-one-body-msg {
+  color: white;
+  font-size: 50px;
+}
+.ic-record-more {
+  position: absolute;
+  top: 1075px;
+  right: 200px;
+  color: #1890ff;
+  cursor: pointer;
+}
+.ic-record-more:hover {
+  color: white;
+}
+.ic-msg {
+  margin-bottom: 130px;
+  width: 3450px;
+  height: 332px;
+  background: url('../images/输入区域底.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+.ic-msg-text {
+  width: 3000px;
+  height: 285px;
+  background: url('../images/输入文字底.png') no-repeat;
+  background-size: 100% 100%;
+}
+.ic-msg-text > textarea {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0);
+  color: white;
+  font-size: 50px;
+}
+.ic-msg-button {
+  margin-left: 20px;
+  width: 380px;
+  height: 285px;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+.ic-msg-button-send {
+  width: 230px;
+  height: 100px;
+  background: url('../images/发送.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.ic-msg-button-up {
+  width: 136px;
+  height: 100px;
+  background: url('../images/上传.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
 /** 智能统计 */
 .OpenImBox {
   position: absolute;
@@ -1262,7 +1430,21 @@ body > div:nth-of-type(n+1) {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 300px;
+  width: 450px;
+}
+.mapbtn-btn1 {
+  width: 100px;
+  height: 60px;
+  background: #D48265;
+  border-radius: 10px;
+  color: white;
+  font-size: 30px;
+  line-height: 60px;
+  text-align: center;
+  cursor: pointer;
+}
+.mapbtn-btn1:hover {
+  background: #D48265;
 }
 .mapbtn-btn2 {
   width: 100px;

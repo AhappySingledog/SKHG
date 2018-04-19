@@ -572,6 +572,62 @@
                     "dataIndex": "NewValue"
                 }
             ] 
+        },{
+            "type" : "cruise",
+            "table" : [
+                {
+                    "title": "船公司",
+                    "dataIndex": "SHIPOWNER"
+                },{
+                    "title": "船中文名",
+                    "dataIndex": "SHIPNAME_CN"
+                },{
+                    "title": "船英文名",
+                    "dataIndex": "SHIPNAME_EN"
+                },{
+                    "title": "MMSI",
+                    "dataIndex": "MMSI"
+                },{
+                    "title": "IMO编号",
+                    "dataIndex": "IMO"
+                },{
+                    "title": "呼叫号",
+                    "dataIndex": "CALLS"
+                },{
+                    "title": "总吨",
+                    "dataIndex": "WEIGHT"
+                },{
+                    "title": "净吨",
+                    "dataIndex": "WEIGHT_NET"
+                },{
+                    "title": "长度",
+                    "dataIndex": "SHIPLONG"
+                },{
+                    "title": "宽度",
+                    "dataIndex": "SHIPWIDTH"
+                },{
+                    "title": "经度",
+                    "dataIndex": "LONGITUDE"
+                },{
+                    "title": "纬度",
+                    "dataIndex": "LATITUDE"
+                },{
+                    "title": "标题",
+                    "dataIndex": "HEADING"
+                },{
+                    "title": "速度",
+                    "dataIndex": "SPEED"
+                },{
+                    "title": "记录日期",
+                    "dataIndex": "RECORDDATE"
+                },{
+                    "title": "DTM",
+                    "dataIndex": "DTM"
+                },{
+                    "title": "船舶状态",
+                    "dataIndex": "SHIPSTATUS"
+                }
+            ]
         }
     ]
 }

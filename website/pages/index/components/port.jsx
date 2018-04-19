@@ -14,6 +14,7 @@ import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.png';
 import BargeIcon from '../../../res/mapIcon/Barge.png';
 import TruckIcon from '../../../res/mapIcon/car.png';
+import yl from '../../../res/mapIcon/12.gif';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -61,6 +62,7 @@ class MapOperation extends React.Component {
         /** 假数据 */
         mocksJS: null,
         /** ------- */
+        SHIP_CRUISE: true,
         SHIP_LAYER: true,
         BARGE_SHIP_LAYER: true,
         map: true,
@@ -150,12 +152,71 @@ class MapOperation extends React.Component {
             this.handleBarge(res[0]);
         })
 
+        /** 游轮显示 */
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'YLMG_SHIP', where: '1=1' } }).then((res) =>{
+            this.handleCruise(res[0].data);
+        })
+
         /** 假数据---其他的 */
         publish('map_view_init').then((res) => {
             this.setState({
                 mocksJS: res[0]
             })
         })
+    }
+
+    handleCruise = (json) =>{
+        let that = this;
+        for (let o in json) {
+            json[o].key = "" + o + "";
+            json[o].name = '游轮详情';
+            json[o].colname = 'cruise';
+            let param = {
+                id: 'SHIP_CRUISE' + o,
+                layerId: 'SHIP_CRUISE',
+                src: yl,
+                width: 283,
+                height: 265,
+                angle: (Number(json[o].HEADING) / 100) - 90,
+                x: json[o].LONGITUDE,
+                y: json[o].LATITUDE,
+                attr: { ...json[o] },
+                click: this.onIconClick,
+                mouseover: function (g) {
+                    let symbol = g.symbol;
+                    if (symbol.setWidth) {
+                        symbol.setWidth(283 + 9);
+                        symbol.setHeight(265 + 36);
+                    }
+                    g.setSymbol(symbol);
+                    let param2 = {
+                        id: 'SHIP_CRUISE',
+                        layerId: 'SHIP_CRUISE_HOVERTEXT',
+                        x: g.geometry.x,
+                        y: g.geometry.y,
+                        text: g.attributes.SHIPNAME_EN || g.attributes.SHIPNAME_CN,
+                        size: '10pt',
+                        color: 'red',
+                        offsetX: 0,
+                        offsetY: 132,
+                        visible: true,
+                        layerIndex: 10,
+                    }
+                    that.props.map.mapDisplay.text(param2);
+                },
+                mouseout: function (g) {
+                    let symbol = g.symbol;
+                    if (symbol.setWidth) {
+                        symbol.setWidth(283);
+                        symbol.setHeight(265);
+                    }
+                    g.setSymbol(symbol);
+                    that.props.map.mapDisplay.clearLayer('SHIP_CRUISE_HOVERTEXT');
+                }
+            }
+            this.props.map.mapDisplay.image(param);
+            this.props.map.mapDisplay.hide("SHIP_CRUISE");
+        }
     }
 
     handleBigship = (json) => {
@@ -360,6 +421,7 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
+                    <div onClick={() => this.mapItemsDisplay('SHIP_CRUISE')} className={this.state.SHIP_CRUISE ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>游轮</div>
                     <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
                     <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
                     {/* <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div> */}
