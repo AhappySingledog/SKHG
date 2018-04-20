@@ -60,6 +60,7 @@ class MapOperation extends React.Component {
         },
         ShipTrackFlds: [],
         visible_duiwei: false,
+        Amap: false,
     }
 
     componentWillReceiveProps(nextProps) {
@@ -90,12 +91,21 @@ class MapOperation extends React.Component {
                     layerId: 'port_view',
                     dots: dots,
                     attr: { ...e },
-                    click: (e) => publish('changeLayer', { index: 3, props: { datas: e.attributes,res : res[0].data } }),
+                    click: (e) => publish('changeLayer', { index: 3, props: { datas: e.attributes, res: res[0].data } }),
                     linewidth: 6,
+                    mouseover: (g) => {
+                        this.toolTipIn(g)
+                    },
+                    mouseout: (g) => {
+                        this.setState({
+                            showMT: false,
+                            Amap: false,
+                        });
+                        this.props.map.mapDisplay.clearLayer('port_view1');
+                    },
                 }
                 this.props.map.mapDisplay.polygon(params);
             });
-            //this.drawVideos(this.props.datas);
         }).then(() => this.drawDefaultLayer(this.props));
     }
 
@@ -148,61 +158,6 @@ class MapOperation extends React.Component {
             }
         }
     }
-
-    drawVideos = (datas) => {
-        console.log(datas.code);
-        Promise.all([
-            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.code + "'" } }),
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.code + "'" } }),
-        ]).then((res) => {
-            let videos = res[0][0].data;
-            let temp = {};
-            res[1][0].data.forEach((e) => temp[e.code] = e.geom);
-            videos.forEach((e) => e.geom = temp[e.VIDEOIMAPID]);
-            initVideo(videos);
-        });
-        let clickVideo = (e) => {
-            let url = e.attributes.VIDEOURL;
-            let name = e.attributes.VIDEOIMAPID;
-            publish('playVedio', { url: url, name: name });
-        }
-        let initVideo = (data) => {
-            this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
-            data.forEach((e, i) => {
-                if (!e.geom) return;
-                let param = {
-                    id: 'VIDEO_LAYER' + i,
-                    layerId: 'VIDEO_LAYER',
-                    layerIndex: 999,
-                    src: VideoIcon,
-                    width: 140,
-                    height: 140,
-                    angle: 0,
-                    x: e.geom.x,
-                    y: e.geom.y,
-                    attr: { ...e },
-                    click: clickVideo,
-                    mouseover: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(140 + 12);
-                            symbol.setHeight(140 + 12);
-                        }
-                        g.setSymbol(symbol);
-                    },
-                    mouseout: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(140);
-                            symbol.setHeight(140);
-                        }
-                        g.setSymbol(symbol);
-                    }
-                }
-                this.props.map.mapDisplay.image(param);
-            });
-        }
-    };
 
     /** 船的定位 */
     berth_ship = (datas) => {
@@ -301,13 +256,30 @@ class MapOperation extends React.Component {
     /** 鼠标移入事件 */
     toolTipIn = (e) => {
         let datajson = e.attributes;
-        this.setState({
-            showMT: true,
-            tip: {
-                showtip: true,
-                mtJson: datajson,
-            }
-        });
+        let dots = datajson.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+        let params = {
+            id: 'port_view1',
+            layerId: 'port_view1',
+            fillcolor: [255, 133, 71, 1],
+            dots: dots,
+            linewidth: 6,
+        }
+        this.props.map.mapDisplay.polygon(params);
+        if (datajson.type == 3) {
+            publish('getData', { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE='" + datajson.code + "'" } }).then((res) => {
+                let datas = {
+                    name: '',
+                    code: '',
+                    data: [
+                        { name: '库存数量', number: 123456 },
+                        { name: '出库数量', number: 123456 },
+                        { name: '入库数量', number: 123456 },
+                        { name: '申报数量', number: 123456 }
+                    ]
+                };
+                this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
+            });
+        }
     }
 
     /**
@@ -468,9 +440,7 @@ class MapOperation extends React.Component {
             <div>
                 {/* {this.state.isShowDes ? <Desc className='descTip' title={this.state.desTitle} content={<div className='test-tip'></div>} close={this.handleCloseDesDailog} /> : null} */}
                 {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} box={this.state.box} close={this.handleCloseDesDailog} /> : null}
-                {
-                    this.state.showMT ? <div className="portTip animated" > </div> : null
-                }
+                {this.state.showMT ? <div className="portTip animated" > </div> : null}
                 {
                     this.state.visible_duiwei ? <div className="box_model">
                         <div style={{ width: '100%', background: '#051658' }} >
@@ -478,6 +448,7 @@ class MapOperation extends React.Component {
                         </div>
                     </div> : null
                 }
+                {this.state.Amap ? <Tables flds={this.state.tip.mapDesc.name} datas={this.state.tip.mtJson}></Tables> : null}
             </div>
         )
     }
@@ -573,6 +544,63 @@ class Title extends React.Component {
                 <input className='tableTitle-i' id='inp' />
                 <div className='tableTitle-f' onClick={() => this.props.findDate($('#inp').val())}></div>
                 <div className='tableTitle-c' onClick={() => this.props.onClose()}></div>
+            </div>
+        )
+    }
+}
+
+/** 园区、仓库等信息 */
+class Tables extends React.Component {
+    render() {
+        let { flds = [], datas = {} } = this.props;
+        return (
+            <div className='mtables animated' style={this.props.style}>
+                <div className="mtables-top">{flds}</div>
+                <div className='mtables-center'>
+                    {
+                        datas.data.map((e, a) => {
+                            if (a % 2 != 0) {
+                                return <div key={a} className="mtables-center-corner">
+                                    <div className="mtables-center-corner-view">
+                                        <div className="mtables-center-corner-view-1">
+                                            <span>{datas.data[a - 1].name} :</span>
+                                            <div className='number-view'>
+                                                {(getNumberArr(Number(datas.data[a - 1].number) || 0)).map((num, i) => {
+                                                    if (num === 'break' || num === 'point') {
+                                                        return <div key={i} className={'number-' + num}></div>
+                                                    } else return <div key={i} style={{ width: 85, height: 120 }} className={'number-' + num}></div>
+                                                })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className="mtables-center-corner-view-1">
+                                            <span>{datas.data[a].name} :</span>
+                                            <div className='number-view'>
+                                                {(getNumberArr(Number(datas.data[a].number) || 0)).map((num, i) => {
+                                                    if (num === 'break' || num === 'point') {
+                                                        return <div key={i} className={'number-' + num}></div>
+                                                    } else return <div key={i} style={{ width: 85, height: 120 }} className={'number-' + num}></div>
+                                                })
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            } else if (a > datas.data.length - 2 && a % 2 == 0) {
+                                return <div key={a} className="mtables-center-corner">
+                                    <div className="mtables-center-corner-view">
+                                        <div className="mtables-center-corner-view-2">
+                                            <span>{datas.data[a].name} :</span>
+                                            <span className="mtables-center-corner-view-2-lastNum">{datas.data[a].number}</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            }
+                        })
+                    }
+                </div>
+                <div className="mtables-bot"></div>
             </div>
         )
     }

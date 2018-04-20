@@ -399,8 +399,6 @@ class MapOperation extends React.Component {
 
     }
 
-
-
     /** 地图内容展示状态切换 */
     mapItemsDisplay = (key) => {
         let flag = !this.state[key];
@@ -434,11 +432,7 @@ class MapOperation extends React.Component {
                             <PortPie msg={this.state.tip} />
                         </NoHornTip> : null
                 }
-                {
-                    this.state.Amap ?
-                        <Tables flds={this.state.tip.mapDesc.name} datas={this.state.tip.mtJson}></Tables>
-                        : null
-                }
+                {this.state.Amap ? <Tables flds={this.state.tip.mapDesc.name} datas={this.state.tip.mtJson}></Tables> : null}
                 {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} close={() => this.setState({ isShowDes: false })} /> : null}
             </div>
         )
@@ -514,7 +508,7 @@ class PortMsg extends React.Component {
         var json = {};
         for (var o in mtJson) {
             json[mtJson[o].attributes.TYPE1] = mtJson[o].attributes.AMOUNT;
-        };
+        }
         json['datas'] = [{ 'harbor': '进港港口', "shipname": "大船驳船" }, { 'harbor': '出港港口', "shipname": "大船驳船" }]
         sum.push(getNumberArr((Number(json.BargeIn) || 0) + (Number(json.VesselIn)) || 0));
         sum.push(getNumberArr((Number(json.BargeOut) || 0) + (Number(json.VesselOut)) || 0))

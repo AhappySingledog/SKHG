@@ -95,7 +95,8 @@ export default class IWarningRightPanel extends React.Component {
     // 右侧面板点击事件
     onClick = (key) => {
         const map = {
-            warning1: {title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }}
+            warning1: {title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }},
+            warning10: {title: '旅检船舶未审批即移泊', query: { tableName: 'IMAP_WARNING_LOG10', where: '1=1' }}
         };
         publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: map[key].query }).then((res) => {
             let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}}).concat([{title: '操作', dataIndex: 'cl'}]);
