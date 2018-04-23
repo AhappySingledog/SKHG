@@ -82,14 +82,93 @@ class MapOperation extends React.Component {
     }
 }
 
+class CkList extends React.Component {
+    state = {
+        ckList: [],
+        ckIndex: 0,
+        itemIndex: 0,
+    }
+    componentDidMount() {
+        let ck = [
+            {
+                key: 1, name: '一号仓库', 
+                items: [
+                    { key: '0101', name: '第一层' },
+                    { key: '0101', name: '第二层' },
+                    { key: '0101', name: '第三层' },
+                    { key: '0101', name: '第四层' },
+                    { key: '0101', name: '第五层' },
+                ],
+            },
+            {
+                key: 2, name: '二号仓库', 
+                items: [
+                    { key: '0101', name: '第一层' },
+                    { key: '0101', name: '第二层' },
+                    { key: '0101', name: '第三层' },
+                ],
+            },
+            {
+                key: 3, name: '三号仓库', 
+                items: [
+                    { key: '0101', name: '第一层' },
+                    { key: '0101', name: '第二层' },
+                    { key: '0101', name: '第三层' },
+                    { key: '0101', name: '第四层' },
+                ],
+            },
+        ];
+        this.setState({ckList: ck});
+    }
+    left = () => {
+        let index = this.state.itemIndex;
+        let length = this.state.ckList[this.state.ckIndex].items.length;
+        index = index - 1 < 0 ? length - 1 : index - 1;
+        $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
+    }
+    right = () => {
+        let index = this.state.itemIndex;
+        let length = this.state.ckList[this.state.ckIndex].items.length;
+        index = index + 1 >= length ? 0 : index + 1;
+        $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
+    }
+    goItemIndex = (index) => {
+        let itemIndex = this.state.itemIndex;
+        if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
+        if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
+    }
+    goCkIndex = (index) => {
+       if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ ckIndex: index, itemIndex: 0 }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
+    }
+    render() {
+        let ckList = this.state.ckList;
+        return (
+            <div style={{width: '100%', height: '100%', overflow: 'hidden'}}>
+                <div id='house' style={{ background: "url('../portImages/Warehouse.png') no-repeat", backgroundSize: '100% 100%', width: '100%', height: '100%' }}>
+                </div>
+                <div className='ckList'>
+                    <div className='ckList-ck'>
+                        {ckList.map((e, i) => <div key={i} style={{ background: "url('../portImages/00.jpg') no-repeat", backgroundSize: '100% 100%' }} onClick={() => this.goCkIndex(i)}>{this.state.ckIndex === i ? <div className='ckList-ck-select'></div> : null}</div>)}
+                    </div>
+                    <div className='ckList-left' onClick={this.left}></div>
+                    <div className='ckList-right' onClick={this.right}></div>
+                    <div className='ckList-cs'>
+                        {ckList.length > 0 ? ckList[this.state.ckIndex].items.map((e, i) => <div key={i} className={this.state.itemIndex === i ? 'ckList-cs-select' : 'ckList-cs-normal'} onClick={() => this.goItemIndex(i)}>第{i + 1}层</div>) : null}
+                    </div>
+                </div>
+            </div>
+        )
+    }
+}
+
 // 货仓
 export default class WareHouse extends React.Component {
-    state = { map: null, iframes: [], num: 0, }
+    state = { map: null }
     componentDidMount() {
         if (this.props.datas.type == 3) {
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
-                this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
-            });
+            // publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
+            //     this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
+            // });
         }
         else {
             this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
@@ -151,85 +230,15 @@ export default class WareHouse extends React.Component {
         iframe.innerHTML = '';
         $($iframe).remove();
     }
-
-    /** 下一张 */
-    nextImg = (e) => {
-        if (this.props.datas.type === 3) {
-            let a = this.state.num;
-            let b = this.state.iframes.length;
-            if (a < b - 1) {
-                a++;
-                this.setState({ num: a }, () => {
-                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[a].code);
-                })
-            } else {
-                this.setState({ num: 0 }, () => {
-                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code);
-                });
-            }
-        }
-    }
-
-    /** 上一张 */
-    prevImg = (e) => {
-        if (this.props.datas.type === 3) {
-            let a = this.state.num;
-            let b = this.state.iframes.length;
-            if (a < 0) {
-                a = b - 1;
-                this.setState({ num: a }, () => {
-                    this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[a].code);
-                })
-            } else {
-                this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code);
-            }
-        }
-    }
-
-    /** 可以选择仓库的 */
-    topBut = (e) => {
-        if (this.props.datas.type === 3) {
-            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.res[e.target.id].code + '_1');
-        }
-    }
-
-    /** 可以选择第几层 */
-    botBtn = (e) => {
-        if (this.props.datas.type === 3) {
-            this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[(e.target.id)].code);
-        }
-    }
-
     render() {
-
-        let item = [
-            <div key="ckass" className="ckall">
-                <div className="ckall_left" onClick={this.prevImg.bind(this)}>
-                    <img src="../portImages/left.png" alt="左箭头" />
-                </div>
-                <div className="ckall_top" >
-                    {
-                        this.props.res.map((value, i) => { return <div key={i} onClick={this.topBut.bind(this)}> <img id={i} src={"../portImages/0" + i + ".jpg"} /> </div> })
-                    }
-                </div>
-                <div className="ckall_bot" >
-                    {
-                        this.state.iframes.map((value, i) => { return <div key={i} id={i} onClick={this.botBtn.bind(this)}>{i + 1}</div> })
-                    }
-                </div>
-                <div className="ckall_right" onClick={this.nextImg.bind(this)}>
-                    <img src="../portImages/right.png" alt="右箭头" />
-                </div>
-            </div>
-        ];
-
         return (
             <div className='houseMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='houseleft'>
-                    <div ref="iframe"></div>
+                    <div id='warehouse' ref="iframe">
+                        <CkList/>
+                    </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
-                {this.state.map ? item : null}
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight />
                 </div>
