@@ -120,6 +120,10 @@ class CkList extends React.Component {
         ];
         this.setState({ckList: ck});
     }
+    componentDidUpdate() {
+        let ck = this.state.ckList[this.state.ckIndex];
+        publish('setLayerName', ck.name + '-' + ck.items[this.state.itemIndex].name);
+    }
     left = () => {
         let index = this.state.itemIndex;
         let length = this.state.ckList[this.state.ckIndex].items.length;

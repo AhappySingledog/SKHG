@@ -91,7 +91,7 @@ class MapOperation extends React.Component {
                     layerId: 'port_view',
                     dots: dots,
                     attr: { ...e },
-                    click: (e) => publish('changeLayer', { index: 3, props: { datas: e.attributes, res: res[0].data } }),
+                    click: (e) => publish('changeLayer', { index: 3, props: { datas: e.attributes, res: res[0].data, layerName: e.attributes.name } }),
                     linewidth: 6,
                     mouseover: (g) => {
                         this.toolTipIn(g)

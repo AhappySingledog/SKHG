@@ -465,18 +465,20 @@ export default class App extends React.Component {
         cv: {},
         viwePager: null,
         warningTip: false,
-        jkname: null,
+        layerName: null,
         img: null,
         warning: null,
         myQuery: false,
         iCountBtn: false,
         iCommand: false,
     }
+    layers = {}
     componentDidMount() {
         this.sub_changeLayer = subscribe('changeLayer', this.changeLayer);
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
+        this.sub_setLayerName = subscribe('setLayerName', (name) => this.setState({layerName: name}));
         publish('changeLayer', { index: 0, props: {} });
         let work = () => Promise.all([
             publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
@@ -498,10 +500,10 @@ export default class App extends React.Component {
         if (this.sub_playVedio) unsubscribe(this.sub_playVedio);
         if (this.sub_viwePager) unsubscribe(this.sub_viwePager);
         if (this.sub_playImg) unsubscribe(this.sub_playImg);
+        if (this.sub_setLayerName) unsubscribe(this.sub_setLayerName);
     }
     changeLayer = (ops) => {
         let idx = this.state.index;
-        let oldProps = this.state.curProps;
         let curProps = ops.props;
         let index = ops.index;
         if (index != idx || curProps.defaultLayer) {
@@ -509,15 +511,9 @@ export default class App extends React.Component {
             switch (index) {
                 case 1:
                     curLayer = <Port {...curProps} />;
-                    this.setState({
-                        jkname: '海关监管区域'
-                    });
                     break;
                 case 2:
                     curLayer = <Pier {...curProps} />;
-                    this.setState({
-                        jkname: ops.props.datas.name
-                    });
                     break;
                 case 3:
                     curLayer = <WareHouse {...curProps} />;
@@ -527,12 +523,10 @@ export default class App extends React.Component {
                     break;
                 default:
                     curLayer = <Home {...curProps} />;
-                    this.setState({
-                        jkname: '海关监管区域'
-                    });
             }
+            this.layers[index] = {layerIndex: index, props: curProps};
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
-            this.setState({ index, curLayer, oldProps, curProps });
+            this.setState({ index: index, curLayer: curLayer, curProps: curProps, layerName: curProps && curProps.layerName ? curProps.layerName : '海关监管区域' });
         }
     }
     iQuery = (flag) => {
@@ -542,11 +536,13 @@ export default class App extends React.Component {
     }
     iCount = () => {
         console.log('iCount');
-        this.setState({ iCountBtn: true });
+        let flag = !this.state.iCountBtn;
+        if (flag) this.setState({ iCountBtn: true, iCommand: false }, () => $('.queryCount').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryCount').removeClass('magictime spaceInLeft animated')));
+        else $('.queryCount').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.queryCount').removeClass('magictime spaceOutLeft animated');this.setState({iCountBtn: flag});});
     }
     iCommand = (flag) => {
         console.log('iCommand');
-        if (flag) this.setState({iCommand: flag}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
+        if (flag) this.setState({iCommand: flag, iCountBtn: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
         else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.ic').removeClass('magictime spaceOutLeft animated');this.setState({iCommand: flag});});
     }
     warning = () => {
@@ -561,8 +557,7 @@ export default class App extends React.Component {
     }
     goBack = () => {
         let index = this.state.index;
-        let oldProps = this.state.oldProps;
-        if (index >= 1) this.changeLayer({ index: index - 1, props: oldProps });
+        if (index >= 1) this.changeLayer({ index: index - 1, props: this.layers[index - 1].props });
     }
     playVedio = (vedio) => {
         let data = [
@@ -606,7 +601,7 @@ export default class App extends React.Component {
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
-                            <div className='mheader-name'>{this.state.jkname}</div>
+                            <div className='mheader-name'>{this.state.layerName}</div>
                             <Timer />
                         </div>
                     </div>
@@ -619,7 +614,7 @@ export default class App extends React.Component {
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
                 {this.state.warning ? <Warning title={this.state.warning.title} warning={this.state.warning.msg} close={() => this.setState({ warning: null })} /> : null}
                 {this.state.myQuery ? <MyQuery close={() => this.iQuery(false)} /> : null}
-                {this.state.iCountBtn ? <ICountimg close={() => this.setState({ iCountBtn: false })} /> : null}
+                {this.state.iCountBtn ? <ICountimg close={this.iCount} /> : null}
                 {this.state.iCommand ? <ICommand close={() => this.iCommand(false)}/> : null}
             </div>
         )
