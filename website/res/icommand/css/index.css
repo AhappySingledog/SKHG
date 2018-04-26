@@ -1,0 +1,41 @@
+.ic-box {
+    width: 3720px;
+    height: 2600px;
+    background: url('../images/智能查询底框.png') no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ic-video {
+    margin-top: 30px;
+    width: 3450px;
+    height: 1000px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.ic-video-v {
+    width: 1715px;
+    height: 100%;
+    background: url('../images/视频边框.png') no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ic-video-v>div:nth-of-type(1) {
+    width: 1660px;
+    height: 70px;
+}
+
+.ic-video-v>div:nth-of-type(2) {
+    width: 1660px;
+    height: 880px;
+}
