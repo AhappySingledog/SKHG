@@ -9,6 +9,14 @@
     justify-content: space-between;
 }
 
+.ic-box>div {
+    height: 2465px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
 .ic-video {
     margin-top: 30px;
     width: 3450px;
@@ -38,4 +46,45 @@
 .ic-video-v>div:nth-of-type(2) {
     width: 1660px;
     height: 880px;
+}
+
+.ic-record {
+    width: 3450px;
+    height: 1125px;
+    background: url('../images/对话框底.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+.ic-msg {
+    width: 3450px;
+    height: 265px;
+    background: url('../images/输入区域底.png') no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ic-msg-text {
+    width: 3000px;
+    height: 235px;
+    background: url('../images/输入文字底.png') no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.ic-msg-text>textarea {
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0);
+    font-size: 50px;
+    color: white;
+}
+
+.ic-msg-button {
+    width: 360px;
 }

@@ -17,39 +17,41 @@
     <style>
     </style>
 </head>
-
-<body onload="OnInit()" onunload="OnUninit()">
+<!-- onload="OnInit()" -->
+<body onunload="OnUninit()">
     <div style="width:1px;height:1px">
         <object id="iLiveSDKCom" classid="CLSID:54E71417-216D-47A2-9224-C991A099C531" codebase="./iLiveSDK.cab#version=1,6,0,0"></object>
     </div>
     <div class='ic-box'>
-        <div class='ic-video'>
-            <div class='ic-video-v'>
-                <div>
-                    <div></div>
+        <div>
+            <div class='ic-video'>
+                <div class='ic-video-v'>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <object id="localRender" classid="CLSID:1EA15A99-7F53-4B6F-8947-B57A0729918E" width="100%" height="100%"></object>
+                    </div>
                 </div>
-                <div>
-                    <object id="localRender" classid="CLSID:1EA15A99-7F53-4B6F-8947-B57A0729918E" width="100%" height="100%"></object>
+                <div class='ic-video-v'>
+                    <div>
+                        <div></div>
+                    </div>
+                    <div>
+                        <object id="remoteRender" classid="CLSID:1EA15A99-7F53-4B6F-8947-B57A0729918E" width="100%" height="100%"></object>
+                    </div>
                 </div>
             </div>
-            <div class='ic-video-v'>
-                <div>
-                    <div></div>
-                </div>
-                <div>
-                    <object id="remoteRender" classid="CLSID:1EA15A99-7F53-4B6F-8947-B57A0729918E" width="100%" height="100%"></object>
-                </div>
+            <div id='record' class='ic-record scrollbar'>
             </div>
-        </div>
-        <div id='record' class='ic-record scrollbar'>
-        </div>
-        <div class='ic-msg'>
-            <div class='ic-msg-text'>
-                <textarea id='msg'></textarea>
-            </div>
-            <div class='ic-msg-button'>
-                <div class='ic-msg-button-send' }></div>
-                <div class='ic-msg-button-up'></div>
+            <div class='ic-msg'>
+                <div class='ic-msg-text'>
+                    <textarea id='msg'></textarea>
+                </div>
+                <div class='ic-msg-button'>
+                    <div class='ic-msg-button-send' }></div>
+                    <div class='ic-msg-button-up'></div>
+                </div>
             </div>
         </div>
     </div>
