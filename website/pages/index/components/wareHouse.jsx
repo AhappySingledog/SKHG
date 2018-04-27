@@ -128,9 +128,9 @@ class CkList extends React.Component {
                 items: [
                     { key: 'CMBLCK_6_1', name: '第一层' },
                     { key: 'CMBLCK_6_2', name: '第二层' },
-                    { key: 'CMBLCK_6_3', name: '第一层' },
-                    { key: 'CMBLCK_6_4', name: '第二层' },
-                    { key: 'CMBLCK_6_5', name: '第一层' },
+                    { key: 'CMBLCK_6_3', name: '第三层' },
+                    { key: 'CMBLCK_6_4', name: '第四层' },
+                    { key: 'CMBLCK_6_5', name: '第五层' },
                 ],
             },
         ];
