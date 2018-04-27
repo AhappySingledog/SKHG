@@ -480,20 +480,46 @@ export default class App extends React.Component {
         this.sub_playImg = subscribe('playImg', this.playImg);
         this.sub_setLayerName = subscribe('setLayerName', (name) => this.setState({layerName: name}));
         publish('changeLayer', { index: 0, props: {} });
-        let work = () => Promise.all([
-            publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1' } }),
-        ]).then((res) => {
-            console.log(res);
-            let temp = res[0][0];
-            let flds = [
-                { title: '参数名', dataIndex: 'key' },
-                { title: '参数值', dataIndex: 'value' }
-            ];
-            let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
-            this.setState({ warning: { title: '空柜有货', msg: <Table className='mtable-warning' title={null} style={{ width: 2720, height: 1240, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> } });
-        });
-        // work();
-        // setInterval(work, 1000 * 60 * 2);
+        let format = function (date, fmt) {
+            var o = {
+                'M+': date.getMonth() + 1,                 //月份 
+                'd+': date.getDate(),                    //日 
+                'h+': date.getHours(),                   //小时 
+                'm+': date.getMinutes(),                 //分 
+                's+': date.getSeconds(),                 //秒 
+                'q+': Math.floor((date.getMonth() + 3) / 3), //季度 
+                'S': date.getMilliseconds()             //毫秒 
+            };
+            if (/(y+)/.test(fmt)) {
+                fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+            }
+            for (var k in o) {
+                if (new RegExp('(' + k + ')').test(fmt)) {
+                    fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
+                }
+            }
+            return fmt;
+        }
+        let oldDate = format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+        let work = () => {
+            let date = oldDate;
+            oldDate = format(new Date(), 'yyyy-MM-dd hh:mm:ss');
+            Promise.all([
+                publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_LOG1', where: "WARNINGDATE>=to_date('" + date + "','yyyy-MM-dd HH24:mi:ss')" } }),
+            ]).then((res) => {
+                let temp = res[0][0];
+                if (temp.data.length > 0) {
+                    let flds = [
+                        { title: '参数名', dataIndex: 'key' },
+                        { title: '参数值', dataIndex: 'value' }
+                    ];
+                    let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
+                    this.setState({ warning: { title: '空柜有货', msg: <Table className='mtable-warning' title={null} style={{ width: 2720, height: 1240, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> } });
+                }
+            });
+        }
+        work();
+        setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);

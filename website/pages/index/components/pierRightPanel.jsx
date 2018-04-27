@@ -69,12 +69,12 @@ export default class PierRightPanel extends React.Component {
             mct: [[data, data]],
             cmbl: [[data, data], [data, data]],
             cic: [[data, data], [data, data]],
-            yth: [[data, data], [data, data], [data, data]],
-            ylmg: [[data, data], [data, data], [data, data]],
+            yth: [[data, data], [data, data]],
+            ylmg: [[data, data], [data, data]],
             cwgh: [[data, data]],
             zsgw: [[data, data]],
-            zgms_ck: [[data, data], [data, data], [data, data]],
-            szms_ck: [[data, data], [data, data], [data, data]],
+            zgms_ck: [[data, data], [data, data]],
+            szms_ck: [[data, data], [data, data]],
         };
         publish('tableName_find').then((res) => {
             let temp = {};
@@ -305,6 +305,20 @@ export default class PierRightPanel extends React.Component {
                             </div>
                         </div>
                     </div>
+                </div>
+            ];
+        }
+        else {
+            let fld = [
+                {title: '属性1', dataIndex: 'a'},
+                {title: '属性2', dataIndex: 'b'},
+                {title: '属性3', dataIndex: 'c'},
+                {title: '属性4', dataIndex: 'd'},
+                {title: '属性5', dataIndex: 'e'}
+            ];
+            items = [
+                <div style={{ width: 3750 }} key='1'>
+                    <Table rowNo={true} title={<Title title={this.props.datas.name + '业务数据'} id={id1} />} style={{ width: '100%', height: 880 }} id={id1} selectedIndex={null} flds={fld} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         }

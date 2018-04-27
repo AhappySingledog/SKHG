@@ -95,11 +95,19 @@ export default class IWarningRightPanel extends React.Component {
     // 右侧面板点击事件
     onClick = (key) => {
         const map = {
-            warning1: {title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }},
-            warning10: {title: '旅检船舶未审批即移泊', query: { tableName: 'IMAP_WARNING_LOG10', where: '1=1' }}
+            alter1: {svn: 'skhg_loader_service', title: '还柜后超2周未申报', query: { tableName: '', where: '1=1' }},
+            alter2: {svn: 'skhg_loader_service', title: '到港3个月未放行', query: { tableName: 'V_IMAP_SCCT_ONYARD_NOCUS90', where: '1=1' }},
+            alter3: {svn: 'skhg_loader_service', title: '在场堆积压柜未调入CIC查验', query: { tableName: '', where: '1=1' }},
+            alter4: {svn: 'skhg_loader_service', title: 'CIC在场积压未开始查验', query: { tableName: '', where: '1=1' }},
+            alter5: {svn: 'skhg_loader_service', title: 'CIC查验完毕未离场柜数', query: { tableName: '', where: '1=1' }},
+            alter6: {svn: 'skhg_loader_service', title: '收到海关放行信息未提离/装船', query: { tableName: 'V_IMAP_SCCT_ONYARD_RECCIQ', where: 'rownum<500' }},
+            warning1: {svn: 'skhg_stage_service', title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: '1=1' }},
+            warning2: {svn: 'skhg_stage_service', title: '调拨通道途中监管异常报警', query: { tableName: 'IMAP_WARNING_LOG2', where: '1=1' }},
+            warning3: {svn: 'skhg_stage_service', title: '行政通道车辆识别异常报警', query: { tableName: 'IMAP_WARNING_LOG3', where: '1=1' }},
+            warning10: {svn: 'skhg_stage_service', title: '旅检船舶未审批即移泊', query: { tableName: 'IMAP_WARNING_LOG10', where: '1=1' }}
         };
-        publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: map[key].query }).then((res) => {
-            let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}}).concat([{title: '操作', dataIndex: 'cl'}]);
+        publish('webAction', { svn: map[key].svn, path: 'queryTableByWhere', data: map[key].query }).then((res) => {
+            let flds = Object.keys(res[0].attr).map((key) => {return {title: res[0].attr[key], dataIndex: key}}).concat(key.indexOf('warning') >= 0 ? [{title: '操作', dataIndex: 'cl'}] : []);
             let table = <Table rowNo={true} title={<Title title={map[key].title} id={'qqq'} />} style={{ height: 775 }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].data} trClick={null} trDbclick={this.trDbclick} myTd={this.myTd} hide={{GKEY: true}}/>
             this.setState({ table: table, key: key }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
         });

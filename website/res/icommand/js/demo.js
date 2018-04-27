@@ -3,12 +3,11 @@ var g_appId = 1400086104;
 var g_localRender = null;
 var g_remoteRender = null;
 var g_token = null;
-var g_userSig = null;
 var g_id = null;
 var g_getUserList = null;
 var g_report = null;
 var g_role = null;
-var g_invite = null;
+var sdk = null;
 
 var E_IM_CustomCmd = {
     AVIMCMD_None: 0, // 无事件：0
@@ -203,13 +202,13 @@ function getRoomAndJoin() {
             var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != 'ym123456' });
             if (rooms.length > 0) {
                 var roomid = rooms[0].info.roomnum;
-                joinRoom(roomid, E_Role.Guest, function() {
-                    sendC2CMessage('ym123456', { "userAction": 2049, "actionParam": '' }, function() {
+                joinRoom(roomid, E_Role.Guest, function () {
+                    sendC2CMessage('ym123456', { "userAction": 2049, "actionParam": '' }, function () {
                         sendC2CMessage('ym123456', {
                             "userAction": 2051,
                             "actionParam": ''
-                        }, function() {
-                            sdk.changeRole('LiveGuest', function() {
+                        }, function () {
+                            sdk.changeRole('LiveGuest', function () {
                                 g_role = 2;
                                 report({
                                     "token": g_token,
@@ -286,11 +285,11 @@ function sendC2CMessage(user, msg, cb) {
     var elems = [];
     elems.push(elem);
     var message = new ILiveMessage(elems);
-    sdk.sendC2CMessage(user, message, function() {
+    sdk.sendC2CMessage(user, message, function () {
         if (cb) {
             cb();
         }
-    }, function(errMsg) {
+    }, function (errMsg) {
         toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
     });
 }
@@ -434,9 +433,9 @@ function dealCustomMessage(user, msg) {
             break;
         case E_IM_CustomCmd.AVIMCMD_ExitLive:
             toastr.warning('主播' + user + '退出了房间');
-            sdk.quitRoom(function() {
+            sdk.quitRoom(function () {
                 toastr.success("quit room succ");
-            }, function(errMsg) {
+            }, function (errMsg) {
                 toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
             });
             getUserList();
@@ -455,7 +454,7 @@ function dealCustomMessage(user, msg) {
             break;
         case E_IM_CustomCmd.AVIMCMD_Multi_CancelInteract:
             if (g_role != E_Role.LiveMaster) {
-                sdk.changeRole('Guest', function() {
+                sdk.changeRole('Guest', function () {
                     toastr.warning("被主播下麦");
                     OnBtnCloseCamera();
                     g_role = E_Role.Guest;
@@ -523,7 +522,7 @@ function escapeHTML(str) {
     if (typeof str != 'string') {
         return '' + str;
     }
-    return str.replace(/[<>&"']/g, function($0) {
+    return str.replace(/[<>&"']/g, function ($0) {
         switch ($0) {
             case '<':
                 return '&lt;';

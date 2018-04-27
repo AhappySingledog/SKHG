@@ -93,28 +93,44 @@ class CkList extends React.Component {
             {
                 key: 1, name: '一号仓库', 
                 items: [
-                    { key: '0101', name: '第一层' },
-                    { key: '0101', name: '第二层' },
-                    { key: '0101', name: '第三层' },
-                    { key: '0101', name: '第四层' },
-                    { key: '0101', name: '第五层' },
+                    { key: 'CMBLCK_1', name: '第一层' },
                 ],
             },
             {
                 key: 2, name: '二号仓库', 
                 items: [
-                    { key: '0101', name: '第一层' },
-                    { key: '0101', name: '第二层' },
-                    { key: '0101', name: '第三层' },
+                    { key: 'CMBLCK_2_1', name: '第一层' },
+                    { key: 'CMBLCK_2_2', name: '第二层' },
                 ],
             },
             {
                 key: 3, name: '三号仓库', 
                 items: [
-                    { key: '0101', name: '第一层' },
-                    { key: '0101', name: '第二层' },
-                    { key: '0101', name: '第三层' },
-                    { key: '0101', name: '第四层' },
+                    { key: 'CMBLCK_3_1', name: '第一层' },
+                    { key: 'CMBLCK_3_2', name: '第二层' },
+                ],
+            },
+            {
+                key: 4, name: '四号仓库', 
+                items: [
+                    { key: 'CMBLCK_4_1', name: '第一层' },
+                    { key: 'CMBLCK_4_2', name: '第二层' },
+                ],
+            },
+            {
+                key: 5, name: '五号仓库', 
+                items: [
+                    { key: 'CMBLCK_5_1', name: '第一层' },
+                ],
+            },
+            {
+                key: 6, name: '六号仓库', 
+                items: [
+                    { key: 'CMBLCK_6_1', name: '第一层' },
+                    { key: 'CMBLCK_6_2', name: '第二层' },
+                    { key: 'CMBLCK_6_3', name: '第一层' },
+                    { key: 'CMBLCK_6_4', name: '第二层' },
+                    { key: 'CMBLCK_6_5', name: '第一层' },
                 ],
             },
         ];
@@ -123,6 +139,7 @@ class CkList extends React.Component {
     componentDidUpdate() {
         let ck = this.state.ckList[this.state.ckIndex];
         publish('setLayerName', ck.name + '-' + ck.items[this.state.itemIndex].name);
+        $('#house').css({backgroundSize: '100% 100%'});
     }
     left = () => {
         let index = this.state.itemIndex;
@@ -142,13 +159,13 @@ class CkList extends React.Component {
         if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
     }
     goCkIndex = (index) => {
-       if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ ckIndex: index, itemIndex: 0 }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
+       if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
     }
     render() {
         let ckList = this.state.ckList;
         return (
             <div style={{width: '100%', height: '100%', overflow: 'hidden'}}>
-                <div id='house' style={{ background: "url('../portImages/Warehouse.png') no-repeat", backgroundSize: '100% 100%', width: '100%', height: '100%' }}>
+                <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
                     <div className='ckList-ck'>
