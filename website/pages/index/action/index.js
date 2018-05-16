@@ -3,11 +3,9 @@ import { subscribes, publish } from '../../../frame/core/arbiter';
 import $ from 'jquery';
 
 let ports = null;
-let data_mapJson = null;
 let truck = null;
 let tableName = null;
 $.ajax({ dataType: 'json', url: '../homePort.json', async: false, success: (res) => ports = res });
-$.ajax({ dataType: 'json', url: '../datajson.json', async: false, success: (res) => data_mapJson = res });
 $.ajax({ dataType: 'json', url: '../outcar.json', async: false, success: (res) => truck = res });
 $.ajax({ dataType: 'json', url: '../tableName.json', async: false, success: (res) => tableName = res });
 
@@ -807,11 +805,6 @@ subscribes({
                 ]
             };
             return option;
-        },
-    }, {
-        sub: 'map_view_init', // 第二页地图
-        func: (ops) => {
-            return data_mapJson;
         },
     }, {
         sub: 'map_view_pie', // 出入境旅客统计饼状图

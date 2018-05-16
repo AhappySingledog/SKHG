@@ -18,6 +18,7 @@
     </style>
 </head>
 <!-- onload="OnInit()" -->
+
 <body onload="OnInit()" onunload="OnUninit()">
     <div style="width:1px;height:1px">
         <object id="iLiveSDKCom" classid="CLSID:54E71417-216D-47A2-9224-C991A099C531" codebase="./iLiveSDK.cab#version=1,6,0,0"></object>
@@ -42,19 +43,27 @@
                     </div>
                 </div>
             </div>
-            <div id='record' class='ic-record scrollbar'>
+            <div id='recordBd' class='ic-record scrollbar'>
+                <div id='record'></div>
             </div>
             <div class='ic-msg'>
                 <div class='ic-msg-text'>
                     <textarea id='msg'></textarea>
                 </div>
                 <div class='ic-msg-button'>
-                    <div class='ic-msg-button-send' }></div>
+                    <div class='ic-msg-button-send'></div>
                     <div class='ic-msg-button-up'></div>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script>
+    $('.ic-msg-button-send').click(function (e) {
+        var msg = $.trim($('#msg').val());
+        sendGroupMessage(msg);
+    });
+</script>
 
 </html>

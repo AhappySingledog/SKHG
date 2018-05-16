@@ -1,9 +1,9 @@
-
 var g_appId = 1400086104;
 var g_localRender = null;
 var g_remoteRender = null;
 var g_token = null;
-var g_id = null;
+var g_id = 'ym';
+var g_pwd = '123456';
 var g_getUserList = null;
 var g_report = null;
 var g_role = null;
@@ -30,7 +30,7 @@ var E_Role = {
 }
 
 //界面事件
-var g_serverUrl = "https://sxb.qcloud.com/sxb_dev/index.php";
+var g_serverUrl = "http://skhg.eor.cc/index.php";
 
 function ajaxPost(url, data, succ, err) {
     if (!window.XMLHttpRequest) {
@@ -155,19 +155,16 @@ function onDeviceOperation(oper, code) {
 
 function logIn() {
     //从业务侧服务器获取sig
-    var id = 'ym123456';
-    var pwd = '123456';
     var jsonObj = {
-        "id": id,
-        "pwd": pwd
+        "id": g_id,
+        "pwd": g_pwd
     };
     ajaxPost(g_serverUrl + "?svc=account&cmd=login", JSON.stringify(jsonObj),
         function (rspJson) {
             g_token = rspJson.data.token;
             g_userSig = rspJson.data.userSig;
-            g_id = id;
             var sig = rspJson.data.userSig;
-            sdk.login(id, sig, onLoginSuc, onLoginErr);
+            sdk.login(g_id, sig, onLoginSuc, onLoginErr);
             //setTimeout(createRoom, 1000 * 2);
             setTimeout(getRoomAndJoin, 1000 * 2);
         }
@@ -199,12 +196,12 @@ function getRoomAndJoin() {
     };
     ajaxPost(g_serverUrl + "?svc=live&cmd=roomlist", JSON.stringify(jsonObj),
         function (rspJson) {
-            var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != 'ym123456' });
+            var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != g_id });
             if (rooms.length > 0) {
                 var roomid = rooms[0].info.roomnum;
                 joinRoom(roomid, E_Role.Guest, function () {
-                    sendC2CMessage('ym123456', { "userAction": 2049, "actionParam": '' }, function () {
-                        sendC2CMessage('ym123456', {
+                    sendC2CMessage(g_id, { "userAction": 2049, "actionParam": '' }, function () {
+                        sendC2CMessage(g_id, {
                             "userAction": 2051,
                             "actionParam": ''
                         }, function () {
@@ -223,6 +220,9 @@ function getRoomAndJoin() {
                         })
                     });
                 });
+            }
+            else {
+                toastr.warning("暂无可用直播！");
             }
         }
     );
@@ -289,6 +289,22 @@ function sendC2CMessage(user, msg, cb) {
         if (cb) {
             cb();
         }
+    }, function (errMsg) {
+        toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
+    });
+}
+
+/**
+ * 发送群消息
+ */
+function sendGroupMessage(msg, succ, err) {
+    var elem = new ILiveMessageElem(E_iLiveMessageElemType.TEXT, msg);
+    var elems = [];
+    elems.push(elem);
+    var message = new ILiveMessage(elems);
+    sdk.sendGroupMessage(message, function () {
+        toastr.success("消息发送成功");
+        addMessage(escapeHTML(msg));
     }, function (errMsg) {
         toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
     });
@@ -415,7 +431,7 @@ function createRoom() {
 function showMessage(msg) {
     for (i in msg.elems) {
         if (msg.elems[i].type == E_iLiveMessageElemType.TEXT) {
-            addMessage(msg.sender + '说:' + escapeHTML(msg.elems[i].content));
+            addMessage(escapeHTML(msg.elems[i].content), msg.sender);
         } else if (msg.elems[i].type == E_iLiveMessageElemType.CUSTOM) {
             dealCustomMessage(msg.sender, JSON.parse(msg.elems[i].content));
         }
@@ -428,7 +444,6 @@ function showMessage(msg) {
 function dealCustomMessage(user, msg) {
     switch (msg.userAction) {
         case E_IM_CustomCmd.AVIMCMD_EnterLive:
-            addMessage(user + '进入了房间');
             getUserList();
             break;
         case E_IM_CustomCmd.AVIMCMD_ExitLive:
@@ -441,7 +456,6 @@ function dealCustomMessage(user, msg) {
             getUserList();
             break;
         case E_IM_CustomCmd.AVIMCMD_Praise:
-            addMessage(user + '点了赞');
             break;
         case E_IM_CustomCmd.AVIMCMD_Host_Leave:
         case E_IM_CustomCmd.AVIMCMD_Host_Back:
@@ -481,16 +495,19 @@ function dealCustomMessage(user, msg) {
     }
 }
 
-function addMessage(msg) {
-    // $('#chat_box').append('<div>' + msg + '</div>')
-    // $('#chat_box').scrollTop(document.getElementById('chat_box').scrollHeight);
+function addMessage(msg, user) {
+    var sender = user || 'admin';
+    var color = user ? 'bluesender' : 'yellowsender';
+    var time = format(new Date(), 'yyyy-MM-dd hh:mm');
+    $('#record').append("<div class='oneMsg'><div class='oneMsg-sender " + color + "'>" + sender + "</div><div class='oneMsg-body'><div class='oneMsg-time'>" + time + "</div><div class='oneMsg-msg'>" + msg + "</div></div></div>")
+    $('#recordBd').scrollTop(document.getElementById('recordBd').scrollHeight);
 }
 
 /**
  * 初始化
  */
 function OnInit() {
-    sdk = new ILiveSDK(1400027849, 11656, "iLiveSDKCom");
+    sdk = new ILiveSDK(1400086104, 25760, "iLiveSDKCom");
     toastr.info('正在初始化，请稍候');
     sdk.init(function () {
         toastr.success('初始化成功');
@@ -504,6 +521,7 @@ function OnInit() {
 
         sdk.setMessageListener(function (msg) {
             showMessage(msg);
+            console.log(msg);
         });
         logIn();
     }, function (errMsg) {
@@ -536,4 +554,28 @@ function escapeHTML(str) {
                 return '&#39;';
         }
     });
+}
+
+/**
+ * 日期格式化
+ */
+function format(date, fmt) {
+    var o = {
+        'M+': date.getMonth() + 1,                 //月份 
+        'd+': date.getDate(),                    //日 
+        'h+': date.getHours(),                   //小时 
+        'm+': date.getMinutes(),                 //分 
+        's+': date.getSeconds(),                 //秒 
+        'q+': Math.floor((date.getMonth() + 3) / 3), //季度 
+        'S': date.getMilliseconds()             //毫秒 
+    };
+    if (/(y+)/.test(fmt)) {
+        fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in o) {
+        if (new RegExp('(' + k + ')').test(fmt)) {
+            fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (('00' + o[k]).substr(('' + o[k]).length)));
+        }
+    }
+    return fmt;
 }

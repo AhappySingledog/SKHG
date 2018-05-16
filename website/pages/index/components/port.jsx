@@ -59,9 +59,6 @@ class MapOperation extends React.Component {
             mtJson: [],     //后台请求的码头数据
             mapDesc: [],   //勾画出码头页面信息
         },
-        /** 假数据 */
-        mocksJS: null,
-        /** ------- */
         SHIP_CRUISE: true,
         SHIP_LAYER: true,
         BARGE_SHIP_LAYER: true,
@@ -153,19 +150,12 @@ class MapOperation extends React.Component {
         })
 
         /** 游轮显示 */
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'YLMG_SHIP', where: '1=1' } }).then((res) =>{
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'YLMG_SHIP', where: '1=1' } }).then((res) => {
             this.handleCruise(res[0].data);
-        })
-
-        /** 假数据---其他的 */
-        publish('map_view_init').then((res) => {
-            this.setState({
-                mocksJS: res[0]
-            })
         })
     }
 
-    handleCruise = (json) =>{
+    handleCruise = (json) => {
         let that = this;
         for (let o in json) {
             json[o].key = "" + o + "";
@@ -360,42 +350,43 @@ class MapOperation extends React.Component {
             linewidth: 6,
         }
         this.props.map.mapDisplay.polygon(params);
-        publish('getData', { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE = '" + datajson.code + "' " } }).then((res) => {
-            if (datajson.name.indexOf('码头') >= 0) {
-                this.setState({
-                    showMT: true,
-                    Amap: false,
-                    tip: {
-                        mtJson: res[0].features,
-                        mapDesc: datajson
-                    }
-                });
-            } else if (datajson.name === '赤湾港航') {
-                this.setState({
-                    showMT: true,
-                    Amap: false,
-                    tip: {
-                        mtJson: res[0].features,
-                        mapDesc: datajson
-                    }
-                });
-            } else {
-                let datas = this.state.mocksJS;
-                for (let a in datas) {
-                    if (datas[a].code === datajson.code) {
-                        this.setState({
-                            showMT: false,
-                            Amap: true,
-                            tip: {
-                                mtJson: datas[a],
-                                mapDesc: datajson
-                            },
-                        });
-                    }
+
+        let temp = { showMT: true, Amap: false, func: 'getData', param: { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE='" + datajson.code + "'" } } };
+        const mapper = {
+            SCT: temp,
+            CCT: temp,
+            MCT: temp,
+            CWGH: { showMT: true, Amap: false, func: 'getData', param: { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE='SCT'" } } },
+            ZSGW: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'SCCT_2RD', data: { where: "TERMINALCODE='" + datajson.code + "'" } } },
+            YLMG: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'YLMG_2RD', data: { where: '1=1' } } },
+            YTH: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'YTH_2RD', data: { where: '1=1' } } },
+            SZMS_CK: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'SZMS_2RD', data: { where: '1=1' } } },
+            ZGMS_CK: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'ZGMS_2RD', data: { where: '1=1' } } },
+            CIC: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'CIC_2RD', data: { where: '1=1' } } },
+            CMBL: { showMT: false, Amap: true, func: 'getData', param: { svn: 'skhg_stage', tableName: 'CMBL_2RD', data: { where: '1=1' } } },
+        };
+
+        const keys = {
+            YLMG: { VF_ARR_TOT: '进港船舶', VF_DEP_TOT: '出港船舶' },
+            YTH: { VF_ARR_TOT: '进港船舶', VF_DEP_TOT: '出港船舶' },
+            SZMS_CK: { STORK_AMOUNT: '库存数量', OUT_STOR_NUM: '出库数量', IN_STOR_NUM: '入库数量', SECLARE_AMOUNT: '申报数量' },
+            ZGMS_CK: { STORK_AMOUNT: '库存数量', OUT_STOR_NUM: '出库数量', IN_STOR_NUM: '入库数量', SECLARE_AMOUNT: '申报数量' },
+            ZSGW: { a: '进港船舶', b: '出港船舶', c: '进闸车辆', d: '出闸车辆', e: '内外贸堆场间调拨车辆' },
+            CIC: { a: '调拨出场柜', b: '调拨入场柜', c: '完毕柜', d: '在场待查柜', e: '待调拨入场柜' },
+            CMBL: { I: '进闸车辆', E: '出闸车辆', SELFWAREHOUSENUM: '区内仓库', ENTERPRISENUM: '驻区企业', DECLAREDOCNUM: '申报进出区' },
+        };
+
+        let code = datajson.code;
+        publish(mapper[code].func, mapper[code].param).then((res) => {
+            this.setState({
+                showMT: mapper[code].showMT,
+                Amap: mapper[code].Amap,
+                tip: {
+                    mtJson: mapper[code].showMT ? res[0].features : { data: Object.keys(keys[code]).map((key) => { return { name: keys[code][key], number: res[0].features.length > 0 ? res[0].features[0].attributes[key] : 123456 } }) },
+                    mapDesc: datajson
                 }
-            }
-        }
-        );
+            });
+        });
 
     }
 

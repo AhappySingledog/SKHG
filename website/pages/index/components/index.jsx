@@ -575,6 +575,9 @@ export default class App extends React.Component {
         console.log('warning');
         publish('changeLayer', { index: 4, props: {} });
     }
+    warning2 = () => {
+        console.log('warning2');
+    }
     link = () => {
         console.log('link');
         let flag = !this.state.warningTip;
@@ -625,6 +628,7 @@ export default class App extends React.Component {
                         <div className='mheader-iCount' onClick={this.iCount} />
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
                         <div className='mheader-warning' onClick={this.warning} />
+                        <div className='mheader-warning' onClick={this.warning2} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>{this.state.layerName}</div>
