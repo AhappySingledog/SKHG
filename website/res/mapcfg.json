@@ -23,7 +23,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -39,7 +39,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SCT_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -49,7 +49,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -65,7 +65,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SMC_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SMC_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -75,7 +75,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SMC/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SMC/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -91,7 +91,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -101,7 +101,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services//skhg/SZMSCK/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services//skhg/SZMSCK/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -117,7 +117,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -127,7 +127,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CCT/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -143,7 +143,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/skdt/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/MCT_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -153,7 +153,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/MCT/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/MCT/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -169,7 +169,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -184,7 +184,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CIC_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CIC_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -194,7 +194,7 @@
                 },
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CIC/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CIC/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -210,7 +210,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SCT_CYC/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SCT_CYC/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -226,7 +226,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/SZCWH_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SZCWH_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -242,7 +242,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/YLMG_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/YLMG_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -258,7 +258,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/ZSGW_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/ZSGW_TIF/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -274,7 +274,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -290,7 +290,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_2_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_2_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -306,7 +306,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_2_2/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_2_2/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -322,7 +322,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_3_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_3_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -338,7 +338,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_3_2/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_3_2/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -354,7 +354,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_4_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_4_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -370,7 +370,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_5_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_5_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -386,7 +386,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_5_2/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_5_2/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -402,7 +402,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_1/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_6_1/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -418,7 +418,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_2/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_6_2/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -434,7 +434,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_3/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_6_3/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -450,7 +450,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_4/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_6_4/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {
@@ -466,7 +466,7 @@
             "maps": [
                 {
                     "id": "cehui",
-                    "url": "http://172.18.15.98:6080/arcgis/rest/services/skhg/CMBLCK_6_5/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CMBLCK_6_5/MapServer",
                     "type": "dynamic",
                     "name": "测绘图",
                     "params": {

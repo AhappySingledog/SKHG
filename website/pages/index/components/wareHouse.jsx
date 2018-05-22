@@ -134,7 +134,7 @@ class CkList extends React.Component {
                 ],
             },
         ];
-        this.setState({ckList: ck});
+        this.setState({ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0});
     }
     componentDidUpdate() {
         let ck = this.state.ckList[this.state.ckIndex];
@@ -184,12 +184,13 @@ class CkList extends React.Component {
 
 // 货仓
 export default class WareHouse extends React.Component {
-    state = { map: null }
+    state = { map: null, ckList: false }
     componentDidMount() {
         if (this.props.datas.type == 3) {
             // publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
             //     this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
             // });
+            this.setState({ckList: true});
         }
         else {
             this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
@@ -256,7 +257,7 @@ export default class WareHouse extends React.Component {
             <div className='houseMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='houseleft'>
                     <div id='warehouse' ref="iframe">
-                        <CkList/>
+                        {this.state.ckList ? <CkList data={this.props}/> : null}
                     </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>

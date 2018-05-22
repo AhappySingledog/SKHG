@@ -13,8 +13,10 @@ import Port from './port';
 import Pier from './pier';
 import WareHouse from './wareHouse';
 import IWarning from './iWarning';
+import IWarningNew from './iWarningNew';
 import ICommand from './iCommand';
 import TableTitle from './tableTitle';
+import TableTitle1 from './tableTitle1';
 import '../../../frame/less/magic.less';
 import '../../../frame/less/xcConfirm.less';
 
@@ -201,8 +203,9 @@ class MyQuery extends React.Component {
     chooseItem = (index) => {
         $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.query-t-b').removeClass('magictime holeOut animated'); this.setState({ index: index }, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated'))); });
     }
+
     render() {
-        let items = ['码头泊位', '集装箱', '仓库信息', '提单信息'];
+        let items = ['码头泊位', '集装箱', '仓库信息', '提单信息', '报警信息'];
         let content = [];
         let index = this.state.index;
         let id1 = 'a', id2 = 'b';
@@ -328,6 +331,16 @@ class MyQuery extends React.Component {
             content = [
                 <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)} />} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
                 <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2} />} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
+            ];
+        }
+        else if (index === 4) {
+            flds = [
+                { title: '仓库名', dataIndex: 'a' },
+                { title: '当前库存量', dataIndex: 'b' },
+                { title: '所属单位', dataIndex: 'c' }
+            ];
+            content = [
+                <Table key={1} rowNo={true} title={<TableTitle1 title={'仓库信息'} id={'test'} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
 
@@ -471,6 +484,7 @@ export default class App extends React.Component {
         myQuery: false,
         iCountBtn: false,
         iCommand: false,
+        iWarningNew: false,
     }
     layers = {}
     componentDidMount() {
@@ -518,8 +532,8 @@ export default class App extends React.Component {
                 }
             });
         }
-        work();
-        setInterval(work, 1000 * 60 * 2);
+        // work();
+        // setInterval(work, 1000 * 60 * 2);
     }
     componentWillUnmount() {
         if (this.sub_changeLayer) unsubscribe(this.sub_changeLayer);
@@ -563,20 +577,22 @@ export default class App extends React.Component {
     iCount = () => {
         console.log('iCount');
         let flag = !this.state.iCountBtn;
-        if (flag) this.setState({ iCountBtn: true, iCommand: false }, () => $('.queryCount').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryCount').removeClass('magictime spaceInLeft animated')));
+        if (flag) this.setState({ iCountBtn: true, iCommand: false, iWarningNew: false }, () => $('.queryCount').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryCount').removeClass('magictime spaceInLeft animated')));
         else $('.queryCount').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.queryCount').removeClass('magictime spaceOutLeft animated');this.setState({iCountBtn: flag});});
     }
     iCommand = (flag) => {
         console.log('iCommand');
-        if (flag) this.setState({iCommand: flag, iCountBtn: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
+        if (flag) this.setState({iCommand: flag, iCountBtn: false, iWarningNew: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
         else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.ic').removeClass('magictime spaceOutLeft animated');this.setState({iCommand: flag});});
     }
     warning = () => {
         console.log('warning');
         publish('changeLayer', { index: 4, props: {} });
     }
-    warning2 = () => {
+    warning2 = (flag) => {
         console.log('warning2');
+        if (flag) this.setState({iWarningNew: flag, iCommand: false, iCountBtn: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.iw').removeClass('magictime spaceOutLeft animated');this.setState({iWarningNew: flag});});
     }
     link = () => {
         console.log('link');
@@ -620,7 +636,7 @@ export default class App extends React.Component {
         return (
             <div className='mframe'>
                 <div className='mheader'>
-                    <div className='mheader-title'>蛇口海关iMap智慧管理系统</div>
+                    <div className='mheader-title'></div>
                     <div className='mheader-top'>
                         <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-home' onClick={() => this.changeLayer(0, {})} />
@@ -628,7 +644,7 @@ export default class App extends React.Component {
                         <div className='mheader-iCount' onClick={this.iCount} />
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
                         <div className='mheader-warning' onClick={this.warning} />
-                        <div className='mheader-warning' onClick={this.warning2} />
+                        <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>{this.state.layerName}</div>
@@ -646,6 +662,7 @@ export default class App extends React.Component {
                 {this.state.myQuery ? <MyQuery close={() => this.iQuery(false)} /> : null}
                 {this.state.iCountBtn ? <ICountimg close={this.iCount} /> : null}
                 {this.state.iCommand ? <ICommand close={() => this.iCommand(false)}/> : null}
+                {this.state.iWarningNew ? <IWarningNew /> : null}
             </div>
         )
     }

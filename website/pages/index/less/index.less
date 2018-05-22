@@ -15,7 +15,7 @@
 body>div:nth-of-type(1) {
     width: @scale * 3840px;
     height: @scale * 1080px;
-    background: #051658;
+    background: #191c21;
 }
 body>div:nth-of-type(n+1) {
     width: @scale * 3840px;
@@ -63,7 +63,7 @@ body>div:nth-of-type(n+1) {
         flex-direction: row;
     }
     &-name {
-        width: 1184px;
+        width: 1498px;
         height: 259px;
         line-height: 259px;
         font-size: 120px;
@@ -73,11 +73,11 @@ body>div:nth-of-type(n+1) {
     }
     &-time {
         color: white;
-        font-size: 100px;
+        font-size: 80px;
         flex-grow: 1;
         height: 259px;
         line-height: 259px;
-        text-align: center;
+        padding-left: 100px;
     }
     &-home {
         margin-left: 25px;
@@ -755,13 +755,12 @@ body>div:nth-of-type(n+1) {
 }
 
 .queryBox {
-    //background: rgba(0, 0, 0, 0.6);
+    background: rgba(0,0,0,0.8);
     position: absolute;
     top: 433px;
-    left: 4770px;
+    left: 4830px;
     z-index: 99999;
     border-radius: 10px;
-    padding: 0 62px;
 }
 
 .query {
@@ -769,7 +768,7 @@ body>div:nth-of-type(n+1) {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 2000px;
+    height: 1930px;
     &-t {
         width: 2800px;
         height: 1702px;
@@ -789,58 +788,72 @@ body>div:nth-of-type(n+1) {
             margin-bottom: 30px;
             &-item {
                 &-1 {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/码头泊位.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-1-select {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/码头泊位_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-2 {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/集装箱信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-2-select {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/集装箱信息_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-3 {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/仓库信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-3-select {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/仓库信息_选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-4 {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/提单信息.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
                 &-4-select {
-                    width: 580px;
+                    width: 500px;
                     height: 140px;
                     background: url('../images/buttons/提单信息_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-5 {
+                    width: 500px;
+                    height: 140px;
+                    background: url('../images/buttons/报警信息默认.png') no-repeat;
+                    background-size: 100% 100%;
+                    cursor: pointer;
+                }
+                &-5-select {
+                    width: 500px;
+                    height: 140px;
+                    background: url('../images/buttons/报警信息选中.png') no-repeat;
                     background-size: 100% 100%;
                     cursor: pointer;
                 }
@@ -865,7 +878,7 @@ body>div:nth-of-type(n+1) {
         height: 160px;
         background: url('../images/关闭按钮.png') no-repeat;
         background-size: 100% 100%;
-        margin-bottom: 100px;
+        margin-bottom: 10px;
         cursor: pointer;
     }
     &-b:hover {
@@ -897,6 +910,256 @@ body>div:nth-of-type(n+1) {
         height: 2720px;
         border: none;
     }
+}
+
+.iw {
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    position: absolute;
+    top: 433px;
+    left: 7711px;
+    &-title {
+        width: 629px;
+        height: 127px;
+        line-height: 127px;
+        text-align: center;
+        color: white;
+        font-size: 60px;
+        background: url('../images/iwarning/标题框.png') no-repeat;
+        background-size: 100% 100%;
+        position: absolute;
+    }
+    &-box {
+        width: 3736px;
+        height: 2729px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-t {
+            width: 3736px;
+            height: 872px;
+            background: url('../images/iwarning/上框.png') no-repeat;
+            background-size: 100% 100%;
+            margin-top: 35px;
+        }
+        &-b {
+            width: 3736px;
+            height: 1788px;
+            background: url('../images/iwarning/下框.png') no-repeat;
+            background-size: 100% 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            >div {
+                margin-top: 70px;
+                width: 3450px;
+                height: 1540px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+    }
+}
+
+.jt {
+    width: 1354px;
+    height: 49px;
+    background: url('../images/iwarning/箭头.png') no-repeat;
+    background-size: 100% 35px;
+    background-position: center;
+    display: flex;
+    flex-direction: row;
+    &-name {
+        color: white;
+        font-size: 36px;
+        width: fit-content;
+        z-index: 1;
+        text-shadow: #000000 2px 2px 0px;
+    }
+    &-t {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        position: absolute;
+        top: 28px;
+    }
+    &-yj {
+        width: 66px;
+        background: #fff45c;
+        z-index: 0;
+        margin-left: 85px;
+        cursor: pointer;
+    }
+    &-b {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        position: absolute;
+        bottom: 26px;
+    }
+    &-bj {
+        z-index: 0;
+        margin-left: 85px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        &-cl {
+            width: 66px;
+            background: #009944;
+            cursor: pointer;
+        }
+        &-wcl {
+            width: 66px;
+            background: #a40000;
+            cursor: pointer;
+        }
+    }
+}
+
+.bz {
+    &-yj {
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        background: url('../images/iwarning/黄点.png') no-repeat;
+        background-size: 31px 31px;
+        background-position-y: center;
+        font-size: 50px;
+        padding-left: 55px;
+        color: #fff45c;
+        position: absolute;
+    }
+    &-bj {
+        width: 200px;
+        height: 60px;
+        line-height: 60px;
+        background: url('../images/iwarning/红点.png') no-repeat;
+        background-size: 31px 31px;
+        background-position-y: center;
+        position: relative;
+        font-size: 50px;
+        padding-left: 55px;
+        color: #a40000;
+        position: absolute;
+    }
+}
+
+.gk {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    &-1 {
+        width: 49px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-t {
+            width: 49px;
+            height: 49px;
+            background: url('../images/iwarning/左.png') no-repeat;
+            background-size: 100%;
+        }
+        &-b {
+            width: 49px;
+            height: 49px;
+            background: url('../images/iwarning/左下.png') no-repeat;
+            background-size: 100%;
+        }
+    }
+    &-2 {
+        width: 241px;
+        height: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        >div {
+            color: white;
+            font-size: 55px;
+        }
+    }
+    &-3 {
+        width: 49px;
+        height: 100%;
+        border-right: 5px solid #1890ff;
+    }
+    &-4 {
+        width: 3360px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-one {
+            width: 2980px;
+            height: 25px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            &-bj {
+                &-cl {
+                    height: 100%;
+                    background: #009944;
+                    cursor: pointer;
+                }
+                &-wcl {
+                    height: 100%;
+                    background: #a40000;
+                    cursor: pointer;
+                }
+            }
+            &-yj {
+                height: 100%;
+                background: #fff45c;
+                cursor: pointer;
+            }
+        }
+    }
+    &-5 {
+        width: 49px;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-t {
+            width: 49px;
+            height: 49px;
+            background: url('../images/iwarning/右.png') no-repeat;
+            background-size: 100%;
+        }
+        &-b {
+            width: 49px;
+            height: 49px;
+            background: url('../images/iwarning/右下.png') no-repeat;
+            background-size: 100%;
+        }
+    }
+}
+
+@keyframes showAnimete {
+    from{
+        transform: scaleX(0)
+    }
+    to{
+        transform: scaleX(1);
+    }
+}
+
+.gkss {
+    animation: showAnimete 0.5s ease;
+    transform-origin: left center;
 }
 
 /** 智能统计 */
@@ -1044,15 +1307,15 @@ body>div:nth-of-type(n+1) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    width: 450px;
+    width: 500px;
     &-btn1{
-        width: 100px;
-        height: 60px;
+        width: 150px;
+        height: 90px;
         background: #D48265;
         border-radius: 10px;
         color: white;
-        font-size: 30px;
-        line-height: 60px;
+        font-size: 55px;
+        line-height: 90px;
         text-align: center;
         cursor: pointer;
         &:hover {
@@ -1061,13 +1324,13 @@ body>div:nth-of-type(n+1) {
     }
     
     &-btn2{
-        width: 100px;
-        height: 60px;
+        width: 150px;
+        height: 90px;
         background: #61A0A8;
         border-radius: 10px;
         color: white;
-        font-size: 30px;
-        line-height: 60px;
+        font-size: 55px;
+        line-height: 90px;
         text-align: center;
         cursor: pointer;
         &:hover {
@@ -1075,13 +1338,13 @@ body>div:nth-of-type(n+1) {
         }
     }
     &-btn3{
-        width: 100px;
-        height: 60px;
+        width: 150px;
+        height: 90px;
         background: #0682ce;
         border-radius: 10px;
         color: white;
-        font-size: 30px;
-        line-height: 60px;
+        font-size: 55px;
+        line-height: 90px;
         text-align: center;
         cursor: pointer;
         &:hover {
@@ -1089,13 +1352,13 @@ body>div:nth-of-type(n+1) {
         }
     }
     &-btn4{
-        width: 100px;
-        height: 60px;
+        width: 150px;
+        height: 90px;
         background: #D48265;
         border-radius: 10px;
         color: white;
-        font-size: 30px;
-        line-height: 60px;
+        font-size: 55px;
+        line-height: 90px;
         text-align: center;
         cursor: pointer;
         &:hover {
@@ -1103,13 +1366,13 @@ body>div:nth-of-type(n+1) {
         }
     }
     &-noSelected {
-        width: 100px;
-        height: 60px;
+        width: 150px;
+        height: 90px;
         background: #C0C0C0;
         border-radius: 10px;
         color: white;
-        font-size: 30px;
-        line-height: 60px;
+        font-size: 55px;
+        line-height: 90px;
         text-align: center;
         cursor: pointer;
     }

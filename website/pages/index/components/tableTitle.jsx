@@ -31,7 +31,7 @@ export default class TableTitle extends React.Component {
                     {this.props.title}
                 </div>
                 {this.props.query ? <div className='tableTitle-s'>
-                    <input className='tableTitle-i' ref='target' />
+                    <input id={this.props.id} className='tableTitle-i' ref='target' />
                     <div className='tableTitle-f' onClick={() => this.props.query($(ReactDOM.findDOMNode(this.refs.target)).val())}>
                     </div>
                 </div> : null}

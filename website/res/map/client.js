@@ -1,5 +1,5 @@
 window._jscache = [];
-window._API_Path = 'http://172.18.15.96:8080/ecity_js_api1.0';
+window._API_Path = 'http://172.28.1.101:8080/ecity_js_api1.0';
 //window._API_Path = 'http://172.19.1.246:8080/ecity_js_api1.0';
 var _load = function () {
     var args = arguments;

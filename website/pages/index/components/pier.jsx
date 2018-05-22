@@ -13,7 +13,7 @@ import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/
 import { Desc, Details } from '../../../frame/componets/details/index';
 import B from '../../../res/mapIcon/Barge.png';
 import S from '../../../res/mapIcon/bigShip.png';
-import VideoIcon from '../images/视频监控.png';
+import VideoIcon from '../images/sxt.png';
 import PierRightPanel from './pierRightPanel';
 import zb from '../images/下手势.png';
 
@@ -85,6 +85,7 @@ class MapOperation extends React.Component {
             };
             res[0].data.forEach((e, i) => {
                 let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+                e.ckIndex = i;
                 let params = {
                     id: 'port_view_' + i,
                     linecolor: color[e.type],
@@ -107,6 +108,41 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.polygon(params);
             });
         }).then(() => this.drawDefaultLayer(this.props));
+
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + this.props.datas.code + "'" } }).then((res) => {
+            res[0].data.forEach((e, i) => {
+                let param = {
+                    id: 'VIDEO_LAYER' + i,
+                    layerId: 'VIDEO_LAYER',
+                    layerIndex: 999,
+                    src: VideoIcon,
+                    width: 100,
+                    height: 140,
+                    angle: 0,
+                    x: e.geom.x,
+                    y: e.geom.y,
+                    attr: { ...e },
+                    click: () => publish('playVedio'),
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100 + 12);
+                            symbol.setHeight(100 + 12);
+                        }
+                        g.setSymbol(symbol);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100);
+                            symbol.setHeight(100);
+                        }
+                        g.setSymbol(symbol);
+                    }
+                }
+                this.props.map.mapDisplay.image(param);
+            });
+        })
     }
 
     componentWillUnmount() {
@@ -339,7 +375,6 @@ class MapOperation extends React.Component {
         }
     };
 
-
     /** 点击地图的时候，出现集装箱信息 */
     boxModel = (e) => {
         this.setState({ visible_duiwei: false, isShowDes: false }, () => {
@@ -380,7 +415,6 @@ class MapOperation extends React.Component {
             this.setState({ itemData: res[0].InnerList, items: 2 });
         });
     }
-
 
     /** 缩放和指示位置 */
     handleNbr = (e) => {
@@ -655,7 +689,12 @@ class PortPie extends React.Component {
 
 // 码头
 export default class Pier extends React.Component {
-    state = { map: null }
+    state = { 
+        map: null,
+        VIDEO_LAYER: true,
+        B_LAYER: true,
+        S_LAYER: true,
+    }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
     }
@@ -719,7 +758,10 @@ export default class Pier extends React.Component {
         iframe.innerHTML = '';
         $($iframe).remove();
     }
-
+    showLayer = (layer) => {
+        let flag = !this.state[layer];
+        this.setState({ [layer]: flag }, () => flag ? this.state.map.mapDisplay.show(layer) : this.state.map.mapDisplay.hide(layer));
+    }
     render() {
         let { tview = [], idx = 0, } = this.state;
         return (
@@ -727,9 +769,14 @@ export default class Pier extends React.Component {
                 <div className='pierleft'>
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} defaultLayer={this.props.defaultLayer} /> : null}
+                    {this.state.map ? <div className="mapbtn">
+                        <div onClick={() => this.showLayer('VIDEO_LAYER')} className={!this.state.VIDEO_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>视频</div>
+                        <div onClick={() => this.showLayer('S_LAYER')} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
+                        <div onClick={() => this.showLayer('B_LAYER')} className={!this.state.B_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
+                    </div> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    <PierRightPanel datas={this.props.datas} map={this.state.map} />
+                    {this.state.map ? <PierRightPanel datas={this.props.datas} map={this.state.map} /> : null}
                 </div>
             </div>
         )

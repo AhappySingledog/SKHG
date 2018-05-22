@@ -82,22 +82,14 @@ export default class PierRightPanel extends React.Component {
             this.setState(temp, () => {
                 if (this.props.datas.type == 1) {
                     this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 1100 });
-                    let pa = [{
-                        paramName: 'P_TERMINALCODE',
-                        value: this.props.datas.code
-                    }];
+                    let pa = [{ paramName: 'P_TERMINALCODE', value: this.props.datas.code }];
                     /** 各栏堆存柜量 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ onyard: res[0].data }));
                     /** 泊位停靠船舶信息 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-                        res[0].data.forEach((value, key) => {
-                            if (value.VESSELTYPE === 'B') {
-                                value.VESSELTYPE = '驳   船';
-                            } else if (value.VESSELTYPE === 'S') {
-                                value.VESSELTYPE = '大   船';
-                            }
-                        })
-                        this.setState({ berths: res[0].data })
+                        res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '驳船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '大船' : ''))
+                        this.setState({ berths: res[0].data });
+                        this.drawShips(res[0].data);
                     });
                     /** 超三个月海关未放行的柜列表  */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_NOCUS90', parms: JSON.stringify(pa) } }).then((res) => this.setState({ scctyard: res[0].data }));
@@ -133,6 +125,48 @@ export default class PierRightPanel extends React.Component {
         this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+    }
+
+    //绘制大船驳船
+    drawShips = (data) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW='SCT'" } }).then((res) => {
+            console.log(res);
+            let bw = res[0].data;
+            data.forEach((e, i) => {
+                let layer = e.VESSELTYPE == '大船' ? 'S_LAYER' : 'B_LAYER';
+                let point = bw.filter((b) => b.type == e.VESSELTYPE && b.code == e.BERTHNO);
+                let param = {
+                    id: layer + i,
+                    layerId: layer,
+                    layerIndex: 999,
+                    src: e.VESSELTYPE == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png',
+                    width: 70,
+                    height: 140,
+                    angle: point[0].angle,
+                    x: point[0].geom.x,
+                    y: point[0].geom.y,
+                    attr: { ...e },
+                    click: () => alert(),
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(70 + 12);
+                            symbol.setHeight(140 + 12);
+                        }
+                        g.setSymbol(symbol);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(70);
+                            symbol.setHeight(140);
+                        }
+                        g.setSymbol(symbol);
+                    }
+                }
+                this.props.map.mapDisplay.image(param);
+            });
+        });
     }
 
     /** 超三个月海关未放行的柜列表 点击相应的柜信息实现定位及输出信息完整显示 */

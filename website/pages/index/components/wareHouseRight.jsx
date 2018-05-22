@@ -51,18 +51,13 @@ export default class WareHouseRight extends React.Component {
         return (
             <div className='warehouse'>
                 <div className='warehouse-l'>
-                    <Table rowNo={true} title={<Title title={'监控视频列表'} id={'id1'} />} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={<Title title={'仓库库位列表'} id={'id1'} />} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
                     <div className='warehouse-v'>
                         <Vedios style={{ width: w, height: h }} datas={data} />
                     </div>
                 </div>
                 <div className='warehouse-r'>
-                    <div className='warehouse-v'>
-                        <Vedios style={{ width: w, height: h }} datas={data} />
-                    </div>
-                    <div className='warehouse-v'>
-                        <Vedios style={{ width: w, height: h }} datas={data} />
-                    </div>
+                    <Table rowNo={true} title={<Title title={'库位货物列表'} id={'id2'} />} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
                     <div className='warehouse-v'>
                         <Vedios style={{ width: w, height: h }} datas={data} />
                     </div>
