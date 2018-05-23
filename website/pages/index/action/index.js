@@ -1806,6 +1806,7 @@ subscribes({
         sub: 'ICountimg_1',
         func: (ops) => {
             return {
+                color: ['#0089fe', '#ffb900', '#00e4ff'],
                 backgroundColor: bgColor,
                 tooltip: {
                     textStyle: textStyle[ops ? 1 : 0]
@@ -1863,6 +1864,7 @@ subscribes({
         sub: 'ICountimg_2',
         func: (ops) => {
             return {
+                color: ['#298aff', '#ffb900'],
                 backgroundColor: bgColor,
                 title: {
                     text: '雷达图'
@@ -1972,7 +1974,6 @@ subscribes({
                         name: '绿色',
                     }]
                 }],
-                color: ['#ef4b4c', '#b1eadb'],
                 // backgroundColor: {
                 //     type: 'radial',
                 //     x: 0.4,
@@ -1997,6 +1998,7 @@ subscribes({
         sub: 'ICountimg_3',
         func: (ops) => {
             return {
+                color: ['#008fff', '#6113ff', '#00f9ff'],
                 backgroundColor: bgColor,
                 angleAxis: {
                     type: 'category',
@@ -2137,8 +2139,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: '#277ace',
-                            barBorderRadius: 50,
+                            color: '#0167ff',
                             borderWidth: 0,
                             borderColor: '#333',
                         }
@@ -2152,8 +2153,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: '#277ace',
-                            barBorderRadius: 50,
+                            color: '#0167ff',
                             borderWidth: 0,
                             borderColor: '#333',
                         }
@@ -2167,14 +2167,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#00FFE6'
-                            }, {
-                                offset: 1,
-                                color: '#007CC6'
-                            }]),
-                            barBorderRadius: 50,
+                            color: '#2fe384',
                             borderWidth: 0,
                             borderColor: '#333',
                         }
@@ -2195,14 +2188,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
-                                offset: 0,
-                                color: '#3023AE'
-                            }, {
-                                offset: 1,
-                                color: '#C96DD8'
-                            }]),
-                            barBorderRadius: 50,
+                            color: '#008eff',
                             borderWidth: 0,
                             borderColor: '#333',
                         }
@@ -2229,6 +2215,7 @@ subscribes({
             var data1 = newDats();
             var data2 = newDats();
             return {
+                color: ['#008eff', '#febd19', '#2fe384'],
                 backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
@@ -2302,7 +2289,7 @@ subscribes({
                 series: [{
                     name: '征收税款',
                     type: 'bar',
-                    data: data
+                    data: data,
                 },
                 {
                     name: '环比',
@@ -2324,7 +2311,7 @@ subscribes({
         func: (ops) => {
             return {
                 backgroundColor: bgColor,
-                color: ['#3398DB'],
+                color: ['#00a9fe'],
                 title: {
                     text: '通关效率',
                     textStyle: {
@@ -2376,25 +2363,10 @@ subscribes({
                 series: [{
                     name: '通关效率',
                     type: 'bar',
-                    barWidth: '20%',
+                    barWidth: '50%',
                     itemStyle: {
                         normal: {
-                            barBorderRadius: 30,
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#00feff'
-                                },
-                                {
-                                    offset: 0.5,
-                                    color: '#027eff'
-                                },
-                                {
-                                    offset: 1,
-                                    color: '#0286ff'
-                                }
-                                ]
-                            )
+                            color: '#00a9fe'
                         }
                     },
                     data: monthData
@@ -2407,7 +2379,7 @@ subscribes({
         func: (ops) => {
             return {
                 backgroundColor: bgColor,
-                color: ['#3398DB'],
+                color: ['#3a5bff'],
                 title: {
                     text: '查验时效',
                     textStyle: {
@@ -2459,25 +2431,10 @@ subscribes({
                 series: [{
                     name: '查验时效',
                     type: 'bar',
-                    barWidth: '20%',
+                    barWidth: '50%',
                     itemStyle: {
                         normal: {
-                            barBorderRadius: 30,
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#00feff'
-                                },
-                                {
-                                    offset: 0.5,
-                                    color: '#027eff'
-                                },
-                                {
-                                    offset: 1,
-                                    color: '#0286ff'
-                                }
-                                ]
-                            )
+                            color: '#5069e7'
                         }
                     },
                     data: monthData
@@ -2489,6 +2446,7 @@ subscribes({
         sub: 'ICountimg_8',
         func: (ops) => {
             return {
+                color: ['#2e82ff', '#48d602', '#0084ff', '#ffb900', '#00e4ff'],
                 backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
@@ -2551,6 +2509,7 @@ subscribes({
         sub: 'ICountimg_9',
         func: (ops) => {
             return {
+                color: ['#2e82ff', '#48d602', '#0084ff', '#ffb900', '#00e4ff'],
                 backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
@@ -2613,7 +2572,7 @@ subscribes({
         sub: 'ICountimg_10',
         func: (ops) => {
             var result = result;
-            var datas = (monthData).sort(sortNumber);
+            var datas = [5000, 6000, 3000, 4523, 5870, 3654, 6521];
             //亮色图片
             var uploadedDataURL1 = ' '; //黄色五角星
             var uploadedDataURL2 = ' '; //灰色五角星
@@ -2631,7 +2590,7 @@ subscribes({
                     text: '本月报关行录入提单排名统计图',
                     left: 'center'
                 },
-                color: ['#61A8FF'], //进度条颜色
+                color: ['#2e82ff'], //进度条颜色
                 /* grid: {
                      left: '-10%',  //如果离左边太远就用这个......
                      //right: '14%',
@@ -2831,7 +2790,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: '#277ace',
+                            color: '#189053',
                             barBorderRadius: 50,
                             borderWidth: 0,
                             borderColor: '#333',
@@ -2847,7 +2806,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             show: true,
-                            color: '#5de3e1',
+                            color: '#2e82ff',
                             barBorderRadius: 50,
                             borderWidth: 0,
                             borderColor: '#333',
@@ -2868,6 +2827,7 @@ subscribes({
             var data1 = newDats();
             var data2 = newDats();
             return {
+                color: ['#008eff', '#febd19', '#2fe384'],
                 backgroundColor: bgColor,
                 tooltip: {
                     trigger: 'axis',
@@ -2963,6 +2923,7 @@ subscribes({
             var data1 = newDats();
             var data2 = newDats();
             return {
+                color: ['#6113ff', '#2e82ff'],
                 backgroundColor: bgColor,
                 title: {
                     text: '园区车辆情况',
@@ -3075,8 +3036,8 @@ subscribes({
             }
 
             return {
+                color: ['#0167ff', '#ff4e4c'],
                 backgroundColor: bgColor,
-                color: ['#37A2DA', '#FF9F7F'],
                 legend: {
                     data: ['入库', '出库'],
                     x: '43%',
@@ -3164,21 +3125,7 @@ subscribes({
                     itemStyle: {
                         normal: {
                             barBorderRadius: [0, 15, 15, 0],
-                            color: new echarts.graphic.LinearGradient(
-                                0, 0, 0, 1, [{
-                                    offset: 0,
-                                    color: '#00feff'
-                                },
-                                {
-                                    offset: 0.5,
-                                    color: '#027eff'
-                                },
-                                {
-                                    offset: 1,
-                                    color: '#0286ff'
-                                }
-                                ]
-                            )
+                            color: '#008fff'
                         }
                     },
                 }]

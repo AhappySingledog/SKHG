@@ -1,7 +1,7 @@
 .ic-box {
     width: 3720px;
     height: 2600px;
-    background: url('../images/智能查询底框.png') no-repeat;
+    background: url('../images/11.png') no-repeat;
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
@@ -30,7 +30,7 @@
 .ic-video-v {
     width: 1715px;
     height: 100%;
-    background: url('../images/视频边框.png') no-repeat;
+    background: url('../images/22.png') no-repeat;
     background-size: 100% 100%;
     display: flex;
     flex-direction: column;
@@ -40,18 +40,18 @@
 
 .ic-video-v>div:nth-of-type(1) {
     width: 1660px;
-    height: 70px;
+    height: 0px;
 }
 
 .ic-video-v>div:nth-of-type(2) {
     width: 1660px;
-    height: 880px;
+    height: 935px;
 }
 
 .ic-record {
     width: 3450px;
     height: 1125px;
-    background: url('../images/对话框底.png') no-repeat;
+    background: url('../images/33.png') no-repeat;
     background-size: 100% 100%;
     overflow: auto;
 }
@@ -115,7 +115,7 @@
 .ic-msg {
     width: 3450px;
     height: 265px;
-    background: url('../images/输入区域底.png') no-repeat;
+    background: url('../images/44.png') no-repeat;
     background-size: 100% 100%;
     display: flex;
     flex-direction: row;
@@ -126,7 +126,7 @@
 .ic-msg-text {
     width: 3000px;
     height: 235px;
-    background: url('../images/输入文字底.png') no-repeat;
+    background: url('../images/55.png') no-repeat;
     background-size: 100% 100%;
     display: flex;
     flex-direction: row;
@@ -154,7 +154,7 @@
 .ic-msg-button-send {
     width: 230px;
     height: 100px;
-    background: url('../images/发送.png') no-repeat;
+    background: url('../images/66.png') no-repeat;
     background-size: 100% 100%;
     cursor: pointer;
 }
@@ -162,7 +162,7 @@
 .ic-msg-button-up {
     width: 136px;
     height: 100px;
-    background: url('../images/上传.png') no-repeat;
+    background: url('../images/77.png') no-repeat;
     background-size: 100% 100%;
     cursor: pointer;
 }

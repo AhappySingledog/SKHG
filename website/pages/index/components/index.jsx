@@ -641,7 +641,7 @@ export default class App extends React.Component {
                         <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-home' onClick={() => this.changeLayer(0, {})} />
                         <div className='mheader-iQuery' onClick={() => this.iQuery(!this.state.myQuery)} />
-                        <div className='mheader-iCount' onClick={this.iCount} />
+                        {/* <div className='mheader-iCount' onClick={this.iCount} /> */}
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
