@@ -9,3 +9,5 @@ export { default as Vedio } from './vedio';
 export { default as NoHornTip } from './noHornTip';
 export { default as Vedios } from './vedios';
 export { default as ImgDisplay } from './imgDisplay';
+export { default as QueryBox } from './queryBox';
+export { default as QueryBoxs } from './queryBoxs';

@@ -11,18 +11,6 @@ import _ from 'lodash';
 import zb from '../images/倒三角.png';
 import up from '../images/向上.png';
 
-class Title extends React.Component {
-    export = () => {
-        console.log(this.props.id);
-        table2Excel(this.props.id);
-    }
-    render() {
-        return (
-            <div className='tableTitle'><div className='tableTitle-n'>{this.props.title}</div><div className='tableTitle-b' onClick={() => this.export()}></div></div>
-        )
-    }
-}
-
 var Mock = require('mockjs')
 var Nowdata = Mock.mock({
     // 属性 list 的值是一个数组，其中含有 1 到 10 个元素
@@ -273,19 +261,19 @@ export default class PierRightPanel extends React.Component {
         if (type == 1) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={'各栏堆存柜量'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={this.OnfindBerth.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '各栏堆存柜量', export: true}} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '泊位停靠船舶信息', export: true}} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={this.OnfindBerth.bind(this)} trDbclick={null} />
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
-                    <Table rowNo={true} title={<Title title={'超三个月海关未放行柜列表'} id={id3} />} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'在场整船换装柜列表'} id={id4} />} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '超三个月海关未放行柜列表', export: true}} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '在场整船换装柜列表', export: true}} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         } else if (type == 2) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={'堆场'} id={id1} />} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.tableyardFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
-                    <Table rowNo={true} title={<Title title={'泊位停靠船舶信息'} id={id2} />} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.anchorFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '堆场', export: true}} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.tableyardFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '泊位停靠船舶信息', export: true}} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.anchorFlds} datas={this.state.scctyard} trClick={null} trDbclick={null} />
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
                     <div className="szmt">
@@ -352,7 +340,7 @@ export default class PierRightPanel extends React.Component {
             ];
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={<Title title={this.props.datas.name + '业务数据'} id={id1} />} style={{ width: '100%', height: 880 }} id={id1} selectedIndex={null} flds={fld} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: this.props.datas.name + '业务数据', export: true}} id={id1} />} style={{ width: '100%', height: 880 }} id={id1} selectedIndex={null} flds={fld} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         }

@@ -9,7 +9,7 @@ import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
 import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, Tip, Panel, Dialog, ChartView, Table } from '../../../frame/componets/index';
+import { ViwePager, Tip, Panel, Dialog, ChartView, Table, QueryBox } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
 import B from '../../../res/mapIcon/Barge.png';
 import S from '../../../res/mapIcon/bigShip.png';
@@ -491,9 +491,9 @@ class MapOperation extends React.Component {
                 {this.state.isShowDes ? <Desc className='descTip' style={StyleView} title={this.state.desTitle} content={descmsg} box={this.state.box} close={this.handleCloseDesDailog} /> : null}
                 {this.state.showMT ? <div className="portTip animated" > </div> : null}
                 {
-                    this.state.visible_duiwei ? <div className="box_model">
+                    this.state.visible_duiwei ? <div className="box_model" style={{zIndex: 1}}>
                         <div style={{ width: '100%', background: '#051658' }} >
-                            <Table rowNo={true} title={<Title title={'集装箱展示列表'} findDate={this.findBox} datas={this.state.dataSource} id={'a1'} onClose={() => this.setState({ visible_duiwei: false, isShowDes: false })} />} style={{ width: 1500, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
+                            <Table rowNo={true} title={{name: '集装箱展示列表', export: true, close: () => this.setState({ visible_duiwei: false, isShowDes: false }), items: [<QueryBox key={1} name='' query={this.findBox}/>]}} style={{ width: 2000, height: 772 }} id={'a1'} selectedIndex={null} flds={shipsFlds} datas={this.state.dataSource} trClick={this.handleDetails.bind(this)} trDbclick={null} />
                         </div>
                     </div> : null
                 }
@@ -540,59 +540,6 @@ class PortMsg extends React.Component {
                         </div>
                     )}
                 </div>
-            </div>
-        )
-    }
-}
-
-/** 标题 */
-class Title extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            recommendUsers: []
-        };
-    }
-    componentDidMount() {
-        document.addEventListener('keydown', this.handleEnterKey);
-    }
-
-    export = () => {
-        table2Excel(this.props.id);
-    }
-    handleEnterKey = (e) => {
-        if (e.keyCode === 13) {
-            this.props.findDate($('#inp').val())
-        }
-    }
-
-    handleOwnerIdChange(value) {
-        this.setState({ recommendUsers: [] });
-        if (value) {
-            if (this.props.datas) {
-                this.setState({
-                    recommendUsers: this.props.datas.map((value) => {
-                        return {
-                            text: `${value.CONTAINERNO}`,
-                            value: value.CONTAINERNO
-                        };
-                    })
-                });
-            }
-        }
-    }
-
-    render() {
-        const { recommendUsers } = this.state;
-        const dataSource = ['Burns Bay Road', 'Downing Street', 'Wall Street'];
-        return (
-            <div className='tableTitle'>
-                <div className='tableTitle-n'>
-                    {this.props.title}
-                </div>
-                <input className='tableTitle-i' id='inp' />
-                <div className='tableTitle-f' onClick={() => this.props.findDate($('#inp').val())}></div>
-                <div className='tableTitle-c' onClick={() => this.props.onClose()}></div>
             </div>
         )
     }

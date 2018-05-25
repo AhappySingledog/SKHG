@@ -3,6 +3,7 @@ import 'animate.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import { table2Excel } from '../core/table2Excel';
 
 // tip组件
 /**
@@ -69,9 +70,13 @@ export default class Table extends React.Component {
             datas.forEach((d, i) => d.rowNo = i + 1);
         }
         if (this.props.hide) flds = flds.filter((e) => !this.props.hide[e.dataIndex]);
+        let items = [];
+        this.props.title && this.props.title.export ? items.push(<div key={-2} className='tableExport' onClick={() => table2Excel(this.props.id)}></div>) : '';
+        this.props.title && this.props.title.close ? items.push(<div key={-1} className='tableClose' onClick={() => this.props.title.close()}></div>) : '';
+        this.props.title && this.props.title.items ? items = (this.props.title.items || []).concat(items) : '';
         return (
             <div className={this.props.className || 'mtable'} style={this.props.style} ref='table'>
-                {this.props.title ? <div className='mttitle'>{this.props.title}</div> : null}
+                {this.props.title ? <div className='mttitle'><div>{this.props.title.name}</div><div>{items}</div></div> : null}
                 <div className='mhead'>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
                 <div className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>
                     <table id={this.props.id}>

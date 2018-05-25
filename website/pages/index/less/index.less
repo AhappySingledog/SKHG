@@ -755,10 +755,10 @@ body>div:nth-of-type(n+1) {
 }
 
 .queryBox {
-    background: rgba(0,0,0,0.8);
+    //background: rgba(0,0,0,0.8);
     position: absolute;
-    top: 433px;
-    left: 4830px;
+    top: 460px;
+    left: 3954px;
     z-index: 99999;
     border-radius: 10px;
 }
@@ -768,18 +768,18 @@ body>div:nth-of-type(n+1) {
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 1930px;
+    height: 2004px;
     &-t {
-        width: 2800px;
-        height: 1702px;
-        background: url('../images/智能查询底框.png') no-repeat;
+        width: 3710px;
+        height: 2004px;
+        background: url('../images/bg块.png') no-repeat;
         background-size: 100% 100%;
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: flex-start;
         &-t {
-            width: 2600px;
+            width: 3540px;
             display: flex;
             flex-direction: row;
             align-items: center;
@@ -787,6 +787,30 @@ body>div:nth-of-type(n+1) {
             margin-top: 65px;
             margin-bottom: 30px;
             &-item {
+                &-select {
+                    width: 700px;
+                    height: 210px;
+                    background: url('../images/智能查询tab_选中.png') no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    line-height: 170px;
+                    color: white;
+                    font-size: 70px;
+                    letter-spacing: 3px;
+                    cursor: pointer;
+                }
+                &-noselect {
+                    width: 700px;
+                    height: 210px;
+                    background: url('../images/智能查询tab_默认.png') no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    line-height: 170px;
+                    color: white;
+                    font-size: 70px;
+                    letter-spacing: 3px;
+                    cursor: pointer;
+                }
                 &-1 {
                     width: 500px;
                     height: 140px;
@@ -864,7 +888,7 @@ body>div:nth-of-type(n+1) {
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            width: 2600px;
+            width: 3540px;
             &-c {
                 display: flex;
                 flex-direction: column;
@@ -1160,6 +1184,224 @@ body>div:nth-of-type(n+1) {
 .gkss {
     animation: showAnimete 0.5s ease;
     transform-origin: left center;
+}
+
+//时效管控
+.ac {
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    position: absolute;
+    top: 433px;
+    left: 7711px;
+    &-box {
+        width: 3741px;
+        height: 2759px;
+        background: url('../images/agingControl/进口.png') no-repeat;
+        background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-t {
+            width: 3460px;
+            height: 1070px;
+            margin-top: 190px;
+        }
+        &-b {
+            width: 3460px;
+            height: 1070px;
+            margin-bottom: 100px;
+        }
+    }
+    &-ckbox {
+        width: 3741px;
+        height: 2759px;
+        background: url('../images/agingControl/外框.png') no-repeat;
+        background-size: 100% 100%;
+    }
+}
+
+.jd {
+    width: 898px;
+    height: 628px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    >div:nth-of-type(1) {
+        width: 836px;
+        height: 54px;
+    }
+    >div:nth-of-type(2) {
+        display: flex;
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        >div:nth-of-type(1) {
+            font-size: 55px;
+            color: white;
+        }
+        >div:nth-of-type(2) {
+            font-size: 75px;
+            color: #1f9bff;
+            line-height: 70px;
+        }
+        >div:nth-of-type(3) {
+            font-size: 45px;
+            color: #1f9bff;
+        }
+    }
+    >div:nth-of-type(3) {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        >div {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            flex-grow: 1;
+            >div:nth-of-type(1) {
+                width: 245px;
+                height: 245px;
+            }
+            >div:nth-of-type(2) {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-end;
+                justify-content: center;
+                >div:nth-of-type(1) {
+                    font-size: 90px;
+                    line-height: 95px;
+                }
+                >div:nth-of-type(2) {
+                    font-size: 50px;
+                }
+            }
+            >div:nth-of-type(3) {
+                color: white;
+                font-size: 60px;
+            }
+        }
+    }
+}
+
+.top10 {
+    width: 1072px;
+    height: 1487px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    &-l {
+        width: 140px;
+        height: 1433px;
+        background: url('../images/agingControl/数字.png') no-repeat;
+        background-size: 100% 100%;
+    }
+    &-r {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        width: 910px;
+        height: 1365px;
+        >div {
+            height: 95px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            border-radius: 0px 50px 50px 0;
+	        border: solid 3px #0d3ca1;
+            >div:nth-of-type(1) {
+                width: 300px;
+                margin: 0 50px
+            }
+            >div:nth-of-type(2) {
+                width: 150px;
+            }
+            >div:nth-of-type(3) {
+                width: 41px;
+                height: 52px;
+            }
+            .top-icon1-3 {
+                background: url('../images/agingControl/红.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            .top-icon4-10 {
+                background: url('../images/agingControl/橙色.png') no-repeat;
+                background-size: 100% 100%;
+            }
+        }
+    }
+}
+
+.dd {
+    width: 2361px;
+    height: 1439px;
+    background: url('../images/agingControl/折线角.png') no-repeat;
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    &-t {
+        width: 655px;
+        height: 88px;
+        background: url('../images/agingControl/块.png') no-repeat;
+        background-size: 100% 100%;
+        color: white;
+        font-size: 55px;
+        text-align: center;
+        line-height: 88px;
+    }
+    &-b {
+        width: 2250px;
+        height: 1245px;
+        margin-bottom: 70px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        &-line {
+            width: 100%;
+            height: 2px;
+            border: 1px solid #1f9bff;
+            margin: 50px 0;
+        }
+    }
+}
+
+.ort {
+    width: 100%;
+    height: 555px;
+    overflow: auto;
+    >table {
+        width: 100%;
+        >thead {
+            display: none;
+        }
+        >tbody {
+            >tr {
+                height: 80px;
+                >td:nth-of-type(2n + 1) {
+                    color: #1f9bff;
+                    font-size: 40px;
+                    text-align: right;
+                }
+                >td:nth-of-type(2n) {
+                    color: white;
+                    font-size: 40px;
+                    text-align: left;
+                    text-indent: 40px;
+                }
+            }
+        }
+    }
 }
 
 /** 智能统计 */

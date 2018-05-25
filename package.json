@@ -68,6 +68,7 @@
     "mockjs": "^1.0.1-beta3",
     "moment": "^2.17.1",
     "promissory-arbiter": "^1.0.1",
+    "react-bmap": "^1.0.71",
     "xlsx": "^0.12.6",
     "yarn": "^1.5.1"
   }

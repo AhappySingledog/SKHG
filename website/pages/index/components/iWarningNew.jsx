@@ -37,7 +37,7 @@ export default class iWarningNew extends React.Component {
             };
             publish('getData', { svn: map[key].svn, tableName: map[key].query.tableName, data: { pageno: 1, pagesize: 100, where: map[key].query.where } }).then((res) => {
                 let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name };});
-                let table = <Table rowNo={true} title={<Title title={e.alias} id={'qqq'} close={() => this.setState({table: null})} />} style={{ height: 775, width: map[key].width }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].features.map((e) => e.attributes)} trClick={null} trDbclick={null} myTd={null} hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
+                let table = <Table rowNo={true} title={{name: e.alias, export: true, close: () => this.setState({table: null})}} style={{ height: 775, width: map[key].width }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].features.map((e) => e.attributes)} trClick={null} trDbclick={null} myTd={null} hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
                 this.setState({ table: table, key: key }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
             });
         }

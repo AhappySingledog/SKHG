@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
-import { Vedio, ViwePager, Table, ImgDisplay, Panel, Vedios } from '../../../frame/componets/index';
+import { Vedio, ViwePager, Table, ImgDisplay, Panel, Vedios, QueryBox, QueryBoxs } from '../../../frame/componets/index';
 import { table2Excel } from '../../../frame/core/table2Excel';
 import Home from './home';
 import Port from './port';
@@ -15,8 +15,7 @@ import WareHouse from './wareHouse';
 import IWarning from './iWarning';
 import IWarningNew from './iWarningNew';
 import ICommand from './iCommand';
-import TableTitle from './tableTitle';
-import TableTitle1 from './tableTitle1';
+import AgingControl from './agingControl';
 import '../../../frame/less/magic.less';
 import '../../../frame/less/xcConfirm.less';
 
@@ -173,25 +172,6 @@ class Warning extends React.Component {
     }
 }
 
-class QueryTitle extends React.Component {
-    render() {
-        return (
-            <div className='tableTitle'>
-                <div className='tableTitle-n'>
-                    {this.props.title}
-                </div>
-                <div className='tableTitle-s'>
-                    码头<input style={{ width: 310 }} placeholder='请输入码头' className='tableTitle-i' id='mt' />
-                    IMO号<input style={{ width: 380 }} placeholder='请输入IMO号' className='tableTitle-i' id='imo' />
-                    航次号<input placeholder='请输入航次号' className='tableTitle-i' id='hc' />
-                    <div className='tableTitle-cl' onClick={() => this.props.query($('#mt').val(), $('#imo').val(), $('#hc').val())}>
-                    </div>
-                </div>
-            </div>
-        )
-    }
-}
-
 class MyQuery extends React.Component {
     state = {
         index: 0,
@@ -210,19 +190,19 @@ class MyQuery extends React.Component {
         let index = this.state.index;
         let id1 = 'a', id2 = 'b';
         let flds = [];
-        let width = 1280, height = 1360;
-        let h = 660;
+        let width = 1750, height = 1625;
+        let h = 772;
         if (index === 0) {
-            let query = (mt, imo, hc) => {
+            let query = (ops) => {
                 let pa = [{
                     paramName: 'P_TERMINALCODE',
-                    value: mt
+                    value: ops.mt
                 }, {
                     paramName: 'P_IMO',
-                    value: imo
+                    value: ops.imo
                 }, {
                     paramName: 'P_BUSINESSVOY',
-                    value: hc
+                    value: ops.hch
                 }];
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCT_SHIPSCHEDULE', parms: JSON.stringify(pa) } }).then((res) => {
                     if (res[0].data.length > 0) {
@@ -244,7 +224,7 @@ class MyQuery extends React.Component {
                 { title: '参数值', dataIndex: 'value' },
             ];
             content = [
-                <Table key={1} rowNo={true} title={<QueryTitle title={'泊位停靠船舶信息'} id={id1} query={query} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{name: '泊位停靠船舶信息', export: false, items: [<QueryBoxs key={1} name='' query={query}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
             ];
         }
         else if (index === 1) {
@@ -286,10 +266,10 @@ class MyQuery extends React.Component {
                 { title: '从', dataIndex: 'OldValue' },
                 { title: '到', dataIndex: 'NewValue' },
             ];
-            let query = (e) => {
+            let query = (no) => {
                 Promise.all([
-                    publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: e } }),
-                    publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: e } }),
+                    publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
+                    publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
                 ]).then((res) => {
                     let result = res[0][0].InnerList;
                     if (result.length > 0) {
@@ -307,8 +287,8 @@ class MyQuery extends React.Component {
             }
             content = [
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
-                    <Table rowNo={true} title={<TableTitle title={'集装箱信息'} id={id1} query={query} />} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
-                    <Table rowNo={true} title={<TableTitle title={'集装箱历史轨迹'} id={id2} />} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '集装箱信息', export: false, items: [<QueryBox key={1} name='' query={query}/>]}} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '集装箱历史轨迹', export: false}} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
         }
@@ -319,7 +299,7 @@ class MyQuery extends React.Component {
                 { title: '所属单位', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'仓库信息'} id={id1} query={(e) => alert(e)} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 3) {
@@ -329,8 +309,8 @@ class MyQuery extends React.Component {
                 { title: '装船/出闸信息', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle title={'集装箱已离港情况'} id={id1} query={(e) => alert(e)} />} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
-                <Table key={2} rowNo={true} title={<TableTitle title={'集装箱在场情况'} id={id2} />} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{name: '集装箱已离港情况', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
+                <Table key={2} rowNo={true} title={{name: '集装箱在场情况', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 4) {
@@ -340,7 +320,7 @@ class MyQuery extends React.Component {
                 { title: '所属单位', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={<TableTitle1 title={'仓库信息'} id={'test'} />} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
 
@@ -349,13 +329,12 @@ class MyQuery extends React.Component {
                 <div className='query' ref='target'>
                     <div className='query-t'>
                         <div className='query-t-t'>
-                            {items.map((e, i) => <div key={i} className={'query-t-t-item-' + (i + 1) + (i === this.state.index ? '-select' : '')} onClick={() => this.chooseItem(i)}></div>)}
+                            {items.map((e, i) => <div key={i} className={'hvr-pulse-shrink query-t-t-item' + (i === this.state.index ? '-select' : '-noselect')} onClick={() => this.chooseItem(i)}>{e}</div>)}
                         </div>
                         <div className='query-t-b'>
                             {content}
                         </div>
                     </div>
-                    <div className='query-b' onClick={this.props.close}></div>
                 </div>
             </div>
         );
@@ -485,6 +464,7 @@ export default class App extends React.Component {
         iCountBtn: false,
         iCommand: false,
         iWarningNew: false,
+        agingControl: false,
     }
     layers = {}
     componentDidMount() {
@@ -600,6 +580,9 @@ export default class App extends React.Component {
         if (flag) this.setState({ warningTip: flag }, () => $('.warningTip').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.warningTip').removeClass('showAnimete_1 animated')));
         else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({ warningTip: flag }); });
     }
+    agingControl = () => {
+        this.setState({agingControl: !this.state.agingControl});
+    }
     goBack = () => {
         let index = this.state.index;
         if (index >= 1) this.changeLayer({ index: index - 1, props: this.layers[index - 1].props });
@@ -638,7 +621,6 @@ export default class App extends React.Component {
                 <div className='mheader'>
                     <div className='mheader-title'></div>
                     <div className='mheader-top'>
-                        <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-home' onClick={() => this.changeLayer(0, {})} />
                         <div className='mheader-iQuery' onClick={() => this.iQuery(!this.state.myQuery)} />
                         {/* <div className='mheader-iCount' onClick={this.iCount} /> */}
@@ -646,6 +628,8 @@ export default class App extends React.Component {
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
                         <div className='mheader-link' onClick={this.link} />
+                        <div className='mheader-link' onClick={this.agingControl} />
+                        <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>{this.state.layerName}</div>
                             <Timer />
@@ -663,6 +647,7 @@ export default class App extends React.Component {
                 {this.state.iCountBtn ? <ICountimg close={this.iCount} /> : null}
                 {this.state.iCommand ? <ICommand close={() => this.iCommand(false)}/> : null}
                 {this.state.iWarningNew ? <IWarningNew /> : null}
+                {this.state.agingControl ? <AgingControl /> : null}
             </div>
         )
     }
