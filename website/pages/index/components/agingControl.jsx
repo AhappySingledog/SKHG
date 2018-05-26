@@ -83,6 +83,7 @@ export default class AgingControl extends React.Component {
                                 color: "#f00",
                                 lineStyle: {
                                     width: 6,
+                                    type : 'dotted',
                                     color: "#f00"
                                 }
                             }
