@@ -1198,11 +1198,32 @@ body>div:nth-of-type(n+1) {
 
 //时效管控
 .ac {
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 1);
     z-index: 9999;
     position: absolute;
     top: 433px;
     left: 7711px;
+    &-back {
+        position: absolute;
+        position: absolute;
+        top: 120px;
+        right: 125px;
+        width: 90px;
+        height: 90px;
+        background: url('../images/返回.png') no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+    }
+    &-close {
+        position: absolute;
+        top: 135px;
+        right: 125px;
+        width: 70px;
+        height: 70px;
+        background: url('../images/关闭.png') no-repeat;
+        background-size: 100% 100%;
+        cursor: pointer;
+    }
     &-box {
         width: 3741px;
         height: 2759px;
@@ -1295,16 +1316,20 @@ body>div:nth-of-type(n+1) {
     align-items: center;
     justify-content: space-between;
     >div:nth-of-type(1) {
+        color: white;
+        font-size: 50px;
+    }
+    >div:nth-of-type(2) {
         width: 100%;
         height: 54px;
     }
-    >div:nth-of-type(2) {
+    >div:nth-of-type(3) {
         display: flex;
         flex-direction: row;
         align-items: flex-end;
         justify-content: space-between;
         >div:nth-of-type(1) {
-            font-size: 55px;
+            font-size: 50px;
             color: white;
         }
         >div:nth-of-type(2) {
@@ -1317,7 +1342,7 @@ body>div:nth-of-type(n+1) {
             color: #1f9bff;
         }
     }
-    >div:nth-of-type(3) {
+    >div:nth-of-type(4) {
         width: 100%;
         display: flex;
         flex-direction: row;
@@ -1330,8 +1355,8 @@ body>div:nth-of-type(n+1) {
             justify-content: space-between;
             flex-grow: 1;
             >div:nth-of-type(1) {
-                width: 245px;
-                height: 245px;
+                width: 220px;
+                height: 220px;
             }
             >div:nth-of-type(2) {
                 display: flex;
@@ -1339,19 +1364,29 @@ body>div:nth-of-type(n+1) {
                 align-items: flex-end;
                 justify-content: center;
                 >div:nth-of-type(1) {
-                    font-size: 90px;
+                    font-size: 80px;
                     line-height: 95px;
                 }
                 >div:nth-of-type(2) {
-                    font-size: 50px;
+                    font-size: 45px;
                 }
             }
             >div:nth-of-type(3) {
                 color: white;
-                font-size: 60px;
+                font-size: 50px;
             }
         }
     }
+}
+
+.jd:hover {
+    background: url('../images/agingControl/hover.png') no-repeat;
+    background-size: 100% 100%;
+}
+
+.jd-select {
+    background: url('../images/agingControl/hover.png') no-repeat;
+    background-size: 100% 100%;
 }
 
 .top10 {
@@ -1361,6 +1396,7 @@ body>div:nth-of-type(n+1) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    margin-right: 100px;
     &-title {
         color: #1f9bff;
         font-size: 60px;

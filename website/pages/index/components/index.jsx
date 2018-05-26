@@ -472,6 +472,7 @@ export default class App extends React.Component {
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
+        this.sub_closeAC = subscribe('closeAC', (flag) => this.setState({agingControl: flag}));
         this.sub_setLayerName = subscribe('setLayerName', (name) => this.setState({layerName: name}));
         publish('changeLayer', { index: 0, props: {} });
         let format = function (date, fmt) {
@@ -625,7 +626,7 @@ export default class App extends React.Component {
                         <div className='mheader-iQuery' onClick={() => this.iQuery(!this.state.myQuery)} />
                         {/* <div className='mheader-iCount' onClick={this.iCount} /> */}
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
-                        <div className='mheader-warning' onClick={this.warning} />
+                        {/* <div className='mheader-warning' onClick={this.warning} /> */}
                         <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-sxgk' onClick={this.agingControl} />
