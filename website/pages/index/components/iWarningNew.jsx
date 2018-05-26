@@ -30,14 +30,29 @@ export default class iWarningNew extends React.Component {
                 alter11: { svn: 'skhg_loader', title: '收到查验指令24小时未调入CIC', query: { tableName: 'V_IMAP_ALERTING_11', where: '1=1' }, width: 3000 },
                 alter12: { svn: 'skhg_loader', title: '调入CIC超24小时未查验', query: { tableName: 'V_IMAP_ALERTING_12', where: '1=1' }, width: 3000 },
                 alter13: { svn: 'skhg_loader', title: '查验完毕超12小时未调离CIC', query: { tableName: 'V_IMAP_ALERTING_13', where: '1=1' }, width: 3000 },
-                warning1: { svn: 'skhg_stage', title: '空柜有货', query: { tableName: 'IMAP_WARNING_LOG1', where: "ISHANDLED='N'" }, width: 5000 },
-                warning2: { svn: 'skhg_stage', title: '调拨通道途中监管异常报警', query: { tableName: 'IMAP_WARNING_LOG2', where: "ISHANDLED='N'" }, width: 5000 },
-                warning3: { svn: 'skhg_stage', title: '行政通道车辆识别异常报警', query: { tableName: 'IMAP_WARNING_LOG3', where: "ISHANDLED='N'" }, width: 5000 },
-                warning10: { svn: 'skhg_stage', title: '旅检船舶未审批即移泊', query: { tableName: 'IMAP_WARNING_LOG10', where: "ISHANDLED='N'" }, width: 5000 }
+                warning1: { svn: 'skhg_stage', title: '国际中转集装箱滞港超90天', query: { tableName: 'IMAP_WARNING_01', where: "ISHANDLED='N'" }, width: 5000 },
+                warning2: { svn: 'skhg_stage', title: '国际中转集装箱滞港超180天', query: { tableName: 'IMAP_WARNING_02', where: "ISHANDLED='N'" }, width: 5000 },
+                warning3: { svn: 'skhg_stage', title: '出口提前申报后超3天未抵运', query: { tableName: 'IMAP_WARNING_LOG2', where: "ISHANDLED='N'" }, width: 5000 },
+                warning4: { svn: 'skhg_stage', title: '装载舱单数据发送不及时', query: { tableName: 'IMAP_WARNING_LOG2', where: "ISHANDLED='N'" }, width: 5000 },
+                warning5: { svn: 'skhg_stage', title: '船舶离港后超24小时未发送理货报告', query: { tableName: 'IMAP_WARNING_LOG2', where: "ISHANDLED='N'" }, width: 5000 },
+                warning6: { svn: 'skhg_stage', title: '海关未放行集装箱装船', query: { tableName: 'IMAP_WARNING_06', where: "ISHANDLED='N'" }, width: 5000 },
+                warning7: { svn: 'skhg_stage', title: '海关未放行集装箱出闸', query: { tableName: 'IMAP_WARNING_07', where: "ISHANDLED='N'" }, width: 5000 },
+                warning8: { svn: 'skhg_stage', title: '整船换装货物异常提离堆场', query: { tableName: 'IMAP_WARNING_08', where: "ISHANDLED='N'" }, width: 5000 },
+                warning9: { svn: 'skhg_stage', title: '整船换装货物异常预配载', query: { tableName: 'IMAP_WARNING_09', where: "ISHANDLED='N'" }, width: 5000 },
+                warning10: { svn: 'skhg_stage', title: '同船运输集装箱异常装卸', query: { tableName: 'IMAP_WARNING_10', where: "ISHANDLED='N'" }, width: 5000 },
+                warning11: { svn: 'skhg_stage', title: '空柜重量异常', query: { tableName: 'IMAP_WARNING_11', where: "ISHANDLED='N'" }, width: 5000 },
+                warning12: { svn: 'skhg_stage', title: '调拨车辆超时停留', query: { tableName: 'IMAP_WARNING_12', where: "ISHANDLED='N'" }, width: 5000 },
+                warning13: { svn: 'skhg_stage', title: '调拨车辆偏离路线', query: { tableName: 'IMAP_WARNING_13', where: "ISHANDLED='N'" }, width: 5000 },
+                warning14: { svn: 'skhg_stage', title: '调拨车辆运行超时', query: { tableName: 'IMAP_WARNING_14', where: "ISHANDLED='N'" }, width: 5000 },
+                warning15: { svn: 'skhg_stage', title: '散杂货异常堆放', query: { tableName: 'IMAP_WARNING_LOG2', where: "ISHANDLED='N'" }, width: 5000 },
+                warning16: { svn: 'skhg_stage', title: '收到查验指令72小时未调入CIC', query: { tableName: 'IMAP_WARNING_16', where: "ISHANDLED='N'" }, width: 5000 },
+                warning17: { svn: 'skhg_stage', title: '查验完毕超24小时未调离CIC', query: { tableName: 'IMAP_WARNING_17', where: "ISHANDLED='N'" }, width: 5000 },
+                warning18: { svn: 'skhg_stage', title: '行政通道车辆识别异常', query: { tableName: 'IMAP_WARNING_18', where: "ISHANDLED='N'" }, width: 5000 },
+                warning19: { svn: 'skhg_stage', title: '行政通道车辆布控中控', query: { tableName: 'IMAP_WARNING_19', where: "ISHANDLED='N'" }, width: 5000 },
             };
             publish('getData', { svn: map[key].svn, tableName: map[key].query.tableName, data: { pageno: 1, pagesize: 100, where: map[key].query.where } }).then((res) => {
-                let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name };});
-                let table = <Table rowNo={true} title={{name: e.alias, export: true, close: () => this.setState({table: null})}} style={{ height: 775, width: map[key].width }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].features.map((e) => e.attributes)} trClick={null} trDbclick={null} myTd={null} hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
+                let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
+                let table = <Table rowNo={true} title={{ name: e.alias, export: true, close: () => this.setState({ table: null }) }} style={{ height: 775, width: map[key].width }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].features.map((e) => e.attributes)} trClick={null} trDbclick={null} myTd={null} hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
                 this.setState({ table: table, key: key }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
             });
         }
@@ -102,18 +117,20 @@ export default class iWarningNew extends React.Component {
         ];
         let gk1 = [
             { name: '', key: 'warning1', alias: '海关未放行集装箱装船', type: 1, data: { cl: 72, wcl: 15 } },
-            { name: '', key: 'warning1', alias: '海关未放行集装箱出闸', type: 1, data: { cl: 32, wcl: 2 } },
-            { name: '', key: 'warning1', alias: '整船换装货物异常提离堆场', type: 1, data: { cl: 56, wcl: 12 } },
-            { name: '', key: 'warning1', alias: '整船换装货物异常预配载', type: 1, data: { cl: 33, wcl: 6 } },
-            { name: '', key: 'warning1', alias: '同船运输集装箱异常装卸', type: 1, data: { cl: 55, wcl: 13 } },
-            { name: '', key: 'warning1', alias: '空柜重量异常', type: 1, data: { cl: 50, wcl: 0 } },
-            { name: '', key: 'warning1', alias: '散杂货异常堆放', type: 1, data: { cl: 52, wcl: 2 } },
+            { name: '', key: 'warning1', alias: '海关未放行集装箱出闸', type: 1, data: { cl: 78, wcl: 2 } },
+            { name: '', key: 'warning1', alias: '整船换装货物异常提离堆场', type: 1, data: { cl: 68, wcl: 12 } },
+            { name: '', key: 'warning1', alias: '整船换装货物异常预配载', type: 1, data: { cl: 62, wcl: 6 } },
+            // { name: '', key: 'warning1', alias: '同船运输集装箱异常装卸', type: 1, data: { cl: 55, wcl: 13 } },
+            { name: '', key: 'warning1', alias: '空柜重量异常', type: 1, data: { cl: 68, wcl: 0 } },
+            { name: '', key: 'warning1', alias: '散杂货异常堆放', type: 1, data: { cl: 79, wcl: 2 } },
+            { name: '', key: 'warning1', alias: '船舶抵港时间异常报警', type: 1, data: { cl: 82, wcl: 7 } },
+            { name: '', key: 'warning1', alias: '船舶离港时间异常报警', type: 1, data: { cl: 88, wcl: 5 } },
             { name: '', key: 'alter8', alias: '进口舱单品名含敏感词', type: 0, data: 23 },
             { name: '', key: 'alter9', alias: '出口预配舱单品名含敏感词', type: 0, data: 26 },
             { name: '', key: 'alter10', alias: '整船换装货物超期滞留堆场', type: 0, data: 50 },
         ];
         let gk2 = [
-            { name: '', key: 'alter3', alias: '收到查验指令72小时未调入CIC', type: 1, data: { cl: 72, wcl: 12 } },
+            { name: '', key: 'alter3', alias: '收到查验指令72小时未调入CIC', type: 1, data: { cl: 46, wcl: 12 } },
             { name: '', key: 'alter3', alias: '查验完毕超24小时未调离CIC', type: 1, data: { cl: 22, wcl: 2 } },
             { name: '', key: 'alter11', alias: '收到查验指令24小时未调入CIC', type: 0, data: 23 },
             { name: '', key: 'alter12', alias: '调入CIC超24小时未查验', type: 0, data: 26 },
@@ -149,9 +166,9 @@ export default class iWarningNew extends React.Component {
                     </div>
                     <div className='iw-box-b'>
                         <div>
-                            <GK name={'码头'} datas={gk1} max={100} height={425} click={this.onClick} />
-                            <GK name={'CIC'} datas={gk2} max={100} height={250} click={this.onClick} />
-                            <GK name={'调拨车辆'} datas={gk3} max={100} height={147} click={this.onClick} />
+                            <GK name={'码头'} datas={gk1} max={100} height={680} click={this.onClick} />
+                            <GK name={'CIC'} datas={gk2} max={100} height={285} click={this.onClick} />
+                            <GK name={'调拨车辆'} datas={gk3} max={100} height={189} click={this.onClick} />
                             <GK name={'行政车辆'} datas={gk4} max={100} height={110} click={this.onClick} />
                             <GK name={'旅检'} datas={gk5} max={100} height={110} click={this.onClick} />
                         </div>
@@ -185,8 +202,6 @@ class JT extends React.Component {
     }
     dbclick = (e, type) => {
         if (this.timer) clearTimeout(this.timer);
-        console.log(e);
-        console.log(type);
     }
     render() {
         let { bj = [], yj = [], max = 60 } = this.props;
@@ -234,7 +249,22 @@ class ONEGK extends React.Component {
     render() {
         let { e = null, max = 100 } = this.props;
         return (
-            e ? <div className='gk-4-one' ref='animate'>{e.type == 1 ? [<div key={0} className='gk-4-one-bj-cl hvr-pulse-shrink' style={{ width: (e.data.cl / max).toFixed(2) * 100 + '%' }} onClick={() => this.click(e, 'bjycl')} onDoubleClick={() => this.dbclick(e, 'bjycl')}></div>, <div key={1} className='gk-4-one-bj-wcl hvr-pulse-shrink' style={{ width: (e.data.wcl / max).toFixed(2) * 100 + '%' }} onClick={() => this.click(e, 'bjwcl')} onDoubleClick={() => this.dbclick(e, 'bjwcl')}></div>] : <div className='gk-4-one-yj hvr-pulse-shrink' style={{ width: (e.data / max).toFixed(2) * 100 + '%' }} onClick={() => this.click(e, 'yj')} onDoubleClick={() => this.dbclick(e, 'yj')}></div>}</div> : null
+            e ? <div className='gk-4-ts'>
+                <div className='gk-4-view'>{e.alias}</div>
+                <div className='gk-4-one' ref='animate'>
+                {e.type == 1 ? [
+                    <div key={0} className='gk-4-one-bj-cl hvr-pulse-shrink' style={{ width: (e.data.cl / max).toFixed(2) * 100 + '%' }}
+                        onClick={() => this.click(e, 'bjycl')} onDoubleClick={() => this.dbclick(e, 'bjycl')}>
+                    </div>,
+                    <div key={1} className='gk-4-one-bj-wcl hvr-pulse-shrink' style={{ width: (e.data.wcl / max).toFixed(2) * 100 + '%' }}
+                        onClick={() => this.click(e, 'bjwcl')} onDoubleClick={() => this.dbclick(e, 'bjwcl')}>
+                    </div>
+                ] :<div className='gk-4-one-yj hvr-pulse-shrink' style={{ width: (e.data / max).toFixed(2) * 100 + '%' }}
+                            onClick={() => this.click(e, 'yj')} onDoubleClick={() => this.dbclick(e, 'yj')}>
+                    </div>}
+            </div>
+            </div>
+            : null
         )
     }
 }

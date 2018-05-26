@@ -1382,6 +1382,19 @@ body > div:nth-of-type(n+1) {
   align-items: center;
   justify-content: space-between;
 }
+.gk-4-ts {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.gk-4-view {
+  color: #fff;
+  width: 35%;
+  text-align: end;
+  margin-left: -30px;
+  margin-right: 50px;
+  font-size: 40px;
+}
 .gk-4-one {
   width: 2980px;
   height: 25px;
