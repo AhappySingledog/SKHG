@@ -1218,18 +1218,74 @@ body>div:nth-of-type(n+1) {
         height: 2759px;
         background: url('../images/agingControl/外框.png') no-repeat;
         background-size: 100% 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        &-title {
+            color: white;
+            font-size: 80px;
+            position: absolute;
+            left: 470px;
+            top: 15px;
+        }
+        &-t {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            >div:nth-of-type(1) {
+                width: 3556px;
+                height: 160px;
+                margin-top: 175px;
+                margin-bottom: 30px;
+            }
+            >div:nth-of-type(2) {
+                width: 3556px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+            }
+        }
+        &-c {
+            width: 3556px;
+            height: 127px;
+            border-left: 15px solid #1f9bff;
+            background: #031947;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            >div:nth-of-type(1) {
+                text-indent: 100px;
+                color: #58a9f9;
+                font-size: 60px;
+                line-height: 127px;
+            }
+            >div:nth-of-type(2) {
+                color: #ffad29;
+                font-size: 60px;
+                line-height: 127px;
+            }
+        }
+        &-b {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 50px;
+        }
     }
 }
 
 .jd {
-    width: 898px;
-    height: 628px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     >div:nth-of-type(1) {
-        width: 836px;
+        width: 100%;
         height: 54px;
     }
     >div:nth-of-type(2) {
@@ -1295,6 +1351,13 @@ body>div:nth-of-type(n+1) {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
+    &-title {
+        color: #1f9bff;
+        font-size: 60px;
+        position: absolute;
+        top: 1190px;
+        left: 450px;
+    }
     &-l {
         width: 140px;
         height: 1433px;
@@ -1359,7 +1422,7 @@ body>div:nth-of-type(n+1) {
         line-height: 88px;
     }
     &-b {
-        width: 2250px;
+        width: 2245px;
         height: 1245px;
         margin-bottom: 70px;
         overflow-y: auto;
@@ -1387,7 +1450,7 @@ body>div:nth-of-type(n+1) {
         }
         >tbody {
             >tr {
-                height: 80px;
+                height: 76px;
                 >td:nth-of-type(2n + 1) {
                     color: #1f9bff;
                     font-size: 40px;
