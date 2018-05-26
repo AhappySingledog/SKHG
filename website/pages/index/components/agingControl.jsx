@@ -201,7 +201,7 @@ class CK extends React.Component {
                 <div className='ac-ckbox-c'><div>诊断结论：</div><div>2018年{this.props.data}出口时效......</div></div>
                 <div className='ac-ckbox-b'>
                     <Top10 />
-                    <DataDesc containerNo={'IMTU3066728'} />
+                    <DataDesc containerNo={'IMTU3066728'}  />
                 </div>
             </div>
         )
