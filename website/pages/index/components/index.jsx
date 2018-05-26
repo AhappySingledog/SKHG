@@ -628,7 +628,7 @@ export default class App extends React.Component {
                         <div className='mheader-warning' onClick={this.warning} />
                         <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
                         <div className='mheader-link' onClick={this.link} />
-                        <div className='mheader-link' onClick={this.agingControl} />
+                        <div className='mheader-sxgk' onClick={this.agingControl} />
                         <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>{this.state.layerName}</div>
