@@ -5,6 +5,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import echarts from 'echarts';
 import { publish } from '../../../frame/core/arbiter';
+import { Table } from '../../../frame/componets/index';
 
 // tip组件
 export default class AgingControl extends React.Component {
@@ -40,7 +41,7 @@ export default class AgingControl extends React.Component {
                             textStyle: {
                                 color: '#fff',
                                 fontSize: 50
-    
+
                             }
                         },
                         axisLine: {
@@ -83,7 +84,7 @@ export default class AgingControl extends React.Component {
                                 color: "#f00",
                                 lineStyle: {
                                     width: 6,
-                                    type : 'dotted',
+                                    type: 'dotted',
                                     color: "#f00"
                                 }
                             }
@@ -109,7 +110,7 @@ export default class AgingControl extends React.Component {
                                     show: true,
                                     position: 'insideTop'
                                 }
-    
+
                             }
                         },
                         data: [35, 12, 22, 25, 10, 12, 22, 15, 20, 30, 30, 20].map((e, i) => {
@@ -127,7 +128,7 @@ export default class AgingControl extends React.Component {
                                             show: true,
                                             position: 'insideTop'
                                         }
-    
+
                                     }
                                 }
                             };
@@ -157,7 +158,7 @@ export default class AgingControl extends React.Component {
                 {this.state.layer == 'sy' ? <div className='ac-box'>
                     <div ref='echart1' className='ac-box-t'></div>
                     <div ref='echart2' className='ac-box-b'></div>
-                </div> : <CK layer={this.state.layer} data={this.state.param} back={() => this.setState({layer: 'sy'}, this.update)}/>}
+                </div> : <CK layer={this.state.layer} data={this.state.param} back={() => this.setState({ layer: 'sy' }, this.update)} />}
             </div>
         )
     }
@@ -190,17 +191,17 @@ class CK extends React.Component {
                 <div className='ac-back' onClick={this.props.back}></div>
                 {/* <div className='ac-close' onClick={() => publish('closeAC', false)}></div> */}
                 <div className='ac-ckbox-title'>{this.props.layer == 'ck' ? '出口' : '进口'}</div>
-                <div style={{width: 3, height: 733, position: 'absolute', top: 257, left: this.props.layer == 'ck' ? 1500 : 1870, background: '#1f9bff'}}></div>
+                <div style={{ width: 3, height: 733, position: 'absolute', top: 257, left: this.props.layer == 'ck' ? 1500 : 1870, background: '#1f9bff' }}></div>
                 <div className='ac-ckbox-t'>
                     <div style={{ background: "url('../agingControl/" + this.props.layer + ".png') no-repeat", backgroundSize: '100% 100%' }}></div>
                     <div>
-                        {datas.map((e, i) => <JD key={i} index={i + 1} datas={e} selected={this.state.selectIndex == i + 1} click={() => this.setState({selectIndex: i + 1})} />)}
+                        {datas.map((e, i) => <JD key={i} index={i + 1} datas={e} selected={this.state.selectIndex == i + 1} click={() => this.setState({ selectIndex: i + 1 })} />)}
                     </div>
                 </div>
                 <div className='ac-ckbox-c'><div>诊断结论：</div><div>2018年{this.props.data}出口时效......</div></div>
                 <div className='ac-ckbox-b'>
                     <Top10 />
-                    <DataDesc />
+                    <DataDesc containerNo={'IMTU3066728'} />
                 </div>
             </div>
         )
@@ -246,7 +247,7 @@ class JDEC extends React.Component {
                     },
                     data: [
                         {
-                            value: 90, 
+                            value: 90,
                             itemStyle: {
                                 normal: {
                                     color: this.props.type == 1 ? '#70e100' : '#ff0000',
@@ -319,14 +320,29 @@ class Top10 extends React.Component {
 
 // 详细数据组件
 class DataDesc extends React.Component {
+
+    state = {
+        jzxxx: {},
+        jzxlsgj: [],
+    }
+
+    componentDidMount() {
+        Promise.all([
+            publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: this.props.containerNo } }),
+            publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: this.props.containerNo } }),
+        ]).then((res) => {
+            this.setState({ jzxxx: res[0][0]['InnerList'][0], jzxlsgj: res[1][0]['InnerList'] })
+        });
+    }
+
     render() {
         return (
             <div className='dd'>
                 <div className='dd-t'>详情数据</div>
                 <div className='dd-b scrollbar'>
-                    <OneRecordTable />
+                    <OneRecordTable jzxxx={this.state.jzxxx} />
                     <div className='dd-b-line'></div>
-                    <OneRecordTable />
+                    <TwoRecordTable jzxlsgj={this.state.jzxlsgj} />
                 </div>
             </div>
         )
@@ -336,26 +352,100 @@ class DataDesc extends React.Component {
 // 单条数据详情组件
 class OneRecordTable extends React.Component {
     render() {
-        let datas = [
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
-            [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        // let datas = [
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        // ];
+        let map = [
+            { title: 'IMO号', dataIndex: 'IMO' },
+            { title: '箱主', dataIndex: 'LineId' },
+            { title: '船名航次', dataIndex: 'OutVesselVoyage' },
+            { title: '作业码头', dataIndex: 'DbId' },
+            { title: '总提运单号', dataIndex: 'BlNbr' },
+            { title: '出口商业航次号', dataIndex: 'OutBusinessVoy' },
+            { title: '订舱号', dataIndex: 'BookingEdo' },
+            { title: '箱号', dataIndex: 'ContainerNbr' },
+            { title: '箱型尺寸高度', dataIndex: 'SzTpHt' },
+            { title: '空重', dataIndex: 'Status' },
+            { title: '进出口状态', dataIndex: 'Category' },
+            { title: '进口商业航次号', dataIndex: 'InBusinessVoy' },
+            { title: '当前位置', dataIndex: 'Location' },
+            { title: '装货港', dataIndex: 'PolAlias' },
+            { title: '海关放行时间', dataIndex: 'CUS' },
+            { title: '目的港', dataIndex: 'Destination' },
+            { title: '卸货港', dataIndex: 'PodAlias' },
+            { title: '国检放行时间', dataIndex: 'CIQ' },
+            { title: '集中查验时间', dataIndex: 'CicTime' },
+            { title: '集中查验状态', dataIndex: 'CicStatus' },
+            { title: '进场时间', dataIndex: 'InTime' },
+            { title: '离港时间', dataIndex: 'OutTime' },
+            { title: '海关查验状态、国检查验状态、放行状态', dataIndex: 'ReleaseStatus' },
         ];
+        let json = this.props.jzxxx;
+        let datas1 = map.map((e) => { return { key: e.title, value: json[e.dataIndex] } });
+        console.log(datas1);
         return (
             <div className='ort scrollbar'>
-                <table>
+                {/* <table>
+                    <thead></thead>
+                    <tbody>
+                        {
+                          
+                        }
+                    </tbody>
+                </table> */}
+                {
+                    datas1.length > 0 ? datas1.map((e, i) => {
+                        return <div className="ort_ty" key={"xx" + i}>
+                            <div title={e.key}  className="ort_ty_key">{e.key}：</div>
+                            <div title={e.value}  className="ort_ty_val">{e.value}</div>
+                        </div>
+                    }) : <div />
+                }
+            </div>
+        )
+    }
+}
+
+//第二栏展示内容
+class TwoRecordTable extends React.Component {
+    render() {
+        // let datas = [
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        //     [{ key: 'IMO号', value: 'UN9377145' }, { key: '箱型尺寸宽度', value: '20/GP/16' }, { key: '进场时间', value: '2018-05-25 12:12:12' }],
+        // ];
+        let flds2 = [
+            { title: '港区', dataIndex: 'DbId' },
+            { title: '船公司', dataIndex: 'ContainerOwner' },
+            { title: '操作', dataIndex: 'OpType' },
+            { title: '操作时间', dataIndex: 'OpTime' },
+            { title: '操作服务', dataIndex: 'ColumnName' },
+            { title: '从', dataIndex: 'OldValue' },
+            { title: '到', dataIndex: 'NewValue' },
+        ];
+        return (
+            <div className='orts scrollbar'>
+                {/* <table>
                     <thead></thead>
                     <tbody>
                         {datas.map((e, i) => <tr key={i}>
                             {e.map((td, j) => [<td>{td.key + ':'}</td>, <td>{td.value}</td>])}
                         </tr>)}
                     </tbody>
-                </table>
+                </table> */}
+                <Table rowNo={true} title={null} style={{ width: '100%', height: 540 }} id={"id2"} selectedIndex={null} flds={flds2} datas={this.props.jzxlsgj} trClick={null} trDbclick={null} />
             </div>
         )
     }
 }
+

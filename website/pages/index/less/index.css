@@ -1389,7 +1389,7 @@ body > div:nth-of-type(n+1) {
 }
 .gk-4-view {
   color: #fff;
-  width: 35%;
+  width: 28%;
   text-align: end;
   margin-left: -30px;
   margin-right: 50px;
@@ -1451,11 +1451,31 @@ body > div:nth-of-type(n+1) {
   transform-origin: left center;
 }
 .ac {
-  background: rgba(0, 0, 0, 0.8);
+  background: #000000;
   z-index: 9999;
   position: absolute;
   top: 433px;
   left: 7711px;
+}
+.ac-back {
+  position: absolute;
+  top: 120px;
+  right: 125px;
+  width: 90px;
+  height: 90px;
+  background: url('../images/返回.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.ac-close {
+  position: absolute;
+  top: 135px;
+  right: 125px;
+  width: 70px;
+  height: 70px;
+  background: url('../images/关闭.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
 .ac-box {
   width: 3741px;
@@ -1482,72 +1502,140 @@ body > div:nth-of-type(n+1) {
   height: 2759px;
   background: url('../images/agingControl/外框.png') no-repeat;
   background-size: 100% 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.ac-ckbox-title {
+  color: white;
+  font-size: 80px;
+  position: absolute;
+  left: 470px;
+  top: 15px;
+}
+.ac-ckbox-t {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+}
+.ac-ckbox-t > div:nth-of-type(1) {
+  width: 3556px;
+  height: 160px;
+  margin-top: 175px;
+  margin-bottom: 30px;
+}
+.ac-ckbox-t > div:nth-of-type(2) {
+  width: 3556px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.ac-ckbox-c {
+  width: 3556px;
+  height: 127px;
+  border-left: 15px solid #1f9bff;
+  background: #031947;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+}
+.ac-ckbox-c > div:nth-of-type(1) {
+  text-indent: 100px;
+  color: #58a9f9;
+  font-size: 60px;
+  line-height: 127px;
+}
+.ac-ckbox-c > div:nth-of-type(2) {
+  color: #ffad29;
+  font-size: 60px;
+  line-height: 127px;
+}
+.ac-ckbox-b {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
 }
 .jd {
-  width: 898px;
-  height: 628px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
 }
 .jd > div:nth-of-type(1) {
-  width: 836px;
-  height: 54px;
+  color: white;
+  font-size: 50px;
 }
 .jd > div:nth-of-type(2) {
+  width: 100%;
+  height: 54px;
+}
+.jd > div:nth-of-type(3) {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: space-between;
 }
-.jd > div:nth-of-type(2) > div:nth-of-type(1) {
-  font-size: 55px;
+.jd > div:nth-of-type(3) > div:nth-of-type(1) {
+  font-size: 50px;
   color: white;
 }
-.jd > div:nth-of-type(2) > div:nth-of-type(2) {
+.jd > div:nth-of-type(3) > div:nth-of-type(2) {
   font-size: 75px;
   color: #1f9bff;
   line-height: 70px;
 }
-.jd > div:nth-of-type(2) > div:nth-of-type(3) {
+.jd > div:nth-of-type(3) > div:nth-of-type(3) {
   font-size: 45px;
   color: #1f9bff;
 }
-.jd > div:nth-of-type(3) {
+.jd > div:nth-of-type(4) {
   width: 100%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
 }
-.jd > div:nth-of-type(3) > div {
+.jd > div:nth-of-type(4) > div {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
   flex-grow: 1;
 }
-.jd > div:nth-of-type(3) > div > div:nth-of-type(1) {
-  width: 245px;
-  height: 245px;
+.jd > div:nth-of-type(4) > div > div:nth-of-type(1) {
+  width: 220px;
+  height: 220px;
 }
-.jd > div:nth-of-type(3) > div > div:nth-of-type(2) {
+.jd > div:nth-of-type(4) > div > div:nth-of-type(2) {
   display: flex;
   flex-direction: row;
   align-items: flex-end;
   justify-content: center;
 }
-.jd > div:nth-of-type(3) > div > div:nth-of-type(2) > div:nth-of-type(1) {
-  font-size: 90px;
+.jd > div:nth-of-type(4) > div > div:nth-of-type(2) > div:nth-of-type(1) {
+  font-size: 80px;
   line-height: 95px;
 }
-.jd > div:nth-of-type(3) > div > div:nth-of-type(2) > div:nth-of-type(2) {
+.jd > div:nth-of-type(4) > div > div:nth-of-type(2) > div:nth-of-type(2) {
+  font-size: 45px;
+}
+.jd > div:nth-of-type(4) > div > div:nth-of-type(3) {
+  color: white;
   font-size: 50px;
 }
-.jd > div:nth-of-type(3) > div > div:nth-of-type(3) {
-  color: white;
-  font-size: 60px;
+.jd:hover {
+  background: url('../images/agingControl/hover.png') no-repeat;
+  background-size: 100% 100%;
+}
+.jd-select {
+  background: url('../images/agingControl/hover.png') no-repeat;
+  background-size: 100% 100%;
 }
 .top10 {
   width: 1072px;
@@ -1556,6 +1644,14 @@ body > div:nth-of-type(n+1) {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+  margin-right: 100px;
+}
+.top10-title {
+  color: #1f9bff;
+  font-size: 60px;
+  position: absolute;
+  top: 1190px;
+  left: 450px;
 }
 .top10-l {
   width: 140px;
@@ -1601,7 +1697,7 @@ body > div:nth-of-type(n+1) {
 }
 .dd {
   width: 2361px;
-  height: 1439px;
+  height: 1485px;
   background: url('../images/agingControl/折线角.png') no-repeat;
   background-size: 100% 100%;
   display: flex;
@@ -1620,7 +1716,7 @@ body > div:nth-of-type(n+1) {
   line-height: 88px;
 }
 .dd-b {
-  width: 2250px;
+  width: 2245px;
   height: 1245px;
   margin-bottom: 70px;
   overflow-y: auto;
@@ -1637,28 +1733,39 @@ body > div:nth-of-type(n+1) {
 }
 .ort {
   width: 100%;
-  height: 555px;
+  height: 550px;
   overflow: auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
-.ort > table {
-  width: 100%;
+.ort_ty {
+  width: 720px;
+  height: 70px;
+  display: flex;
+  flex-direction: row;
 }
-.ort > table > thead {
-  display: none;
-}
-.ort > table > tbody > tr {
-  height: 80px;
-}
-.ort > table > tbody > tr > td:nth-of-type(2n + 1) {
+.ort_ty_key {
   color: #1f9bff;
   font-size: 40px;
   text-align: right;
+  width: 288px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
-.ort > table > tbody > tr > td:nth-of-type(2n) {
+.ort_ty_val {
   color: white;
   font-size: 40px;
   text-align: left;
   text-indent: 40px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.orts {
+  width: 100%;
+  height: 550px;
 }
 /** 智能统计 */
 .OpenImBox {
@@ -2667,6 +2774,7 @@ body > div:nth-of-type(n+1) {
   justify-content: space-between;
 }
 .tableTitle-b {
+  background: url('../images/buttons/导出.png') no-repeat;
   background-size: 100% 100%;
   width: 86px;
   height: 80px;
