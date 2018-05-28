@@ -563,7 +563,7 @@ export default class App extends React.Component {
     }
     iCommand = (flag) => {
         console.log('iCommand');
-        if (flag) this.setState({iCommand: flag, iCountBtn: false, iWarningNew: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
+        if (flag) this.setState({iCommand: flag, iCountBtn: false, iWarningNew: false, agingControl: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
         else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.ic').removeClass('magictime spaceOutLeft animated');this.setState({iCommand: flag});});
     }
     warning = () => {
@@ -572,7 +572,7 @@ export default class App extends React.Component {
     }
     warning2 = (flag) => {
         console.log('warning2');
-        if (flag) this.setState({iWarningNew: flag, iCommand: false, iCountBtn: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+        if (flag) this.setState({iWarningNew: flag, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
         else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.iw').removeClass('magictime spaceOutLeft animated');this.setState({iWarningNew: flag});});
     }
     link = () => {
@@ -582,7 +582,7 @@ export default class App extends React.Component {
         else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({ warningTip: flag }); });
     }
     agingControl = () => {
-        this.setState({agingControl: !this.state.agingControl});
+        this.setState({agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false});
     }
     goBack = () => {
         let index = this.state.index;

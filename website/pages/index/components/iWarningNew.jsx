@@ -279,16 +279,16 @@ class ONEGK extends React.Component {
         let { e = null, max = 100 } = this.props;
         return (
             e ? <div className='gk-4-ts'>
-                <div className='gk-4-view'>{e.alias}</div>
                 <div className='gk-4-one' ref='animate'>
+                    <div className='gk-4-view'>{e.alias}</div>
                     {e.type == 1 ? [
-                        <div key={0} className='gk-4-one-bj-cl hvr-pulse-shrink' style={{ width: (e.data.cl / max).toFixed(2) * 100 + '%' }}
+                        <div key={0} className='gk-4-one-bj-cl hvr-pulse-shrink' style={{ width: (e.data.cl / max).toFixed(2) * 80 + '%' }}
                             onClick={() => this.click(e, 'bjycl')} onDoubleClick={() => this.dbclick(e, 'bjycl')}>
                         </div>,
-                        <div key={1} className='gk-4-one-bj-wcl hvr-pulse-shrink' style={{ width: (e.data.wcl / max).toFixed(2) * 100 + '%' }}
+                        <div key={1} className='gk-4-one-bj-wcl hvr-pulse-shrink' style={{ width: (e.data.wcl / max).toFixed(2) * 80 + '%' }}
                             onClick={() => this.click(e, 'bjwcl')} onDoubleClick={() => this.dbclick(e, 'bjwcl')}>
                         </div>
-                    ] : <div className='gk-4-one-yj hvr-pulse-shrink' style={{ width: (e.data / max).toFixed(2) * 100 + '%' }}
+                    ] : <div className='gk-4-one-yj hvr-pulse-shrink' style={{ width: (e.data / max).toFixed(2) * 80 + '%' }}
                         onClick={() => this.click(e, 'yj')} onDoubleClick={() => this.dbclick(e, 'yj')}>
                         </div>}
                 </div>

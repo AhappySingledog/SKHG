@@ -15,7 +15,10 @@ export default class AgingControl extends React.Component {
     componentDidMount() {
         this.update = () => {
             publish('getData', { svn: 'skhg_stage', tableName: 'imap_scct_sxfx_01', data: { where: "category='E' and EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
-                let data = res[0].features.map((e) => e.attributes.DATAA).concat([0,0,0,0,0,0,0,0]);
+                let data = res[0].features.map((e) => e.attributes.DATAA);
+                for (let i = 0; i < 12 - data.length; i++) {
+                    data.push(0);
+                }
                 let ops = {
                     calculable: true,
                     xAxis: [
@@ -39,6 +42,10 @@ export default class AgingControl extends React.Component {
                     yAxis: [
                         {
                             type: 'value',
+                            name: '天',
+                            nameTextStyle:{
+                                fontSize:50  
+                            },
                             axisLabel: {
                                 textStyle: {
                                     color: '#fff',
@@ -101,20 +108,8 @@ export default class AgingControl extends React.Component {
                             name: '城北所',
                             type: 'bar',
                             stack: 'sum',
+                            barWidth: '60%',
                             barCategoryGap: '50%',
-                            itemStyle: {
-                                normal: {
-                                    label: {
-                                        textStyle: {
-                                            color: '#fff',
-                                            fontSize: 50
-                                        },
-                                        show: true,
-                                        position: 'insideTop'
-                                    }
-        
-                                }
-                            },
                             data: data.map((e, i) => {
                                 return {
                                     name: (i + 1) + '月',
@@ -127,8 +122,9 @@ export default class AgingControl extends React.Component {
                                                     color: '#fff',
                                                     fontSize: 50
                                                 },
-                                                show: true,
-                                                position: 'insideTop'
+                                                show: Number(e) > 0,
+                                                position: 'insideTop',
+                                                formatter: (param) => Number(param.value) > 0 ? Number(param.value) : ''
                                             }
         
                                         }
@@ -170,6 +166,10 @@ export default class AgingControl extends React.Component {
                     yAxis: [
                         {
                             type: 'value',
+                            name: '天',
+                            nameTextStyle:{
+                                fontSize:50  
+                            },
                             axisLabel: {
                                 textStyle: {
                                     color: '#fff',
@@ -232,20 +232,8 @@ export default class AgingControl extends React.Component {
                             name: '城北所',
                             type: 'bar',
                             stack: 'sum',
+                            barWidth: '60%',
                             barCategoryGap: '50%',
-                            itemStyle: {
-                                normal: {
-                                    label: {
-                                        textStyle: {
-                                            color: '#fff',
-                                            fontSize: 50
-                                        },
-                                        show: true,
-                                        position: 'insideTop'
-                                    }
-        
-                                }
-                            },
                             data: data.map((e, i) => {
                                 return {
                                     name: (i + 1) + '月',
@@ -258,8 +246,9 @@ export default class AgingControl extends React.Component {
                                                     color: '#fff',
                                                     fontSize: 50
                                                 },
-                                                show: true,
-                                                position: 'insideTop'
+                                                show: Number(e) > 0,
+                                                position: 'insideTop',
+                                                formatter: (param) => Number(param.value) > 0 ? Number(param.value) : ''
                                             }
         
                                         }
@@ -329,10 +318,11 @@ class CK extends React.Component {
             this.setState({[this.props.layer]: mdata}, () => this.updateTop10(0));
         });
         this.updateTop10 = (i) => {
-            publish('getData', { svn: 'skhg_stage', tableName: this.state[this.props.layer][i].top10Table, data: { pageno: 1, pagesize: 10, where: "EFFECTDATE='201801' ORDER BY DIS DESC" } }).then((res) => {
-                console.log(res);
+            let month = Number(this.props.data.replace('月', ''));
+            let year = new Date().getFullYear();
+            publish('getData', { svn: 'skhg_stage', tableName: this.state[this.props.layer][i].top10Table, data: { pageno: 1, pagesize: 10, where: "EFFECTDATE='" + year + (month < 10 ? '0' : '') + month + "' ORDER BY DIS DESC" } }).then((res) => {
                 let top10 = res[0].features.map((e) => e.attributes);
-                this.setState({top10: top10, containerNo: top10[0].CONTAINERNO});
+                this.setState({top10: [], containerNo: null}, () => this.setState({top10: top10, containerNo: top10[0].CONTAINERNO}));
             });
         }
     }
@@ -352,7 +342,7 @@ class CK extends React.Component {
                 </div>
                 <div className='ac-ckbox-c'><div>诊断结论：</div><div>2018年{this.props.data}出口时效......</div></div>
                 <div className='ac-ckbox-b'>
-                    <Top10 datas={this.state.top10} click={(containerNo) => this.setState({containerNo: containerNo})}/>
+                    {this.state.top10.length > 0 ? <Top10 datas={this.state.top10} click={(containerNo) => this.setState({containerNo: containerNo})}/> : null}
                     {this.state.containerNo ? <DataDesc containerNo={this.state.containerNo} /> : null}
                 </div>
             </div>
@@ -371,7 +361,7 @@ class JD extends React.Component {
                 <div>
                     <div>平均时间：</div>
                     <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>{this.props.datas.time}</div>
-                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }} >小时</div>
+                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }} >天</div>
                 </div>
                 <div>
                     {this.props.datas.items.map((e, i) => <JDEC key={i} type={this.props.datas.type} datas={e} />)}
@@ -439,7 +429,7 @@ class JDEC extends React.Component {
                 <div ref='echart'></div>
                 <div>
                     <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>{this.props.datas.value}</div>
-                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>小时</div>
+                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>天</div>
                 </div>
                 <div>{this.props.datas.name}</div>
             </div>
@@ -449,16 +439,20 @@ class JDEC extends React.Component {
 
 // Top10组件
 class Top10 extends React.Component {
+    state = {
+        select: 0,
+    }
     componentDidMount() {
     }
     render() {
         let items = this.props.datas;
+        let maxDIS = items.length > 0 ? Number(items[0].DIS) : 0;
         return (
             <div className='top10'>
                 <div className='top10-title'>前10名-TOP10</div>
                 <div className='top10-l'></div>
                 <div className='top10-r'>
-                    {items.map((e, i) => <div className='hvr-bounce-to-right' key={i} onClick={() => this.props.click(e.CONTAINERNO)} style={{ width: e.DIS / 231.50 * 100 + '%', fontSize: 50, color: i == 0 ? '#ff0000' : i == 1 ? '#ee7622' : i == 2 ? '#ffad29' : 'white' }}>
+                    {items.map((e, i) => <div className='hvr-bounce-to-right' key={i} onClick={() => {this.props.click(e.CONTAINERNO);this.setState({select: i});}} style={{ width: 100 - i * 2 + '%', fontSize: 50, color: i == 0 ? '#ff0000' : i == 1 ? '#ee7622' : i == 2 ? '#ffad29' : 'white', background: this.state.select == i ? '#062361' : '' }}>
                         <div>{e.CONTAINERNO}</div>
                         <div>{e.DIS}</div>
                         <div className={i <= 2 ? 'top-icon1-3' : 'top-icon4-10'}></div>
@@ -546,7 +540,6 @@ class OneRecordTable extends React.Component {
         ];
         let json = this.props.jzxxx;
         let datas1 = map.map((e) => { return { key: e.title, value: json[e.dataIndex] } });
-        console.log(datas1);
         return (
             <div className='ort scrollbar'>
                 {/* <table>
