@@ -1390,7 +1390,7 @@ body > div:nth-of-type(n+1) {
 .gk-4-view {
   color: #fff;
   width: 28%;
-  text-align: end;
+  text-align: right;
   margin-left: -30px;
   margin-right: 50px;
   font-size: 40px;
@@ -1677,11 +1677,12 @@ body > div:nth-of-type(n+1) {
   border: solid 3px #0d3ca1;
 }
 .top10-r > div > div:nth-of-type(1) {
-  width: 300px;
-  margin: 0 50px;
+  width: 360px;
+  margin-left: 15px;
+  margin-right: 50px;
 }
 .top10-r > div > div:nth-of-type(2) {
-  width: 150px;
+  width: 175px;
 }
 .top10-r > div > div:nth-of-type(3) {
   width: 41px;
@@ -2671,7 +2672,7 @@ body > div:nth-of-type(n+1) {
 }
 .mtables-center-corner-view-1 > span {
   width: 475px;
-  text-align: end;
+  text-align: right;
   padding-right: 30px;
 }
 .mtables-center-corner-view-2 {
