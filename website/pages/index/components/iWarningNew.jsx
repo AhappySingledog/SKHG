@@ -25,9 +25,9 @@ const map = {
 
     warning1: { svn: 'skhg_stage', title: '国际中转集装箱滞港超90天', query: { tableName: 'IMAP_WARNING_01', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning2: { svn: 'skhg_stage', title: '国际中转集装箱滞港超180天', query: { tableName: 'IMAP_WARNING_02', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
-    warning3: { svn: 'skhg_stage', title: '出口提前申报后超3天未抵运', query: { tableName: 'IMAP_WARNING_01', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
-    warning4: { svn: 'skhg_stage', title: '装载舱单数据发送不及时', query: { tableName: 'IMAP_WARNING_01', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
-    warning5: { svn: 'skhg_stage', title: '船舶离港后超24小时未发送理货报告', query: { tableName: 'IMAP_WARNING_01', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
+    warning3: { svn: 'skhg_stage', title: '出口提前申报后超3天未抵运', query: { tableName: 'IMAP_WARNING_06', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
+    warning4: { svn: 'skhg_stage', title: '装载舱单数据发送不及时', query: { tableName: 'IMAP_WARNING_06', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
+    warning5: { svn: 'skhg_stage', title: '船舶离港后超24小时未发送理货报告', query: { tableName: 'IMAP_WARNING_06', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning6: { svn: 'skhg_stage', title: '海关未放行集装箱装船', query: { tableName: 'IMAP_WARNING_06', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning7: { svn: 'skhg_stage', title: '海关未放行集装箱出闸', query: { tableName: 'IMAP_WARNING_07', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning8: { svn: 'skhg_stage', title: '整船换装货物异常提离堆场', query: { tableName: 'IMAP_WARNING_08', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
@@ -37,7 +37,7 @@ const map = {
     warning12: { svn: 'skhg_stage', title: '调拨车辆超时停留', query: { tableName: 'IMAP_WARNING_12', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning13: { svn: 'skhg_stage', title: '调拨车辆偏离路线', query: { tableName: 'IMAP_WARNING_13', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning14: { svn: 'skhg_stage', title: '调拨车辆运行超时', query: { tableName: 'IMAP_WARNING_14', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
-    warning15: { svn: 'skhg_stage', title: '散杂货异常堆放', query: { tableName: 'IMAP_WARNING_01', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
+    warning15: { svn: 'skhg_stage', title: '散杂货异常堆放', query: { tableName: 'IMAP_WARNING_06', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning16: { svn: 'skhg_stage', title: '收到查验指令72小时未调入CIC', query: { tableName: 'IMAP_WARNING_16', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning17: { svn: 'skhg_stage', title: '查验完毕超24小时未调离CIC', query: { tableName: 'IMAP_WARNING_17', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
     warning18: { svn: 'skhg_stage', title: '行政通道车辆识别异常', query: { tableName: 'IMAP_WARNING_18', wcl: "ISHANDLED='N'", ycl: "ISHANDLED='Y'" }, width: 5000 },
@@ -77,6 +77,48 @@ let gk5 = [
     { name: '', key: 'warning17', alias: '旅检船舶未确认即移泊', type: 1, data: { cl: 0, wcl: 0 } },
     { name: '', key: 'warning18', alias: '旅检船舶夜间异常', type: 1, data: { cl: 0, wcl: 0 } },
 ];
+
+let jkyj = [
+    { name: '180天', alias: '', data: 0 },
+    { name: '90天', key: 'alter3', alias: '进口集装箱到港后超90天未放行', data: 0 },
+    { name: '14天', key: 'alter2', alias: '进口集装箱到港后超14天未放行', data: 0 },
+    { name: '7天', key: 'alter1', alias: '进口集装箱到港后超7天未放行', data: 0 },
+    { name: '申报', data: 0 },
+    { name: '放行', data: 0 },
+    { name: '15天', key: 'alter4', alias: '进口集装箱放行后超15天未提离', data: 0 },
+];
+let jkbj = [
+    { name: '180天', key: 'warning2', alias: '国际中转集装箱滞港超180天', data: { cl: 0, wcl: 0 } },
+    { name: '90天', key: 'warning1', alias: '国际中转集装箱滞港超90天', data: { cl: 0, wcl: 0 } },
+    { name: '14天', data: { cl: 0, wcl: 0 } },
+    { name: '7天', data: { cl: 0, wcl: 0 } },
+    { name: '申报', key: 'warning3', alias: '出口提前申报后超3天未抵运', data: { cl: 0, wcl: 0 } },
+    { name: '放行', key: 'warning7', alias: '海关未放行集装箱出闸', data: { cl: 0, wcl: 0 } },
+    { name: '15天', data: { cl: 0, wcl: 0 } },
+];
+
+let ckyj = [
+    { name: '90天', key: 'alter6', alias: '出口集装箱进闸后超90天未放行', data: 0 },
+    { name: '7天', key: 'alter5', alias: '出口集装箱进闸后超7天未放行', data: 0 },
+    { name: '申报', data: 0 },
+    { name: '3天', data: 0 },
+    { name: '放行', data: 0 },
+    { name: '预留', data: 0 },
+    { name: '24小时', data: 0 },
+    { name: '10天', key: 'alter7', alias: '出口集装箱放行后超10天未装船', data: 0 },
+];
+let ckbj = [
+    { name: '90天', data: { cl: 0, wcl: 0 } },
+    { name: '7天', data: { cl: 0, wcl: 0 } },
+    { name: '申报', data: { cl: 0, wcl: 0 } },
+    { name: '3天', key: 'warning3', alias: '出口提前申报后超3天未抵运', data: { cl: 0, wcl: 0 } },
+    { name: '放行', data: { cl: 0, wcl: 0 } },
+    { name: '预留', key: 'warning4', alias: '装载舱单数据发送不及时', data: { cl: 0, wcl: 0 } },
+    { name: '24小时', key: 'warning5', alias: '船舶离港后超24小时未发送理货报告', data: { cl: 0, wcl: 0 } },
+    { name: '10天', data: { cl: 0, wcl: 0 } },
+];
+
+
 // 智能预警
 export default class iWarningNew extends React.Component {
     state = {
@@ -93,6 +135,8 @@ export default class iWarningNew extends React.Component {
                     publish('getData', { svn: datas.svn, tableName: datas.query.tableName, data: { pageno: 1, pagesize: 100, where: datas.query.ycl } })
                 ]).then(res => {
                     this.setState({ bjclsj: res });
+                    ckbj.map((e, i) => { if (e.key === ab) { e.data = { cl: res[0][0].features.length, wcl: res[1][0].features.length } } });
+                    jkbj.map((e, i) => { if (e.key === ab) { e.data = { cl: res[0][0].features.length, wcl: res[1][0].features.length } } });
                     for (let i in gk1) { if (gk1[i].key === ab) { gk1[i].data = { cl: res[0][0].features.length, wcl: res[1][0].features.length } } };
                     for (let i in gk2) { if (gk2[i].key === ab) { gk2[i].data = { cl: res[0][0].features.length, wcl: res[1][0].features.length } } };
                     for (let i in gk3) { if (gk3[i].key === ab) { gk3[i].data = { cl: res[0][0].features.length, wcl: res[1][0].features.length } } };
@@ -103,6 +147,8 @@ export default class iWarningNew extends React.Component {
                 publish('getData',
                     { svn: datas.svn, tableName: datas.query.tableName, data: { pageno: 1, pagesize: 100, where: datas.query.where } }).then(res => {
                         this.setState({ yjclsj: res });
+                        jkyj.map((e, i) => { if (e.key === ab) { e.data = res[0].features.length } });
+                        ckyj.map((e, i) => { if (e.key === ab) { e.data = res[0].features.length } });
                         for (let i in gk1) { if (gk1[i].key === ab) { gk1[i].data = res[0].features.length } };
                         for (let i in gk2) { if (gk2[i].key === ab) { gk2[i].data = res[0].features.length } };
                     });
@@ -130,24 +176,7 @@ export default class iWarningNew extends React.Component {
             { name: '放行', style: { marginLeft: 79 } },
             { name: '15天', style: { marginLeft: 75 } },
         ];
-        let jkyj = [
-            { name: '180天', alias: '', data: 0 },
-            { name: '90天', key: 'alter3', alias: '进口集装箱到港后超90天未放行', data: 30 },
-            { name: '14天', key: 'alter2', alias: '进口集装箱到港后超14天未放行', data: 50 },
-            { name: '7天', key: 'alter1', alias: '进口集装箱到港后超7天未放行', data: 60 },
-            { name: '申报', data: 0 },
-            { name: '放行', data: 0 },
-            { name: '15天', key: 'alter4', alias: '进口集装箱放行后超15天未提离', data: 40 },
-        ];
-        let jkbj = [
-            { name: '180天', key: 'alter2', alias: '国际中转集装箱滞港超180天', data: { cl: 30, wcl: 3 } },
-            { name: '90天', key: 'alter2', alias: '国际中转集装箱滞港超90天', data: { cl: 40, wcl: 3 } },
-            { name: '14天', data: { cl: 0, wcl: 0 } },
-            { name: '7天', data: { cl: 0, wcl: 0 } },
-            { name: '申报', data: { cl: 0, wcl: 0 } },
-            { name: '放行', data: { cl: 0, wcl: 0 } },
-            { name: '15天', data: { cl: 0, wcl: 0 } },
-        ];
+
         let cksx = [
             { name: '90天', style: { marginLeft: 80 } },
             { name: '7天', style: { marginLeft: 83 } },
@@ -157,26 +186,6 @@ export default class iWarningNew extends React.Component {
             { name: '预留', style: { marginLeft: 80 } },
             { name: '24小时', style: { marginLeft: 56 } },
             { name: '10天', style: { marginLeft: 54 } },
-        ];
-        let ckyj = [
-            { name: '90天', key: 'alter6', alias: '出口集装箱进闸后超90天未放行', data: 40 },
-            { name: '7天', key: 'alter5', alias: '出口集装箱进闸后超7天未放行', data: 30 },
-            { name: '申报', data: 0 },
-            { name: '3天', data: 0 },
-            { name: '放行', data: 0 },
-            { name: '预留', data: 0 },
-            { name: '24小时', data: 0 },
-            { name: '10天', key: 'alter7', alias: '出口集装箱放行后超10天未装船', data: 50 },
-        ];
-        let ckbj = [
-            { name: '90天', data: { cl: 0, wcl: 0 } },
-            { name: '7天', data: { cl: 0, wcl: 0 } },
-            { name: '申报', data: { cl: 0, wcl: 0 } },
-            { name: '3天', key: 'alter2', alias: '出口提前申报后超3天未抵运', data: { cl: 50, wcl: 3 } },
-            { name: '放行', data: { cl: 0, wcl: 0 } },
-            { name: '预留', key: 'alter2', alias: '装载舱单数据发送不及时', data: { cl: 20, wcl: 2 } },
-            { name: '24小时', key: 'alter2', alias: '船舶离港后超24小时未发送理货报告', data: { cl: 42, wcl: 11 } },
-            { name: '10天', data: { cl: 0, wcl: 0 } },
         ];
         let max = 60;
         return (
@@ -233,7 +242,7 @@ class JT extends React.Component {
         if (this.timer) clearTimeout(this.timer);
     }
     render() {
-        let { bj = [], yj = [], max = 60 } = this.props;
+        let { bj = [], yj = [], max = 200 } = this.props;
         return (
             <div className='jt' style={this.props.style}>
                 <div className='jt-t'>{yj.map((e, i) => <div className='jt-yj hvr-pulse-shrink' key={i} style={{ height: 320 * e.data / max }} onClick={() => this.click(e, 'yj')} onDoubleClick={() => this.dbclick(e, 'yj')}></div>)}</div>
