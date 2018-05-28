@@ -92,8 +92,8 @@ let jkbj = [
     { name: '90天', key: 'warning1', alias: '国际中转集装箱滞港超90天', data: { cl: 0, wcl: 0 } },
     { name: '14天', data: { cl: 0, wcl: 0 } },
     { name: '7天', data: { cl: 0, wcl: 0 } },
-    { name: '申报', key: 'warning3', alias: '出口提前申报后超3天未抵运', data: { cl: 0, wcl: 0 } },
-    { name: '放行', key: 'warning7', alias: '海关未放行集装箱出闸', data: { cl: 0, wcl: 0 } },
+    { name: '申报', alias: '出口提前申报后超3天未抵运', data: { cl: 0, wcl: 0 } },
+    { name: '放行', data: { cl: 0, wcl: 0 } },
     { name: '15天', data: { cl: 0, wcl: 0 } },
 ];
 
