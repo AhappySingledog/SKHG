@@ -140,12 +140,12 @@ class MapOperation extends React.Component {
         // insertArea();
 
         /** 大船显示 */
-        publish('vessel_GetListAsync').then((res) => {
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SKHG_VESSEL', where: '1=1' } }).then((res) => {
             this.handleBigship(res[0]);
         })
 
         /** 驳船显示 */
-        publish('barge_GetListAsync').then((res) => {
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SKHG_BARGE', where: '1=1' } }).then((res) => {
             this.handleBarge(res[0]);
         })
 
@@ -158,7 +158,6 @@ class MapOperation extends React.Component {
     handleCruise = (json) => {
         let that = this;
         for (let o in json) {
-            json[o].key = "" + o + "";
             json[o].name = '游轮详情';
             json[o].colname = 'cruise';
             let param = {
@@ -209,23 +208,22 @@ class MapOperation extends React.Component {
         }
     }
 
-    handleBigship = (json) => {
-        console.log(json)
+    handleBigship = (jsons) => {
+        let json = jsons.data;
         let that = this;
         for (let o in json) {
-            json[o]['key'] = "" + o + "";
             json[o]['name'] = '大船详情';
             json[o]['colname'] = 'bigship';
-            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
+            if (Number(json[o].LONGITUDE) !== 0 && Number(json[o].LATITUDE) !== 0) {
                 let param = {
                     id: 'SHIP_LAYER' + o,
                     layerId: 'SHIP_LAYER',
                     src: BigShipIcon,
                     width: 70,
                     height: 140,
-                    angle: (Number(json[o].heading) / 100) - 90,
-                    x: json[o].longitude,
-                    y: json[o].latitude,
+                    angle: (Number(json[o].HEADING) / 100) - 90,
+                    x: json[o].LONGITUDE,
+                    y: json[o].LATITUDE,
                     attr: { ...json[o] },
                     click: this.onIconClick,
                     mouseover: function (g) {
@@ -266,22 +264,22 @@ class MapOperation extends React.Component {
         }
     }
 
-    handleBarge = (json) => {
+    handleBarge = (jsons) => {
+        let json = jsons.data;
         let that = this;
         for (let o in json) {
-            json[o]['key'] = "" + o + "";
             json[o]['name'] = '驳船详情';
             json[o]['colname'] = 'bargeship';
-            if (Number(json[o].longitude) !== 0 && Number(json[o].latitude) !== 0) {
+            if (Number(json[o].LONGITUDE) !== 0 && Number(json[o].LATITUDE) !== 0) {
                 let param = {
                     id: 'BARGE_SHIP_LAYER' + o,
                     layerId: 'BARGE_SHIP_LAYER',
                     src: BargeIcon,
                     width: 70,
                     height: 140,
-                    angle: (Number(json[o].heading) / 100) - 90,
-                    x: json[o].longitude,
-                    y: json[o].latitude,
+                    angle: (Number(json[o].HEADING) / 100) - 90,
+                    x: json[o].LONGITUDE,
+                    y: json[o].LATITUDE,
                     attr: { ...json[o] },
                     click: this.onIconClick,
                     mouseover: function (g) {

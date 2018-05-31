@@ -2980,3 +2980,280 @@ body>div:nth-of-type(n+1) {
       transform: translate3d(0, 0, 0);
     }
   }
+
+
+
+
+
+
+
+  // 智能预报警
+  .znybj{
+    background: rgba(0, 0, 0, 1);
+    z-index: 9999;
+    position: absolute;
+    top: 433px;
+    left: 7711px;
+    width: 3740px;
+    height: 2730px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #1E7ACE;
+    &_top{
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        height: 170px;
+        padding-top: 15px;
+        &_sel{
+            width: 1000px;
+            height: 155px;
+            display: flex;
+            &_span{
+                width: 400px;
+                height: 155px;
+                line-height: 155px;
+                text-align: center;
+                color: #fff;
+                font-size: 60px;
+            }
+            &_select{
+                width: 540px;
+                height: 100px;
+                margin-top: 30px;
+                font-size: 60px;
+                background: #021634;
+                color: #fff;
+                border: 1px solid #1F9BFF;
+                padding-left: 40px;
+            }
+        }
+        &_btn{
+            width: 65%;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            padding-top: 20px;
+            &_mt{
+                width: 418px;
+                height: 112px;
+                background: url('../images/预报警默认.png') no-repeat;
+                cursor: pointer;
+                text-align: center;
+                color: #1f9bff;
+                font-size: 60px;
+                padding-top: 22px;
+            }
+            &_mt:hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+            &_cic{
+                width: 418px;
+                height: 112px;
+                background: url('../images/预报警默认.png') no-repeat;
+                cursor: pointer;
+                text-align: center;
+                color: #1f9bff;
+                font-size: 60px;
+                padding-top: 22px;
+            }
+            &_cic:hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+            &_dbcl{
+                width: 418px;
+                height: 112px;
+                background: url('../images/预报警默认.png') no-repeat;
+                cursor: pointer;
+                text-align: center;
+                color: #1f9bff;
+                font-size: 60px;
+                padding-top: 22px;
+            }
+            &_dbcl:hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+            &_xztd{
+                width: 418px;
+                height: 112px;
+                background: url('../images/预报警默认.png') no-repeat;
+                cursor: pointer;
+                text-align: center;
+                color: #1f9bff;
+                font-size: 60px;
+                padding-top: 22px;
+            }
+            &_xztd:hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+            &_lj{
+                width: 418px;
+                height: 112px;
+                background: url('../images/预报警默认.png') no-repeat;
+                cursor: pointer;
+                text-align: center;
+                color: #1f9bff;
+                font-size: 60px;
+                padding-top: 22px;
+            }
+            &_lj:hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+        }
+    }
+
+    &_bot{
+        width: 3645px;
+        height: 2480px;
+        border-style: solid;
+        border-width: 30px 30px 30px 30px;
+        border-image: url("../images/bg.png") 30 30 30 30 fill;
+        margin:15px;
+        &_fgx{
+            height: 5px;
+            background: #1f9bff;
+            margin: 15px 0;
+            padding: 0px 12px;
+        }
+    }
+  }
+
+  .znyjs{
+    width: 100%;
+    height: 1050px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+        &_yj{
+            background:  url("../images/卡片底.png");
+            background-size: 100% 100%;
+            margin: 16px;
+            cursor: pointer;
+            width: 697px;
+            height: 311px;
+           &_num{
+             color:  #fff45c;
+             font-size: 140px;
+             font-family: "DS-DIGIB_0" !important;
+             font-style: normal;
+             -webkit-font-smoothing: antialiased;
+             -webkit-text-stroke-width: 0.2px;
+             text-align: center;
+             margin-top: 30px;
+           } 
+           &_fot{
+            color: #ffffff;
+            text-align: center;
+            margin-top: 10px;
+            padding: 10px 50px 0px 50px;
+            font-size: 50px;
+           }
+        }
+  }
+
+  .loading{ 
+    width: 95%;
+    height: 500px;
+    margin: 0 auto;
+    position: absolute;
+    margin-left: 0%;
+    text-align: center;
+    font-size: 70px;
+    margin-top: -75px;
+} 
+.loading span{ 
+    display: inline-block; 
+    width: 500px;
+    height: 20%;
+    margin-right: 5px; 
+    background: lightgreen; 
+    -webkit-animation: load 1.43s ease infinite; 
+} 
+.loading span:last-child{ 
+    margin-right: 0px; 
+} 
+@-webkit-keyframes load {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.loading span:nth-child(1) {
+    -webkit-animation-delay: 0.13s;
+}
+
+.loading span:nth-child(2) {
+    -webkit-animation-delay: 0.39s;
+}
+
+.loading span:nth-child(3) {
+    -webkit-animation-delay: 0.65s;
+}
+
+.loading span:nth-child(4) {
+    -webkit-animation-delay: 0.91s;
+}
+
+.loading span:nth-child(5) {
+    -webkit-animation-delay: 1.17s;
+}
+  .znbjs{
+    width: 100%;
+    height: 1387px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    &_bj{
+        background:  url("../images/卡片底.png");
+        background-size: 100% 100%;
+        margin: 16px;
+        cursor: pointer;
+        width: 575px;
+        height: 311px;
+       &_num{
+           display: flex;
+           flex-direction: column;
+           justify-content: space-around;
+           >div{
+            font-size: 70px;
+            font-family: "DS-DIGIB_0" !important;
+            font-style: normal;
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-stroke-width: 0.2px;
+            text-align: center;
+           }
+           &_ycl{
+               color: #70e100;
+               margin-top: 35px;
+           }
+           &_wcl{
+               color: #ff0000;
+               margin-top: 20px;
+           }
+           &_fgx{
+            height: 5px;
+            background: #1D93F4;
+            width: 500px;
+            margin-left: 41px;
+            margin-top: 15px;
+
+           }
+       } 
+       &_fot{
+        color: #ffffff;
+        text-align: center;
+        font-family: MicrosoftYaHei;
+        margin-top: 10px;
+        padding: 10px 50px 0px 50px;
+        font-size: 35px;
+       }
+    }
+  }

@@ -14,6 +14,7 @@ import Pier from './pier';
 import WareHouse from './wareHouse';
 import IWarning from './iWarning';
 import IWarningNew from './iWarningNew';
+import ZNYBJ from './ZNYBJ';
 import ICommand from './iCommand';
 import AgingControl from './agingControl';
 import '../../../frame/less/magic.less';
@@ -469,6 +470,7 @@ export default class App extends React.Component {
         iCountBtn: false,
         iCommand: false,
         iWarningNew: false,
+        znybj : false,
         agingControl: false,
     }
     layers = {}
@@ -578,8 +580,13 @@ export default class App extends React.Component {
     }
     warning2 = (flag) => {
         console.log('warning2');
-        if (flag) this.setState({ iWarningNew: flag, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
-        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.iw').removeClass('magictime spaceOutLeft animated'); this.setState({ iWarningNew: flag }); });
+        if (flag) this.setState({iWarningNew: flag,znybj : false, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.iw').removeClass('magictime spaceOutLeft animated');this.setState({iWarningNew: flag});});
+    }
+    zbybj =(flag) =>{
+        console.log(flag);
+        if (flag) this.setState({znybj: flag, iWarningNew:false, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.znybj').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.znybj').removeClass('magictime spaceInLeft animated')));
+        else $('.znybj').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.znybj').removeClass('magictime spaceOutLeft animated');this.setState({znybj: flag});});
     }
     link = () => {
         console.log('link');
@@ -632,7 +639,7 @@ export default class App extends React.Component {
                         <div className='mheader-iQuery' onClick={() => this.iQuery(!this.state.myQuery)} />
                         {/* <div className='mheader-iCount' onClick={this.iCount} /> */}
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
-                        {/* <div className='mheader-warning' onClick={this.warning} /> */}
+                        <div className='mheader-warning' onClick={() => this.zbybj(!this.state.znybj)} />
                         <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
                         <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-sxgk' onClick={this.agingControl} />
@@ -654,6 +661,7 @@ export default class App extends React.Component {
                 {this.state.iCountBtn ? <ICountimg close={this.iCount} /> : null}
                 {this.state.iCommand ? <ICommand close={() => this.iCommand(false)} /> : null}
                 {this.state.iWarningNew ? <IWarningNew /> : null}
+                {this.state.znybj ? <ZNYBJ /> : null}
                 {this.state.agingControl ? <AgingControl /> : null}
             </div>
         )

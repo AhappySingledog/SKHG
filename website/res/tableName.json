@@ -4,70 +4,95 @@
             "type": "bigship",
             "table": [
                 {
-                    "title": "船东",
-                    "dataIndex": "shipowner"
+                    "title": "船名",
+                    "dataIndex": "SHIPNAME"
+                },
+                {
+                    "title": "船中文名",
+                    "dataIndex": "CSHIPNAME"
+                },
+                {
+                    "title": "终点",
+                    "dataIndex": "TERMINAL"
                 },
                 {
                     "title": "泊位",
-                    "dataIndex": "berth"
+                    "dataIndex": "BERTH"
+                },
+                {
+                    "title": "经度",
+                    "dataIndex": "LONGITUDE"
+                },
+                {
+                    "title": "纬度",
+                    "dataIndex": "LATITUDE"
+                },
+                {
+                    "title": "进口航次",
+                    "dataIndex": "VOYAGE"
                 },
                 {
                     "title": "航线",
-                    "dataIndex": "service"
+                    "dataIndex": "SERVICE"
                 },
                 {
-                    "title": "航次",
-                    "dataIndex": "voyage"
-                },
-                {
-                    "title": "船长",
-                    "dataIndex": "vessellength"
-                },
-                {
-                    "title": "船高",
-                    "dataIndex": "vesselheight"
-                },
-                {
-                    "title": "吃水",
-                    "dataIndex": "depth"
-                },
-                {
-                    "title": "分线",
-                    "dataIndex": "qcnums"
+                    "title": "船公司",
+                    "dataIndex": "SHIPOWNER"
                 },
                 {
                     "title": "ETA",
-                    "dataIndex": "etatime"
+                    "dataIndex": "ETATIME"
                 },
                 {
                     "title": "ETD",
-                    "dataIndex": "etdtime"
-                },
-                {
-                    "title": "POB",
-                    "dataIndex": "pobtime"
-                },
-                {
-                    "title": "ATB",
-                    "dataIndex": "atbtime"
+                    "dataIndex": "ETDTIME"
                 },
                 {
                     "title": "ATD",
-                    "dataIndex": "atdtime"
-                },
-                {
-                    "title": "状态",
-                    "dataIndex": "curstatus"
+                    "dataIndex": "ATDTIME"
                 },
                 {
                     "title": "装卸",
-                    "dataIndex": "ldds",
-                    "colspan": true
+                    "dataIndex": "LDDS"
                 },
                 {
+                    "title": "状态",
+                    "dataIndex": "CURSTATUS"
+                },
+                {
+                    "title": "船长",
+                    "dataIndex": "VESSELLENGTH"
+                },
+                {
+                    "title": "船高",
+                    "dataIndex": "VESSELHEIGHT"
+                },{
+                    "title": "分线",
+                    "dataIndex": "QCNUMS"
+                },{
+                    "title": "POB",
+                    "dataIndex": "POBTIME"
+                },{
+                    "title": "左右泊位",
+                    "dataIndex": "BERTHWAY"
+                },{
+                    "title": "吃水",
+                    "dataIndex": "DEPTH"
+                },{
                     "title": "航道",
-                    "dataIndex": "fairwayname",
-                    "colspan": true
+                    "dataIndex": "FAIRWAYNAME"
+                },{
+                    "title": "航迹向",
+                    "dataIndex": "COURSE"
+                },{
+                    "title": "船首向",
+                    "dataIndex": "HEADING"
+                },{
+                    "title": "速度",
+                    "dataIndex": "SPEED"
+                },{
+                    "title": "记录时间",
+                    "dataIndex": "RECORDDATE"
                 }
             ]
         },
@@ -75,29 +100,60 @@
             "type": "bargeship",
             "table": [
                 {
-                    "title": "船东",
-                    "dataIndex": "shipowner",
-                    "colspan": true
+                    "title": "船中文名",
+                    "dataIndex": "CSHIPNAME"
+                },
+                {
+                    "title": "船公司",
+                    "dataIndex": "SHIPOWNER"
+                },
+                {
+                    "title": "经度",
+                    "dataIndex": "LONGITUDE"
+                },
+                {
+                    "title": "纬度",
+                    "dataIndex": "LATITUDE"
                 },
                 {
                     "title": "进口航次",
-                    "dataIndex": "voyagein",
-                    "colspan": true
-                },
-                {
+                    "dataIndex": "VOYAGEIN"
+                },{
                     "title": "出口航次",
-                    "dataIndex": "voyageout",
-                    "colspan": true
+                    "dataIndex": "VOYAGEOUT"
                 },
                 {
                     "title": "ETA",
-                    "dataIndex": "etatime",
-                    "colspan": true
+                    "dataIndex": "ETATIME"
                 },
                 {
+                    "title": "ETD",
+                    "dataIndex": "ETDTIME"
+                },
+                {
+                    "title": "ATD",
+                    "dataIndex": "ATDTIME"
+                },{
                     "title": "状态",
-                    "dataIndex": "curstatus",
-                    "colspan": true
+                    "dataIndex": "CURSTATUS"
+                },{
+                    "title": "LOG",
+                    "dataIndex": "LOG"
+                },{
+                    "title": "LAT",
+                    "dataIndex": "LAT"
+                },{
+                    "title": "航迹向",
+                    "dataIndex": "COURSE"
+                },{
+                    "title": "船首向",
+                    "dataIndex": "HEADING"
+                },{
+                    "title": "速度",
+                    "dataIndex": "SPEED"
+                },{
+                    "title": "记录时间",
+                    "dataIndex": "RECORDDATE"
                 }
             ]
         },

@@ -33,10 +33,59 @@ class Title extends React.Component {
 
 // 货仓
 export default class WareHouseRight extends React.Component {
-    componentDidMount() {
-        console.log(this.props);
+    constructor(props) {
+        super(props);
+        this.state = {
+            table: null,
+            Goodsflds: [],
+            GoddsDatas: [],
+        }
     }
+    componentDidMount() {
+        if (this.props.datas.ckIndex < 1) {
+            this.handleWare(this.props.datas.ckIndex + 1);
+        } else {
+            alert((this.props.datas.ckIndex + 1) + "号仓库暂无数据");
+        }
+    }
+
+    /** 查询仓库库位列表数据 */
+    handleWare = (e) => {
+        publish('webAction',
+            {
+                svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'CMBL_4RD_LOCATIONLIST', where: " LOCATION_TS like '" + e + "0%' and trunc(RECORDDATE) = trunc(sysdate)  " }
+            }).then(res => {
+                if (res[0].data.length > 0) {
+                    this.handelGoods(res[0].data[0]);
+                }
+                let flds = Object.keys(res[0].attr).map(e => { return { dataIndex: e, title: res[0].attr[e] } });
+                let table = <Table
+                    rowNo={true}
+                    title={{ name: '仓库库位列表', export: true }}
+                    style={{ width: 1853, height: 1804 }}
+                    id={'id1'}
+                    selectedIndex={null}
+                    flds={flds}
+                    datas={res[0].data}
+                    trClick={this.handelGoods.bind(this)}
+                    trDbclick={null} />
+                this.setState({ table: table });
+            })
+    }
+
+    /** 查询点击后的库位货物列表 */
+    handelGoods = (e) => {
+        publish('webAction',
+            {
+                svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'CMBL_4RD_LOCATIONINVENTORYLIST', where: " LOCATION_TS = '" + e.LOCATION_TS + "' and trunc(RECORDDATE) = trunc(sysdate)  " }
+            }).then(res => {
+                let flds = Object.keys(res[0].attr).map(e => { return { dataIndex: e, title: res[0].attr[e] } });
+                this.setState({ Goodsflds: flds, GoodsDatas: res[0].data });
+            })
+    }
+
     render() {
+        console.log(this.props.type);
         let w = 1830;
         let h = 860;
         let data = [
@@ -51,7 +100,7 @@ export default class WareHouseRight extends React.Component {
         return (
             <div className='warehouse'>
                 <div className='warehouse-l'>
-                    {this.props.type == 3 ? <Table rowNo={true} title={{name: '仓库库位列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} /> : [
+                    {this.props.type == 3 ? this.state.table : [
                         <div className='warehouse-v'>
                             <Vedios style={{ width: w, height: h }} datas={data} />
                         </div>,
@@ -64,7 +113,7 @@ export default class WareHouseRight extends React.Component {
                     </div>
                 </div>
                 <div className='warehouse-r'>
-                    {this.props.type == 3 ? <Table rowNo={true} title={{name: '库位货物列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id2'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} /> : [
+                    {this.props.type == 3 ? <Table rowNo={true} title={{ name: '库位货物列表', export: true }} style={{ width: 1853, height: 1804 }} id={'id2'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} /> : [
                         <div className='warehouse-v'>
                             <Vedios style={{ width: w, height: h }} datas={data} />
                         </div>,

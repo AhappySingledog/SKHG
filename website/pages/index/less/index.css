@@ -1389,7 +1389,7 @@ body > div:nth-of-type(n+1) {
 }
 .gk-4-view {
   color: #fff;
-  width: 28%;
+  width: 20%;
   text-align: right;
   margin-left: -30px;
   margin-right: 50px;
@@ -1675,6 +1675,7 @@ body > div:nth-of-type(n+1) {
   justify-content: flex-start;
   border-radius: 0px 50px 50px 0;
   border: solid 3px #0d3ca1;
+  cursor: pointer;
 }
 .top10-r > div > div:nth-of-type(1) {
   width: 360px;
@@ -3214,4 +3215,264 @@ body > div:nth-of-type(n+1) {
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
   }
+}
+.znybj {
+  background: #000000;
+  z-index: 9999;
+  position: absolute;
+  top: 433px;
+  left: 7711px;
+  width: 3740px;
+  height: 2730px;
+  display: flex;
+  flex-direction: column;
+  border: 1px solid #1E7ACE;
+}
+.znybj_top {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 170px;
+  padding-top: 15px;
+}
+.znybj_top_sel {
+  width: 1000px;
+  height: 155px;
+  display: flex;
+}
+.znybj_top_sel_span {
+  width: 400px;
+  height: 155px;
+  line-height: 155px;
+  text-align: center;
+  color: #fff;
+  font-size: 60px;
+}
+.znybj_top_sel_select {
+  width: 540px;
+  height: 100px;
+  margin-top: 30px;
+  font-size: 60px;
+  background: #021634;
+  color: #fff;
+  border: 1px solid #1F9BFF;
+  padding-left: 40px;
+}
+.znybj_top_btn {
+  width: 65%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-top: 20px;
+}
+.znybj_top_btn_mt {
+  width: 418px;
+  height: 112px;
+  background: url('../images/预报警默认.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
+  color: #1f9bff;
+  font-size: 60px;
+  padding-top: 22px;
+}
+.znybj_top_btn_mt:hover {
+  background: url('../images/预报警点击.png') no-repeat;
+  color: #fff45c;
+}
+.znybj_top_btn_cic {
+  width: 418px;
+  height: 112px;
+  background: url('../images/预报警默认.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
+  color: #1f9bff;
+  font-size: 60px;
+  padding-top: 22px;
+}
+.znybj_top_btn_cic:hover {
+  background: url('../images/预报警点击.png') no-repeat;
+  color: #fff45c;
+}
+.znybj_top_btn_dbcl {
+  width: 418px;
+  height: 112px;
+  background: url('../images/预报警默认.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
+  color: #1f9bff;
+  font-size: 60px;
+  padding-top: 22px;
+}
+.znybj_top_btn_dbcl:hover {
+  background: url('../images/预报警点击.png') no-repeat;
+  color: #fff45c;
+}
+.znybj_top_btn_xztd {
+  width: 418px;
+  height: 112px;
+  background: url('../images/预报警默认.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
+  color: #1f9bff;
+  font-size: 60px;
+  padding-top: 22px;
+}
+.znybj_top_btn_xztd:hover {
+  background: url('../images/预报警点击.png') no-repeat;
+  color: #fff45c;
+}
+.znybj_top_btn_lj {
+  width: 418px;
+  height: 112px;
+  background: url('../images/预报警默认.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
+  color: #1f9bff;
+  font-size: 60px;
+  padding-top: 22px;
+}
+.znybj_top_btn_lj:hover {
+  background: url('../images/预报警点击.png') no-repeat;
+  color: #fff45c;
+}
+.znybj_bot {
+  width: 3645px;
+  height: 2480px;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  margin: 15px;
+}
+.znybj_bot_fgx {
+  height: 5px;
+  background: #1f9bff;
+  margin: 15px 0;
+  padding: 0px 12px;
+}
+.znyjs {
+  width: 100%;
+  height: 1050px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.znyjs_yj {
+  background: url("../images/卡片底.png");
+  background-size: 100% 100%;
+  margin: 16px;
+  cursor: pointer;
+  width: 697px;
+  height: 311px;
+}
+.znyjs_yj_num {
+  color: #fff45c;
+  font-size: 140px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  text-align: center;
+  margin-top: 30px;
+}
+.znyjs_yj_fot {
+  color: #ffffff;
+  text-align: center;
+  margin-top: 10px;
+  padding: 10px 50px 0px 50px;
+  font-size: 50px;
+}
+.loading {
+  width: 95%;
+  height: 500px;
+  margin: 0 auto;
+  position: absolute;
+  margin-left: 0%;
+  text-align: center;
+  font-size: 70px;
+  margin-top: -75px;
+}
+.loading span {
+  display: inline-block;
+  width: 500px;
+  height: 20%;
+  margin-right: 5px;
+  background: lightgreen;
+  -webkit-animation: load 1.43s ease infinite;
+}
+.loading span:last-child {
+  margin-right: 0px;
+}
+@-webkit-keyframes load {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+.loading span:nth-child(1) {
+  -webkit-animation-delay: 0.13s;
+}
+.loading span:nth-child(2) {
+  -webkit-animation-delay: 0.39s;
+}
+.loading span:nth-child(3) {
+  -webkit-animation-delay: 0.65s;
+}
+.loading span:nth-child(4) {
+  -webkit-animation-delay: 0.91s;
+}
+.loading span:nth-child(5) {
+  -webkit-animation-delay: 1.17s;
+}
+.znbjs {
+  width: 100%;
+  height: 1387px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.znbjs_bj {
+  background: url("../images/卡片底.png");
+  background-size: 100% 100%;
+  margin: 16px;
+  cursor: pointer;
+  width: 575px;
+  height: 311px;
+}
+.znbjs_bj_num {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+.znbjs_bj_num > div {
+  font-size: 70px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  text-align: center;
+}
+.znbjs_bj_num_ycl {
+  color: #70e100;
+  margin-top: 35px;
+}
+.znbjs_bj_num_wcl {
+  color: #ff0000;
+  margin-top: 20px;
+}
+.znbjs_bj_num_fgx {
+  height: 5px;
+  background: #1D93F4;
+  width: 500px;
+  margin-left: 41px;
+  margin-top: 15px;
+}
+.znbjs_bj_fot {
+  color: #ffffff;
+  text-align: center;
+  font-family: MicrosoftYaHei;
+  margin-top: 10px;
+  padding: 10px 50px 0px 50px;
+  font-size: 35px;
 }
