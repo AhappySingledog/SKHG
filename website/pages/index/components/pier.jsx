@@ -142,6 +142,7 @@ class MapOperation extends React.Component {
                 }
                 this.props.map.mapDisplay.image(param);
             });
+            this.props.map.mapDisplay.hide('VIDEO_LAYER');
         })
     }
 
@@ -168,8 +169,10 @@ class MapOperation extends React.Component {
                 publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: defaultLayer.container } }).then((res) => {
                     let result = res[0].InnerList;
                     if (result.length > 0) {
-                        let wz = result[0].Location.substring(5, 13);
-                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + props.datas.code + "' and NAME='" + wz + "'" } }).then((res) => {
+                        let where = '';
+                        if (props.datas.code == 'SCT') where = "SSDW='SCT' and CHANGBIAO='" + result[0].Location.substring(6, 8) + "' AND BEIBIAO='" + Number(result[0].Location.substring(8, 11)) + "' AND PAIBIAO='" + result[0].Location.substring(11, 13) + "'";
+                        else where = "SSDW='" + props.datas.code + "' and NAME='" + result[0].Location.substring(5, 13) + "'";
+                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: where } }).then((res) => {
                             props.map.mapDisplay.clearLayer('QUERY_LAYER');
                             res[0].data.forEach((e, i) => {
                                 let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
@@ -191,6 +194,77 @@ class MapOperation extends React.Component {
                         });
                     }
                 });
+            }
+            if (defaultLayer.ship) {
+                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW = '" + defaultLayer.ship.TERMINALCODE + "' and CODE = '" + defaultLayer.ship.BERTHNO + "'" } }).then((res) => {
+                    /** 去展示船的定位和详细信息 */
+                    let json = defaultLayer.ship;
+                    this.props.map.mapDisplay.clearLayer('SHIP_LAYER');
+                    this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
+                    this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
+                    res[0].data.forEach((value, key) => {
+                        if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
+                            json.name = value.name;
+                            json.colname = 'berthShip';
+                            let scrs = value.type === 'S' ? S : B;
+                            this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
+                            let param = {
+                                id: 'SHIP_LAYER' + key,
+                                layerId: 'SHIP_LAYER',
+                                src: scrs,
+                                width: 70,
+                                height: 140,
+                                angle: value.angle,
+                                x: value.geom.x,
+                                y: value.geom.y,
+                                attr: { ...json },
+                                click: () => alert(),
+                                mouseover: function (g) {
+                                    let symbol = g.symbol;
+                                    if (symbol.setWidth) {
+                                        symbol.setWidth(70 + 9);
+                                        symbol.setHeight(140 + 36);
+                                    }
+                                    g.setSymbol(symbol);
+                                },
+                                mouseout: function (g) {
+                                    let symbol = g.symbol;
+                                    if (symbol.setWidth) {
+                                        symbol.setWidth(70);
+                                        symbol.setHeight(140);
+                                    }
+                                    g.setSymbol(symbol);
+                                }
+                            };
+                            let param2 = {
+                                id: 'BIG_SHIP_LAYER',
+                                layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
+                                x: value.geom.x,
+                                y: value.geom.y,
+                                text: json.CVESSELNAME,
+                                size: '10pt',
+                                color: 'red',
+                                offsetX: 0,
+                                offsetY: 132,
+                                visible: true,
+                                layerIndex: 10,
+                            }
+                            this.props.map.mapDisplay.text(param2);
+                            this.props.map.mapDisplay.image(param);
+                            let mText = {
+                                id: 'text_box',
+                                layerId: 'CONTAINERVIEW_LAYER_BOX',
+                                x: value.geom.x / 4,
+                                y: (value.geom.y / 4) + 0.00004,
+                                src: zb,
+                                width: 80,
+                                height: 100,
+                                layerIndex: 30,
+                            };
+                            this.props.map.mapDisplay.image(mText);
+                        }
+                    })
+                })
             }
         }
     }
@@ -638,9 +712,9 @@ class PortPie extends React.Component {
 export default class Pier extends React.Component {
     state = { 
         map: null,
-        VIDEO_LAYER: true,
-        B_LAYER: true,
-        S_LAYER: true,
+        VIDEO_LAYER: false,
+        B_LAYER: false,
+        S_LAYER: false,
     }
     componentDidMount() {
         this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
@@ -709,6 +783,7 @@ export default class Pier extends React.Component {
         let flag = !this.state[layer];
         this.setState({ [layer]: flag }, () => flag ? this.state.map.mapDisplay.show(layer) : this.state.map.mapDisplay.hide(layer));
     }
+    setFatherState = (ops) => this.setState(ops);
     render() {
         let { tview = [], idx = 0, } = this.state;
         return (
@@ -723,7 +798,7 @@ export default class Pier extends React.Component {
                     </div> : null}
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
-                    {this.state.map ? <PierRightPanel datas={this.props.datas} map={this.state.map} /> : null}
+                    {this.state.map ? <PierRightPanel datas={this.props.datas} map={this.state.map} setFatherState={this.setFatherState}/> : null}
                 </div>
             </div>
         )

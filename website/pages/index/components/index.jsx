@@ -57,7 +57,7 @@ class MyLink extends React.Component {
         if (index == 0) {
             publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SK_LJYBSQB', where: "VALID='Y' AND PERMIT IS NULL" } }).then((res) => {
                 let f = res[0].attr;
-                let flds = Object.keys(f).map((k) => {return {title: f[k], dataIndex: k}}).concat([{title: '操作', dataIndex: 'cl'}]);
+                let flds = Object.keys(f).map((k) => { return { title: f[k], dataIndex: k } }).concat([{ title: '操作', dataIndex: 'cl' }]);
                 let datas = res[0].data;
                 this.setState({ items: items, flds: flds, datas: datas });
             });
@@ -65,7 +65,7 @@ class MyLink extends React.Component {
         else if (index == 1) {
             publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SK_LJDBSQB', where: "VALID='Y' AND PERMIT IS NULL" } }).then((res) => {
                 let f = res[0].attr;
-                let flds = Object.keys(f).map((k) => {return {title: f[k], dataIndex: k}}).concat([{title: '操作', dataIndex: 'cl'}]);
+                let flds = Object.keys(f).map((k) => { return { title: f[k], dataIndex: k } }).concat([{ title: '操作', dataIndex: 'cl' }]);
                 let datas = res[0].data;
                 this.setState({ items: items, flds: flds, datas: datas });
             });
@@ -91,7 +91,7 @@ class MyLink extends React.Component {
                 this.clickTitle(index);
             });
         }
-        
+
     }
     myTd = (trIndex, data, fld, tdIndex) => {
         if (fld.dataIndex === 'cl') {
@@ -178,7 +178,7 @@ class MyQuery extends React.Component {
         port: { datas1: [] },
         container: { datas1: [], datas2: [] },
         wareHouse: { datas1: [] },
-        list: { datas1: [], datas2: [] },
+        list: { datas1: [] },
     }
     chooseItem = (index) => {
         $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.query-t-b').removeClass('magictime holeOut animated'); this.setState({ index: index }, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated'))); });
@@ -193,38 +193,32 @@ class MyQuery extends React.Component {
         let width = 1750, height = 1625;
         let h = 772;
         if (index === 0) {
+            flds = [
+                { "title": "港区", "dataIndex": "TERMINALCODE" },
+                { "title": "船舶类型", "dataIndex": "VESSELTYPE" },
+                { "title": "泊位", "dataIndex": "BERTHNO" }, 
+                { "title": "船舶编码", "dataIndex": "EVESSELNAME" }, 
+                { "title": "船舶中文名", "dataIndex": "CVESSELNAME" }, 
+                { "title": "卸船箱量", "dataIndex": "DISCHARGE" }, 
+                { "title": "装船箱量", "dataIndex": "LOADING" }, 
+                { "title": "卸船空箱量", "dataIndex": "DISCHARGE_E" }, 
+                { "title": "卸船重箱量", "dataIndex": "DISCHARGE_F" }, 
+                { "title": "装船空箱量", "dataIndex": "LOADING_E" }, 
+                { "title": "装船重箱量", "dataIndex": "LOADING_F" }
+            ];
             let query = (ops) => {
-                let pa = [{
-                    paramName: 'P_TERMINALCODE',
-                    value: ops.mt
-                }, {
-                    paramName: 'P_IMO',
-                    value: ops.imo
-                }, {
-                    paramName: 'P_BUSINESSVOY',
-                    value: ops.hch
-                }];
-                publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCT_SHIPSCHEDULE', parms: JSON.stringify(pa) } }).then((res) => {
-                    if (res[0].data.length > 0) {
-                        let attr = res[0].attr;
-                        let datas = Object.keys(attr).map((e) => { return { key: attr[e], value: res[0].data[0][e] } });
-                        this.setState({ port: { datas1: datas } });
-                    }
+                publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: ops != '' ? "TERMINALCODE='" + ops + "'" : '1=1' } }).then((res) => {
+                    res[0].data.forEach((e) => e.VESSELTYPE = e.VESSELTYPE == 'B' ? '驳船' : '大船');
+                    this.setState({port: {datas1: res[0].data}});
                 });
             }
             let trClick = (data, index, datas) => {
-                console.log(datas);
-                // let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
-                // publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + zymt + "'" } }).then((res) => {
-                //     publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: datas} } });
-                // })
+                publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + data.TERMINALCODE + "'" } }).then((res) => {
+                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {ship: data }}});
+                });
             }
-            flds = [
-                { title: '参数名', dataIndex: 'key' },
-                { title: '参数值', dataIndex: 'value' },
-            ];
             content = [
-                <Table key={1} rowNo={true} title={{name: '泊位停靠船舶信息', export: false, items: [<QueryBoxs key={1} name='' query={query}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '泊位停靠船舶信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
             ];
         }
         else if (index === 1) {
@@ -282,13 +276,13 @@ class MyQuery extends React.Component {
                 let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
                 let cno = datas.filter((e) => e.key == '箱号')[0].value;
                 publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + zymt + "'" } }).then((res) => {
-                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {container: cno} } });
+                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: { container: cno } } });
                 })
             }
             content = [
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
-                    <Table rowNo={true} title={{name: '集装箱信息', export: false, items: [<QueryBox key={1} name='' query={query}/>]}} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
-                    <Table rowNo={true} title={{name: '集装箱历史轨迹', export: false}} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
+                    <Table rowNo={true} title={{ name: '集装箱历史轨迹', export: false }} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
         }
@@ -299,18 +293,29 @@ class MyQuery extends React.Component {
                 { title: '所属单位', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={{name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 3) {
             flds = [
-                { title: '提单号', dataIndex: 'a' },
-                { title: '集装箱号', dataIndex: 'b' },
-                { title: '装船/出闸信息', dataIndex: 'c' }
+                { title: '港口代码', dataIndex: 'TERMINALCODE' },
+                { title: '提单号', dataIndex: 'BL_NBR' },
+                { title: '柜号', dataIndex: 'CONTAINER_NBR' },
+                { title: '箱主', dataIndex: 'LINE_ID' },
+                { title: '箱属性', dataIndex: 'SZ_TP_HT' },
+                { title: '放行状态', dataIndex: 'RELEASE_STATUS' },
+                { title: '进港类型', dataIndex: 'CATEGORY' },
+                { title: '进出口船或拖车', dataIndex: 'VES_VOY' },
+                { title: '在场/离港', dataIndex: 'ISOUT' },
             ];
+            let query = (no) => {
+                publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='USH0224834'" } }).then(res => {
+                    flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
+                    this.setState({ list: { datas1: res[0].data } });
+                });
+            }
             content = [
-                <Table key={1} rowNo={true} title={{name: '集装箱已离港情况', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: width, height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
-                <Table key={2} rowNo={true} title={{name: '集装箱在场情况', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: width, height: height }} id={id2} selectedIndex={null} flds={flds} datas={this.state.list.datas2} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '提单信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 4) {
@@ -320,7 +325,7 @@ class MyQuery extends React.Component {
                 { title: '所属单位', dataIndex: 'c' }
             ];
             content = [
-                <Table key={1} rowNo={true} title={{name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)}/>]}} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
             ];
         }
 
@@ -472,8 +477,8 @@ export default class App extends React.Component {
         this.sub_playVedio = subscribe('playVedio', this.playVedio);
         this.sub_viwePager = subscribe('playImgs', this.playImgs);
         this.sub_playImg = subscribe('playImg', this.playImg);
-        this.sub_closeAC = subscribe('closeAC', (flag) => this.setState({agingControl: flag}));
-        this.sub_setLayerName = subscribe('setLayerName', (name) => this.setState({layerName: name}));
+        this.sub_closeAC = subscribe('closeAC', (flag) => this.setState({ agingControl: flag }));
+        this.sub_setLayerName = subscribe('setLayerName', (name) => this.setState({ layerName: name }));
         publish('changeLayer', { index: 0, props: {} });
         let format = function (date, fmt) {
             var o = {
@@ -545,8 +550,9 @@ export default class App extends React.Component {
                 default:
                     curLayer = <Home {...curProps} />;
             }
-            this.layers[index] = {layerIndex: index, props: curProps};
+            this.layers[index] = { layerIndex: index, props: curProps };
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
+            this.setState({curLayer: null});
             this.setState({ index: index, curLayer: curLayer, curProps: curProps, layerName: curProps && curProps.layerName ? curProps.layerName : '海关监管区域' });
         }
     }
@@ -559,12 +565,12 @@ export default class App extends React.Component {
         console.log('iCount');
         let flag = !this.state.iCountBtn;
         if (flag) this.setState({ iCountBtn: true, iCommand: false, iWarningNew: false }, () => $('.queryCount').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryCount').removeClass('magictime spaceInLeft animated')));
-        else $('.queryCount').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.queryCount').removeClass('magictime spaceOutLeft animated');this.setState({iCountBtn: flag});});
+        else $('.queryCount').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryCount').removeClass('magictime spaceOutLeft animated'); this.setState({ iCountBtn: flag }); });
     }
     iCommand = (flag) => {
         console.log('iCommand');
-        if (flag) this.setState({iCommand: flag, iCountBtn: false, iWarningNew: false, agingControl: false}, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
-        else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.ic').removeClass('magictime spaceOutLeft animated');this.setState({iCommand: flag});});
+        if (flag) this.setState({ iCommand: flag, iCountBtn: false, iWarningNew: false, agingControl: false }, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
+        else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.ic').removeClass('magictime spaceOutLeft animated'); this.setState({ iCommand: flag }); });
     }
     warning = () => {
         console.log('warning');
@@ -572,8 +578,8 @@ export default class App extends React.Component {
     }
     warning2 = (flag) => {
         console.log('warning2');
-        if (flag) this.setState({iWarningNew: flag, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
-        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.iw').removeClass('magictime spaceOutLeft animated');this.setState({iWarningNew: flag});});
+        if (flag) this.setState({ iWarningNew: flag, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.iw').removeClass('magictime spaceOutLeft animated'); this.setState({ iWarningNew: flag }); });
     }
     link = () => {
         console.log('link');
@@ -582,7 +588,7 @@ export default class App extends React.Component {
         else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({ warningTip: flag }); });
     }
     agingControl = () => {
-        this.setState({agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false});
+        this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false });
     }
     goBack = () => {
         let index = this.state.index;
@@ -646,7 +652,7 @@ export default class App extends React.Component {
                 {this.state.warning ? <Warning title={this.state.warning.title} warning={this.state.warning.msg} close={() => this.setState({ warning: null })} /> : null}
                 {this.state.myQuery ? <MyQuery close={() => this.iQuery(false)} /> : null}
                 {this.state.iCountBtn ? <ICountimg close={this.iCount} /> : null}
-                {this.state.iCommand ? <ICommand close={() => this.iCommand(false)}/> : null}
+                {this.state.iCommand ? <ICommand close={() => this.iCommand(false)} /> : null}
                 {this.state.iWarningNew ? <IWarningNew /> : null}
                 {this.state.agingControl ? <AgingControl /> : null}
             </div>

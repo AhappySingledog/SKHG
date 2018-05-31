@@ -262,7 +262,7 @@ export default class WareHouse extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
                 <div className='houseRight' style={{ marginLeft: 30 }}>
-                    <WareHouseRight />
+                    <WareHouseRight type={this.props.datas.type}/>
                 </div>
             </div>
         )

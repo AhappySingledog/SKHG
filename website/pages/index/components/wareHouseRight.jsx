@@ -51,13 +51,27 @@ export default class WareHouseRight extends React.Component {
         return (
             <div className='warehouse'>
                 <div className='warehouse-l'>
-                    <Table rowNo={true} title={{name: '仓库库位列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
+                    {this.props.type == 3 ? <Table rowNo={true} title={{name: '仓库库位列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id1'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} /> : [
+                        <div className='warehouse-v'>
+                            <Vedios style={{ width: w, height: h }} datas={data} />
+                        </div>,
+                        <div className='warehouse-v'>
+                            <Vedios style={{ width: w, height: h }} datas={data} />
+                        </div>
+                    ]}
                     <div className='warehouse-v'>
                         <Vedios style={{ width: w, height: h }} datas={data} />
                     </div>
                 </div>
                 <div className='warehouse-r'>
-                    <Table rowNo={true} title={{name: '库位货物列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id2'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} />
+                    {this.props.type == 3 ? <Table rowNo={true} title={{name: '库位货物列表', export: true}} style={{ width: 1853, height: 1804 }} id={'id2'} selectedIndex={null} flds={onyardFlds} datas={[]} trClick={null} trDbclick={null} /> : [
+                        <div className='warehouse-v'>
+                            <Vedios style={{ width: w, height: h }} datas={data} />
+                        </div>,
+                        <div className='warehouse-v'>
+                            <Vedios style={{ width: w, height: h }} datas={data} />
+                        </div>
+                    ]}
                     <div className='warehouse-v'>
                         <Vedios style={{ width: w, height: h }} datas={data} />
                     </div>

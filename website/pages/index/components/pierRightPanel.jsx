@@ -123,37 +123,42 @@ export default class PierRightPanel extends React.Component {
             data.forEach((e, i) => {
                 let layer = e.VESSELTYPE == '大船' ? 'S_LAYER' : 'B_LAYER';
                 let point = bw.filter((b) => b.type == e.VESSELTYPE && b.code == e.BERTHNO);
-                let param = {
-                    id: layer + i,
-                    layerId: layer,
-                    layerIndex: 999,
-                    src: e.VESSELTYPE == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png',
-                    width: 70,
-                    height: 140,
-                    angle: point[0].angle,
-                    x: point[0].geom.x,
-                    y: point[0].geom.y,
-                    attr: { ...e },
-                    click: () => alert(),
-                    mouseover: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(70 + 12);
-                            symbol.setHeight(140 + 12);
+                if (point.length > 0) {
+                    let param = {
+                        id: layer + i,
+                        layerId: layer,
+                        layerIndex: 999,
+                        src: e.VESSELTYPE == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png',
+                        width: 70,
+                        height: 140,
+                        angle: point[0].angle,
+                        x: point[0].geom.x,
+                        y: point[0].geom.y,
+                        attr: { ...e },
+                        click: () => alert(),
+                        mouseover: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(70 + 12);
+                                symbol.setHeight(140 + 12);
+                            }
+                            g.setSymbol(symbol);
+                        },
+                        mouseout: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(70);
+                                symbol.setHeight(140);
+                            }
+                            g.setSymbol(symbol);
                         }
-                        g.setSymbol(symbol);
-                    },
-                    mouseout: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(70);
-                            symbol.setHeight(140);
-                        }
-                        g.setSymbol(symbol);
                     }
+                    this.props.map.mapDisplay.image(param);
                 }
-                this.props.map.mapDisplay.image(param);
             });
+            this.props.map.mapDisplay.hide('S_LAYER');
+            this.props.map.mapDisplay.hide('B_LAYER');
+            this.props.setFatherState({S_LAYER: false, B_LAYER: false});
         });
     }
 
