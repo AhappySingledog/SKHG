@@ -109,7 +109,7 @@ class MyLink extends React.Component {
     }
     render() {
         return (
-            <div className='warningTip' style={{ position: 'absolute', top: 360, left: 4950, zIndex: 99999 }}>
+            <div className='warningTip' style={{ position: 'absolute', top: 360, left: 3945, zIndex: 99999 }}>
                 <div className='warningTip-t'></div>
                 <div className='warningTip-b'>
                     <Panel style={{ padding: '20px 25px', width: 2365, height: 1071 }}>
@@ -219,7 +219,7 @@ class MyQuery extends React.Component {
                 });
             }
             content = [
-                <Table key={1} rowNo={true} title={{ name: '泊位停靠船舶信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '泊位停靠船舶信息', export: false, items: [<QueryBox key={1} name='码头' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
             ];
         }
         else if (index === 1) {
@@ -282,7 +282,7 @@ class MyQuery extends React.Component {
             }
             content = [
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
-                    <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
+                    <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='箱号' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
                     <Table rowNo={true} title={{ name: '集装箱历史轨迹', export: false }} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
@@ -316,7 +316,7 @@ class MyQuery extends React.Component {
                 });
             }
             content = [
-                <Table key={1} rowNo={true} title={{ name: '提单信息', export: false, items: [<QueryBox key={1} name='' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '提单信息', export: false, items: [<QueryBox key={1} name='提单号' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,
             ];
         }
         else if (index === 4) {

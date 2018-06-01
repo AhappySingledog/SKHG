@@ -618,6 +618,119 @@ body>div:nth-of-type(n+1) {
     }
 }
 
+.caseNew {
+    display: flex;
+    flex-direction: column;
+    height: 1134px;
+    &-title {
+        width: 1406px;
+        height: 155px;
+        background: url('../images/小尺寸标题底框.png') no-repeat;
+        background-size: 100% 100%;
+        line-height: 155px;
+        text-align: center;
+        color: white;
+        font-size: 80px;
+    }
+    &-body {
+        padding-top: 25px;
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+.oneCaseNew {
+    &-title {
+        color: #5caeff;
+        font-size: 55px;
+    }
+    &-msg {
+        color: white;
+        font-size: 45px;
+        text-indent: 2em;
+        height: 350px;
+        overflow: auto;
+    }
+}
+
+.homeRightN {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+    &-t {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        &-title {
+            width: 3637px;
+            height: 164px;
+            background: url('../images/标题长条.png') no-repeat;
+            background-size: 100% 100%;
+            color: white;
+            font-size: 70px;
+            text-align: center;
+            line-height: 164px;
+        }
+        &-tab {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 3637px;
+            >div {
+                flex-grow: 1;
+                height: 150px;
+                color: white;
+                text-align: center;
+                line-height: 150px;
+                font-size: 70px;
+                border: solid 3px #1f9bff;
+                cursor: pointer;
+            }
+            &-s {
+                background: #002e73;
+            }
+            &-n {}
+        }
+        &-tabContent {
+            flex-grow: 1;
+            width: 100%;
+            overflow: hidden;
+        }
+        &-body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 1290px;
+        }
+    }
+    &-b {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        &-title {
+            width: 3637px;
+            height: 164px;
+            background: url('../images/标题长条.png') no-repeat;
+            background-size: 100% 100%;
+            color: white;
+            font-size: 70px;
+            text-align: center;
+            line-height: 164px;
+        }
+        &-body {
+            width: 3623px;
+            height: 984px;
+        }
+    }
+}
+
 .iWarning-yj {
     display: flex;
     flex-direction: row;
