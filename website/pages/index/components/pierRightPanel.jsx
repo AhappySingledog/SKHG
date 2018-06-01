@@ -200,7 +200,7 @@ export default class PierRightPanel extends React.Component {
         let orsJson = {};
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
             khsj.push(res[0].data);
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD + "%'    " } }).then((ors) => {
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD.replace('*', '') + "%'    " } }).then((ors) => {
                 /** 匹配数据 */
                 for (let o in khsj[0]) {
                     let js = khsj[0][o].YARDLANENO + khsj[0][o].YARDBAYNO + khsj[0][o].YARDROWNO;
@@ -235,8 +235,9 @@ export default class PierRightPanel extends React.Component {
             let o = res[key];
             res[key].colname = 'onyard';
             res[key].name = '柜子';
-            if (typeof (ors[key]) !== 'undefined') {
-                let dots = ors[key][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
+            let orsKey = key.indexOf('*') >= 0 ? key.substring(1,6) + key.substring(7,8) : key;
+            if (typeof (ors[orsKey]) !== 'undefined') {
+                let dots = ors[orsKey][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
                 let params = {
                     id: 'box_view' + o,
                     linecolor: [255, 0, 0, 1],

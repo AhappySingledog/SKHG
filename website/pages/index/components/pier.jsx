@@ -122,7 +122,10 @@ class MapOperation extends React.Component {
                     x: e.geom.x,
                     y: e.geom.y,
                     attr: { ...e },
-                    click: () => publish('playVedio'),
+                    click: (g) => {
+                        console.log(g);
+                        publish('playVedio', {url: g.attributes.url, name: g.attributes.name});
+                    },
                     mouseover: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
@@ -199,18 +202,16 @@ class MapOperation extends React.Component {
                 publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW = '" + defaultLayer.ship.TERMINALCODE + "' and CODE = '" + defaultLayer.ship.BERTHNO + "'" } }).then((res) => {
                     /** 去展示船的定位和详细信息 */
                     let json = defaultLayer.ship;
-                    this.props.map.mapDisplay.clearLayer('SHIP_LAYER');
-                    this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
-                    this.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
+                    this.props.map.mapDisplay.clearLayer('QUERY_LAYER');
                     res[0].data.forEach((value, key) => {
                         if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                             json.name = value.name;
                             json.colname = 'berthShip';
-                            let scrs = value.type === 'S' ? S : B;
+                            let scrs = value.name == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png';
                             this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                             let param = {
-                                id: 'SHIP_LAYER' + key,
-                                layerId: 'SHIP_LAYER',
+                                id: 'QUERY_LAYER' + key,
+                                layerId: 'QUERY_LAYER',
                                 src: scrs,
                                 width: 70,
                                 height: 140,
@@ -238,7 +239,7 @@ class MapOperation extends React.Component {
                             };
                             let param2 = {
                                 id: 'BIG_SHIP_LAYER',
-                                layerId: 'BIG_SHIP_LAYER_HOVERTEXT',
+                                layerId: 'QUERY_LAYER',
                                 x: value.geom.x,
                                 y: value.geom.y,
                                 text: json.CVESSELNAME,
@@ -253,7 +254,7 @@ class MapOperation extends React.Component {
                             this.props.map.mapDisplay.image(param);
                             let mText = {
                                 id: 'text_box',
-                                layerId: 'CONTAINERVIEW_LAYER_BOX',
+                                layerId: 'QUERY_LAYER',
                                 x: value.geom.x / 4,
                                 y: (value.geom.y / 4) + 0.00004,
                                 src: zb,
@@ -496,11 +497,12 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO + "%'    " } }).then((ors) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO.replace('*', '') + "%'    " } }).then((ors) => {
             let orsJson = {};
             for (let i in ors[0].data) {
                 orsJson[ors[0].data[i].name] = [ors[0].data[i]];
             }
+            js = js.indexOf('*') >= 0 ? js.substring(1,6) + js.substring(7,8) : js;
             if (orsJson !== "") {
                 let dots = orsJson[js][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
                 let points = dots.slice(0, 4);
