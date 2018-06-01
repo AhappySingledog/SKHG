@@ -6,7 +6,7 @@ import React from 'react';
 export default class Vedio extends React.Component {
     render() {
         return (
-            <div className='cv' style={this.props.style}>
+            <div className='cv' style={this.props.style} onDoubleClick={this.props.scale}>
                 <div className='cv-top'>
                     <div className='cv-title'>
                         <div className='cv-name'>{this.props.video.name}</div>

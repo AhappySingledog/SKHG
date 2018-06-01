@@ -472,6 +472,7 @@ export default class App extends React.Component {
         iWarningNew: false,
         znybj : false,
         agingControl: false,
+        scaleCv: true
     }
     layers = {}
     componentDidMount() {
@@ -629,6 +630,9 @@ export default class App extends React.Component {
     closeImg = () => {
         $('.imgDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.imgDisplay').removeClass('bounceOutLeft animated'); this.setState({ img: null }); });
     }
+    scaleCv = () => {
+        this.setState({scaleCv: !this.state.scaleCv});
+    }
     render() {
         return (
             <div className='mframe'>
@@ -652,7 +656,7 @@ export default class App extends React.Component {
                 </div>
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
                 <div className='mfooter' />
-                {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} /> : null}
+                {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} scale={this.scaleCv} style={this.state.scaleCv ? {width: 3022, height: 1070, top: 460, left: 98} : {width: 3026, height: 1075, top: 1265, left: 98, transform: 'scale(2.5)'}} /> : null}
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}
