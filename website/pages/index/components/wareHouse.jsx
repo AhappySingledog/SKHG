@@ -6,7 +6,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
 import bmap from 'echarts/extension/bmap/bmap';
-import { publish } from '../../../frame/core/arbiter';
+import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import WareHouseRight from './wareHouseRight';
 import VideoIcon from '../images/视频监控.png';
 
@@ -91,40 +91,40 @@ class CkList extends React.Component {
     componentDidMount() {
         let ck = [
             {
-                key: 1, name: '一号仓库', 
+                key: 1, name: '一号仓库',
                 items: [
                     { key: 'CMBLCK_1', name: '第一层' },
                 ],
             },
             {
-                key: 2, name: '二号仓库', 
+                key: 2, name: '二号仓库',
                 items: [
                     { key: 'CMBLCK_2_1', name: '第一层' },
                     { key: 'CMBLCK_2_2', name: '第二层' },
                 ],
             },
             {
-                key: 3, name: '三号仓库', 
+                key: 3, name: '三号仓库',
                 items: [
                     { key: 'CMBLCK_3_1', name: '第一层' },
                     { key: 'CMBLCK_3_2', name: '第二层' },
                 ],
             },
             {
-                key: 4, name: '四号仓库', 
+                key: 4, name: '四号仓库',
                 items: [
                     { key: 'CMBLCK_4_1', name: '第一层' },
                     { key: 'CMBLCK_4_2', name: '第二层' },
                 ],
             },
             {
-                key: 5, name: '五号仓库', 
+                key: 5, name: '五号仓库',
                 items: [
                     { key: 'CMBLCK_5_1', name: '第一层' },
                 ],
             },
             {
-                key: 6, name: '六号仓库', 
+                key: 6, name: '六号仓库',
                 items: [
                     { key: 'CMBLCK_6_1', name: '第一层' },
                     { key: 'CMBLCK_6_2', name: '第二层' },
@@ -134,12 +134,12 @@ class CkList extends React.Component {
                 ],
             },
         ];
-        this.setState({ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0});
+        this.setState({ ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0 });
     }
     componentDidUpdate() {
         let ck = this.state.ckList[this.state.ckIndex];
         publish('setLayerName', ck.name + '-' + ck.items[this.state.itemIndex].name);
-        $('#house').css({backgroundSize: '100% 100%'});
+        $('#house').css({ backgroundSize: '100% 100%' });
     }
     left = () => {
         let index = this.state.itemIndex;
@@ -159,12 +159,12 @@ class CkList extends React.Component {
         if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
     }
     goCkIndex = (index) => {
-       if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
+        if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
     }
     render() {
         let ckList = this.state.ckList;
         return (
-            <div style={{width: '100%', height: '100%', overflow: 'hidden'}}>
+            <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
                 <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
@@ -184,17 +184,47 @@ class CkList extends React.Component {
 
 // 货仓
 export default class WareHouse extends React.Component {
-    state = { map: null, ckList: false }
+    state = {
+        map: null,
+        ckList: false,
+        show: 'none',
+        top: null,
+        left: null,
+    }
     componentDidMount() {
+        this.sub_find_kwh = subscribe('find_kwh', this.find_kwh);
         if (this.props.datas.type == 3) {
             // publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "CODE LIKE '" + this.props.datas.code + "%' AND CK_ID = '3'" } }).then((res) => {
             //     this.setState({ iframes: res[0].data.sort((a, b) => Number(a.gid) > Number(b.gid)) }, () => this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.state.iframes[0].code));
             // });
-            this.setState({ckList: true});
+            this.setState({ ckList: true });
         }
         else {
             this.changeIframe($(ReactDOM.findDOMNode(this.refs.iframe)), '../map/index.html?mtype=' + this.props.datas.code);
         }
+    }
+
+    find_kwh = (e) => {
+        const sbjson = {
+            101: { top: 996, left: 670},
+            102: { top: 996, left: 1490},
+            103: { top: 996, left: 2300},
+            104: { top: 996, left: 3110},
+            105: { top: 996, left: 4150},
+            106: { top: 996, left: 4960},
+            107: { top: 996, left: 5770},
+            108: { top: 996, left: 6580}
+        };
+        let ms = e['LOCATION_TS'].match(/\d+/g);
+        this.setState({
+            top : sbjson[ms].top,
+            left : sbjson[ms].left,
+            show : null
+        })
+    }
+
+    componentWillMount() {
+        if (this.sub_find_kwh) unsubscribe(this.sub_find_kwh);
     }
 
     /**
@@ -221,7 +251,7 @@ export default class WareHouse extends React.Component {
             var $ifrme = $('<iframe scrolling="auto" frameborder="0" width="100%" height="100%" style="visibility: hidden" allowtransparency="true" src="' + url + '"></iframe>');
             $target.append($ifrme);
             $ifrme.on('load', () => {
-                $ifrme.css({ visibility: '' });
+                $ifrme.css({ visibility });
                 $target.removeClass('zoomOut animated').addClass('zoomIn animated');
                 this.setState({ map: $ifrme['0'].contentWindow });
             });
@@ -257,10 +287,11 @@ export default class WareHouse extends React.Component {
             <div className='houseMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='houseleft'>
                     <div id='warehouse' ref="iframe">
-                        {this.state.ckList ? <CkList data={this.props}/> : null}
+                        {this.state.ckList ? <CkList data={this.props} /> : null}
                     </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
+                <div style={{ width: 817, height: 1589, 'position': 'absolute', background : 'rgba(0,0,0,0.6)', display: this.state.show, top: this.state.top, left: this.state.left }}></div>
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight datas={this.props.datas} type={this.props.datas.type} />
                 </div>

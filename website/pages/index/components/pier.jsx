@@ -382,29 +382,32 @@ class MapOperation extends React.Component {
                 TWO_CK: 102,
                 FOUR_CK: 104,
             };
-            let date = new Date();
-            let y = date.getFullYear();
-            let m = date.getMonth();
-            let d = date.getDate();
-            let dt = '' + y + '-' + (m + 1 > 9 ? m + 1 : '0' + (m + 1)) + '-' + d;
-            if (ck[datajson.code]) {
-                Promise.all([
-                    publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_InOutWarehouseNum', data: { where: "recorddate>=to_date('" + dt + " 00:00:00', 'yyyy-MM-dd HH24:mi:ss') and recorddate<=to_date('" + dt + " 23:59:59', 'yyyy-MM-dd HH24:mi:ss') and warehouse=" + ck[datajson.code] } }),
-                    publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_DeclareGoodsNum', data: { where: "recorddate>=to_date('" + dt + " 00:00:00', 'yyyy-MM-dd HH24:mi:ss') and recorddate<=to_date('" + dt + " 23:59:59', 'yyyy-MM-dd HH24:mi:ss') and warehouse=" + ck[datajson.code] } }),
-                ]).then((res) => {
-                    let inNum = 0;
-                    let outNum = 0;
-                    let decNum = 0;
-                    res[0][0].features.forEach((e) => e.attributes.OPTTYPE == 'I' ? inNum = inNum + Number(e.attributes.QTY) : outNum = outNum + Number(e.attributes.QTY));
-                    res[0][0].features.forEach((e) => decNum = decNum + Number(e.attributes.QTY));
-                    let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: outNum }, { name: '入库数量', number: inNum }, { name: '申报数量', number: decNum }] };
-                    this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
-                });
-            }
-            else {
-                let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: 123456 }, { name: '入库数量', number: 123456 }, { name: '申报数量', number: 123456 }] };
+            // let date = new Date();
+            // let y = date.getFullYear();
+            // let m = date.getMonth();
+            // let d = date.getDate();
+            // let dt = '' + y + '-' + (m + 1 > 9 ? m + 1 : '0' + (m + 1)) + '-' + d;
+
+            console.log(ck[datajson.code]);
+            // if (ck[datajson.code]) {
+
+            // }
+            // else {
+            //     let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: 123456 }, { name: '入库数量', number: 123456 }, { name: '申报数量', number: 123456 }] };
+            //     this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
+            // }
+            Promise.all([
+                publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_InOutWarehouseNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse= '" + datajson.name + "'" } }),
+                publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_DeclareGoodsNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse='" + datajson.name + "'" } }),
+            ]).then((res) => {
+                let inNum = 0;
+                let outNum = 0;
+                let decNum = 0;
+                res[0][0].features.forEach((e) => e.attributes.OPTTYPE == 'I' ? inNum = inNum + Number(e.attributes.QTY) : outNum = outNum + Number(e.attributes.QTY));
+                res[0][0].features.forEach((e) => decNum = decNum + Number(e.attributes.QTY));
+                let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: outNum }, { name: '入库数量', number: inNum }, { name: '申报数量', number: decNum }] };
                 this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
-            }
+            });
         }
     }
 

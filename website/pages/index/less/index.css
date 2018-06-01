@@ -2905,7 +2905,7 @@ body > div:nth-of-type(n+1) {
 }
 .warehouse > div {
   width: 1860px;
-  height: 2728px;
+  height: 1804px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -2914,6 +2914,33 @@ body > div:nth-of-type(n+1) {
 .warehouse-v {
   padding: 10px;
   border: 2px solid #1890ff;
+}
+.ware > div {
+  margin: 40px 0px;
+}
+.ware > :first-of-type {
+  margin: 0px 0px 30px 0px;
+}
+.ware > :last-of-type {
+  margin: 30px 0px 0px 0px;
+}
+.ware_up {
+  position: absolute;
+  height: 75px;
+  right: 900px;
+  margin-top: 13px !important;
+  z-index: 9999;
+}
+.ware_down {
+  position: absolute;
+  height: 75px;
+  right: 600px;
+  margin-top: 13px !important;
+  z-index: 9999;
+}
+.ware > div {
+  color: #fff;
+  cursor: pointer;
 }
 /** 仓库切换  */
 .ckList {
