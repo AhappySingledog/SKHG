@@ -64,7 +64,7 @@ class MapOperation extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.drawDefaultLayer(nextProps);
+        //this.drawDefaultLayer(nextProps);
     }
 
     componentDidMount() {
@@ -109,6 +109,7 @@ class MapOperation extends React.Component {
             });
         }).then(() => this.drawDefaultLayer(this.props));
 
+        /** 绘制摄像头 */
         publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + this.props.datas.code + "'" } }).then((res) => {
             res[0].data.forEach((e, i) => {
                 let param = {
@@ -122,10 +123,7 @@ class MapOperation extends React.Component {
                     x: e.geom.x,
                     y: e.geom.y,
                     attr: { ...e },
-                    click: (g) => {
-                        console.log(g);
-                        publish('playVedio', {url: g.attributes.url, name: g.attributes.name});
-                    },
+                    click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
                     mouseover: function (g) {
                         let symbol = g.symbol;
                         if (symbol.setWidth) {
@@ -146,7 +144,69 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.image(param);
             });
             this.props.map.mapDisplay.hide('VIDEO_LAYER');
-        })
+        });
+
+        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
+            res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '驳船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '大船' : ''));
+            this.drawShips(res[0].data);
+        });
+    }
+
+    //绘制大船驳船
+    drawShips = (data) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW='SCT'" } }).then((res) => {
+            let bw = res[0].data;
+            data.forEach((e, i) => {
+                let layer = e.VESSELTYPE == '大船' ? 'S_LAYER' : 'B_LAYER';
+                let point = bw.filter((b) => b.type == e.VESSELTYPE && b.code == e.BERTHNO);
+                if (point.length > 0) {
+                    let param = {
+                        id: layer + i,
+                        layerId: layer,
+                        layerIndex: 999,
+                        src: e.VESSELTYPE == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png',
+                        width: 70,
+                        height: 140,
+                        angle: point[0].angle,
+                        x: point[0].geom.x,
+                        y: point[0].geom.y,
+                        attr: { ...e },
+                        click: (e) => {
+                            let temp = e.attributes;
+                            if (temp.VESSELTYPE == '大船') {
+                                temp.colname = 'berthShip';
+                                temp.name = '大船详情';
+                            }
+                            else {
+                                temp.colname = 'berthShip';
+                                temp.name = '驳船详情';
+                            }
+                            this.onIconClick(e);
+                        },
+                        mouseover: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(70 + 12);
+                                symbol.setHeight(140 + 12);
+                            }
+                            g.setSymbol(symbol);
+                        },
+                        mouseout: function (g) {
+                            let symbol = g.symbol;
+                            if (symbol.setWidth) {
+                                symbol.setWidth(70);
+                                symbol.setHeight(140);
+                            }
+                            g.setSymbol(symbol);
+                        }
+                    }
+                    this.props.map.mapDisplay.image(param);
+                }
+            });
+            this.props.map.mapDisplay.hide('S_LAYER');
+            this.props.map.mapDisplay.hide('B_LAYER');
+            //this.props.setFatherState({S_LAYER: false, B_LAYER: false});
+        });
     }
 
     componentWillUnmount() {
@@ -207,7 +267,7 @@ class MapOperation extends React.Component {
                         if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                             json.name = value.name;
                             json.colname = 'berthShip';
-                            let scrs = value.name == '大船' ? '../mapIcon/bigship.png' : '../mapIcon/Barge.png';
+                            let scrs = value.type === 'S' || value.type == '大船' ? S : B;
                             this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                             let param = {
                                 id: 'QUERY_LAYER' + key,
@@ -219,7 +279,7 @@ class MapOperation extends React.Component {
                                 x: value.geom.x,
                                 y: value.geom.y,
                                 attr: { ...json },
-                                click: () => alert(),
+                                click: this.onIconClick,
                                 mouseover: function (g) {
                                     let symbol = g.symbol;
                                     if (symbol.setWidth) {
@@ -282,10 +342,7 @@ class MapOperation extends React.Component {
             if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                 json.name = value.name;
                 json.colname = 'berthShip';
-                let scrs = null;
-                if (value.type === 'S') {
-                    scrs = S;
-                } else scrs = B;
+                let scrs = value.type === 'S' || value.type == '大船' ? S : B;
                 this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                 let param = {
                     id: 'SHIP_LAYER' + key,
@@ -785,6 +842,7 @@ export default class Pier extends React.Component {
         $($iframe).remove();
     }
     showLayer = (layer) => {
+        this.state.map.mapDisplay.clearLayer('QUERY_LAYER');
         let flag = !this.state[layer];
         this.setState({ [layer]: flag }, () => flag ? this.state.map.mapDisplay.show(layer) : this.state.map.mapDisplay.hide(layer));
     }
@@ -796,7 +854,7 @@ export default class Pier extends React.Component {
                 <div className='pierleft'>
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} defaultLayer={this.props.defaultLayer} /> : null}
-                    {this.state.map ? <div className="mapbtn">
+                    {this.state.map && this.props.datas.type == 1 ? <div className="mapbtn">
                         <div onClick={() => this.showLayer('VIDEO_LAYER')} className={!this.state.VIDEO_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>视频</div>
                         <div onClick={() => this.showLayer('S_LAYER')} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
                         <div onClick={() => this.showLayer('B_LAYER')} className={!this.state.B_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>

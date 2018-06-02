@@ -371,7 +371,7 @@ class MapOperation extends React.Component {
             SZMS_CK: { STORK_AMOUNT: '库存数量', OUT_STOR_NUM: '出库数量', IN_STOR_NUM: '入库数量', SECLARE_AMOUNT: '申报数量' },
             ZGMS_CK: { STORK_AMOUNT: '库存数量', OUT_STOR_NUM: '出库数量', IN_STOR_NUM: '入库数量', SECLARE_AMOUNT: '申报数量' },
             ZSGW: { a: '进港船舶', b: '出港船舶', c: '进闸车辆', d: '出闸车辆', e: '内外贸堆场间调拨车辆' },
-            CIC: { a: '调拨出场柜', b: '调拨入场柜', c: '完毕柜', d: '在场待查柜', e: '待调拨入场柜' },
+            CIC: { INCOMINGCNTS: '待调拨入场', CHECKINGCNTRSSUMMARY: '在场待查柜', CHECKEDCNTROKS: '查验完正常', CHECKEDCNTRHOLDS: '查验完扣柜', OUTINGCNTRS: '待调拨出场' },
             CMBL: { I: '进闸车辆', E: '出闸车辆', SELFWAREHOUSENUM: '区内仓库', ENTERPRISENUM: '驻区企业', DECLAREDOCNUM: '申报进出区' },
         };
 
