@@ -649,9 +649,9 @@ export default class App extends React.Component {
                         {/* <div className='mheader-iCount' onClick={this.iCount} /> */}
                         <div className='mheader-iCommand' onClick={() => this.iCommand(!this.state.iCommand)} />
                         <div className='mheader-warning' onClick={() => this.zbybj(!this.state.znybj)} />
-                        <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} />
-                        <div className='mheader-link' onClick={this.link} />
+                        {/* <div className='mheader-warning' onClick={() => this.warning2(!this.state.iWarningNew)} /> */}
                         <div className='mheader-sxgk' onClick={this.agingControl} />
+                        <div className='mheader-link' onClick={this.link} />
                         <div className='mheader-back' onClick={this.goBack} />
                         <div className='mheader-nt'>
                             <div className='mheader-name'>{this.state.layerName}</div>

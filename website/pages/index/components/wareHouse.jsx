@@ -87,6 +87,7 @@ class CkList extends React.Component {
         ckList: [],
         ckIndex: 0,
         itemIndex: 0,
+        videos: [],
     }
     componentDidMount() {
         let ck = [
@@ -135,6 +136,16 @@ class CkList extends React.Component {
             },
         ];
         this.setState({ ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0 });
+        this.sub_getVideosAndDisplayForHouse = subscribe('getVideosAndDisplayForHouse', this.getVideosAndDisplayForHouse);
+    }
+    getVideosAndDisplayForHouse = (kw) => {
+        console.log(this.state);
+        let ck = this.state.ckList[this.state.ckIndex];
+        let cs = ck[this.state.itemIndex];
+        publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND KW='" + kw + "'" } }).then((res) => {
+            let videos = res[0].data.map((e) => {return {name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL}});
+            this.setState({videos: videos});
+        });
     }
     componentDidUpdate() {
         let ck = this.state.ckList[this.state.ckIndex];
@@ -165,6 +176,7 @@ class CkList extends React.Component {
         let ckList = this.state.ckList;
         return (
             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
+                {this.state.videos.map((e, i) => <div style={{top: e.top, left: e.left}} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
                 <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
