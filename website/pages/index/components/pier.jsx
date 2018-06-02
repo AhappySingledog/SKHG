@@ -74,6 +74,7 @@ class MapOperation extends React.Component {
         this.sub_onIconClick = subscribe('box_onIconClick', this.onIconClick);
         this.sub_Berth_ship = subscribe('berth_ship', this.berth_ship);
         this.sub_handleCloseDesDailog = subscribe('box_handleCloseDesDailog', this.handleCloseDesDailog);
+        this.sub_getVideoAndDisplay = subscribe('getVideoAndDisplay', this.getVideoAndDisplay);
         Object.keys(this.props.datas.mapExtent).forEach((key) => this.props.datas.mapExtent[key] = Number(this.props.datas.mapExtent[key]));
         this.props.map.mapOper.setMapExtent(this.props.datas.mapExtent);
         publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_AREA', where: "SSDW='" + this.props.datas.code + "' AND LAYER=3" } }).then((res) => {
@@ -149,6 +150,50 @@ class MapOperation extends React.Component {
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
             res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '驳船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '大船' : ''));
             this.drawShips(res[0].data);
+        });
+    }
+
+    getVideoAndDisplay = (ops) => {
+        let map = ops.map;
+        let type = ops.type;
+        let data = ops.data;
+        map.mapDisplay.clearLayer('VIDEO_LD_LAYER');
+        let where = '1=1';
+        if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
+        if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: where } }).then((res) => {
+            res[0].data.forEach((e, i) => {
+                let param = {
+                    id: 'VIDEO_LD_LAYER' + i,
+                    layerId: 'VIDEO_LD_LAYER',
+                    layerIndex: 999,
+                    src: VideoIcon,
+                    width: 100,
+                    height: 140,
+                    angle: 0,
+                    x: e.geom.x,
+                    y: e.geom.y,
+                    attr: { ...e },
+                    click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100 + 12);
+                            symbol.setHeight(100 + 12);
+                        }
+                        g.setSymbol(symbol);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100);
+                            symbol.setHeight(100);
+                        }
+                        g.setSymbol(symbol);
+                    }
+                }
+                map.mapDisplay.image(param);
+            });
         });
     }
 
@@ -255,6 +300,7 @@ class MapOperation extends React.Component {
                                 props.map.mapDisplay.polygon(params);
                             });
                         });
+                        publish('getVideoAndDisplay', {map: props.map, type: '集装箱', data: {ssdw: this.props.datas.ssdw, lw: result[0].Location.substring(5,8)}});
                     }
                 });
             }
@@ -325,7 +371,8 @@ class MapOperation extends React.Component {
                             this.props.map.mapDisplay.image(mText);
                         }
                     })
-                })
+                });
+                publish('getVideoAndDisplay', {map: props.map, type: '船舶', data: {ssdw: defaultLayer.ship.TERMINALCODE, bw: defaultLayer.ship.BERTHNO}});
             }
         }
     }
@@ -543,6 +590,7 @@ class MapOperation extends React.Component {
             json.attributes = obj;
             this.onIconClick(json);
         });
+        publish('getVideoAndDisplay', {map: this.props.map, type: '集装箱', data: {ssdw: this.props.datas.ssdw, lw: e.YARDLANENO}});
     }
 
     clickTitle = (key) => {

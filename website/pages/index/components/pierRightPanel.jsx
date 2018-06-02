@@ -191,6 +191,7 @@ export default class PierRightPanel extends React.Component {
         publish('box_location', e);
         /** 详情 */
         publish('box_onIconClick', json);
+        publish('getVideoAndDisplay', {map: this.props.map, type: '集装箱', data: {ssdw: this.props.datas.ssdw, lw: e.YARDLANENO}});
     }
 
     /** 柜量信息 */
@@ -244,6 +245,7 @@ export default class PierRightPanel extends React.Component {
             /** 去展示船的定位和详细信息 */
             publish('berth_ship', { a: e, b: ors });
         })
+        publish('getVideoAndDisplay', {map: this.props.map, type: '船舶', data: {ssdw: e.TERMINALCODE, bw: e.BERTHNO}});
     }
     /** 画箱子 */
     huatu(res, ors) {
