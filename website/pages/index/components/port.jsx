@@ -672,8 +672,8 @@ export default class Port extends React.Component {
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} /> : null}
                 </div>
-                {/* <PortRightPanel></PortRightPanel> */}
-                <div className='portRight'></div>
+                <PortRightPanel></PortRightPanel>
+                {/* <div className='portRight'></div> */}
                 {/* <div className='portRight' style={{ marginLeft: 30 }}>
                     <div className='portRight-1' onClick={() => publish('playVedio')}></div>
                     <div className='portRight-2' onClick={() => publish('playVedio')}></div>

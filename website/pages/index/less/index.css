@@ -590,6 +590,113 @@ body > div:nth-of-type(n+1) {
   height: 350px;
   overflow: auto;
 }
+.caseNew {
+  display: flex;
+  flex-direction: column;
+  height: 1134px;
+}
+.caseNew-title {
+  width: 1406px;
+  height: 155px;
+  background: url('../images/小尺寸标题底框.png') no-repeat;
+  background-size: 100% 100%;
+  line-height: 155px;
+  text-align: center;
+  color: white;
+  font-size: 80px;
+}
+.caseNew-body {
+  padding-top: 25px;
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.oneCaseNew-title {
+  color: #5caeff;
+  font-size: 55px;
+}
+.oneCaseNew-msg {
+  color: white;
+  font-size: 45px;
+  text-indent: 2em;
+  height: 350px;
+  overflow: auto;
+}
+.homeRightN {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
+}
+.homeRightN-t {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.homeRightN-t-title {
+  width: 3637px;
+  height: 164px;
+  background: url('../images/标题长条.png') no-repeat;
+  background-size: 100% 100%;
+  color: white;
+  font-size: 70px;
+  text-align: center;
+  line-height: 164px;
+}
+.homeRightN-t-tab {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 3637px;
+}
+.homeRightN-t-tab > div {
+  flex-grow: 1;
+  height: 150px;
+  color: white;
+  text-align: center;
+  line-height: 150px;
+  font-size: 70px;
+  border: solid 3px #1f9bff;
+  cursor: pointer;
+}
+.homeRightN-t-tab-s {
+  background: #002e73;
+}
+.homeRightN-t-tabContent {
+  flex-grow: 1;
+  width: 100%;
+  overflow: hidden;
+}
+.homeRightN-t-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 1290px;
+}
+.homeRightN-b {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.homeRightN-b-title {
+  width: 3637px;
+  height: 164px;
+  background: url('../images/标题长条.png') no-repeat;
+  background-size: 100% 100%;
+  color: white;
+  font-size: 70px;
+  text-align: center;
+  line-height: 164px;
+}
+.homeRightN-b-body {
+  width: 3623px;
+  height: 984px;
+}
 .iWarning-yj {
   display: flex;
   flex-direction: row;
@@ -1985,9 +2092,10 @@ body > div:nth-of-type(n+1) {
   display: flex;
   flex-direction: column;
   width: 33%;
-  border: 1px solid #0682ec;
-  background: url('../images/port/第二层.png') no-repeat;
-  margin-left: 30px;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  background-color: rgba(1, 0, 7, 0.29);
 }
 /** 右侧 上 */
 .Top {
@@ -2420,6 +2528,664 @@ body > div:nth-of-type(n+1) {
   flex-direction: row;
   font-size: 60px;
   justify-content: space-between;
+}
+/** 右侧数据 上  */
+.Area {
+  display: flex;
+  flex-direction: row;
+  height: 585px;
+  width: 3740px;
+  justify-content: space-around;
+  position: relative;
+  top: 24px;
+}
+.Area_left {
+  width: 1833px;
+  position: relative;
+}
+.Area_left_v5304 {
+  height: 100px;
+  width: 960px;
+  background-size: 100% 100%;
+  background: url('../images/port/5304关区.png') no-repeat;
+}
+.Area_left_zsje {
+  height: 415px;
+  position: relative;
+  top: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+}
+.Area_left_zsje_view {
+  width: 696px;
+  height: 143px;
+  background: url('../images/port/5304征收税款金额.png') no-repeat;
+  background-size: 100% 100%;
+}
+.Area_left_zsje_num {
+  height: 234px;
+  position: relative;
+  left: 43px;
+}
+.Area_right {
+  width: 1833px;
+  position: relative;
+  left: 5px;
+}
+.Area_right_v5304 {
+  height: 100px;
+  width: 960px;
+  background-size: 100% 100%;
+  background: url('../images/port/5349关区.png') no-repeat;
+}
+.Area_right_zsje {
+  height: 415px;
+  position: relative;
+  top: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+}
+.Area_right_zsje_view {
+  width: 696px;
+  height: 143px;
+  position: relative;
+  left: 1085px;
+  background: url('../images/port/5349征收税款金额.png') no-repeat;
+  background-size: 100% 100%;
+}
+.Area_right_zsje_num {
+  height: 234px;
+  position: relative;
+  left: 43px;
+}
+/** 右侧数据 上中 报关单量 */
+.BGDL {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 3740px;
+  height: 611px;
+  position: relative;
+  top: 48px;
+}
+.BGDL_left {
+  width: 1776px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  position: relative;
+  left: 0px;
+}
+.BGDL_left_left {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  color: #fff;
+  padding: 15px;
+}
+.BGDL_left_left_jkdl > :first-child {
+  width: 622px;
+  height: 140px;
+  line-height: 140px;
+  letter-spacing: 6px;
+  font-size: 120px;
+  text-align: center;
+  background: url('../images/port/报关单量上半部底.png') no-repeat;
+  background-size: 100% 100%;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.BGDL_left_left_jkdl > :last-child {
+  background-image: linear-gradient(0deg, #1454ab 0%, #1d8fd5 100%), linear-gradient(#000000, #000000);
+  background-blend-mode: normal, normal;
+  width: 622px;
+  height: 104px;
+  text-align: center;
+  font-size: 80px;
+}
+.BGDL_left_left_ckdl > :first-child {
+  width: 622px;
+  height: 140px;
+  line-height: 140px;
+  letter-spacing: 6px;
+  font-size: 120px;
+  text-align: center;
+  background: url('../images/port/报关单量上半部底.png') no-repeat;
+  background-size: 100% 100%;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.BGDL_left_left_ckdl > :last-child {
+  background-image: linear-gradient(0deg, #108512 0%, #16b014 100%), linear-gradient(#000000, #000000);
+  background-blend-mode: normal, normal;
+  width: 622px;
+  height: 104px;
+  text-align: center;
+  font-size: 80px;
+}
+.BGDL_left_right {
+  width: 1185px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  top: 60px;
+  left: 50px;
+}
+.BGDL_left_right > div {
+  width: 698px;
+  height: 202px;
+  background: url('../images/port/报关单量标题-蓝.png') no-repeat;
+  background-size: 100% 100%;
+}
+.BGDL_left_right > span {
+  color: #fff;
+  height: 157px;
+  font-size: 185px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  display: inline-block;
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#00ffff), to(#1f9bff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  top: 70px;
+  position: relative;
+  text-align: center;
+  letter-spacing: 9px;
+}
+.BGDL_right {
+  width: 1774px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  position: relative;
+  left: 5px;
+}
+.BGDL_right_left {
+  width: 1185px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  position: relative;
+  left: 50px;
+  top: 60px;
+}
+.BGDL_right_left > div {
+  width: 698px;
+  height: 202px;
+  background: url('../images/port/报关单量标题-紫.png') no-repeat;
+  background-size: 100% 100%;
+}
+.BGDL_right_left > span {
+  color: #fff;
+  height: 157px;
+  font-size: 185px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  display: inline-block;
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#b773fd), to(#673bb8));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  top: 70px;
+  position: relative;
+  text-align: center;
+  letter-spacing: 9px;
+}
+.BGDL_right_right {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  color: #fff;
+  padding: 15px;
+}
+.BGDL_right_right_jkdl > :first-child {
+  width: 622px;
+  height: 140px;
+  line-height: 140px;
+  letter-spacing: 6px;
+  font-size: 120px;
+  text-align: center;
+  background: url('../images/port/报关单量上半部底.png') no-repeat;
+  background-size: 100% 100%;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.BGDL_right_right_jkdl > :last-child {
+  background-image: linear-gradient(0deg, #1454ab 0%, #1d8fd5 100%), linear-gradient(#000000, #000000);
+  background-blend-mode: normal, normal;
+  width: 622px;
+  height: 104px;
+  text-align: center;
+  font-size: 80px;
+}
+.BGDL_right_right_ckdl > :first-child {
+  width: 622px;
+  height: 140px;
+  line-height: 140px;
+  letter-spacing: 6px;
+  font-size: 120px;
+  text-align: center;
+  background: url('../images/port/报关单量上半部底.png') no-repeat;
+  background-size: 100% 100%;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.BGDL_right_right_ckdl > :last-child {
+  background-image: linear-gradient(0deg, #108512 0%, #16b014 100%), linear-gradient(#000000, #000000);
+  background-blend-mode: normal, normal;
+  width: 622px;
+  height: 104px;
+  text-align: center;
+  font-size: 80px;
+}
+.Ched {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 1498px;
+  width: 3740px;
+  position: relative;
+  top: 72px;
+}
+.Ched_left {
+  width: 1776px;
+  position: relative;
+  left: 18px;
+}
+.Ched_left_cys {
+  width: 1776px;
+  height: 820px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+}
+.Ched_left_cys_gs {
+  width: 685px;
+  height: 820px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  position: relative;
+  left: 10px;
+}
+.Ched_left_cys_gs > :nth-of-type(1) {
+  width: 685px;
+  height: 250px;
+  background: url('../images/port/紫框.png') no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.Ched_left_cys_gs > :nth-of-type(1) > div {
+  line-height: 125px;
+  font-size: 130px;
+  margin-top: 30px;
+  color: #c02dff;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.Ched_left_cys_gs > :nth-of-type(1) > span {
+  font-size: 60px;
+  color: #fff;
+}
+.Ched_left_cys_gs > :nth-of-type(2) {
+  width: 685px;
+  height: 250px;
+  background: url('../images/port/蓝框.png') no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.Ched_left_cys_gs > :nth-of-type(2) > div {
+  line-height: 125px;
+  font-size: 130px;
+  margin-top: 30px;
+  color: #1799ff;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.Ched_left_cys_gs > :nth-of-type(2) > span {
+  font-size: 60px;
+  color: #fff;
+}
+.Ched_left_cys_gs > :nth-of-type(3) {
+  width: 685px;
+  height: 250px;
+  background: url('../images/port/橙黄框.png') no-repeat;
+  background-size: 100% 100%;
+  text-align: center;
+}
+.Ched_left_cys_gs > :nth-of-type(3) > div {
+  line-height: 125px;
+  font-size: 130px;
+  margin-top: 30px;
+  color: #f99d26;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.Ched_left_cys_gs > :nth-of-type(3) > span {
+  font-size: 60px;
+  color: #fff;
+}
+.Ched_left_cys_ps {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 1060px;
+  height: 811px;
+  color: #fff;
+}
+.Ched_left_cys_ps_view {
+  background: url('../images/port/蓝折线.png') no-repeat;
+  background-size: 100% 100%;
+  width: 820px;
+  height: 100px;
+  font-size: 80px;
+  color: #fff;
+  padding-left: 38px;
+  padding-bottom: 41px;
+  position: relative;
+  top: 8px;
+  left: 20px;
+}
+.Ched_left_cys_ps_num {
+  position: relative;
+  left: 10px;
+  font-size: 160px;
+  height: 170px;
+  line-height: 170px;
+  letter-spacing: 9px;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  font-stretch: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  display: inline-block;
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff100), to(#009944));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.Ched_left_cys_ps_echt {
+  width: 1086px;
+  height: 484px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.Ched_left_cys_ps_echt_c1 {
+  width: 520px;
+  height: 484px;
+  border: 1px solid #0682ec;
+}
+.Ched_left_cys_ps_echt_c2 {
+  width: 520px;
+  height: 484px;
+  border: 1px solid #0682ec;
+}
+.Ched_left_lkzrs {
+  width: 1776px;
+  height: 443px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  position: relative;
+  top: 25px;
+}
+.Ched_left_lkzrs_crjzrs {
+  display: flex;
+  flex-direction: row;
+}
+.Ched_left_lkzrs_crjzrs_view {
+  background: url('../images/port/出入境总人数.png') no-repeat;
+  background-size: 100% 100%;
+  width: 709px;
+  height: 154px;
+  font-size: 70px;
+  line-height: 154px;
+  color: #1f9bff;
+  text-align: center;
+  position: relative;
+  left: 38px;
+  top: 0;
+}
+.Ched_left_lkzrs_crjzrs_num {
+  position: relative;
+  left: 80px;
+  line-height: 149px;
+  font-size: 150px;
+  font-family: "DS-DIGIB_0" !important;
+  font-weight: normal;
+  font-stretch: normal;
+  letter-spacing: 7px;
+  color: #ffffff;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  display: inline-block;
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#00ffff), to(#1f9bff));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.Ched_left_lkzrs_crjrs {
+  display: flex;
+  flex-direction: row;
+  justify-content: start;
+}
+.Ched_left_lkzrs_crjrs_r {
+  width: 1517px;
+  height: 247px;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  position: relative;
+  left: 50px;
+}
+.Ched_left_lkzrs_crjrs_r_r1 {
+  background: url('../images/port/出境.png') no-repeat;
+  background-size: 100% 100%;
+  width: 219px;
+  height: 255px;
+}
+.Ched_left_lkzrs_crjrs_r_cjrs {
+  text-align: center;
+  line-height: 122px;
+  color: #fff;
+  position: relative;
+  left: 50px;
+}
+.Ched_left_lkzrs_crjrs_r_cjrs > div {
+  color: #66cd00;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  font-size: 107px;
+}
+.Ched_left_lkzrs_crjrs_r_cjrs > span {
+  font-size: 63px;
+}
+.Ched_left_lkzrs_crjrs_r_r2 {
+  background: url('../images/port/入境.png') no-repeat;
+  background-size: 100% 100%;
+  width: 219px;
+  height: 255px;
+}
+.Ched_left_lkzrs_crjrs_r_rjrs {
+  text-align: center;
+  line-height: 122px;
+  color: #fff;
+  position: relative;
+  left: 50px;
+}
+.Ched_left_lkzrs_crjrs_r_rjrs > div {
+  color: #ffa92f;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  font-size: 107px;
+}
+.Ched_left_lkzrs_crjrs_r_rjrs > span {
+  font-size: 63px;
+}
+.Ched_right {
+  width: 1774px;
+  border-style: solid;
+  border-width: 30px 30px 30px 30px;
+  border-image: url("../images/bg.png") 30 30 30 30 fill;
+  position: relative;
+  left: -12px;
+  height: 1348px;
+}
+.Ched_right_cywb {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+  top: 40px;
+}
+.Ched_right_cywb_cygs {
+  background: url('../images/port/查验完毕柜数-紫框.png') no-repeat;
+  background-size: 100% 100%;
+  width: 664px;
+  height: 379px;
+  text-align: center;
+  color: #fff;
+}
+.Ched_right_cywb_cygs > div {
+  color: #c02dff;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  font-size: 130px;
+  margin-top: 25px;
+  line-height: 198px;
+}
+.Ched_right_cywb_cyps {
+  position: relative;
+  right: -45px;
+}
+.Ched_right_cywb_cyps_view {
+  background: url('../images/port/紫折线.png') no-repeat;
+  background-size: 100% 100%;
+  width: 820px;
+  height: 100px;
+  font-size: 80px;
+  color: #fff;
+  padding-left: 38px;
+  padding-bottom: 41px;
+}
+.Ched_right_cywb_cyps_num {
+  color: #fff;
+  height: 170px;
+  letter-spacing: 9px;
+  font-size: 200px;
+  display: inline-block;
+  background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(#fff100), to(#009944));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  width: 1145px;
+}
+.Ched_right_dcy {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  top: 60px;
+}
+.Ched_right_dcy_dcgs {
+  background: url('../images/port/在场待查柜数-蓝框.png') no-repeat;
+  background-size: 100% 100%;
+  width: 864px;
+  height: 390px;
+  font-size: 70px;
+  color: #fff;
+  text-align: center;
+}
+.Ched_right_dcy_dcgs :first-of-type {
+  font-size: 180px;
+  margin-top: 60px;
+  line-height: 198px;
+  color: #1799ff;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.Ched_right_dcy_dbrcgs {
+  background: url('../images/port/待调拨入场柜数-橙黄框.png') no-repeat;
+  background-size: 100% 100%;
+  width: 864px;
+  height: 390px;
+  font-size: 70px;
+  color: #fff;
+  text-align: center;
+}
+.Ched_right_dcy_dbrcgs :first-of-type {
+  font-size: 180px;
+  margin-top: 60px;
+  line-height: 198px;
+  color: #f99d26;
+  font-family: "DS-DIGIB_0" !important;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+}
+.Ched_right_echts {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  position: relative;
+  top: 80px;
+}
+.Ched_right_echts_c1 {
+  width: 862px;
+  height: 520px;
+  border: 1px solid #0682ec;
+}
+.Ched_right_echts_c2 {
+  width: 862px;
+  height: 520px;
+  border: 1px solid #0682ec;
 }
 /** 右侧结束 */
 /***************************************************************
@@ -3038,94 +3804,96 @@ body > div:nth-of-type(n+1) {
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: flex-start;
   align-items: flex-end;
 }
 .number-0 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/0.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/0.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-1 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/1.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/1.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-2 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/2.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/2.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-3 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/3.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/3.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-4 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/4.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/4.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-5 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/5.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/5.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-6 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/6.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/6.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-7 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/7.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/7.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-8 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/8.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/8.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-9 {
-  width: 122px;
-  height: 195px;
+  width: 173px;
+  height: 234px;
   margin: 0 10px;
-  background: url('../images/port/number/9.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/9.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-break {
   width: 20px;
   height: 25px;
   margin: 0 0px;
-  background: url('../images/port/number/break.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/break.png') no-repeat;
+  background-size: 100% 100%;
 }
 .number-point {
   width: 20px;
   height: 25px;
   margin: 0 0px;
-  background: url('../images/port/number/point.png') no-repeat;
-  background-size: 100% 103%;
+  background: url('../images/port/whiteNumber/point.png') no-repeat;
+  background-size: 100% 100%;
 }
 /************************
+
+
 *************************
 ************************/
 .numbers-view {
@@ -3243,6 +4011,9 @@ body > div:nth-of-type(n+1) {
     transform: translate3d(0, 0, 0);
   }
 }
+/**
+* 渐变色
+*/
 .znybj {
   background: #000000;
   z-index: 9999;

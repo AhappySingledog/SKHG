@@ -57,7 +57,6 @@ export default class ZNYBJ extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            loading: false,     //刷新界面
             sel: '',
             gkyxBtn: 0,
             ybj: [],
@@ -87,6 +86,7 @@ export default class ZNYBJ extends React.Component {
         })
     }
 
+    /** 下拉框==》按钮事件 */
     handleSel = (e) => {
         this.setState({ sel: e.target.value, gkyxBtn: e.target.selectedIndex });
         switch (e.target.selectedIndex) {
@@ -113,13 +113,45 @@ export default class ZNYBJ extends React.Component {
         }
     }
 
+    /** 管控运行 ==》 按钮事件 */
+    handleBtn(e) {
+        switch (Number(e)) {
+            case 1:
+                this.setState({
+                    ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER06", "ALTER07", "ALTER10", "ALTER14", "ALTER15"],
+                    ["WARNING01", "WARNING02", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11"]]
+                })
+                break;
+            case 2:
+                this.setState({ ybj: [["ALTER11", "ALTER12", "ALTER13"], ["WARNING16", "WARNING17"]] })
+                break;
+            case 3:
+                this.setState({ ybj: [[], ["WARNING12", "WARNING13", "WARNING14"]] })
+                break;
+            case 4:
+                this.setState({ ybj: [[], ["WARNING18", "WARNING19"]] })
+                break;
+            case 5:
+                this.setState({ ybj: [[], ["WARNING20", "WARNING21"]] })
+                break;
+            default:
+                this.setState({
+                    ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER06", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"],
+                    ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
+                        "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"]]
+                })
+        }
+    }
 
+
+    /** 面板模块 =》 点击   预警 / 报警  =》 面板点击事件   */
     handleClik = (e, i, width) => {
-        this.setState({ loading: false });
+        let index = layer.load(0, { shade: [0.5, '#fff'] });
         publish('getData', { svn: i, tableName: e, data: { pageno: 1, pagesize: 100, where: '1=1' } }).then((res) => {
             let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
             let table = <Table rowNo={true} title={{ name: e.alias, export: true, close: () => this.setState({ table: null }) }} style={{ height: 775, width: width }} id={'qqq'} selectedIndex={null} flds={flds} datas={res[0].features.map((e) => e.attributes)} trClick={null} trDbclick={null} myTd={null} hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
-            this.setState({ table: table, key: e, loading: true }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
+            this.setState({ table: table, key: e }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#warningDesc').removeClass('magictime spaceInUp animated')));
+            layer.close(index);
         });
     }
     render() {
@@ -137,21 +169,20 @@ export default class ZNYBJ extends React.Component {
                     </div>
                     {
                         this.state.gkyxBtn < 3 ? <div className="znybj_top_btn">
-                            <div className="znybj_top_btn_mt">码头</div>
-                            <div className="znybj_top_btn_cic">CIC</div>
+                            {/* <div className="znybj_top_btn_mt">码头</div>
+                            <div className="znybj_top_btn_cic">CIC</div> */}
                         </div> : <div className="znybj_top_btn">
-                                <div className="znybj_top_btn_mt">码头</div>
-                                <div className="znybj_top_btn_cic">CIC</div>
-                                <div className="znybj_top_btn_dbcl">调拨车辆</div>
-                                <div className="znybj_top_btn_xztd">行政通道</div>
-                                <div className="znybj_top_btn_lj">旅检</div>
+                                <div className="znybj_top_btn_mt" key="1" onClick={() => this.handleBtn("1")}>码头</div>
+                                <div className="znybj_top_btn_cic" key="2" onClick={() => this.handleBtn("2")}>CIC</div>
+                                <div className="znybj_top_btn_dbcl" key="3" onClick={() => this.handleBtn("3")}>调拨车辆</div>
+                                <div className="znybj_top_btn_xztd" key="4" onClick={() => this.handleBtn("4")}>行政通道</div>
+                                <div className="znybj_top_btn_lj" key="5" onClick={() => this.handleBtn("5")}>旅检</div>
                             </div>
                     }
                 </div>
                 <div className="znybj_bot">
                     <Znyj yj={this.state.ybj[0]} yjjson={yjsl} click={this.handleClik}></Znyj>
                     <div className="znybj_bot_fgx">分割线</div>
-                    {this.state.loading ? <div /> : <div className="loading"> <span>加</span> <span>载</span> <span>中</span> <span>.</span> <span>.</span> </div>}
                     <Znbj bj={this.state.ybj[1]} bjjson={bjsl} click={this.handleClik}></Znbj>
                 </div>
                 {this.state.table ? <div id='warningDesc' style={{ position: 'absolute', top: 65, right: 3821, background: '#051658' }}>{this.state.table}</div> : null}
@@ -231,9 +262,9 @@ class Znbj extends React.Component {
                     Object.keys(this.state.WARNING).map((e, i) => {
                         return <div key={i} className="znbjs_bj" onClick={() => this.props.click(WARNING[e].tableName, 'skhg_stage', WARNING[e].width)}>
                             <div className="znbjs_bj_num">
-                                <div className="znbjs_bj_num_ycl">{WARNING[e].num.wcl}</div>
+                                <div className="znbjs_bj_num_ycl">{WARNING[e].num.ycl}</div>
                                 <div className="znbjs_bj_num_fgx"></div>
-                                <div className="znbjs_bj_num_wcl">{WARNING[e].num.ycl}</div>
+                                <div className="znbjs_bj_num_wcl">{WARNING[e].num.wcl}</div>
                             </div>
                             <div className="znbjs_bj_fot">{WARNING[e].title}</div>
                         </div>

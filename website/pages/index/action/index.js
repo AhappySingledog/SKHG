@@ -1158,7 +1158,7 @@ subscribes({
             var names = ops.value.name;
             var min = 0;
             var max = 100;
-            var size = '100%';
+            var size = '70%';
             var initcolor = '#F26D12';
 
             var color = initcolor;

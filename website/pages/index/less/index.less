@@ -1920,9 +1920,13 @@ body>div:nth-of-type(1) {
     display: flex;
     flex-direction: column;
     width: 33%;
-    border: 1px solid #0682ec;
-    background: url('../images/port/第二层.png') no-repeat;
-    margin-left: 30px;
+    // border: 1px solid #0682ec;
+    border-style: solid;
+    border-width: 30px 30px 30px 30px;
+    border-image: url("../images/bg.png") 30 30 30 30 fill;
+    // background: url('../images/port/第二层.png') no-repeat;
+    // margin-left: 30px;
+    background-color: rgba(1, 0, 7, 0.29);
 }
 
 /** 右侧 上 */
@@ -2371,6 +2375,675 @@ body>div:nth-of-type(1) {
 
 }
 
+/** 右侧数据 上  */
+.Area{
+    display: flex;
+    flex-direction: row;
+    height: 585px;
+    width: 3740px;
+    justify-content: space-around;
+    position: relative;
+    top: 24px;
+
+    // border: 1px solid #0682ec;
+    &_left{
+        width: 1833px;
+        position: relative;
+        &_v5304{
+            height: 100px;
+            width: 960px;
+            background-size: 100% 100%; 
+            background: url('../images/port/5304关区.png') no-repeat;
+        }
+        &_zsje{
+            height: 415px;
+            position: relative;
+            top: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-style: solid;
+            border-width: 30px 30px 30px 30px;
+            border-image: url("../images/bg.png") 30 30 30 30 fill;
+            &_view{
+                width: 696px;
+                height: 143px;
+                background: url('../images/port/5304征收税款金额.png') no-repeat;
+                background-size: 100% 100%; 
+            }
+            &_num{
+                height: 234px;
+                position: relative;
+                left: 43px;
+            }
+        }
+    }
+
+    &_right {
+        width: 1833px;
+        position: relative;
+        left: 5px;
+        &_v5304 {
+            height: 100px;
+            width: 960px;
+            background-size: 100% 100%;
+            background: url('../images/port/5349关区.png') no-repeat;
+        }
+        &_zsje {
+            height: 415px;
+            position: relative;
+            top: 6px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-style: solid;
+            border-width: 30px 30px 30px 30px;
+            border-image: url("../images/bg.png") 30 30 30 30 fill;
+            &_view {
+                width: 696px;
+                height: 143px;
+                position: relative;
+                left: 1085px;
+                background: url('../images/port/5349征收税款金额.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            &_num {
+                height: 234px;
+                position: relative;
+                left: 43px;
+            }
+        }
+    }
+}
+
+/** 右侧数据 上中 报关单量 */
+.BGDL{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    // border: 1px solid #0682ec;
+    width: 3740px;
+    height: 611px;
+    position: relative;
+    top: 48px;
+    &_left {
+        width: 1776px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-style: solid;
+        border-width: 30px 30px 30px 30px;
+        border-image: url("../images/bg.png") 30 30 30 30 fill;
+        position: relative;
+        left: 0px;
+        &_left {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            color: #fff;
+            padding: 15px;
+            &_jkdl {
+                >:first-child {
+                    width: 622px;
+                    height: 140px;
+                    line-height: 140px;
+                    letter-spacing: 6px;
+                    font-size: 120px;
+                    text-align: center;
+                    background: url('../images/port/报关单量上半部底.png') no-repeat;
+                    background-size: 100% 100%;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+                >:last-child {
+                    background-image: linear-gradient(0deg, #1454ab 0%, #1d8fd5 100%), linear-gradient( #000000, #000000);
+                    background-blend-mode: normal, normal;
+                    width: 622px;
+                    height: 104px;
+                    text-align: center;
+                    font-size: 80px;
+                }
+            }
+            &_ckdl {
+                >:first-child {
+                    width: 622px;
+                    height: 140px;
+                    line-height: 140px;
+                    letter-spacing: 6px;
+                    font-size: 120px;
+                    text-align: center;
+                    background: url('../images/port/报关单量上半部底.png') no-repeat;
+                    background-size: 100% 100%;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+                >:last-child {
+                    background-image: linear-gradient(0deg, #108512 0%, #16b014 100%), linear-gradient( #000000, #000000);
+                    background-blend-mode: normal, normal;
+                    width: 622px;
+                    height: 104px;
+                    text-align: center;
+                    font-size: 80px;
+                }
+            }
+        }
+       &_right {
+           width: 1185px;
+           display: flex;
+           flex-direction: column;
+           align-items: flex-start;
+           position: relative;
+           top: 60px;
+           left: 50px;
+           >div {
+               width: 698px;
+               height: 202px;
+               background: url('../images/port/报关单量标题-蓝.png') no-repeat;
+               background-size: 100% 100%;
+           }
+           >span {
+               color: #fff;
+               height: 157px;
+               font-size: 185px;
+               font-family: "DS-DIGIB_0" !important;
+               font-style: normal;
+               -webkit-font-smoothing: antialiased;
+               -webkit-text-stroke-width: 0.2px;
+               .gradient-color(#00ffff, #1f9bff);
+               top: 70px;
+               position: relative;
+               text-align: center;
+               letter-spacing: 9px;
+           }
+       }
+   }
+
+    &_right {
+        width: 1774px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-style: solid;
+        border-width: 30px 30px 30px 30px;
+        border-image: url("../images/bg.png") 30 30 30 30 fill;
+        position: relative;
+        left: 5px;
+        &_left {
+            width: 1185px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            position: relative;
+            left: 50px;
+            top: 60px;
+            >div {
+                width: 698px;
+                height: 202px;
+                background: url('../images/port/报关单量标题-紫.png') no-repeat;
+                background-size: 100% 100%;
+            }
+            >span {
+                color: #fff;
+                height: 157px;
+                font-size: 185px;
+                font-family: "DS-DIGIB_0" !important;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+                -webkit-text-stroke-width: 0.2px;
+                .gradient-color(#b773fd, #673bb8);
+                top: 70px;
+                position: relative;
+                text-align: center;
+                letter-spacing: 9px;
+            }
+        }
+        &_right {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            color: #fff;
+            padding: 15px;
+            &_jkdl {
+                >:first-child {
+                    width: 622px;
+                    height: 140px;
+                    line-height: 140px;
+                    letter-spacing: 6px;
+                    font-size: 120px;
+                    text-align: center;
+                    background: url('../images/port/报关单量上半部底.png') no-repeat;
+                    background-size: 100% 100%;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+                >:last-child {
+                    background-image: linear-gradient(0deg, #1454ab 0%, #1d8fd5 100%), linear-gradient( #000000, #000000);
+                    background-blend-mode: normal, normal;
+                    width: 622px;
+                    height: 104px;
+                    text-align: center;
+                    font-size: 80px;
+                }
+            }
+            &_ckdl {
+                >:first-child {
+                    width: 622px;
+                    height: 140px;
+                    line-height: 140px;
+                    letter-spacing: 6px;
+                    font-size: 120px;
+                    text-align: center;
+                    background: url('../images/port/报关单量上半部底.png') no-repeat;
+                    background-size: 100% 100%;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+                >:last-child {
+                    background-image: linear-gradient(0deg, #108512 0%, #16b014 100%), linear-gradient( #000000, #000000);
+                    background-blend-mode: normal, normal;
+                    width: 622px;
+                    height: 104px;
+                    text-align: center;
+                    font-size: 80px;
+                }
+            }
+        }
+    }
+}
+
+.Ched{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    // border: 1px solid #0682ec;
+    height: 1498px;
+    width: 3740px;
+    position: relative;
+    top: 72px;
+    &_left{
+        width: 1776px;
+        // border: 1px solid #0682ec;
+        position: relative;
+        left: 18px;
+        &_cys{
+            width: 1776px;
+            height: 820px;
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            border-style: solid;
+            border-width: 30px 30px 30px 30px;
+            border-image: url("../images/bg.png") 30 30 30 30 fill;
+            &_gs{
+                width: 685px;
+                height: 820px;
+                display: flex;
+                flex-direction: column;
+                justify-content: space-around;
+                position: relative;
+                left: 10px;
+                // border: 1px solid #0682ec;
+                >:nth-of-type(1){
+                    width: 685px;
+                    height: 250px;
+                    background: url('../images/port/紫框.png') no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    >div{
+                        line-height: 125px;
+                        font-size: 130px;
+                        margin-top: 30px;
+                        color: #c02dff;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
+                    }
+                    >span{
+                        font-size: 60px;
+                        color: #fff;
+                    }
+
+                }
+                >:nth-of-type(2){
+                    width: 685px;
+                    height: 250px;
+                    background: url('../images/port/蓝框.png') no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    >div{
+                        line-height: 125px;
+                        font-size: 130px;
+                        margin-top: 30px;
+                        color: #1799ff;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
+                    }
+                    >span{
+                        font-size: 60px;
+                        color: #fff;
+                    }
+                }
+                >:nth-of-type(3){
+                    width: 685px;
+                    height: 250px;
+                    background: url('../images/port/橙黄框.png') no-repeat;
+                    background-size: 100% 100%;
+                    text-align: center;
+                    >div{
+                        line-height: 125px;
+                        font-size: 130px;
+                        margin-top: 30px;
+                        color: #f99d26;
+                        font-family: "DS-DIGIB_0" !important;
+                        font-style: normal;
+                        -webkit-font-smoothing: antialiased;
+                        -webkit-text-stroke-width: 0.2px;
+                    }
+                    >span{
+                        font-size: 60px;
+                        color: #fff;
+                    }
+                }
+            }
+            &_ps{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                // border: 1px solid #0682ec;
+                width: 1060px;
+                height: 811px;
+                color: #fff;
+                &_view{
+                    background: url('../images/port/蓝折线.png') no-repeat;
+                    background-size: 100% 100%;
+                    width: 820px;
+                    height: 100px;
+                    font-size: 80px;
+                    color: #fff;
+                    padding-left: 38px;
+                    padding-bottom: 41px;
+                    position: relative;
+                    top: 8px;
+                    left: 20px
+                }
+                &_num{
+                    position: relative;
+                    left: 10px;
+                    font-size: 160px;
+                    height: 170px;
+                    line-height: 170px;
+                    letter-spacing: 9px;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    font-stretch: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                    .gradient-color(#fff100, #009944);
+                }
+                &_echt{
+                    width: 1086px;
+                    height: 484px;
+                    // border: 1px solid #0682ec;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-around;
+                    &_c1{
+                        width: 520px;
+                        height: 484px;
+                        border: 1px solid #0682ec;
+                        // background: #000;
+                    }
+                    &_c2{
+                        width: 520px;
+                        height: 484px;
+                        border: 1px solid #0682ec;
+                        // background: #000;
+                    }
+                }
+            }
+        }
+
+        &_lkzrs {
+            width: 1776px;
+            height: 443px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border-style: solid;
+            border-width: 30px 30px 30px 30px;
+            border-image: url("../images/bg.png") 30 30 30 30 fill;
+            position: relative;
+            top: 25px;
+            &_crjzrs {
+                display: flex;
+                flex-direction: row;
+                &_view {
+                    background: url('../images/port/出入境总人数.png') no-repeat;
+                    background-size: 100% 100%;
+                    width: 709px;
+                    height: 154px;
+                    font-size: 70px;
+                    line-height: 154px;
+                    color: #1f9bff;
+                    text-align: center;
+                    position: relative;
+                    left: 38px;
+                    top: 0;
+                }
+                &_num {
+                    position: relative;
+                    left: 80px;
+                    line-height: 149px;
+                    font-size: 150px;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    letter-spacing: 7px;
+                    color: #ffffff;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                    .gradient-color(#00ffff, #1f9bff);
+
+                }
+            }
+            &_crjrs {
+                display: flex;
+                flex-direction: row;
+                justify-content: start; // border: 1px solid #0682ec;
+                &_r {
+                    width: 1517px;
+                    height: 247px; // border: 1px solid #0682ec;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: flex-start;
+                    position: relative;
+                    left: 50px;
+                    &_r1 {
+                        background: url('../images/port/出境.png') no-repeat;
+                        background-size: 100% 100%;
+                        width: 219px;
+                        height: 255px;
+                    }
+                    &_cjrs {
+                        text-align: center;
+                        line-height: 122px;
+                        color: #fff;
+                        position: relative;
+                        left: 50px;
+                        >div {
+                            color: #66cd00;
+                            font-family: "DS-DIGIB_0" !important;
+                            font-style: normal;
+                            -webkit-font-smoothing: antialiased;
+                            -webkit-text-stroke-width: 0.2px;
+                            font-size: 107px;
+                        }
+                        >span {
+                            font-size: 63px;
+                        }
+                    }
+                    &_r2 {
+                        background: url('../images/port/入境.png') no-repeat;
+                        background-size: 100% 100%;
+                        width: 219px;
+                        height: 255px;
+                    }
+                    &_rjrs {
+                        text-align: center;
+                        line-height: 122px;
+                        color: #fff;
+                        position: relative;
+                        left: 50px;
+                        >div {
+                            color: #ffa92f;
+                            font-family: "DS-DIGIB_0" !important;
+                            font-style: normal;
+                            -webkit-font-smoothing: antialiased;
+                            -webkit-text-stroke-width: 0.2px;
+                            font-size: 107px;
+                        }
+                        >span {
+                            font-size: 63px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &_right{
+        width: 1774px;
+        border-style: solid;
+        border-width: 30px 30px 30px 30px;
+        border-image: url("../images/bg.png") 30 30 30 30 fill;
+        position: relative;
+        left: -12px;
+        height: 1348px;
+        &_cywb{
+            display: flex;
+            flex-direction: row;
+            position: relative;
+            top: 40px;
+            &_cygs{
+                background: url('../images/port/查验完毕柜数-紫框.png') no-repeat;
+                background-size: 100% 100%;
+                width: 664px;
+                height: 379px;
+                text-align: center;
+                color: #fff;
+                >div{
+                    color: #c02dff;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                    font-size: 130px;
+                    margin-top: 25px;
+                    line-height: 198px;
+                }
+            }
+            &_cyps{
+                position: relative;
+                right: -45px;
+               &_view{
+                background: url('../images/port/紫折线.png') no-repeat;
+                background-size: 100% 100%;
+                width: 820px;
+                height: 100px;
+                font-size: 80px;
+                color: #fff;
+                padding-left: 38px;
+                padding-bottom: 41px;
+               }
+               &_num{
+                color: #fff;
+                height: 170px;
+                letter-spacing: 9px;
+                font-size: 200px;
+                .gradient-color(#fff100, #009944);
+                font-family: "DS-DIGIB_0" !important;
+                font-style: normal;
+                -webkit-font-smoothing: antialiased;
+                -webkit-text-stroke-width: 0.2px;
+                width: 1145px;
+               }
+            }
+        }
+        &_dcy{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            top: 60px;
+            &_dcgs{
+                background: url('../images/port/在场待查柜数-蓝框.png') no-repeat;
+                background-size: 100% 100%;
+                width: 864px;
+                height: 390px;
+                font-size: 70px;
+                color: #fff;
+                text-align: center;
+                :first-of-type{
+                    font-size: 180px;
+                    margin-top: 60px;
+                    line-height: 198px;
+                    color: #1799ff;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+            }
+            &_dbrcgs{
+                background: url('../images/port/待调拨入场柜数-橙黄框.png') no-repeat;
+                background-size: 100% 100%;
+                width: 864px;
+                height: 390px;
+                font-size: 70px;
+                color: #fff;
+                text-align: center;
+                :first-of-type{
+                    font-size: 180px;
+                    margin-top: 60px;
+                    line-height: 198px;
+                    color: #f99d26;
+                    font-family: "DS-DIGIB_0" !important;
+                    font-style: normal;
+                    -webkit-font-smoothing: antialiased;
+                    -webkit-text-stroke-width: 0.2px;
+                }
+            }
+        }
+        &_echts {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            position: relative;
+            top: 80px;
+            &_c1 {
+                width: 862px;
+                height: 520px;
+                border: 1px solid #0682ec; // background: #000;
+            }
+            &_c2 {
+                width: 862px;
+                height: 520px;
+                border: 1px solid #0682ec; // background: #000;
+            }
+        }
+    }
+}
 
 /** 右侧结束 */
 
@@ -3051,14 +3724,14 @@ body>div:nth-of-type(1) {
         width: @wd;
         height: @ht;
         margin: 0 (@mlr);
-        @url: '../images/port/number/@{number}.png';
+        @url: '../images/port/whiteNumber/@{number}.png';
         background: url(@url) no-repeat;
-        background-size: 100% 103%;
+        background-size: 100% 100%;
     }
 }
 
 .numberLoop(@number, @i: 0) when (@i =< @number) {
-    .number(@i, 122px, 195px, 10px);
+    .number(@i, 173px, 234px, 10px);
     .numberLoop(@number, (@i + 1));  
 }
 
@@ -3066,7 +3739,7 @@ body>div:nth-of-type(1) {
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
-    justify-content: flex-end;
+    justify-content: flex-start;
     align-items: flex-end;
     // height: 100%;
 }
@@ -3142,7 +3815,16 @@ body>div:nth-of-type(1) {
 
 
 
+/**
+* 渐变色
+*/
 
+.gradient-color(@from, @to) {
+    display: inline-block;
+    background-image: -webkit-gradient(linear, 0 0, 0 bottom, from(@from), to(@to));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
 
 
 
