@@ -13,7 +13,7 @@ export default class QueryBox extends React.Component {
         return (
             <div className='qb'>
                 <div><span>{this.props.name || ''}</span></div>
-                <div><input placeholder={'请输入' + (this.props.name || '参数')} ref='input'/><div className='hvr-pulse-shrink' onClick={() => this.props.query($(ReactDOM.findDOMNode(this.refs.input)).val())}></div></div>
+                <div><input id='qbInput' placeholder={'请输入' + (this.props.name || '参数')} ref='input'/><div className='hvr-pulse-shrink' onClick={() => this.props.query($(ReactDOM.findDOMNode(this.refs.input)).val())}></div></div>
             </div>
         )
     }

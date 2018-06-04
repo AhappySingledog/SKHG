@@ -208,9 +208,11 @@ class MyQuery extends React.Component {
                 { "title": "装船重箱量", "dataIndex": "LOADING_F" }
             ];
             let query = (ops) => {
+                let index = layer.load(1, {shade: [0.5,'#fff']});
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: ops != '' ? "TERMINALCODE='" + ops + "'" : '1=1' } }).then((res) => {
                     res[0].data.forEach((e) => e.VESSELTYPE = e.VESSELTYPE == 'B' ? '驳船' : '大船');
                     this.setState({port: {datas1: res[0].data}});
+                    layer.close(index);
                 });
             }
             let trClick = (data, index, datas) => {
@@ -262,16 +264,23 @@ class MyQuery extends React.Component {
                 { title: '到', dataIndex: 'NewValue' },
             ];
             let query = (no) => {
-                Promise.all([
-                    publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
-                    publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
-                ]).then((res) => {
-                    let result = res[0][0].InnerList;
-                    if (result.length > 0) {
-                        let datas1 = map.map((e) => { return { key: e.title, value: result[0][e.dataIndex] } });
-                        this.setState({ container: { datas1: datas1, datas2: res[1][0].InnerList } });
-                    }
-                });
+                if (no == '') {
+                    layer.tips('箱号不能为空', '#qbInput', {tips: [3, '#F2AE4A'], area: ['350px', '60px']});
+                }
+                else {
+                    let index = layer.load(1, {shade: [0.5,'#fff']});
+                    Promise.all([
+                        publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
+                        publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
+                    ]).then((res) => {
+                        let result = res[0][0].InnerList;
+                        if (result.length > 0) {
+                            let datas1 = map.map((e) => { return { key: e.title, value: result[0][e.dataIndex] } });
+                            this.setState({ container: { datas1: datas1, datas2: res[1][0].InnerList } });
+                            layer.close(index);
+                        }
+                    });
+                }
             }
             let trClick = (data, index, datas) => {
                 let zymt = datas.filter((e) => e.key == '作业码头')[0].value;
@@ -310,10 +319,17 @@ class MyQuery extends React.Component {
                 { title: '在场/离港', dataIndex: 'ISOUT' },
             ];
             let query = (no) => {
-                publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='USH0224834'" } }).then(res => {
-                    flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
-                    this.setState({ list: { datas1: res[0].data } });
-                });
+                if (no == '') {
+                    layer.tips('提单号不能为空', '#qbInput', {tips: [3, '#F2AE4A'], area: ['350px', '60px']});
+                }
+                else {
+                    let index = layer.load(1, {shade: [0.5,'#fff']});
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='" + no +"'" } }).then(res => {
+                        flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
+                        this.setState({ list: { datas1: res[0].data } });
+                        layer.close(index);
+                    });
+                }
             }
             content = [
                 <Table key={1} rowNo={true} title={{ name: '提单信息', export: false, items: [<QueryBox key={1} name='提单号' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.list.datas1} trClick={null} trDbclick={null} />,

@@ -10,6 +10,7 @@ import HomeRightPanel from './homeRightPanel';
 import HomeRightPanelNew from './homeRightPanelNew';
 import Cesium from 'cesium/Cesium';
 import 'cesium/Widgets/widgets.css';
+import '../../../frame/core/xcConfirm';
 
 class MyPortDesc extends React.Component {
     state = {}
