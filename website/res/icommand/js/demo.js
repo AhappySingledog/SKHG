@@ -8,6 +8,8 @@ var g_getUserList = null;
 var g_report = null;
 var g_role = null;
 var sdk = null;
+var g_timer = null;
+var g_inRoom = false;
 
 var E_IM_CustomCmd = {
     AVIMCMD_None: 0, // 无事件：0
@@ -167,6 +169,7 @@ function logIn() {
             sdk.login(g_id, sig, onLoginSuc, onLoginErr);
             //setTimeout(createRoom, 1000 * 2);
             setTimeout(getRoomAndJoin, 1000 * 2);
+            g_timer = setInterval(getRoomAndJoin, 1000 * 30);
         }
     );
 }
@@ -187,45 +190,49 @@ function onLoginErr(errMsg) {
 
 function getRoomAndJoin() {
     //从业务侧获取房间列表
-    var jsonObj = {
-        "type": 'live',
-        "token": g_token,
-        "index": 0,
-        "size": 30,
-        "appid": g_appId
-    };
-    ajaxPost(g_serverUrl + "?svc=live&cmd=roomlist", JSON.stringify(jsonObj),
-        function (rspJson) {
-            var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != g_id });
-            if (rooms.length > 0) {
-                var roomid = rooms[0].info.roomnum;
-                joinRoom(roomid, E_Role.Guest, function () {
-                    sendC2CMessage(g_id, { "userAction": 2049, "actionParam": '' }, function () {
-                        sendC2CMessage(g_id, {
-                            "userAction": 2051,
-                            "actionParam": ''
-                        }, function () {
-                            sdk.changeRole('LiveGuest', function () {
-                                g_role = 2;
-                                report({
-                                    "token": g_token,
-                                    "roomnum": g_roomnum,
-                                    "role": g_role,
-                                    "thumbup": 0
+    if (g_inRoom == false) {
+        var jsonObj = {
+            "type": 'live',
+            "token": g_token,
+            "index": 0,
+            "size": 30,
+            "appid": g_appId
+        };
+        ajaxPost(g_serverUrl + "?svc=live&cmd=roomlist", JSON.stringify(jsonObj),
+            function (rspJson) {
+                var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != g_id });
+                if (rooms.length > 0) {
+                    var roomid = rooms[0].info.roomnum;
+                    joinRoom(roomid, E_Role.Guest, function () {
+                        sendC2CMessage(g_id, { "userAction": 2049, "actionParam": '' }, function () {
+                            sendC2CMessage(g_id, {
+                                "userAction": 2051,
+                                "actionParam": ''
+                            }, function () {
+                                if (g_timer) clearInterval(g_timer);
+                                g_inRoom = true;
+                                sdk.changeRole('LiveGuest', function () {
+                                    g_role = 2;
+                                    report({
+                                        "token": g_token,
+                                        "roomnum": g_roomnum,
+                                        "role": g_role,
+                                        "thumbup": 0
+                                    });
+                                    openCamera();
+                                    openMic();
+                                    openPlayer();
                                 });
-                                openCamera();
-                                openMic();
-                                openPlayer();
-                            });
-                        })
+                            })
+                        });
                     });
-                });
+                }
+                else {
+                    toastr.warning("暂无可用直播！");
+                }
             }
-            else {
-                toastr.warning("暂无可用直播！");
-            }
-        }
-    );
+        );
+    }
 }
 
 /**
@@ -449,7 +456,9 @@ function dealCustomMessage(user, msg) {
         case E_IM_CustomCmd.AVIMCMD_ExitLive:
             toastr.warning('主播' + user + '退出了房间');
             sdk.quitRoom(function () {
-                toastr.success("quit room succ");
+                toastr.success("退出房间成功");
+                g_inRoom = false;
+                g_timer = setInterval(getRoomAndJoin, 1000 * 30);
             }, function (errMsg) {
                 toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
             });

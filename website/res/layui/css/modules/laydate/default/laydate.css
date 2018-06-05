@@ -14,7 +14,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 /* 主体结构 */
 .layui-laydate, .layui-laydate *{box-sizing: border-box;}
 .layui-laydate{position: absolute; z-index: 66666666; margin: 5px 0; border-radius: 2px; font-size: 14px; -webkit-animation-duration: 0.3s; animation-duration: 0.3s; -webkit-animation-fill-mode: both; animation-fill-mode: both;}
-.layui-laydate-main{width: 272px;}
+.layui-laydate-main{width: 400px;}
 .layui-laydate-header *,
 .layui-laydate-content td,
 .layui-laydate-list li{transition-duration: .3s; -webkit-transition-duration: .3s;}
@@ -87,7 +87,7 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 
 
 /* 双日历 */
-.layui-laydate-range{width: 546px;}
+.layui-laydate-range{width: 806px;}
 .layui-laydate-range .layui-laydate-main{display: inline-block; vertical-align: middle;}
 .layui-laydate-range .laydate-main-list-0 .laydate-next-m,
 .layui-laydate-range .laydate-main-list-0 .laydate-next-y,
@@ -126,8 +126,8 @@ html #layuicss-laydate{display: none; position: absolute; width: 1989px;}
 
 /* 墨绿/自定义背景色主题 */
 .laydate-theme-molv{border: none;}
-.laydate-theme-molv.layui-laydate-range{width: 548px}
-.laydate-theme-molv .layui-laydate-main{width: 274px;}
+.laydate-theme-molv.layui-laydate-range{width: 806px}
+.laydate-theme-molv .layui-laydate-main{width: 400px;}
 .laydate-theme-molv .layui-laydate-header{border: none; background-color: #009688;}
 .laydate-theme-molv .layui-laydate-header i,
 .laydate-theme-molv .layui-laydate-header span{color: #f6f6f6;}

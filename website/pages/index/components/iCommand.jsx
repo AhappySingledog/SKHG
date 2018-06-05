@@ -13,7 +13,7 @@ export default class iCommand extends React.Component {
         return (
             <div className='ic' style={{ overflow: 'hidden' }}>
                 <iframe src='../icommand/index.html'/>
-                <div className='ic-close' onClick={this.props.close}></div>
+                {/* <div className='ic-close' onClick={this.props.close}></div> */}
             </div>
         )
     }

@@ -203,7 +203,7 @@ export default class ZNYBJ extends React.Component {
         } else {
             this.setState({ btn: { Updown: false } });
         }
-        let index = layer.load(0, { shade: [0.5, '#fff'] });
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         publish('getData', { svn: i, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
             let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
             let datas = res[0].features.map((e) => e.attributes);
@@ -222,7 +222,7 @@ export default class ZNYBJ extends React.Component {
         let { data, svn, YN } = this.state.data;
         if (this.state.pageNum > 1) {
             this.setState({ pageNum: this.state.pageNum - 1 }, () => {
-                let index = layer.load(0, { shade: [0.5, '#fff'] });
+                let index = layer.load(1, { shade: [0.5, '#fff'] });
                 publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);
@@ -246,7 +246,7 @@ export default class ZNYBJ extends React.Component {
         }
         if ((os / 100) > (this.state.pageNum - 1)) {
             this.setState({ pageNum: this.state.pageNum + 1 }, () => {
-                let index = layer.load(0, { shade: [0.5, '#fff'] });
+                let index = layer.load(1, { shade: [0.5, '#fff'] });
                 publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);

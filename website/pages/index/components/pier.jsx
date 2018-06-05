@@ -143,6 +143,21 @@ class MapOperation extends React.Component {
                     }
                 }
                 this.props.map.mapDisplay.image(param);
+
+                let param2 = {
+                    id: 'test' + i,
+                    layerId: 'VIDEO_LAYER',
+                    x: e.geom.x,
+                    y: e.geom.y,
+                    text: e.name,
+                    size: '10pt',
+                    color: 'red',
+                    offsetX: 0,
+                    offsetY: 132,
+                    visible: true,
+                    layerIndex: 10,
+                }
+                this.props.map.mapDisplay.text(param2);
             });
             this.props.map.mapDisplay.hide('VIDEO_LAYER');
         });

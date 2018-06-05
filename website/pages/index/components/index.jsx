@@ -173,6 +173,85 @@ class Warning extends React.Component {
     }
 }
 
+class MySelect extends React.Component {
+    state = {
+        lx: 'jk',
+        dateFromTo: '',
+    }
+    componentDidMount() {
+        laydate.render({
+            elem: '#dateFromTo',
+            range: true,
+            change: (value, date, endDate) => this.setState({ dateFromTo: value })
+        });
+    }
+    onChange = () => {
+        let val = $('#bjlx option:selected').val();//选中的值
+        this.setState({ lx: val });
+    }
+    render() {
+        let lx = [
+            { key: 'jk', name: '进口时效' },
+            { key: 'ck', name: '出口时效' },
+            { key: 'mt', name: '管控运行-码头' },
+            { key: 'cic', name: '管控运行-CIC' },
+            { key: 'dbcl', name: '管控运行-调拨车辆' },
+            { key: 'xzcl', name: '管控运行-行政车辆' },
+            { key: 'lj', name: '管控运行-旅检' },
+        ];
+        let lx2 = {
+            jk: [
+                { key: 'IMAP_WARNING_01', name: '国际中转集装箱滞港超90天' },
+                { key: 'IMAP_WARNING_02', name: '国际中转集装箱滞港超180天' }
+            ],
+            ck: [
+                { key: 'IMAP_WARNING_02', name: '出口提前申报后超3天未抵运' },
+                { key: 'IMAP_WARNING_02', name: '装载舱单数据发送不及时' },
+                { key: 'IMAP_WARNING_02', name: '船舶离港后超24小时未发送理货报告' },
+            ],
+            mt: [
+                { key: 'IMAP_WARNING_06', name: '海关未放行集装箱装船' },
+                { key: 'IMAP_WARNING_07', name: '海关未放行集装箱出闸' },
+                { key: 'IMAP_WARNING_08', name: '整船换装货物异常提离堆场' },
+                { key: 'IMAP_WARNING_09', name: '整船换装货物异常预配载' },
+                { key: 'IMAP_WARNING_10', name: '同船运输集装箱异常装卸' },
+                { key: 'IMAP_WARNING_11', name: '空柜重量异常' },
+            ],
+            cic: [
+                { key: 'IMAP_WARNING_16', name: '收到查验指令72小时未调入CIC' },
+                { key: 'IMAP_WARNING_17', name: '查验完毕超24小时未调离CIC' },
+            ],
+            dbcl: [
+                { key: 'IMAP_WARNING_12', name: '调拨车辆超时停留' },
+                { key: 'IMAP_WARNING_13', name: '调拨车辆偏离路线' },
+                { key: 'IMAP_WARNING_14', name: '调拨车辆运行超时' },
+            ],
+            xzcl: [
+                { key: 'IMAP_WARNING_18', name: '行政通道车辆识别异常' },
+                { key: 'IMAP_WARNING_19', name: '行政通道车辆布控中控' },
+            ],
+            lj: [
+                { key: 'IMAP_WARNING_20', name: '旅检船舶未确认即移泊' },
+                { key: 'IMAP_WARNING_21', name: '旅检船舶夜间异常' },
+            ],
+        };
+        return (<div className='bjxx'>
+            <select id='bjlx' onChange={this.onChange}>
+                {lx.map((e, i) => <option key={i} value={e.key}>{e.name}</option>)}
+            </select>
+            <select id='bjlx2'>
+                {lx2[this.state.lx].map((e, i) => <option key={i} value={e.key}>{e.name}</option>)}
+            </select>
+            <select id='bjlx3'>
+                <option value='Y'>已处理</option>
+                <option value='N'>未处理</option>
+            </select>
+            <input id='dateFromTo' placeholder='请输入日期范围' />
+            <div className='hvr-pulse-shrink' onClick={() => this.props.query($('#bjlx2 option:selected').val(), $('#bjlx3 option:selected').val(), this.state.dateFromTo)}></div>
+        </div>)
+    }
+}
+
 class MyQuery extends React.Component {
     state = {
         index: 0,
@@ -180,6 +259,8 @@ class MyQuery extends React.Component {
         container: { datas1: [], datas2: [] },
         wareHouse: { datas1: [] },
         list: { datas1: [] },
+        warning: { datas1: [] },
+        flds: [],
     }
     chooseItem = (index) => {
         $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.query-t-b').removeClass('magictime holeOut animated'); this.setState({ index: index }, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated'))); });
@@ -197,27 +278,27 @@ class MyQuery extends React.Component {
             flds = [
                 { "title": "港区", "dataIndex": "TERMINALCODE" },
                 { "title": "船舶类型", "dataIndex": "VESSELTYPE" },
-                { "title": "泊位", "dataIndex": "BERTHNO" }, 
-                { "title": "船舶编码", "dataIndex": "EVESSELNAME" }, 
-                { "title": "船舶中文名", "dataIndex": "CVESSELNAME" }, 
-                { "title": "卸船箱量", "dataIndex": "DISCHARGE" }, 
-                { "title": "装船箱量", "dataIndex": "LOADING" }, 
-                { "title": "卸船空箱量", "dataIndex": "DISCHARGE_E" }, 
-                { "title": "卸船重箱量", "dataIndex": "DISCHARGE_F" }, 
-                { "title": "装船空箱量", "dataIndex": "LOADING_E" }, 
+                { "title": "泊位", "dataIndex": "BERTHNO" },
+                { "title": "船舶编码", "dataIndex": "EVESSELNAME" },
+                { "title": "船舶中文名", "dataIndex": "CVESSELNAME" },
+                { "title": "卸船箱量", "dataIndex": "DISCHARGE" },
+                { "title": "装船箱量", "dataIndex": "LOADING" },
+                { "title": "卸船空箱量", "dataIndex": "DISCHARGE_E" },
+                { "title": "卸船重箱量", "dataIndex": "DISCHARGE_F" },
+                { "title": "装船空箱量", "dataIndex": "LOADING_E" },
                 { "title": "装船重箱量", "dataIndex": "LOADING_F" }
             ];
             let query = (ops) => {
-                let index = layer.load(1, {shade: [0.5,'#fff']});
+                let index = layer.load(1, { shade: [0.5, '#fff'] });
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: ops != '' ? "TERMINALCODE='" + ops + "'" : '1=1' } }).then((res) => {
                     res[0].data.forEach((e) => e.VESSELTYPE = e.VESSELTYPE == 'B' ? '驳船' : '大船');
-                    this.setState({port: {datas1: res[0].data}});
+                    this.setState({ port: { datas1: res[0].data } });
                     layer.close(index);
                 });
             }
             let trClick = (data, index, datas) => {
                 publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + data.TERMINALCODE + "'" } }).then((res) => {
-                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: {ship: data }}});
+                    publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: { ship: data } } });
                 });
             }
             content = [
@@ -265,19 +346,29 @@ class MyQuery extends React.Component {
             ];
             let query = (no) => {
                 if (no == '') {
-                    layer.tips('箱号不能为空', '#qbInput', {tips: [3, '#F2AE4A'], area: ['350px', '60px']});
+                    layer.tips('箱号不能为空', '#qbInput', { tips: [3, '#F2AE4A'], area: ['350px', '60px'] });
                 }
                 else {
-                    let index = layer.load(1, {shade: [0.5,'#fff']});
+                    let index = layer.load(1, { shade: [0.5, '#fff'] });
                     Promise.all([
                         publish('webAction', { svn: 'eportapisct', path: 'GContainerInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
                         publish('webAction', { svn: 'eportapisct', path: 'GContainerHistoryInfo', data: { System: '', PageIndex: 1, PageSize: 30, SortBy: '', IsDescending: false, ContainerNo: no } }),
                     ]).then((res) => {
-                        let result = res[0][0].InnerList;
-                        if (result.length > 0) {
-                            let datas1 = map.map((e) => { return { key: e.title, value: result[0][e.dataIndex] } });
-                            this.setState({ container: { datas1: datas1, datas2: res[1][0].InnerList } });
+                        try {
+                            let result = res[0][0].InnerList;
+                            if (result.length > 0) {
+                                let datas1 = map.map((e) => { return { key: e.title, value: result[0][e.dataIndex] } });
+                                this.setState({ container: { datas1: datas1, datas2: res[1][0].InnerList } });
+                                layer.close(index);
+                            }
+                            else {
+                                layer.close(index);
+                                layer.msg('没有查询到任何数据!');
+                            }
+                        }
+                        catch (err) {
                             layer.close(index);
+                            layer.msg('获取数据失败，请联系管理员！');
                         }
                     });
                 }
@@ -320,14 +411,20 @@ class MyQuery extends React.Component {
             ];
             let query = (no) => {
                 if (no == '') {
-                    layer.tips('提单号不能为空', '#qbInput', {tips: [3, '#F2AE4A'], area: ['350px', '60px']});
+                    layer.tips('提单号不能为空', '#qbInput', { tips: [3, '#F2AE4A'], area: ['350px', '60px'] });
                 }
                 else {
-                    let index = layer.load(1, {shade: [0.5,'#fff']});
-                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='" + no +"'" } }).then(res => {
-                        flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
-                        this.setState({ list: { datas1: res[0].data } });
-                        layer.close(index);
+                    let index = layer.load(1, { shade: [0.5, '#fff'] });
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='" + no + "'" } }).then(res => {
+                        if (res[0].success) {
+                            flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
+                            this.setState({ list: { datas1: res[0].data } });
+                            layer.close(index);
+                        }
+                        else {
+                            layer.close(index);
+                            layer.msg('获取数据失败，请联系管理员！');
+                        }
                     });
                 }
             }
@@ -336,13 +433,36 @@ class MyQuery extends React.Component {
             ];
         }
         else if (index === 4) {
-            flds = [
-                { title: '仓库名', dataIndex: 'a' },
-                { title: '当前库存量', dataIndex: 'b' },
-                { title: '所属单位', dataIndex: 'c' }
-            ];
+            let query = (tableName, isHandled, dateFromTo) => {
+                if (dateFromTo == '') {
+                    layer.tips('日期范围不能为空', '#dateFromTo', { tips: [3, '#F2AE4A'], area: ['350px', '60px'] });
+                }
+                else {
+                    let index = layer.load(1, { shade: [0.5, '#fff'] });
+                    let temp = "TO_DATE(20||substr(WARNINGDATE, 8, 2)||'-'||replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(replace(substr(WARNINGDATE, 4,3), 'JAN', '01'), 'FEB', '02'), 'MAR', '03'), 'APR', '04'), 'MAY', '05'), 'JUN', '06'), 'JUL', '07'), 'AUG', '08'), 'SEP', '09'), 'OCT', '10'), 'NOV', '11'), 'DEC', '12')||'-'||substr(WARNINGDATE, 0, 2), 'yy-MM-dd')";
+                    let dates = dateFromTo.split(' - ');
+                    let start = dates[0] + ' 00:00:00';
+                    let end = dates[1] + ' 23:59:59';
+                    let where = '1=1';
+                    let type = Number(tableName.substr(tableName.length - 2));
+                    if (type == 1 || type == 2)
+                        where = temp + ">=to_date('" + start + "','yyyy-mm-dd hh24:mi:ss') and " + temp + "<=to_date('" + end + "','yyyy-mm-dd hh24:mi:ss')";
+                    else where = "WARNINGDATE>=to_date('" + start + "','yyyy-mm-dd hh24:mi:ss') and WARNINGDATE<=to_date('" + end + "','yyyy-mm-dd hh24:mi:ss')";
+                    publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: tableName, where: where } }).then((res) => {
+                        if (res[0].success) {
+                            let flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
+                            this.setState({ warning: { datas1: res[0].data }, flds: flds });
+                            layer.close(index);
+                        }
+                        else {
+                            layer.close(index);
+                            layer.msg('获取数据失败，请联系管理员！');
+                        }
+                    });
+                }
+            }
             content = [
-                <Table key={1} rowNo={true} title={{ name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '报警信息', export: false, items: [<MySelect key={1} query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={this.state.flds} datas={this.state.warning.datas1} trClick={null} trDbclick={null} />,
             ];
         }
 
@@ -486,7 +606,7 @@ export default class App extends React.Component {
         iCountBtn: false,
         iCommand: false,
         iWarningNew: false,
-        znybj : false,
+        znybj: false,
         agingControl: false,
         scaleCv: true
     }
@@ -571,7 +691,7 @@ export default class App extends React.Component {
             }
             this.layers[index] = { layerIndex: index, props: curProps };
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
-            this.setState({curLayer: null});
+            this.setState({ curLayer: null });
             this.setState({ index: index, curLayer: curLayer, curProps: curProps, layerName: curProps && curProps.layerName ? curProps.layerName : '海关监管区域' });
         }
     }
@@ -597,13 +717,13 @@ export default class App extends React.Component {
     }
     warning2 = (flag) => {
         console.log('warning2');
-        if (flag) this.setState({iWarningNew: flag,znybj : false, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
-        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.iw').removeClass('magictime spaceOutLeft animated');this.setState({iWarningNew: flag});});
+        if (flag) this.setState({ iWarningNew: flag, znybj: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.iw').removeClass('magictime spaceOutLeft animated'); this.setState({ iWarningNew: flag }); });
     }
-    zbybj =(flag) =>{
+    zbybj = (flag) => {
         console.log(flag);
-        if (flag) this.setState({znybj: flag, iWarningNew:false, iCommand: false, iCountBtn: false, agingControl: false}, () => $('.znybj').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.znybj').removeClass('magictime spaceInLeft animated')));
-        else $('.znybj').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('.znybj').removeClass('magictime spaceOutLeft animated');this.setState({znybj: flag});});
+        if (flag) this.setState({ znybj: flag, iWarningNew: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.znybj').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.znybj').removeClass('magictime spaceInLeft animated')));
+        else $('.znybj').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.znybj').removeClass('magictime spaceOutLeft animated'); this.setState({ znybj: flag }); });
     }
     link = () => {
         console.log('link');
@@ -652,7 +772,7 @@ export default class App extends React.Component {
         $('.imgDisplay').addClass('bounceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.imgDisplay').removeClass('bounceOutLeft animated'); this.setState({ img: null }); });
     }
     scaleCv = () => {
-        this.setState({scaleCv: !this.state.scaleCv});
+        this.setState({ scaleCv: !this.state.scaleCv });
     }
     render() {
         return (
@@ -677,7 +797,7 @@ export default class App extends React.Component {
                 </div>
                 <div className='mbody'><div className='mbody-content'>{this.state.curLayer}</div></div>
                 <div className='mfooter' />
-                {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} scale={this.scaleCv} style={this.state.scaleCv ? {width: 3022, height: 1070, top: 460, left: 98} : {width: 3026, height: 1075, top: 1265, left: 98, transform: 'scale(2.5)'}} /> : null}
+                {this.state.cv.url ? <Vedio close={this.closeVedio} video={this.state.cv} scale={this.scaleCv} style={this.state.scaleCv ? { width: 3022, height: 1070, top: 460, left: 98 } : { width: 3026, height: 1075, top: 1265, left: 98, transform: 'scale(2.5)' }} /> : null}
                 {this.state.viwePager ? <div id='imgsDisplay' style={{ position: 'absolute', top: 462, left: 5126, zIndex: 10 }}><ViwePager autoPlay={true} direction={'right'} imgs={this.state.viwePager.imgs} style={{ width: 2538, height: 2683 }} boxStyle="content" interval={4000} close={this.closeImgs} /></div> : null}
                 {this.state.warningTip ? <MyLink /> : null}
                 {this.state.img ? <ImgDisplay img={this.state.img} close={this.closeImg} /> : null}

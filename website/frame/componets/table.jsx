@@ -41,16 +41,18 @@ export default class Table extends React.Component {
     }
     updateTable = () => {
         if (this.props.datas.length > 0) this.bindClick();
-        if (this.props.datas.length > 0) {
-            let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
-            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
-        }
-        else {
-            let tds = $('#' + this.props.id + '>tHead>tr')[0].cells;
-            let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
-            ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
-        }
+        // if (this.props.datas.length > 0) {
+        //     let tds = $('#' + this.props.id + '>tbody>tr')[0].cells;
+        //     let ws = Object.keys(tds).map((key) => tds[key].clientWidth);
+        //     ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
+        // }
+        // else {
+            let tds = $('#' + this.props.id + '>thead>tr')[0].cells;
+            let ws = Object.keys(tds).map((key) => tds[key].clientWidth || tds[key].offsetWidth);
+            ws.forEach((w, i) => {
+                $('#' + this.props.id + '_head_' + i).css({ width: w - 40 })
+            });
+        // }
     }
     componentWillReceiveProps(nextProps) {
         if (JSON.stringify(this.props.datas) != JSON.stringify(nextProps.datas)) {
