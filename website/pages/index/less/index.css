@@ -1,19 +1,13 @@
 html {
   padding: 0;
   margin: 0;
-  height: 100%;
-  width: 100%;
   user-select: none;
 }
 body {
   padding: 0;
   margin: 0;
-  height: 100%;
-  width: 100%;
 }
 body > div {
-  height: 100%;
-  width: 100%;
   box-sizing: border-box;
 }
 * {
@@ -30,10 +24,6 @@ body > div:nth-of-type(1) {
   width: 11520px;
   height: 3240px;
   background: #000e46;
-}
-body > div:nth-of-type(n+1) {
-  width: 11520px;
-  height: 3240px;
 }
 .mframe {
   height: 100%;
@@ -622,6 +612,18 @@ body > div:nth-of-type(n+1) {
   text-indent: 2em;
   height: 350px;
   overflow: auto;
+}
+.houseVideo {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  background: url('../images/sxt.png') no-repeat;
+  background-size: 100% 100%;
+  z-index: 2;
+  cursor: pointer;
+}
+.houseVideo:hover {
+  transform: scale(1.2);
 }
 .homeRightN {
   display: flex;
@@ -1975,8 +1977,6 @@ body > div:nth-of-type(n+1) {
 .map-view {
   padding: 0;
   margin: 0;
-  height: 100%;
-  width: 100%;
 }
 /***************************************************************
 **********************第二层页面开始*****************************
@@ -3892,8 +3892,6 @@ body > div:nth-of-type(n+1) {
   background-size: 100% 100%;
 }
 /************************
-
-
 *************************
 ************************/
 .numbers-view {
@@ -4026,6 +4024,28 @@ body > div:nth-of-type(n+1) {
   flex-direction: column;
   border: 1px solid #1E7ACE;
 }
+.znybj_ud {
+  width: 2500px;
+  height: 230px;
+  position: absolute;
+  z-index: 9999;
+}
+.znybj_ud_up {
+  position: absolute;
+  font-size: 80px;
+  color: #fff;
+  right: 500px;
+  z-index: 9999;
+  cursor: pointer;
+}
+.znybj_ud_down {
+  position: absolute;
+  font-size: 80px;
+  color: #fff;
+  right: 0px;
+  z-index: 9999;
+  cursor: pointer;
+}
 .znybj_top {
   display: flex;
   flex-direction: row;
@@ -4063,62 +4083,19 @@ body > div:nth-of-type(n+1) {
   justify-content: space-around;
   padding-top: 20px;
 }
-.znybj_top_btn_mt {
-  width: 418px;
-  height: 112px;
-  background: url('../images/预报警默认.png') no-repeat;
-  cursor: pointer;
-  text-align: center;
-  color: #1f9bff;
-  font-size: 60px;
-  padding-top: 22px;
-}
-.znybj_top_btn_mt:hover {
+.znybj_top_btn_mt,
+.znybj_top_btn_cic,
+.znybj_top_btn_dbcl,
+.znybj_top_btn_xztd,
+.znybj_top_btn_lj,
+.znybj_top_btn :hover {
   background: url('../images/预报警点击.png') no-repeat;
   color: #fff45c;
 }
-.znybj_top_btn_cic {
-  width: 418px;
-  height: 112px;
-  background: url('../images/预报警默认.png') no-repeat;
-  cursor: pointer;
-  text-align: center;
-  color: #1f9bff;
-  font-size: 60px;
-  padding-top: 22px;
-}
-.znybj_top_btn_cic:hover {
-  background: url('../images/预报警点击.png') no-repeat;
-  color: #fff45c;
-}
-.znybj_top_btn_dbcl {
-  width: 418px;
-  height: 112px;
-  background: url('../images/预报警默认.png') no-repeat;
-  cursor: pointer;
-  text-align: center;
-  color: #1f9bff;
-  font-size: 60px;
-  padding-top: 22px;
-}
-.znybj_top_btn_dbcl:hover {
-  background: url('../images/预报警点击.png') no-repeat;
-  color: #fff45c;
-}
-.znybj_top_btn_xztd {
-  width: 418px;
-  height: 112px;
-  background: url('../images/预报警默认.png') no-repeat;
-  cursor: pointer;
-  text-align: center;
-  color: #1f9bff;
-  font-size: 60px;
-  padding-top: 22px;
-}
-.znybj_top_btn_xztd:hover {
-  background: url('../images/预报警点击.png') no-repeat;
-  color: #fff45c;
-}
+.znybj_top_btn_mt,
+.znybj_top_btn_cic,
+.znybj_top_btn_dbcl,
+.znybj_top_btn_xztd,
 .znybj_top_btn_lj {
   width: 418px;
   height: 112px;
@@ -4129,9 +4106,19 @@ body > div:nth-of-type(n+1) {
   font-size: 60px;
   padding-top: 22px;
 }
-.znybj_top_btn_lj:hover {
+.znybj_top_btn_mtR,
+.znybj_top_btn_cicR,
+.znybj_top_btn_dbclR,
+.znybj_top_btn_xztdR,
+.znybj_top_btn_ljR {
+  width: 418px;
+  height: 112px;
   background: url('../images/预报警点击.png') no-repeat;
+  cursor: pointer;
+  text-align: center;
   color: #fff45c;
+  font-size: 60px;
+  padding-top: 22px;
 }
 .znybj_bot {
   width: 3645px;

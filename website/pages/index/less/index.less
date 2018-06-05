@@ -3840,6 +3840,30 @@ body>div:nth-of-type(1) {
     display: flex;
     flex-direction: column;
     border: 1px solid #1E7ACE;
+
+    &_ud{
+        width: 2500px;
+        height: 230px;
+        position: absolute;
+        z-index: 9999;
+        &_up{
+            position: absolute;
+            font-size: 80px;
+            color: #fff;
+            right: 500px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+        &_down{
+            position: absolute;
+            font-size: 80px;
+            color: #fff;
+            right: 0px;
+            z-index: 9999;
+            cursor: pointer;
+        }
+    }
+    
     &_top{
         display: flex;
         flex-direction: row;
@@ -3875,7 +3899,11 @@ body>div:nth-of-type(1) {
             flex-direction: row;
             justify-content: space-around;
             padding-top: 20px;
-            &_mt{
+            &_mt,&_cic,&_dbcl, &_xztd, &_lj, :hover{
+                background: url('../images/预报警点击.png') no-repeat;
+                color: #fff45c;
+            }
+            &_mt,&_cic,&_dbcl,&_xztd,&_lj,{
                 width: 418px;
                 height: 112px;
                 background: url('../images/预报警默认.png') no-repeat;
@@ -3885,65 +3913,15 @@ body>div:nth-of-type(1) {
                 font-size: 60px;
                 padding-top: 22px;
             }
-            &_mt:hover{
-                background: url('../images/预报警点击.png') no-repeat;
-                color: #fff45c;
-            }
-            &_cic{
+            &_mtR,&_cicR,&_dbclR,&_xztdR,&_ljR{
                 width: 418px;
                 height: 112px;
-                background: url('../images/预报警默认.png') no-repeat;
+                background: url('../images/预报警点击.png') no-repeat;
                 cursor: pointer;
                 text-align: center;
-                color: #1f9bff;
+                color: #fff45c;
                 font-size: 60px;
                 padding-top: 22px;
-            }
-            &_cic:hover{
-                background: url('../images/预报警点击.png') no-repeat;
-                color: #fff45c;
-            }
-            &_dbcl{
-                width: 418px;
-                height: 112px;
-                background: url('../images/预报警默认.png') no-repeat;
-                cursor: pointer;
-                text-align: center;
-                color: #1f9bff;
-                font-size: 60px;
-                padding-top: 22px;
-            }
-            &_dbcl:hover{
-                background: url('../images/预报警点击.png') no-repeat;
-                color: #fff45c;
-            }
-            &_xztd{
-                width: 418px;
-                height: 112px;
-                background: url('../images/预报警默认.png') no-repeat;
-                cursor: pointer;
-                text-align: center;
-                color: #1f9bff;
-                font-size: 60px;
-                padding-top: 22px;
-            }
-            &_xztd:hover{
-                background: url('../images/预报警点击.png') no-repeat;
-                color: #fff45c;
-            }
-            &_lj{
-                width: 418px;
-                height: 112px;
-                background: url('../images/预报警默认.png') no-repeat;
-                cursor: pointer;
-                text-align: center;
-                color: #1f9bff;
-                font-size: 60px;
-                padding-top: 22px;
-            }
-            &_lj:hover{
-                background: url('../images/预报警点击.png') no-repeat;
-                color: #fff45c;
             }
         }
     }
