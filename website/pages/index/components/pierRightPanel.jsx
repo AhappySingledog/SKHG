@@ -58,7 +58,7 @@ export default class PierRightPanel extends React.Component {
             sct: [[data, data]],
             cct: [[data, data]],
             mct: [[data, data]],
-            cmbl: [[data, data], [data, data]],
+            cmbl: [[data, data],[data, data], [data, data]],
             cic: [],
             yth: [[data, data], [data, data]],
             ylmg: [[data, data], [data, data]],
@@ -78,7 +78,7 @@ export default class PierRightPanel extends React.Component {
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ onyard: res[0].data }));
                     /** 泊位停靠船舶信息 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-                        res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '驳船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '大船' : ''))
+                        res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '大船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '驳船' : ''))
                         this.setState({ berths: res[0].data });
                         //this.drawShips(res[0].data);
                     });
@@ -332,45 +332,48 @@ export default class PierRightPanel extends React.Component {
                     </div>
                 ];
             }
-            else {
-                items = [
-                    <div className="houseView" key='1'>
-                        <div className="houseView-leftspan">
-                            仓<br />库<br />库<br />存<br />情<br />况
-                       </div>
-                        <div className="houseView-view test-1">
-                            <div className="houseView-view-cendiv">
-                                {Nowdata.list.map((value, key) => { return <div key={key}>仓库{value.cname}</div> })}
-                            </div>
-                            <div className="houseView-view-ec">
-                                <div className='houseView-view-ec-row' style={{ height: '100%', width: '100%' }} ref="echart1"></div>
-                            </div>
-                            <div className="houseView-view-rig">
-                                <div className="houseView-view-rig-top">
-                                    <div>今日</div>
-                                    <div>昨日</div>
-                                    <div>同比</div>
-                                </div>
-                                <div className="houseView-view-rig-num">
-                                    {Nowdata.list.map((value, key) => {
-                                        if (value.today > value.yesterday) {
-                                            return <div key={key}>
-                                                <div>{value.today}</div>
-                                                <div>{value.yesterday}</div>
-                                                <div className="houseView-view-rig-num-green">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
-                                            </div>
-                                        } else return <div key={key}>
-                                            <div>{value.today}</div>
-                                            <div>{value.yesterday}</div>
-                                            <div className="houseView-view-rig-num-red">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
-                                        </div>
-                                    })}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                ];
+            else{
+
             }
+            // else {
+            //     items = [
+            //         <div className="houseView" key='1'>
+            //             <div className="houseView-leftspan">
+            //                 仓<br />库<br />库<br />存<br />情<br />况
+            //            </div>
+            //             <div className="houseView-view test-1">
+            //                 <div className="houseView-view-cendiv">
+            //                     {Nowdata.list.map((value, key) => { return <div key={key}>仓库{value.cname}</div> })}
+            //                 </div>
+            //                 <div className="houseView-view-ec">
+            //                     <div className='houseView-view-ec-row' style={{ height: '100%', width: '100%' }} ref="echart1"></div>
+            //                 </div>
+            //                 <div className="houseView-view-rig">
+            //                     <div className="houseView-view-rig-top">
+            //                         <div>今日</div>
+            //                         <div>昨日</div>
+            //                         <div>同比</div>
+            //                     </div>
+            //                     <div className="houseView-view-rig-num">
+            //                         {Nowdata.list.map((value, key) => {
+            //                             if (value.today > value.yesterday) {
+            //                                 return <div key={key}>
+            //                                     <div>{value.today}</div>
+            //                                     <div>{value.yesterday}</div>
+            //                                     <div className="houseView-view-rig-num-green">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
+            //                                 </div>
+            //                             } else return <div key={key}>
+            //                                 <div>{value.today}</div>
+            //                                 <div>{value.yesterday}</div>
+            //                                 <div className="houseView-view-rig-num-red">{Math.abs((value.today - value.yesterday) / value.yesterday * 100).toFixed(2)}%</div>
+            //                             </div>
+            //                         })}
+            //                     </div>
+            //                 </div>
+            //             </div>
+            //         </div>
+            //     ];
+            // }
         }
         else {
             let fld = [

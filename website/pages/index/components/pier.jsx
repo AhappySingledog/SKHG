@@ -515,18 +515,18 @@ class MapOperation extends React.Component {
             //     let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: 123456 }, { name: '入库数量', number: 123456 }, { name: '申报数量', number: 123456 }] };
             //     this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
             // }
-            Promise.all([
-                publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_InOutWarehouseNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse= '" + datajson.name + "'" } }),
-                publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_DeclareGoodsNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse='" + datajson.name + "'" } }),
-            ]).then((res) => {
-                let inNum = 0;
-                let outNum = 0;
-                let decNum = 0;
-                res[0][0].features.forEach((e) => e.attributes.OPTTYPE == 'I' ? inNum = inNum + Number(e.attributes.QTY) : outNum = outNum + Number(e.attributes.QTY));
-                res[0][0].features.forEach((e) => decNum = decNum + Number(e.attributes.QTY));
-                let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: outNum }, { name: '入库数量', number: inNum }, { name: '申报数量', number: decNum }] };
-                this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
-            });
+            // Promise.all([
+            //     publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_InOutWarehouseNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse= '" + datajson.name + "'" } }),
+            //     publish('getData', { svn: 'skhg_stage', tableName: 'cmbl_3rd_DeclareGoodsNum', data: { where: " trunc(recorddate) = trunc(sysdate) and warehouse='" + datajson.name + "'" } }),
+            // ]).then((res) => {
+            //     let inNum = 0;
+            //     let outNum = 0;
+            //     let decNum = 0;
+            //     res[0][0].features.forEach((e) => e.attributes.OPTTYPE == 'I' ? inNum = inNum + Number(e.attributes.QTY) : outNum = outNum + Number(e.attributes.QTY));
+            //     res[0][0].features.forEach((e) => decNum = decNum + Number(e.attributes.QTY));
+            //     let datas = { data: [{ name: '库存数量', number: 123456 }, { name: '出库数量', number: outNum }, { name: '入库数量', number: inNum }, { name: '申报数量', number: decNum }] };
+            //     this.setState({ showMT: false, Amap: true, tip: { mtJson: datas, mapDesc: datajson } });
+            // });
         }
     }
 

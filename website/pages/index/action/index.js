@@ -880,7 +880,7 @@ subscribes({
 
             var value = ops.value;
             var min = 0;
-            var max = 7000;
+            var max = ops.value  * 1.1;
             var size = '100%';
             var initcolor = '#30979C';
 

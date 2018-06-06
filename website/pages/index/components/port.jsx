@@ -158,7 +158,7 @@ class MapOperation extends React.Component {
     handleCruise = (json) => {
         let that = this;
         for (let o in json) {
-            json[o].name = '游轮详情';
+            json[o].name = '客轮详情';
             json[o].colname = 'cruise';
             let param = {
                 id: 'SHIP_CRUISE' + o,
@@ -410,7 +410,7 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <div onClick={() => this.mapItemsDisplay('SHIP_CRUISE')} className={this.state.SHIP_CRUISE ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>游轮</div>
+                    <div onClick={() => this.mapItemsDisplay('SHIP_CRUISE')} className={this.state.SHIP_CRUISE ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>客轮</div>
                     <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
                     <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
                     {/* <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div> */}

@@ -292,7 +292,7 @@ class MyQuery extends React.Component {
             let query = (ops) => {
                 let index = layer.load(1, { shade: [0.5, '#fff'] });
                 publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: ops != '' ? "TERMINALCODE='" + ops + "'" : '1=1' } }).then((res) => {
-                    res[0].data.forEach((e) => e.VESSELTYPE = e.VESSELTYPE == 'B' ? '驳船' : '大船');
+                    res[0].data.forEach((e) => e.VESSELTYPE = e.VESSELTYPE == 'B' ? '大船' : '驳船');
                     this.setState({ port: { datas1: res[0].data } });
                     layer.close(index);
                 });
