@@ -262,6 +262,7 @@ class MyQuery extends React.Component {
         warning: { datas1: [] },
         flds: [],
     }
+
     chooseItem = (index) => {
         $('.query-t-b').addClass('magictime holeOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.query-t-b').removeClass('magictime holeOut animated'); this.setState({ index: index }, () => $('.query-t-b').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.query-t-b').removeClass('magictime swashIn animated'))); });
     }
@@ -302,7 +303,7 @@ class MyQuery extends React.Component {
                 });
             }
             content = [
-                <Table key={1} rowNo={true} title={{ name: '泊位停靠船舶信息', export: false, items: [<QueryBox key={1} name='码头' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={trClick} trDbclick={null} />,
+                <Table key={1} rowNo={true} title={{ name: '泊位停靠船舶信息', export: false, items: [<QueryBox key={1} name='码头' query={query} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.port.datas1} trClick={null} trDbclick={trClick} />,
             ];
         }
         else if (index === 1) {
@@ -382,7 +383,7 @@ class MyQuery extends React.Component {
             }
             content = [
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
-                    <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='箱号' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={trClick} trDbclick={null} />
+                    <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='箱号' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={trClick} />
                     <Table rowNo={true} title={{ name: '集装箱历史轨迹', export: false }} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
                 </div>
             ];
@@ -740,6 +741,7 @@ export default class App extends React.Component {
         if (index >= 1) this.changeLayer({ index: index - 1, props: this.layers[index - 1].props });
     }
     playVedio = (vedio) => {
+
         let data = [
             { name: 'SCT大楼12F大厅', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032172&rtmp=rtmp://playrtmp.simope.com:1935/live/07f39deff1?liveID=100032172&hls=http://playhls.simope.com/live/07f39deff1/playlist.m3u8?liveID=100032172' },
             { name: 'SCT4号泊位', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032166&rtmp=rtmp://playrtmp.simope.com:1935/live/e4b0c82c15?liveID=100032166&hls=http://playhls.simope.com/live/e4b0c82c15/playlist.m3u8?liveID=100032166' },
@@ -750,11 +752,15 @@ export default class App extends React.Component {
             { name: 'MCT闸口安保室', url: 'http://www.cheluyun.com/javascript/zsg/?id=100032174&rtmp=rtmp://playrtmp.simope.com:1935/live/28110b959b?liveID=100032174&hls=http://playhls.simope.com/live/28110b959b/playlist.m3u8?liveID=100032174' },
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
-        if (vedio) {
-            this.setState({ cv: {} }, () => this.setState({ cv: vedio }));
-        }
-        else {
-            this.setState({ cv: {} }, () => this.setState({ cv: data[7] }));
+        try {
+            if (vedio) {
+                this.setState({ cv: {} }, () => this.setState({ cv: vedio }));
+            }
+            else {
+                this.setState({ cv: {} }, () => this.setState({ cv: data[7] }));
+            }
+        } catch (e) {
+            alert("没有接入到视频信息");
         }
     }
     closeVedio = () => {
