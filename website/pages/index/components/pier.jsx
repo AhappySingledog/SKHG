@@ -176,7 +176,7 @@ class MapOperation extends React.Component {
         let where = '1=1';
         if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
         if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: where } }).then((res) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: where } }).then((res) => {
             res[0].data.forEach((e, i) => {
                 let param = {
                     id: 'VIDEO_LD_LAYER' + i,
@@ -295,7 +295,7 @@ class MapOperation extends React.Component {
                         let where = '';
                         if (props.datas.code == 'SCT') where = "SSDW='SCT' and CHANGBIAO='" + result[0].Location.substring(6, 8) + "' AND BEIBIAO='" + Number(result[0].Location.substring(8, 11)) + "' AND PAIBIAO='" + result[0].Location.substring(11, 13) + "'";
                         else where = "SSDW='" + props.datas.code + "' and NAME='" + result[0].Location.substring(5, 13) + "'";
-                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS_N', where: where } }).then((res) => {
+                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: where } }).then((res) => {
                             props.map.mapDisplay.clearLayer('QUERY_LAYER');
                             res[0].data.forEach((e, i) => {
                                 let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
@@ -620,7 +620,7 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
         let js = e.YARDLANENO + e.YARDBAYNO + e.YARDROWNO;
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS_N', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO.replace('*', '') + "%'    " } }).then((ors) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARDLANENO.replace('*', '') + "%'    " } }).then((ors) => {
             let orsJson = {};
             for (let i in ors[0].data) {
                 orsJson[ors[0].data[i].name] = [ors[0].data[i]];

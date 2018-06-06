@@ -119,7 +119,7 @@ export default class IWarningRightPanel extends React.Component {
                     let result = res[0].InnerList;
                     if (result.length > 0) {
                         let wz = result[0].Location.substring(5, 13);
-                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS_N', where: "SSDW='" + pier + "' and NAME='" + wz + "'" } }).then((res) => {
+                        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW='" + pier + "' and NAME='" + wz + "'" } }).then((res) => {
                             props.map.mapDisplay.clearLayer('QUERY_LAYER');
                             res[0].data.forEach((e, i) => {
                                 let dots = e.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });

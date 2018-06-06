@@ -25,7 +25,7 @@ class MapOperation extends React.Component {
             console.log(datas.code);
             Promise.all([
                 publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.ssdw + "'" } }),
-                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + datas.ssdw + "'" } }),
+                publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: "SSDW='" + datas.ssdw + "'" } }),
             ]).then((res) => {
                 let videos = res[0][0].data;
                 let temp = {};
