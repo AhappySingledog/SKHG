@@ -143,8 +143,8 @@ class CkList extends React.Component {
         let ck = this.state.ckList[this.state.ckIndex];
         let cs = ck[this.state.itemIndex];
         publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND KW='" + kw + "'" } }).then((res) => {
-            let videos = res[0].data.map((e) => {return {name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL}});
-            this.setState({videos: videos});
+            let videos = res[0].data.map((e) => { return { name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL } });
+            this.setState({ videos: videos });
         });
     }
     componentDidUpdate() {
@@ -169,25 +169,26 @@ class CkList extends React.Component {
         let itemIndex = this.state.itemIndex;
         if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
         if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
-    
-        setTimeout( ()=>{layer.close(indexs);},2500 );
+
+        setTimeout(() => { layer.close(indexs); }, 2500);
     }
     goCkIndex = (index) => {
         let indexs = layer.load(1, { shade: [0.5, '#fff'] });
         if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
 
-        setTimeout( ()=>{layer.close(indexs);},2500 );
+        setTimeout(() => { layer.close(indexs); }, 2500);
     }
     render() {
         let ckList = this.state.ckList;
         return (
             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                {this.state.videos.map((e, i) => <div style={{top: e.top, left: e.left}} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
+                {this.state.videos.map((e, i) => <div style={{ top: e.top, left: e.left }} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
                 <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
                     <div className='ckList-ck'>
-                        {ckList.map((e, i) => <div key={i} style={{ background: "url('../portImages/00.jpg') no-repeat", backgroundSize: '100% 100%' }} onClick={() => this.goCkIndex(i)}>{this.state.ckIndex === i ? <div className='ckList-ck-select'></div> : null}</div>)}
+                        {/* {ckList.map((e, i) => <div key={i} style={{ background: "url('../portImages/00.jpg') no-repeat", backgroundSize: '100% 100%' }} onClick={() => this.goCkIndex(i)}>{this.state.ckIndex === i ? <div className='ckList-ck-select'></div> : null}</div>)} */}
+                        {ckList.map((e, i) => <div style={{ color: '#fff', fontSize: '60px', textAlign: 'center' }} key={i} onClick={() => this.goCkIndex(i)}>{this.state.ckIndex === i ? <div className='ckList-ck-select'></div> : null}{(i + 1) + "号仓库"}</div>)}
                     </div>
                     <div className='ckList-left' onClick={this.left}></div>
                     <div className='ckList-right' onClick={this.right}></div>
@@ -224,20 +225,20 @@ export default class WareHouse extends React.Component {
 
     find_kwh = (e) => {
         const sbjson = {
-            101: { top: 996, left: 670},
-            102: { top: 996, left: 1490},
-            103: { top: 996, left: 2300},
-            104: { top: 996, left: 3110},
-            105: { top: 996, left: 4150},
-            106: { top: 996, left: 4960},
-            107: { top: 996, left: 5770},
-            108: { top: 996, left: 6580}
+            101: { top: 996, left: 670 },
+            102: { top: 996, left: 1490 },
+            103: { top: 996, left: 2300 },
+            104: { top: 996, left: 3110 },
+            105: { top: 996, left: 4150 },
+            106: { top: 996, left: 4960 },
+            107: { top: 996, left: 5770 },
+            108: { top: 996, left: 6580 }
         };
         let ms = e['LOCATION_TS'].match(/\d+/g);
         this.setState({
-            top : sbjson[ms].top,
-            left : sbjson[ms].left,
-            show : null
+            top: sbjson[ms].top,
+            left: sbjson[ms].left,
+            show: null
         })
     }
 
@@ -309,7 +310,7 @@ export default class WareHouse extends React.Component {
                     </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
-                <div style={{ width: 817, height: 1589, 'position': 'absolute', background : 'rgba(0,0,0,0.6)', display: this.state.show, top: 996 , left: Number(this.state.left) }}></div>
+                <div style={{ width: 817, height: 1589, 'position': 'absolute', background: 'rgba(0,0,0,0.6)', display: this.state.show, top: 996, left: Number(this.state.left) }}></div>
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight datas={this.props.datas} type={this.props.datas.type} />
                 </div>
