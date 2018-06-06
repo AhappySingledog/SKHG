@@ -37,7 +37,7 @@ export default class ViwePager extends React.Component {
         this.setState({ activeIndex: indexIn });
         this.autoPlay();
     }
-    position = () => { return { left: -40 - this.state.activeIndex * this.props.style.width }; }
+    position = () => { return { left: - this.state.activeIndex * this.props.style.width }; }
     left = () => {
         clearInterval(this.timeOuter);
         let oldIndex = this.props.activeIndex;
