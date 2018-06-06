@@ -47,10 +47,12 @@ export default class Table extends React.Component {
         //     ws.forEach((w, i) => $('#' + this.props.id + '_head_' + i).css({ width: w - 40 }));
         // }
         // else {
+            let a = $('#' + this.props.id)[0];
+            $('#' + this.props.id + '_head').css({ width: a.clientWidth || a.offsetWidth });
             let tds = $('#' + this.props.id + '>thead>tr')[0].cells;
             let ws = Object.keys(tds).map((key) => tds[key].clientWidth || tds[key].offsetWidth);
             ws.forEach((w, i) => {
-                $('#' + this.props.id + '_head_' + i).css({ width: w - 40 })
+                $('#' + this.props.id + '_head_' + i).css({ width: w })
             });
         // }
     }
@@ -64,6 +66,9 @@ export default class Table extends React.Component {
     }
     componentDidMount() {
         this.updateTable();
+        document.getElementById(this.props.id + '_scrollbar').onscroll = (e) => {
+            $('#' + this.props.id + '_head').css({ left: '-' + $('#' + this.props.id + '_scrollbar')[0].scrollLeft + 'px' });
+        }
     }
     render() {
         let { flds = [], datas = [], rowNo } = this.props;
@@ -79,12 +84,14 @@ export default class Table extends React.Component {
         return (
             <div className={this.props.className || 'mtable'} style={this.props.style} ref='table'>
                 {this.props.title ? <div className='mttitle'><div>{this.props.title.name}</div><div>{items}</div></div> : null}
-                <div className='mhead'>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
-                <div className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>
+                <div className='tmhead' style={{top: this.props.title ? '129px' : '0'}}>
+                    <div className='mhead' id={this.props.id + '_head'}>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
+                </div>
+                <div id={this.props.id + '_scrollbar'} className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>
                     <table id={this.props.id}>
                         <thead>
                             <tr>
-                                {flds.map((fld, i) => <td key={i}><div style={{ height: 0, overflow: 'hidden' }}>{fld.title}</div></td>)}
+                                {flds.map((fld, i) => <td key={i}>{fld.title}</td>)}
                             </tr>
                         </thead>
                         <tbody>

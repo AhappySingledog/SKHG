@@ -271,6 +271,7 @@
     width: fit-content;
     height: fit-content;
     padding: 2px 2px;
+    position: relative;
 
     > .mttitle {
         background-size: 100% 100%;
@@ -301,16 +302,28 @@
         }
     }
 
-    > .mhead {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: flex-start;
-        height: 94px;
-        font-size: 40px;
-        color: white;
-        > div {
-            padding: 0 20px;
+    >.tmhead {
+        width: 100%;
+        overflow: hidden;
+        position: absolute;
+        background: rgba(0,0,0,0.8);
+        > .mhead {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: flex-start;
+            height: 94px;
+            font-size: 40px;
+            color: white;
+            position: relative;
+            > div {
+                // padding: 0 20px;
+                word-wrap: break-word;
+                //overflow: hidden;
+                white-space: nowrap;
+                //text-overflow: ellipsis;
+                text-indent: 20px;
+            }
         }
     }
 
@@ -322,15 +335,18 @@
             > thead {
                 > tr {
                     > td {
-                        //height: 92px;
-                        height: 0;
-                        overflow: hidden;
+                        height: 92px;
                         background: rgba(255, 255, 255, 0);
                         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
-                        color: #5caeff;
+                        color: white;
                         font-size: 40px;
-                        padding-left: 25px;
-                        padding-right: 25px;
+                        // padding-left: 25px;
+                        // padding-right: 25px;
+                        word-wrap: break-word;
+                        //overflow: hidden;
+                        white-space: nowrap;
+                        text-indent: 20px;
+                        opacity: 0;
                     }
                 }
             }
@@ -343,9 +359,13 @@
                     line-height: 92px;
                     color: white;
                     font-size: 45px;
-                    padding-left: 25px;
-                    padding-right: 25px;
+                    // padding-left: 25px;
+                    // padding-right: 25px;
                     word-wrap: break-word;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                    text-indent: 20px;
                 }
                 > tr:nth-of-type(2n) {
                     background: #002e73;
@@ -642,6 +662,12 @@
         width: 7564px;
         height: 2684px;
     }
+}
+
+.scrollerbar::horizontal {
+    width: 16px;
+    height: 100px;
+    background-color: #eee;
 }
 
 .scrollbar::-webkit-scrollbar {

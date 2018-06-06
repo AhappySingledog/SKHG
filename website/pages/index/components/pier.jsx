@@ -111,7 +111,7 @@ class MapOperation extends React.Component {
         }).then(() => this.drawDefaultLayer(this.props));
 
         /** 绘制摄像头 */
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS', where: "SSDW='" + this.props.datas.code + "'" } }).then((res) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: "SSDW='" + this.props.datas.code + "'" } }).then((res) => {
             res[0].data.forEach((e, i) => {
                 let param = {
                     id: 'VIDEO_LAYER' + i,

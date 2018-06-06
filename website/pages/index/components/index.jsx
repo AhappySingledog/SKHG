@@ -243,8 +243,8 @@ class MySelect extends React.Component {
                 {lx2[this.state.lx].map((e, i) => <option key={i} value={e.key}>{e.name}</option>)}
             </select>
             <select id='bjlx3'>
-                <option value='Y'>已处理</option>
                 <option value='N'>未处理</option>
+                <option value='Y'>已处理</option>
             </select>
             <input id='dateFromTo' placeholder='请输入日期范围' />
             <div className='hvr-pulse-shrink' onClick={() => this.props.query($('#bjlx2 option:selected').val(), $('#bjlx3 option:selected').val(), this.state.dateFromTo)}></div>
@@ -445,10 +445,11 @@ class MyQuery extends React.Component {
                     let end = dates[1] + ' 23:59:59';
                     let where = '1=1';
                     let type = Number(tableName.substr(tableName.length - 2));
-                    if (type == 1 || type == 2)
+                    let mp = ',1,2,6,7,8,9,10,11,16,17';
+                    if (mp.indexOf(',' + type + ',') >= 0)
                         where = temp + ">=to_date('" + start + "','yyyy-mm-dd hh24:mi:ss') and " + temp + "<=to_date('" + end + "','yyyy-mm-dd hh24:mi:ss')";
                     else where = "WARNINGDATE>=to_date('" + start + "','yyyy-mm-dd hh24:mi:ss') and WARNINGDATE<=to_date('" + end + "','yyyy-mm-dd hh24:mi:ss')";
-                    publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: tableName, where: where } }).then((res) => {
+                    publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: tableName, where: where + " AND ISHANDLED='" + isHandled + "'" } }).then((res) => {
                         if (res[0].success) {
                             let flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
                             this.setState({ warning: { datas1: res[0].data }, flds: flds });
