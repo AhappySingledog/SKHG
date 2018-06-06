@@ -101,6 +101,7 @@ export default class WareHouseRight extends React.Component {
 
     /** 查询仓库库位列表数据 */
     handleWare = (e) => {
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         publish('webAction',
             {
                 svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'CMBL_4RD_LOCATIONLIST', where: " LOCATION_TS like '" + e + "0%' and trunc(RECORDDATE) = trunc(sysdate)" }
@@ -118,6 +119,7 @@ export default class WareHouseRight extends React.Component {
                     trDbclick={null} />
                 this.setState({ table: table }, () => {
                     if (res[0].data.length > 0) {
+                        layer.close(index);
                         this.handelGoods(res[0].data[0]);
                     }
                 });
@@ -126,6 +128,7 @@ export default class WareHouseRight extends React.Component {
 
     /** 查询点击后的库位货物列表 */
     handelGoods = (e) => {
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         publish('find_kwh', e);
         this.setState({ pageNum: 1, GoodsNum: e.LOCATION_TS }, () => {
             publish('getData', {
@@ -134,12 +137,14 @@ export default class WareHouseRight extends React.Component {
                 let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                 let datas = res[0].features.map((e) => e.attributes);
                 this.setState({ Goodsflds: flds, GoddsDatas: datas }, () => this.handleLibrary(datas[0]));
+                layer.close(index);
             });
         });
     }
 
     /** 出入库的数据 */
     handleLibrary = (e) => {
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         publish('getVideosAndDisplayForHouse', e.LOCATION_TS.substring(0, 3));
         Promise.all([
             publish('getData', {
@@ -153,11 +158,13 @@ export default class WareHouseRight extends React.Component {
             let indatas = res[0][0].features.map((e) => e.attributes);
             let outdatas = res[1][0].features.map((e) => e.attributes);
             this.setState({ libraryTitle: flds, Inlibrary: indatas, Outlibrary: outdatas });
+            layer.close(index);
         });
     }
 
     /** 翻页：上一页 */
     handelUp = () => {
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         if (this.state.pageNum > 1) {
             this.setState({ pageNum: this.state.pageNum - 1 }, () => {
                 let { pageNum, GoodsNum } = this.state;
@@ -166,7 +173,8 @@ export default class WareHouseRight extends React.Component {
                 }).then(res => {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);
-                    this.setState({ Goodsflds: flds, GoddsDatas: datas }, () => this.handleLibrary(datas[0]));
+                    this.setState({ Goodsflds: flds, GoddsDatas: datas });
+                    layer.close(index);
                 });
             });
         } else {
@@ -176,6 +184,7 @@ export default class WareHouseRight extends React.Component {
 
     /** 翻页：下一页 */
     handleDown = () => {
+        let index = layer.load(1, { shade: [0.5, '#fff'] });
         this.setState({ pageNum: this.state.pageNum + 1 }, () => {
             let { pageNum, GoodsNum } = this.state;
             publish('getData', {
@@ -184,7 +193,8 @@ export default class WareHouseRight extends React.Component {
                 if (res[0].features.length > 0) {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);
-                    this.setState({ Goodsflds: flds, GoddsDatas: datas }, () => this.handleLibrary(datas[0]));
+                    this.setState({ Goodsflds: flds, GoddsDatas: datas });
+                    layer.close(index);
                 } else {
                     alert("这是最后一页了！");
                 }

@@ -165,12 +165,18 @@ class CkList extends React.Component {
         $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
     }
     goItemIndex = (index) => {
+        let indexs = layer.load(1, { shade: [0.5, '#fff'] });
         let itemIndex = this.state.itemIndex;
         if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
         if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
+    
+        setTimeout( ()=>{layer.close(indexs);},2500 );
     }
     goCkIndex = (index) => {
+        let indexs = layer.load(1, { shade: [0.5, '#fff'] });
         if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
+
+        setTimeout( ()=>{layer.close(indexs);},2500 );
     }
     render() {
         let ckList = this.state.ckList;
@@ -303,7 +309,7 @@ export default class WareHouse extends React.Component {
                     </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
-                <div style={{ width: 817, height: 1589, 'position': 'absolute', background : 'rgba(0,0,0,0.6)', display: this.state.show, top: this.state.top, left: this.state.left }}></div>
+                <div style={{ width: 817, height: 1589, 'position': 'absolute', background : 'rgba(0,0,0,0.6)', display: this.state.show, top: 996 , left: Number(this.state.left) }}></div>
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight datas={this.props.datas} type={this.props.datas.type} />
                 </div>

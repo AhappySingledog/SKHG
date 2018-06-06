@@ -29,9 +29,9 @@ let yjsl = {
 let bjsl = {
     WARNING01: { title: '国际中转集装箱滞港超90天', tableName: 'IMAP_WARNING_01', ycl: 0, wcl: 0, width: 7500 },
     WARNING02: { title: '国际中转集装箱滞港超180天', tableName: 'IMAP_WARNING_02', ycl: 0, wcl: 0, width: 7500 },
-    WARNING03: { title: '出口提前申报后超3天未抵运', tableName: 'IMAP_WARNING_02', ycl: 0, wcl: 0, width: 7500 },
-    WARNING04: { title: '装载舱单数据发送不及时', tableName: 'IMAP_WARNING_02', ycl: 0, wcl: 0, width: 7500 },
-    WARNING05: { title: '船舶离港后超24小时未发送理货报告', tableName: 'IMAP_WARNING_02', ycl: 0, wcl: 0, width: 7500 },
+    WARNING03: { title: '出口提前申报后超3天未抵运', tableName: 'IMAP_WARNING_03', ycl: 0, wcl: 0, width: 7500 },
+    WARNING04: { title: '装载舱单数据发送不及时', tableName: 'IMAP_WARNING_04', ycl: 0, wcl: 0, width: 7500 },
+    WARNING05: { title: '船舶离港后超24小时未发送理货报告', tableName: 'IMAP_WARNING_05', ycl: 0, wcl: 0, width: 7500 },
     WARNING06: { title: '海关未放行集装箱装船', tableName: 'IMAP_WARNING_06', ycl: 0, wcl: 0, width: 7500 },
     WARNING07: { title: '海关未放行集装箱出闸', tableName: 'IMAP_WARNING_07', ycl: 0, wcl: 0, width: 7500 },
     WARNING08: { title: '整船换装货物异常提离堆场', tableName: 'IMAP_WARNING_08', ycl: 0, wcl: 0, width: 7500 },
@@ -41,15 +41,15 @@ let bjsl = {
     WARNING12: { title: '调拨车辆超时停留', tableName: 'IMAP_WARNING_12', ycl: 0, wcl: 0, width: 7500 },
     WARNING13: { title: '调拨车辆偏离路线', tableName: 'IMAP_WARNING_13', ycl: 0, wcl: 0, width: 7500 },
     WARNING14: { title: '调拨车辆运行超时', tableName: 'IMAP_WARNING_14', ycl: 0, wcl: 0, width: 7500 },
-    WARNING15: { title: '散杂货异常堆放', tableName: 'IMAP_WARNING_02', ycl: 0, wcl: 0, width: 7500 },
+    WARNING15: { title: '散杂货异常堆放', tableName: 'IMAP_WARNING_15', ycl: 0, wcl: 0, width: 7500 },
     WARNING16: { title: '收到查验指令72小时未调入CIC', tableName: 'IMAP_WARNING_16', ycl: 0, wcl: 0, width: 7500 },
     WARNING17: { title: '查验完毕超24小时未调离CIC', tableName: 'IMAP_WARNING_17', ycl: 0, wcl: 0, width: 7500 },
     WARNING18: { title: '行政通道车辆识别异常', tableName: 'IMAP_WARNING_18', ycl: 0, wcl: 0, width: 7500 },
     WARNING19: { title: '行政通道车辆布控中控', tableName: 'IMAP_WARNING_19', ycl: 0, wcl: 0, width: 7500 },
-    WARNING20: { title: '旅检船舶未审批即移泊', tableName: 'IMAP_WARNING_10', ycl: 0, wcl: 0, width: 7500 },
-    WARNING21: { title: '旅检船舶夜间异常', tableName: 'IMAP_WARNING_01', ycl: 0, wcl: 0 },
-    WARNING22: { title: '船舶抵港时间异常报警', tableName: 'IMAP_WARNING_01', ycl: 0, wcl: 0, width: 7500 },
-    WARNING23: { title: '船舶离港时间异常报警', tableName: 'IMAP_WARNING_01', ycl: 0, wcl: 0, width: 7500 },
+    WARNING20: { title: '旅检船舶未审批即移泊', tableName: 'IMAP_WARNING_20', ycl: 0, wcl: 0, width: 7500 },
+    WARNING21: { title: '旅检船舶夜间异常', tableName: 'IMAP_WARNING_21', ycl: 0, wcl: 0 },
+    WARNING22: { title: '船舶抵港时间异常报警', tableName: 'IMAP_WARNING_22', ycl: 0, wcl: 0, width: 7500 },
+    WARNING23: { title: '船舶离港时间异常报警', tableName: 'IMAP_WARNING_23', ycl: 0, wcl: 0, width: 7500 },
 }
 
 // 智能预报警
@@ -307,7 +307,7 @@ export default class ZNYBJ extends React.Component {
                         trClick={null}
                         trDbclick={null}
                         myTd={null}
-                        hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true }} />
+                        hide={{ GKEY: true, GID: true, ISREADE: true, ISHANDLED: true, HANDLEDRESULT: true, MODIFIER: true, HANDLEDTIME: true, HANDLINGRESULT: true }} />
                 </div> : null}
             </div>
         )
@@ -345,7 +345,7 @@ class Znyj extends React.Component {
             <div className="znyjs">
                 {
                     Object.keys(ALTER).map((e, i) => {
-                        return <div key={"yj" + i} className="znyjs_yj" onClick={() => this.props.click(ALTER[e], 'skhg_loader', null)}>
+                        return <div key={"yj" + i} className="znyjs_yj" onDoubleClick={() => this.props.click(ALTER[e], 'skhg_loader', null)}>
                             <div className="znyjs_yj_num">{ALTER[e].num}</div>
                             <div className="znyjs_yj_fot">{ALTER[e].title}</div>
                         </div>
@@ -384,10 +384,10 @@ class Znbj extends React.Component {
                 {
                     Object.keys(this.state.WARNING).map((e, i) => {
                         return <div key={i} className="znbjs_bj">
-                            <div className="znbjs_bj_num">
-                                <div className="znbjs_bj_num_ycl" onClick={() => this.props.click(WARNING[e], 'skhg_stage', 'Y')}>{WARNING[e].ycl}</div>
+                            <div className="znbjs_bj_num"> 
+                                <div className="znbjs_bj_num_ycl" onDoubleClick={() => this.props.click(WARNING[e], 'skhg_stage', 'Y')}>{WARNING[e].ycl}</div>
                                 <div className="znbjs_bj_num_fgx"></div>
-                                <div className="znbjs_bj_num_wcl" onClick={() => this.props.click(WARNING[e], 'skhg_stage', 'N')}>{WARNING[e].wcl}</div>
+                                <div className="znbjs_bj_num_wcl" onDoubleClick={() => this.props.click(WARNING[e], 'skhg_stage', 'N')}>{WARNING[e].wcl}</div>
                             </div>
                             <div className="znbjs_bj_fot">{WARNING[e].title}</div>
                         </div>
