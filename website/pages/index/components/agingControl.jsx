@@ -68,7 +68,10 @@ export default class AgingControl extends React.Component {
                                     width: 5
                                 }
                             },
-                            boundaryGap: [0, 0.1]
+                            boundaryGap: [0, 0.1],
+                            splitLine: {
+                                show: false,
+                            }
                         }
                     ],
                     series: [
@@ -89,7 +92,13 @@ export default class AgingControl extends React.Component {
                             markLine: {
                                 data: [
                                     { type: 'average', name: '平均值' }
-                                ]
+                                ],
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        fontSize: 50
+                                    }
+                                },
                             },
                         },
                         {
@@ -110,7 +119,13 @@ export default class AgingControl extends React.Component {
                             markLine: {
                                 data: [
                                     { type: 'average', name: '平均值' }
-                                ]
+                                ],
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        fontSize: 50
+                                    }
+                                },
                             },
                         },
                         {
@@ -195,7 +210,10 @@ export default class AgingControl extends React.Component {
                                     width: 5
                                 }
                             },
-                            boundaryGap: [0, 0.1]
+                            boundaryGap: [0, 0.1],
+                            splitLine: {
+                                show: false,
+                            }
                         }
                     ],
                     series: [
@@ -216,7 +234,13 @@ export default class AgingControl extends React.Component {
                             markLine: {
                                 data: [
                                     { type: 'average', name: '平均值' }
-                                ]
+                                ],
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        fontSize: 50
+                                    }
+                                },
                             },
                         },
                         {
@@ -237,7 +261,13 @@ export default class AgingControl extends React.Component {
                             markLine: {
                                 data: [
                                     { type: 'average', name: '平均值' }
-                                ]
+                                ],
+                                label: {
+                                    normal: {
+                                        show: true,
+                                        fontSize: 50
+                                    }
+                                },
                             },
                         },
                         {
