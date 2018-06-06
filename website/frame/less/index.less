@@ -305,8 +305,7 @@
     >.tmhead {
         width: 100%;
         overflow: hidden;
-        position: absolute;
-        background: rgba(0,0,0,0.8);
+        // position: absolute;
         > .mhead {
             display: flex;
             flex-direction: row;
@@ -322,7 +321,7 @@
                 //overflow: hidden;
                 white-space: nowrap;
                 //text-overflow: ellipsis;
-                text-indent: 20px;
+                text-indent: 50px;
             }
         }
     }
@@ -335,18 +334,20 @@
             > thead {
                 > tr {
                     > td {
-                        height: 92px;
+                        height: 0;
                         background: rgba(255, 255, 255, 0);
                         border-bottom: 1px solid rgba(255, 255, 255, 0.5);
                         color: white;
                         font-size: 40px;
-                        // padding-left: 25px;
-                        // padding-right: 25px;
                         word-wrap: break-word;
-                        //overflow: hidden;
                         white-space: nowrap;
-                        text-indent: 20px;
                         opacity: 0;
+                        border: none;
+                        >div {
+                            word-wrap: break-word;
+                            white-space: nowrap;
+                            text-indent: 50px;
+                        }
                     }
                 }
             }
@@ -365,7 +366,7 @@
                     overflow: hidden;
                     white-space: nowrap;
                     text-overflow: ellipsis;
-                    text-indent: 20px;
+                    text-indent: 50px;
                 }
                 > tr:nth-of-type(2n) {
                     background: #002e73;

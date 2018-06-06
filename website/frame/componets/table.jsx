@@ -84,14 +84,14 @@ export default class Table extends React.Component {
         return (
             <div className={this.props.className || 'mtable'} style={this.props.style} ref='table'>
                 {this.props.title ? <div className='mttitle'><div>{this.props.title.name}</div><div>{items}</div></div> : null}
-                <div className='tmhead' style={{top: this.props.title ? '129px' : '0'}}>
+                <div className='tmhead'>
                     <div className='mhead' id={this.props.id + '_head'}>{flds.map((fld, i) => <div key={i} id={this.props.id + '_head_' + i}>{flds[i].title}</div>)}</div>
                 </div>
                 <div id={this.props.id + '_scrollbar'} className='mttable scrollbar' style={this.props.style.height ? { height: this.props.style.height - 185 } : {}}>
                     <table id={this.props.id}>
                         <thead>
                             <tr>
-                                {flds.map((fld, i) => <td key={i}>{fld.title}</td>)}
+                                {flds.map((fld, i) => <td key={i}><div style={{height: 0, overflow: 'hidden'}}>{fld.title}</div></td>)}
                             </tr>
                         </thead>
                         <tbody>
