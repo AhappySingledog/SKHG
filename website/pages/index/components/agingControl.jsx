@@ -162,7 +162,7 @@ export default class AgingControl extends React.Component {
                 this.chart1 = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
                 this.chart1.setOption(ops);
                 this.chart1.on('click', (param) => {
-                    this.setState({ layer: 'ck', param: param.name });
+                    if (param.seriesType == 'bar') this.setState({ layer: 'ck', param: param.name });
                 });
             });
             publish('getData', { svn: 'skhg_stage', tableName: 'imap_scct_sxfx_01', data: { where: "category='I' and EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
@@ -304,7 +304,7 @@ export default class AgingControl extends React.Component {
                 this.chart2 = echarts.init(ReactDOM.findDOMNode(this.refs.echart2));
                 this.chart2.setOption(ops);
                 this.chart2.on('click', (param) => {
-                    this.setState({ layer: 'jk', param: param.name });
+                    if (param.seriesType == 'bar') this.setState({ layer: 'jk', param: param.name });
                 });
             });
         }
@@ -645,17 +645,7 @@ class TwoRecordTable extends React.Component {
             { title: '到', dataIndex: 'NewValue' },
         ];
         return (
-            <div className='orts scrollbar'>
-                {/* <table>
-                    <thead></thead>
-                    <tbody>
-                        {datas.map((e, i) => <tr key={i}>
-                            {e.map((td, j) => [<td>{td.key + ':'}</td>, <td>{td.value}</td>])}
-                        </tr>)}
-                    </tbody>
-                </table> */}
-                <Table rowNo={true} title={null} style={{ width: 2243, height: 540 }} id={"id2"} selectedIndex={null} flds={flds2} datas={this.props.jzxlsgj} trClick={null} trDbclick={null} />
-            </div>
+            <Table rowNo={true} title={null} style={{ width: 2240, height: 540 }} id={"id2"} selectedIndex={null} flds={flds2} datas={this.props.jzxlsgj} trClick={null} trDbclick={null} />
         )
     }
 }
