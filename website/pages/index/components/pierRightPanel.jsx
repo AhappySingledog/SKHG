@@ -220,7 +220,7 @@ export default class PierRightPanel extends React.Component {
         let orsJson = {};
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYLANENO', parms: JSON.stringify(pa) } }).then((res) => {
             khsj.push(res[0].data);
-            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD.replace('*', '') + "%'    " } }).then((ors) => {
+            publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MAP_GIS_N', where: "SSDW like '%" + this.props.datas.code + "' and NAME LIKE '" + e.YARD.replace('*', '') + "%'    " } }).then((ors) => {
                 /** 匹配数据 */
                 for (let o in khsj[0]) {
                     let js = khsj[0][o].YARDLANENO + khsj[0][o].YARDBAYNO + khsj[0][o].YARDROWNO;
