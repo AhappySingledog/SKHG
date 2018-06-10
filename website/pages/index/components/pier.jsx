@@ -11,8 +11,8 @@ import { table2Excel } from '../../../frame/core/table2Excel';
 import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
 import { ViwePager, Tip, Panel, Dialog, ChartView, Table, QueryBox } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
-import B from '../../../res/mapIcon/Barge.png';
-import S from '../../../res/mapIcon/bigShip.png';
+import S from '../../../res/mapIcon/Barge.png';
+import B from '../../../res/mapIcon/bigShip.png';
 import VideoIcon from '../images/sxt.png';
 import PierRightPanel from './pierRightPanel';
 import zb from '../images/下手势.png';
@@ -163,7 +163,7 @@ class MapOperation extends React.Component {
         });
 
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-            res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '驳船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '大船' : ''));
+            res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '大船' : value.VESSELTYPE = '驳船');
             this.drawShips(res[0].data);
         });
     }
@@ -328,7 +328,7 @@ class MapOperation extends React.Component {
                         if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                             json.name = value.name;
                             json.colname = 'berthShip';
-                            let scrs = value.type === 'S' || value.type == '大船' ? S : B;
+                            let scrs = value.type === 'B' || value.type == '大船' ? B : S;
                             this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                             let param = {
                                 id: 'QUERY_LAYER' + key,
@@ -404,7 +404,7 @@ class MapOperation extends React.Component {
             if (value.code === json.BERTHNO && value.type === json.VESSELTYPE) {
                 json.name = value.name;
                 json.colname = 'berthShip';
-                let scrs = value.type === 'S' || value.type == '大船' ? S : B;
+                let scrs = value.type === 'B' || value.type == '大船' ? B : S;
                 this.props.map.mapOper.centerAndZoom({ x: value.geom.x, y: value.geom.y }, 3);
                 let param = {
                     id: 'SHIP_LAYER' + key,

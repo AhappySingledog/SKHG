@@ -52,13 +52,17 @@ export default class PierRightPanel extends React.Component {
     componentDidMount() {
         let data = [
             { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
-            { name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
+            //{ name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
         const vedios = {
             sct: [[data, data]],
             cct: [[data, data]],
             mct: [[data, data]],
-            cmbl: [[data, data],[data, data], [data, data]],
+            cmbl: [
+                [[{name: '招商保税101库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.12'}], [{name: '招商保税102库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.16'}]],
+                [[{name: '招商保税103库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.19'}], [{name: '招商保税104库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.22'}]], 
+                [data, data]
+            ],
             cic: [],
             yth: [[data, data], [data, data]],
             ylmg: [[data, data], [data, data]],
@@ -78,7 +82,7 @@ export default class PierRightPanel extends React.Component {
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_ONYARD', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => this.setState({ onyard: res[0].data }));
                     /** 泊位停靠船舶信息 */
                     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_BERTH', where: "TERMINALCODE= '" + this.props.datas.code + "'" } }).then((res) => {
-                        res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '大船' : (value.VESSELTYPE === 'S' ? value.VESSELTYPE = '驳船' : ''))
+                        res[0].data.forEach((value, key) => value.VESSELTYPE === 'B' ? value.VESSELTYPE = '大船' : value.VESSELTYPE = '驳船')
                         this.setState({ berths: res[0].data });
                         //this.drawShips(res[0].data);
                     });
@@ -393,8 +397,8 @@ export default class PierRightPanel extends React.Component {
             <div className='pierRight-1'>
                 {items}
                 {vedios.map((e, i) => <div key={i} style={{ padding: '10px', border: '2px solid #1890ff', width: 3730 }}>
-                    <Vedios style={{ width: 1855, height: vediosHeight }} datas={e[0]} />
-                    <Vedios style={{ width: 1855, height: vediosHeight }} datas={e[1]} />
+                    <Vedios style={{ width: 1855, height: 870 }} datas={e[0]} />
+                    <Vedios style={{ width: 1855, height: 870 }} datas={e[1]} />
                 </div>)}
             </div>
         )

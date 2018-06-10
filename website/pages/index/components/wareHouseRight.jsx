@@ -145,7 +145,7 @@ export default class WareHouseRight extends React.Component {
     /** 出入库的数据 */
     handleLibrary = (e) => {
         let index = layer.load(1, { shade: [0.5, '#fff'] });
-        publish('getVideosAndDisplayForHouse', e.LOCATION_TS.substring(0, 3));
+        // publish('getVideosAndDisplayForHouse', e.LOCATION_TS.substring(0, 3));
         Promise.all([
             publish('getData', {
                 svn: 'skhg_stage', tableName: 'CMBL_4RD_INOUTWAREHOUSENUM', data: { pageno: 1, pagesize: 100, where: "LOCATION_TS = '" + e.LOCATION_TS + "' and OPTTYPE = 'I' and trunc(RECORDDATE) = trunc(sysdate)" }

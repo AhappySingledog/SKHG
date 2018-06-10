@@ -135,16 +135,16 @@ class CkList extends React.Component {
                 ],
             },
         ];
-        this.setState({ ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0 });
+        this.setState({ ckList: ck, ckIndex: this.props.data.datas.ckIndex || 0 }, () => this.getVideosAndDisplayForHouse({}));
         this.sub_getVideosAndDisplayForHouse = subscribe('getVideosAndDisplayForHouse', this.getVideosAndDisplayForHouse);
     }
     getVideosAndDisplayForHouse = (kw) => {
-        console.log(this.state);
+        // console.log(this.state);
         let ck = this.state.ckList[this.state.ckIndex];
-        let cs = ck[this.state.itemIndex];
-        publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND KW='" + kw + "'" } }).then((res) => {
-            let videos = res[0].data.map((e) => { return { name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL } });
-            this.setState({ videos: videos });
+        // let cs = ck[this.state.itemIndex];
+        publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND CS='" + (this.state.itemIndex  + 1) + "'" } }).then((res) => {
+            let videos = res[0].data.map((e) => {return {name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL}});
+            this.setState({videos: videos});
         });
     }
     componentDidUpdate() {
@@ -156,25 +156,25 @@ class CkList extends React.Component {
         let index = this.state.itemIndex;
         let length = this.state.ckList[this.state.ckIndex].items.length;
         index = index - 1 < 0 ? length - 1 : index - 1;
-        $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
+        $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
     }
     right = () => {
         let index = this.state.itemIndex;
         let length = this.state.ckList[this.state.ckIndex].items.length;
         index = index + 1 >= length ? 0 : index + 1;
-        $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
+        $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
     }
     goItemIndex = (index) => {
         let indexs = layer.load(1, { shade: [0.5, '#fff'] });
         let itemIndex = this.state.itemIndex;
-        if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'))); });
-        if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'))); });
-
-        setTimeout(() => { layer.close(indexs); }, 2500);
+        if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
+        if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
+    
+        setTimeout( ()=>{layer.close(indexs);},2500 );
     }
     goCkIndex = (index) => {
         let indexs = layer.load(1, { shade: [0.5, '#fff'] });
-        if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime swashIn animated'))); });
+        if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('#house').removeClass('magictime swashIn animated');this.getVideosAndDisplayForHouse({});})); });
 
         setTimeout(() => { layer.close(indexs); }, 2500);
     }
