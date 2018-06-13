@@ -390,7 +390,7 @@ class CK extends React.Component {
             <div className='ac-ckbox'>
                 <div className='ac-back' onClick={this.props.back}></div>
                 {/* <div className='ac-close' onClick={() => publish('closeAC', false)}></div> */}
-                <div className='ac-ckbox-title'>{this.props.layer == 'ck' ? '出口' : '进口'}</div>
+                <div className='ac-ckbox-title'>{this.props.layer == 'ck' ? '出口通关时效分析' : '进口通关时效分析'}</div>
                 <div style={{ width: 3, height: 733, position: 'absolute', top: 257, left: this.props.layer == 'ck' ? 1500 : 1870, background: '#1f9bff' }}></div>
                 <div className='ac-ckbox-t'>
                     <div style={{ background: "url('../agingControl/" + this.props.layer + ".png') no-repeat", backgroundSize: '100% 100%' }}></div>
