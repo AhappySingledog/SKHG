@@ -431,9 +431,14 @@ class JD extends React.Component {
 
 // echarts组件
 class JDEC extends React.Component {
+    state = {
+        color: '#70e100'
+    }
     componentDidMount() {
         let data = Number(this.props.datas.rate);
         data = data <= 100 ? data : 100;
+        let color = this.props.datas.name == '超目标值' ? '#ff0000' : this.props.datas.name == '低目标值' ? '#70e100' : this.props.type == 1 ? '#70e100' : '#ff0000';
+        this.setState({color: color});
         let ops = {
             series: [
                 {
@@ -451,7 +456,7 @@ class JDEC extends React.Component {
                             value: data,
                             itemStyle: {
                                 normal: {
-                                    color: this.props.type == 1 ? '#70e100' : '#ff0000',
+                                    color: color,
                                 }
                             },
                             label: {
@@ -462,7 +467,7 @@ class JDEC extends React.Component {
                                     textStyle: {
                                         fontSize: '50',
                                         fontWeight: 'normal',
-                                        color: this.props.type == 1 ? '#70e100' : '#ff0000',
+                                        color: color,
                                     }
                                 }
                             },
@@ -488,8 +493,8 @@ class JDEC extends React.Component {
             <div className='jd-ec'>
                 <div ref='echart'></div>
                 <div>
-                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>{this.props.datas.value}</div>
-                    <div style={{ color: type == 1 ? '#70e100' : '#ff0000' }}>天</div>
+                    <div style={{ color: this.state.color }}>{this.props.datas.value}</div>
+                    <div style={{ color: this.state.color }}>天</div>
                 </div>
                 <div>{this.props.datas.name}</div>
             </div>

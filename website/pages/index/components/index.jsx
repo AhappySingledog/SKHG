@@ -47,7 +47,10 @@ class MyLink extends React.Component {
         items: [
             { name: '旅检移泊确认', show: true },
             { name: '旅检到泊确认', show: false },
-            { name: '整船换装确认', show: false }
+            { name: '整船换装确认', show: false },
+            { name: '行政通道确认', show: false },
+            { name: '调拨通道确认', show: false },
+            { name: '远程抬闸确认', show: false }
         ],
         flds: [],
         datas: []
@@ -109,15 +112,15 @@ class MyLink extends React.Component {
     }
     render() {
         return (
-            <div className='warningTip' style={{ position: 'absolute', top: 385, left: 4437, zIndex: 99999 }}>
+            <div className='warningTip' style={{ position: 'absolute', top: 385, left: 3437, zIndex: 99999 }}>
                 <div className='warningTip-t'></div>
                 <div className='warningTip-b'>
-                    <Panel style={{ padding: '20px 25px', width: 2365, height: 1071 }}>
+                    <Panel style={{ padding: '20px 25px', width: 3365, height: 1071 }}>
                         <div className='warningTip-b-title'>
                             {this.state.items.map((e, i) => <div onClick={() => this.clickTitle(i)} className={e.show ? 'warningTip-b-title-1' : 'warningTip-b-title-2'} key={i}>{e.name}</div>)}
                         </div>
                         <div className='warningTip-b-body'>
-                            <Table style={{ width: 2361, height: 954, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={this.state.flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd} />
+                            <Table style={{ width: 3361, height: 954, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={this.state.flds} datas={this.state.datas} trClick={null} trDbclick={null} myTd={this.myTd} />
                         </div>
                     </Panel>
                 </div>
