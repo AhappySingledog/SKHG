@@ -301,6 +301,7 @@ class MyQuery extends React.Component {
                 });
             }
             let trClick = (data, index, datas) => {
+                window.openLoading();
                 publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "CODE='" + data.TERMINALCODE + "'" } }).then((res) => {
                     publish('changeLayer', { index: 2, props: { datas: res[0].data[0], defaultLayer: { ship: data } } });
                 });

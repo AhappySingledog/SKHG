@@ -306,7 +306,7 @@ export default class ZNYBJ extends React.Component {
                     }
                     <Table
                         rowNo={true}
-                        title={{ name: this.state.data.data.alias, export: true, close: () => this.setState({ table: false }) }}
+                        title={{ name: this.state.data.data.title, export: true, close: () => this.setState({ table: false }) }}
                         style={{ height: 2600, width: 7500 }}
                         id={'qqq'}
                         selectedIndex={null}

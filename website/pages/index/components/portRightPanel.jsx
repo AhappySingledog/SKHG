@@ -428,15 +428,21 @@ export default class PortRight extends React.Component {
     }
 
     componentDidMount() {
-        let date = new Date();
-        let y = date.getFullYear();
-        let m = date.getMonth();
-        let dt = '' + y + (m + 1 > 9 ? m + 1 : '0' + (m + 1));
-        publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE='" + dt + "'" } }).then((res) => {
-            console.log(res);
-            if (res.length > 0) {
-                this.setState({ leftGQ: res[0].data[0], rightGQ: res[0].data[1] });
-            }
+        Promise.all([
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "CUSTOMSCODE='5304关区' AND ROWNUM <= 1 ORDER BY EFFECTDATE DESC" } }),
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "CUSTOMSCODE='5349关区' AND ROWNUM <= 1 ORDER BY EFFECTDATE DESC" } }),
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: "1=1" } }),
+        ]).then((res) => {
+            let leftGQ = res[0][0].data[0];
+            let rightGQ = res[1][0].data[0];
+            let temp = res[2][0].data[0];
+            leftGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5304;
+            leftGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5304;
+            leftGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5304;
+            rightGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5349;
+            rightGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5349;
+            rightGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5349;
+            this.setState({ leftGQ: leftGQ, rightGQ: rightGQ });
         });
     }
 

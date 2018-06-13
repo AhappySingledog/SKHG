@@ -55,7 +55,10 @@ export default class PierRightPanel extends React.Component {
             //{ name: 'SCT 1# 2#堆场', url: 'http://www.cheluyun.com/javascript/zsg/?id=100031600&rtmp=rtmp://playrtmp.simope.com:1935/live/524622521d?liveID=100031600&hls=http://playhls.simope.com/live/524622521d/playlist.m3u8?liveID=100031600' },
         ];
         const vedios = {
-            sct: [[data, data]],
+            sct: [[
+                [{ name: '卡口外南(云台)', url: 'http://172.28.1.65:8020/?ip=172.28.4.130' }], 
+                [{ name: '危险品堆场北(云台)', url: 'http://172.28.1.65:8020/?ip=172.28.4.154' }]
+            ]],
             cct: [[data, data]],
             mct: [[data, data]],
             cmbl: [
@@ -205,6 +208,7 @@ export default class PierRightPanel extends React.Component {
 
     /** 单击显示场位的集装箱 */
     OnfindBox = (e) => {
+        window.openLoading();
         publish('box_handleCloseDesDailog', {});
         let pa = [{
             paramName: 'P_TERMINALCODE',
@@ -256,6 +260,7 @@ export default class PierRightPanel extends React.Component {
         this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('box_view');
         this.props.map.mapDisplay.clearLayer('textLayer');
+        let first = true;
         for (let key in res) {
             let o = res[key];
             res[key].colname = 'onyard';
@@ -278,10 +283,15 @@ export default class PierRightPanel extends React.Component {
                 let y = points[0].y + points[1].y + points[2].y + points[3].y;
                 let point = { x: x / 4, y: y / 4 };
                 const level = 5;
-                this.props.map.mapOper.centerAndZoom(point, level);
+                if (first) {
+                    this.props.map.mapOper.centerAndZoom(point, level);
+                    first = false;
+                }
                 this.props.map.mapDisplay.polygon(params);
             }
         }
+        window.closeLoading();
+        if (first) layer.msg('未匹配到定位数据，请联系管理员!');
     }
 
     render() {
@@ -292,12 +302,12 @@ export default class PierRightPanel extends React.Component {
         if (type == 1) {
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={{name: '各栏堆存柜量', export: true}} style={{ width: '40%', height: 775 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={{name: '泊位停靠船舶信息', export: true}} style={{ width: '59%', height: 775 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={this.OnfindBerth.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '各栏堆存柜量', export: true}} style={{ width: '40%', height: 888 }} id={id1} selectedIndex={null} flds={this.state.onyardFlds} datas={this.state.onyard} trClick={this.OnfindBox.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '泊位停靠船舶信息', export: true}} style={{ width: '59%', height: 888 }} id={id2} selectedIndex={null} flds={this.state.berthsFlds} datas={this.state.berths} trClick={this.OnfindBerth.bind(this)} trDbclick={null} />
                 </div>,
                 <div style={{ width: 3750 }} key='2'>
-                    <Table rowNo={true} title={{name: '超三个月海关未放行柜列表', export: true}} style={{ width: '40%', height: 775 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
-                    <Table rowNo={true} title={{name: '在场整船换装柜列表', export: true}} style={{ width: '59%', height: 775 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '超三个月海关未放行柜列表', export: true}} style={{ width: '40%', height: 888 }} id={id3} selectedIndex={null} flds={this.state.scctyardFlds} datas={this.state.scctyard} trClick={this.nocus90.bind(this)} trDbclick={null} />
+                    <Table rowNo={true} title={{name: '在场整船换装柜列表', export: true}} style={{ width: '59%', height: 888 }} id={id4} selectedIndex={null} flds={this.state.shipsFlds} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         } else if (type == 2) {
@@ -389,7 +399,7 @@ export default class PierRightPanel extends React.Component {
             ];
             items = [
                 <div style={{ width: 3750 }} key='1'>
-                    <Table rowNo={true} title={{name: this.props.datas.name + '业务数据', export: true}} id={id1} />} style={{ width: '100%', height: 880 }} id={id1} selectedIndex={null} flds={fld} datas={[]} trClick={null} trDbclick={null} />
+                    <Table rowNo={true} title={{name: this.props.datas.name + '业务数据', export: true}} style={{ width: '100%', height: 880 }} id={id1} selectedIndex={null} flds={fld} datas={[]} trClick={null} trDbclick={null} />
                 </div>
             ];
         }

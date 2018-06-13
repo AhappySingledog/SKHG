@@ -13,6 +13,20 @@
             var layer = layui.layer
             var form = layui.form;
             window.laydate = layui.laydate;
+            window.openLoading = function() {
+                var index = layer.load(1, { shade: [0.5, '#fff'] });
+                window.curLoadingIndex = index;
+                window.loadingTimer = setTimeout(function() {
+                    clearTimeout(window.loadingTimer);
+                    layer.close(window.curLoadingIndex);
+                    layer.msg('数据处理出错，请联系管理员！');
+                }, 1000 * 60 * 2);
+                return index;
+            }
+            window.closeLoading = function() {
+                if (window.loadingTimer) clearTimeout(window.loadingTimer);
+                layer.close(window.curLoadingIndex);
+            }
         });
     </script>
 </head>

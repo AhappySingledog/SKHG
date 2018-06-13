@@ -169,47 +169,47 @@ class MapOperation extends React.Component {
     }
 
     getVideoAndDisplay = (ops) => {
-        let map = ops.map;
-        let type = ops.type;
-        let data = ops.data;
-        map.mapDisplay.clearLayer('VIDEO_LD_LAYER');
-        let where = '1=1';
-        if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
-        if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: where } }).then((res) => {
-            res[0].data.forEach((e, i) => {
-                let param = {
-                    id: 'VIDEO_LD_LAYER' + i,
-                    layerId: 'VIDEO_LD_LAYER',
-                    layerIndex: 999,
-                    src: VideoIcon,
-                    width: 100,
-                    height: 140,
-                    angle: 0,
-                    x: e.geom.x,
-                    y: e.geom.y,
-                    attr: { ...e },
-                    click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
-                    mouseover: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(100 + 12);
-                            symbol.setHeight(100 + 12);
-                        }
-                        g.setSymbol(symbol);
-                    },
-                    mouseout: function (g) {
-                        let symbol = g.symbol;
-                        if (symbol.setWidth) {
-                            symbol.setWidth(100);
-                            symbol.setHeight(100);
-                        }
-                        g.setSymbol(symbol);
-                    }
-                }
-                map.mapDisplay.image(param);
-            });
-        });
+        // let map = ops.map;
+        // let type = ops.type;
+        // let data = ops.data;
+        // map.mapDisplay.clearLayer('VIDEO_LD_LAYER');
+        // let where = '1=1';
+        // if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
+        // if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
+        // publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: where } }).then((res) => {
+        //     res[0].data.forEach((e, i) => {
+        //         let param = {
+        //             id: 'VIDEO_LD_LAYER' + i,
+        //             layerId: 'VIDEO_LD_LAYER',
+        //             layerIndex: 999,
+        //             src: VideoIcon,
+        //             width: 100,
+        //             height: 140,
+        //             angle: 0,
+        //             x: e.geom.x,
+        //             y: e.geom.y,
+        //             attr: { ...e },
+        //             click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
+        //             mouseover: function (g) {
+        //                 let symbol = g.symbol;
+        //                 if (symbol.setWidth) {
+        //                     symbol.setWidth(100 + 12);
+        //                     symbol.setHeight(100 + 12);
+        //                 }
+        //                 g.setSymbol(symbol);
+        //             },
+        //             mouseout: function (g) {
+        //                 let symbol = g.symbol;
+        //                 if (symbol.setWidth) {
+        //                     symbol.setWidth(100);
+        //                     symbol.setHeight(100);
+        //                 }
+        //                 g.setSymbol(symbol);
+        //             }
+        //         }
+        //         map.mapDisplay.image(param);
+        //     });
+        // });
     }
 
     //绘制大船驳船
@@ -545,7 +545,7 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
-        this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+        //this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
         this.setState({ visible_duiwei: false }, () => this.setState({
             visible_duiwei: true,
             dataSource: e.khsj,
@@ -876,6 +876,7 @@ export default class Pier extends React.Component {
                 $ifrme.css({ visibility: '' });
                 $target.removeClass('zoomOut animated').addClass('zoomIn animated');
                 this.setState({ map: $ifrme['0'].contentWindow });
+                window.closeLoading();
             });
         }
     }
@@ -917,11 +918,11 @@ export default class Pier extends React.Component {
                 <div className='pierleft'>
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} defaultLayer={this.props.defaultLayer} /> : null}
-                    {this.state.map && this.props.datas.type == 1 ? <div className="mapbtn">
-                        <div onClick={() => this.showLayer('VIDEO_LAYER')} className={!this.state.VIDEO_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>视频</div>
-                        <div onClick={() => this.showLayer('S_LAYER')} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
-                        <div onClick={() => this.showLayer('B_LAYER')} className={!this.state.B_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
-                    </div> : null}
+                    <div className="mapbtn">
+                        {this.state.map ? <div onClick={() => this.showLayer('VIDEO_LAYER')} style={{margin: '20px'}} className={!this.state.VIDEO_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>视频</div> : null}
+                        {this.state.map && this.props.datas.type == 1 ? <div onClick={() => this.showLayer('S_LAYER')} style={{margin: '20px'}} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div> : null}
+                        {this.state.map && this.props.datas.type == 1 ? <div onClick={() => this.showLayer('B_LAYER')} style={{margin: '20px'}} className={!this.state.B_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div> : null}
+                    </div>
                 </div>
                 <div className='pierRight' style={{ marginLeft: 30 }}>
                     {this.state.map ? <PierRightPanel datas={this.props.datas} map={this.state.map} setFatherState={this.setFatherState}/> : null}
