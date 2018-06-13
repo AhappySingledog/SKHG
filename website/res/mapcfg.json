@@ -184,7 +184,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CIC_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
