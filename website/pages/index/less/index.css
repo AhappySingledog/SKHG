@@ -396,7 +396,7 @@ body > div:nth-of-type(1) {
   background-size: 100% 100%;
 }
 .warningTip-b {
-  width: 2466px;
+  width: 3466px;
   height: 1168px;
   background: url('../images/底框.png') no-repeat;
   background-size: 100% 100%;
@@ -4200,14 +4200,16 @@ body > div:nth-of-type(1) {
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   text-align: center;
-  margin-top: 30px;
+  position: relative;
+  top: 35px;
 }
 .znyjs_yj_fot {
   color: #ffffff;
+  position: relative;
+  top: 45px;
+  width: 510px;
   text-align: center;
-  margin-top: 10px;
-  padding: 10px 50px 0px 50px;
-  font-size: 50px;
+  left: 100px;
 }
 .loading {
   width: 95%;
@@ -4270,37 +4272,39 @@ body > div:nth-of-type(1) {
 }
 .znbjs_bj_num {
   display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  flex-direction: row;
+  position: relative;
+  top: 50px;
 }
 .znbjs_bj_num > div {
-  font-size: 70px;
+  font-size: 100px;
   font-family: "DS-DIGIB_0" !important;
   font-style: normal;
   -webkit-font-smoothing: antialiased;
   -webkit-text-stroke-width: 0.2px;
   text-align: center;
+  position: relative;
+  left: 70px;
+  margin: 0 35px;
 }
 .znbjs_bj_num_ycl {
   color: #70e100;
-  margin-top: 35px;
 }
 .znbjs_bj_num_wcl {
   color: #ff0000;
-  margin-top: 20px;
 }
 .znbjs_bj_num_fgx {
-  height: 5px;
+  height: 80px;
   background: #1D93F4;
-  width: 500px;
-  margin-left: 41px;
-  margin-top: 15px;
+  width: 10px;
 }
 .znbjs_bj_fot {
   color: #ffffff;
   text-align: center;
   font-family: MicrosoftYaHei;
-  margin-top: 10px;
-  padding: 10px 50px 0px 50px;
-  font-size: 35px;
+  font-size: 50px;
+  position: relative;
+  top: 72px;
+  width: 450px;
+  left: 55px;
 }
