@@ -261,14 +261,14 @@ class PortRightBGDL extends React.Component {
                     </div>
                     <div className="BGDL_left_right">
                         <div></div>
-                        <span>{Number(leftGQ.CHECKNUM).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}</span>
+                        <span>{Number(leftGQ.DECLARATION).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}</span>
                     </div>
                 </div>
 
                 <div className="BGDL_right">
                     <div className="BGDL_right_left">
                         <div></div>
-                        <span>{Number(rightGQ.CHECKNUM).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}</span>
+                        <span>{Number(rightGQ.DECLARATION).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,')}</span>
                     </div>
                     <div className="BGDL_right_right">
                         <div className="BGDL_right_right_jkdl">
@@ -429,8 +429,8 @@ export default class PortRight extends React.Component {
 
     componentDidMount() {
         Promise.all([
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "CUSTOMSCODE='5304关区' AND ROWNUM <= 1 ORDER BY EFFECTDATE DESC" } }),
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "CUSTOMSCODE='5349关区' AND ROWNUM <= 1 ORDER BY EFFECTDATE DESC" } }),
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5304关区') AND CUSTOMSCODE='5304关区'" } }),
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5349关区') AND CUSTOMSCODE='5349关区'" } }),
             publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: "1=1" } }),
         ]).then((res) => {
             let leftGQ = res[0][0].data[0];

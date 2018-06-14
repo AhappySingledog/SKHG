@@ -1157,7 +1157,7 @@ subscribes({
             var value = ops.value.value;
             var names = ops.value.name;
             var min = 0;
-            var max = 100;
+            var max = value;
             var size = '70%';
             var initcolor = '#F26D12';
 
@@ -1188,7 +1188,7 @@ subscribes({
 
             return {
                 title: {
-                    text: value + '%',
+                    text: value + '小时',
                     x: 'center',
                     y: '35%',
                     textStyle: {

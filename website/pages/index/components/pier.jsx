@@ -169,47 +169,47 @@ class MapOperation extends React.Component {
     }
 
     getVideoAndDisplay = (ops) => {
-        // let map = ops.map;
-        // let type = ops.type;
-        // let data = ops.data;
-        // map.mapDisplay.clearLayer('VIDEO_LD_LAYER');
-        // let where = '1=1';
-        // if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
-        // if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
-        // publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: where } }).then((res) => {
-        //     res[0].data.forEach((e, i) => {
-        //         let param = {
-        //             id: 'VIDEO_LD_LAYER' + i,
-        //             layerId: 'VIDEO_LD_LAYER',
-        //             layerIndex: 999,
-        //             src: VideoIcon,
-        //             width: 100,
-        //             height: 140,
-        //             angle: 0,
-        //             x: e.geom.x,
-        //             y: e.geom.y,
-        //             attr: { ...e },
-        //             click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
-        //             mouseover: function (g) {
-        //                 let symbol = g.symbol;
-        //                 if (symbol.setWidth) {
-        //                     symbol.setWidth(100 + 12);
-        //                     symbol.setHeight(100 + 12);
-        //                 }
-        //                 g.setSymbol(symbol);
-        //             },
-        //             mouseout: function (g) {
-        //                 let symbol = g.symbol;
-        //                 if (symbol.setWidth) {
-        //                     symbol.setWidth(100);
-        //                     symbol.setHeight(100);
-        //                 }
-        //                 g.setSymbol(symbol);
-        //             }
-        //         }
-        //         map.mapDisplay.image(param);
-        //     });
-        // });
+        let map = ops.map;
+        let type = ops.type;
+        let data = ops.data;
+        map.mapDisplay.clearLayer('VIDEO_LD_LAYER');
+        let where = '1=1';
+        if (type == '船舶') where = "SSDW='" + data.ssdw + "' AND BOWEI LIKE '%" + data.bw + "%'";
+        if (type == '集装箱') where = "SSDW='" + data.ssdw + "' AND LANWEI LIKE '%" + data.lw + "%'";
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: where } }).then((res) => {
+            res[0].data.forEach((e, i) => {
+                let param = {
+                    id: 'VIDEO_LD_LAYER' + i,
+                    layerId: 'VIDEO_LD_LAYER',
+                    layerIndex: 999,
+                    src: VideoIcon,
+                    width: 100,
+                    height: 140,
+                    angle: 0,
+                    x: e.geom.x,
+                    y: e.geom.y,
+                    attr: { ...e },
+                    click: (g) => publish('playVedio', {url: g.attributes.url, name: g.attributes.name}),
+                    mouseover: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100 + 12);
+                            symbol.setHeight(100 + 12);
+                        }
+                        g.setSymbol(symbol);
+                    },
+                    mouseout: function (g) {
+                        let symbol = g.symbol;
+                        if (symbol.setWidth) {
+                            symbol.setWidth(100);
+                            symbol.setHeight(100);
+                        }
+                        g.setSymbol(symbol);
+                    }
+                }
+                map.mapDisplay.image(param);
+            });
+        });
     }
 
     //绘制大船驳船

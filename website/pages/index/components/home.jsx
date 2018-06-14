@@ -175,7 +175,7 @@ export default class Home extends React.Component {
             drawPorts(ports);
             setTimeout(() => {
                 viewer.camera.flyTo({ //定位并缩放
-                    destination: Cesium.Cartesian3.fromDegrees(114.059378, 22.554598, 15500000.0)
+                    destination: Cesium.Cartesian3.fromDegrees(114.059378, 22.554598, 28500000.0)
                 });
                 viewer.dataSources.add(Cesium.CzmlDataSource.load(czml));
                 // setInterval(() => {

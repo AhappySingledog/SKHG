@@ -48,9 +48,9 @@ class MyLink extends React.Component {
             { name: '旅检移泊确认', show: true },
             { name: '旅检到泊确认', show: false },
             { name: '整船换装确认', show: false },
-            { name: '行政通道确认', show: false },
-            { name: '调拨通道确认', show: false },
-            { name: '远程抬闸确认', show: false }
+            { name: '行政通道系统', show: false },
+            { name: '调拨通道系统', show: false },
+            { name: '远程抬闸系统', show: false }
         ],
         flds: [],
         datas: []
