@@ -71,21 +71,22 @@ export default class ZNYBJ extends React.Component {
                 dbcl: false,
                 xztd: false,
                 lj: false,
-            }
+            },
         }
     }
 
     componentDidMount() {
         this.setState({ loading: false });
+
         /** 修改预报警 的自定义json数据 */
-        Object.keys(bjsl).map(e => {
+        Object.keys(bjsl).map((e) => {
             Promise.all([
                 publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_ALERTING_NEW' } }),
                 publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_NEW' } }),
-            ]).then(res => {
-                Object.keys(res[0][0].data[0]).map(e => { yjsl[e] ? yjsl[e].num = res[0][0].data[0][e] : null });
-                Object.keys(res[1][0].data[0]).map(e => bjsl[e].wcl = res[1][0].data[0][e]);
-                Object.keys(res[1][0].data[1]).map(e => bjsl[e].ycl = res[1][0].data[1][e]);
+            ]).then((res) => {
+                Object.keys(res[0][0].data[0]).map((e) => { yjsl[e] ? yjsl[e].num = res[0][0].data[0][e] : null });
+                Object.keys(res[1][0].data[0]).map((e) => bjsl[e].wcl = res[1][0].data[0][e]);
+                Object.keys(res[1][0].data[1]).map((e) => bjsl[e].ycl = res[1][0].data[1][e]);
                 this.setState({ loading: true });
             });
         })
@@ -96,28 +97,28 @@ export default class ZNYBJ extends React.Component {
         this.setState({ sel: e.target.value, gkyxBtn: e.target.selectedIndex });
         switch (e.target.selectedIndex) {
             case 1:
-                this.setState({ ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04"], ["WARNING01", "WARNING02"]] })
+                this.setState({ ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04'], ['WARNING01', 'WARNING02']] })
                 break;
             case 2:
-                // this.setState({ ybj: [["ALTER05", "ALTER06", "ALTER07"], ["WARNING03", "WARNING04", "WARNING05"]] })
-                this.setState({ ybj: [["ALTER05", "ALTER07"], ["WARNING03", "WARNING04", "WARNING05"]] })
+                // this.setState({ ybj: [['ALTER05', 'ALTER06', 'ALTER07'], ['WARNING03', 'WARNING04', 'WARNING05']] })
+                this.setState({ ybj: [['ALTER05', 'ALTER07'], ['WARNING03', 'WARNING04', 'WARNING05']] })
                 break;
             case 3:
                 this.setState({
-                    ybj: [["ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"
-                    ], ["WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
-                        "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"
-                    ]]
+                    ybj: [['ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15',
+                    ], ['WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
+                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23',
+                    ]],
                 })
                 break;
             default:
                 this.setState({
-                    // ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER06", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"],
-                    // ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
-                    //     "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"]]
-                    ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"],
-                    ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
-                        "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"]]
+                    // ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER06', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
+                    // ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
+                    //     'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']]
+                    ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
+                    ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
+                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
                 })
         }
     }
@@ -127,74 +128,74 @@ export default class ZNYBJ extends React.Component {
         switch (Number(e)) {
             case 1:
                 this.setState({
-                    // ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER06", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER14", "ALTER15"],
-                    ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER14", "ALTER15"],
-                    ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING15", "WARNING22", "WARNING23",]],
+                    // ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER06', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER14', 'ALTER15'],
+                    ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER14', 'ALTER15'],
+                    ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING15', 'WARNING22', 'WARNING23']],
                     btn: {
                         mt: true,
                         cic: false,
                         dbcl: false,
                         xztd: false,
                         lj: false,
-                    }
+                    },
                 })
                 break;
             case 2:
                 this.setState({
-                    ybj: [["ALTER11", "ALTER12", "ALTER13"], ["WARNING16", "WARNING17"]],
+                    ybj: [['ALTER11', 'ALTER12', 'ALTER13'], ['WARNING16', 'WARNING17']],
                     btn: {
                         mt: false,
                         cic: true,
                         dbcl: false,
                         xztd: false,
                         lj: false,
-                    }
+                    },
                 })
                 break;
             case 3:
                 this.setState({
-                    ybj: [[], ["WARNING12", "WARNING13", "WARNING14"]],
+                    ybj: [[], ['WARNING12', 'WARNING13', 'WARNING14']],
                     btn: {
                         mt: false,
                         cic: false,
                         dbcl: true,
                         xztd: false,
                         lj: false,
-                    }
+                    },
                 })
                 break;
             case 4:
                 this.setState({
-                    ybj: [[], ["WARNING18", "WARNING19"]],
+                    ybj: [[], ['WARNING18', 'WARNING19']],
                     btn: {
                         mt: false,
                         cic: false,
                         dbcl: false,
                         xztd: true,
                         lj: false,
-                    }
+                    },
                 })
                 break;
             case 5:
                 this.setState({
-                    ybj: [[], ["WARNING20", "WARNING21"]],
+                    ybj: [[], ['WARNING20', 'WARNING21']],
                     btn: {
                         mt: false,
                         cic: false,
                         dbcl: false,
                         xztd: false,
                         lj: true,
-                    }
+                    },
                 })
                 break;
             default:
                 this.setState({
-                    // ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER06", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"],
-                    // ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
-                    //     "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"]]
-                    ybj: [["ALTER01", "ALTER02", "ALTER03", "ALTER04", "ALTER05", "ALTER07", "ALTER08", "ALTER09", "ALTER10", "ALTER11", "ALTER12", "ALTER13", "ALTER14", "ALTER15"],
-                    ["WARNING01", "WARNING02", "WARNING03", "WARNING04", "WARNING05", "WARNING06", "WARNING07", "WARNING08", "WARNING09", "WARNING10", "WARNING11", "WARNING12", "WARNING13", "WARNING14", "WARNING15",
-                        "WARNING16", "WARNING17", "WARNING18", "WARNING19", "WARNING20", "WARNING21", "WARNING22", "WARNING23"]]
+                    // ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER06', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
+                    // ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
+                    //     'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']]
+                    ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
+                    ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
+                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
                 })
         }
     }
@@ -212,12 +213,12 @@ export default class ZNYBJ extends React.Component {
             this.setState({ btn: { Updown: false } });
         }
         let index = layer.load(1, { shade: [0.5, '#fff'] });
-        publish('getData', { svn: i, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
+        publish('getData', { svn: i, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : '1=1' } }).then((res) => {
             let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
             let datas = res[0].features.map((e) => e.attributes);
             this.setState(
                 {
-                    table: true, data: { data, svn: i, YN: YN }, tableJson: { flds, datas }
+                    table: true, data: { data, svn: i, YN: YN }, tableJson: { flds, datas },
                 }, () => $('#warningDesc').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend',
                     () => $('#warningDesc').removeClass('magictime spaceInUp animated')),
             );
@@ -231,7 +232,7 @@ export default class ZNYBJ extends React.Component {
         if (this.state.pageNum > 1) {
             this.setState({ pageNum: this.state.pageNum - 1 }, () => {
                 let index = layer.load(1, { shade: [0.5, '#fff'] });
-                publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
+                publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : '1=1' } }).then((res) => {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);
                     this.setState({ tableJson: { flds, datas } });
@@ -255,7 +256,7 @@ export default class ZNYBJ extends React.Component {
         if ((os / 100) > (this.state.pageNum - 1)) {
             this.setState({ pageNum: this.state.pageNum + 1 }, () => {
                 let index = layer.load(1, { shade: [0.5, '#fff'] });
-                publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : " 1=1" } }).then((res) => {
+                publish('getData', { svn: svn, tableName: data.tableName, data: { pageno: this.state.pageNum, pagesize: 100, where: YN !== null ? " ISHANDLED = '" + YN + "'" : '1=1' } }).then((res) => {
                     let flds = res[0].fields.map((e) => { return { title: e.alias, dataIndex: e.name }; });
                     let datas = res[0].features.map((e) => e.attributes);
                     this.setState({ tableJson: { flds, datas } });
@@ -284,11 +285,11 @@ export default class ZNYBJ extends React.Component {
                             {/* <div className="znybj_top_btn_mt">码头</div>
                             <div className="znybj_top_btn_cic">CIC</div> */}
                         </div> : <div className="znybj_top_btn">
-                                <div className={this.state.btn.mt ? "znybj_top_btn_mtR" : "znybj_top_btn_mt"} onClick={() => this.handleBtn("1")}>码头</div>
-                                <div className={this.state.btn.cic ? "znybj_top_btn_cicR" : "znybj_top_btn_cic"} onClick={() => this.handleBtn("2")}>CIC</div>
-                                <div className={this.state.btn.dbcl ? "znybj_top_btn_dbclR" : "znybj_top_btn_dbcl"} onClick={() => this.handleBtn("3")}>调拨车辆</div>
-                                <div className={this.state.btn.xztd ? "znybj_top_btn_xztdR" : "znybj_top_btn_xztd"} onClick={() => this.handleBtn("4")}>行政通道</div>
-                                <div className={this.state.btn.lj ? "znybj_top_btn_ljR" : "znybj_top_btn_lj"} onClick={() => this.handleBtn("5")}>旅检</div>
+                                <div className={this.state.btn.mt ? 'znybj_top_btn_mtR' : 'znybj_top_btn_mt'} onClick={() => this.handleBtn('1')}>码头</div>
+                                <div className={this.state.btn.cic ? 'znybj_top_btn_cicR' : 'znybj_top_btn_cic'} onClick={() => this.handleBtn('2')}>CIC</div>
+                                <div className={this.state.btn.dbcl ? 'znybj_top_btn_dbclR' : 'znybj_top_btn_dbcl'} onClick={() => this.handleBtn('3')}>调拨车辆</div>
+                                <div className={this.state.btn.xztd ? 'znybj_top_btn_xztdR' : 'znybj_top_btn_xztd'} onClick={() => this.handleBtn('4')}>行政通道</div>
+                                <div className={this.state.btn.lj ? 'znybj_top_btn_ljR' : 'znybj_top_btn_lj'} onClick={() => this.handleBtn('5')}>旅检</div>
                             </div>
                     }
                 </div>
@@ -340,11 +341,10 @@ class Znyj extends React.Component {
         if (NexProps.yj) {
             let data = NexProps.yj;
             let Al = {};
-            for (let a in data) { Al[data[a]] = yjsl[data[a]] };
+            for (let a in data) { Al[data[a]] = yjsl[data[a]] }
             this.setState({ ALTER: Al });
         }
     }
-
 
 
     render() {
@@ -353,7 +353,7 @@ class Znyj extends React.Component {
             <div className="znyjs">
                 {
                     Object.keys(ALTER).map((e, i) => {
-                        return <div key={"yj" + i} className="znyjs_yj" onDoubleClick={() => this.props.click(ALTER[e], 'skhg_loader', null)}>
+                        return <div key={'yj' + i} className="znyjs_yj" onDoubleClick={() => this.props.click(ALTER[e], 'skhg_loader', null)}>
                             <div className="znyjs_yj_num">{ALTER[e].num}</div>
                             <div className="znyjs_yj_fot">{ALTER[e].title}</div>
                         </div>
@@ -368,7 +368,7 @@ class Znbj extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            WARNING: bjsl
+            WARNING: bjsl,
         }
     }
 
@@ -380,7 +380,7 @@ class Znbj extends React.Component {
         if (NexProps.bj) {
             let data = NexProps.bj;
             let WA = {};
-            for (let a in data) { WA[data[a]] = bjsl[data[a]] };
+            for (let a in data) { WA[data[a]] = bjsl[data[a]] }
             this.setState({ WARNING: WA });
         }
     }
