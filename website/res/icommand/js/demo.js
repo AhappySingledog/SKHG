@@ -2,7 +2,7 @@ var g_appId = 1400086104;
 var g_localRender = null;
 var g_remoteRender = null;
 var g_token = null;
-var g_id = 'ym';
+var g_id = 'ecity';
 var g_pwd = '123456';
 var g_getUserList = null;
 var g_report = null;
@@ -10,6 +10,7 @@ var g_role = null;
 var sdk = null;
 var g_timer = null;
 var g_inRoom = false;
+var g_roomid = null;
 
 var E_IM_CustomCmd = {
     AVIMCMD_None: 0, // 无事件：0
@@ -188,6 +189,25 @@ function onLoginErr(errMsg) {
     toastr.warning("登录失败. " + "错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
 }
 
+function logOut(cb) {
+    var jsonObj = {
+        "token": g_token
+    };
+    ajaxPost(g_serverUrl + "?svc=account&cmd=logout", JSON.stringify(jsonObj),
+        function(rspJson) {
+            sdk.logout(function() {
+                g_token = null;
+                g_userSig = null;
+                cb();
+            }, function(errMsg) {
+                toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
+            });
+        }
+    );
+
+}
+
+
 function getRoomAndJoin() {
     //从业务侧获取房间列表
     if (g_inRoom == false) {
@@ -203,6 +223,7 @@ function getRoomAndJoin() {
                 var rooms = rspJson.data.rooms.filter(function (e) { return e.uid != g_id });
                 if (rooms.length > 0) {
                     var roomid = rooms[0].info.roomnum;
+                    g_roomid = roomid;
                     joinRoom(roomid, E_Role.Guest, function () {
                         sendC2CMessage(g_id, { "userAction": 2049, "actionParam": '' }, function () {
                             sendC2CMessage(g_id, {
@@ -285,6 +306,24 @@ function joinRoom(roomid, role, succ, err) {
             g_request_status = 0;
         }
     );
+}
+
+function quitRoom(cb) {
+    var url = g_serverUrl + "?svc=live&cmd=reportmemid";
+    var param = {
+        "token": g_token,
+        "id": g_id,
+        "roomnum": g_roomid,
+        "role": g_role || E_Role.Guest,
+        "operate": 1
+    };
+    ajaxPost(url, JSON.stringify(param), function(rspJson) {
+        sdk.quitRoom(function() {
+            cb();
+        }, function(errMsg) {
+            toastr.error("错误码:" + errMsg.code + " 错误信息:" + errMsg.desc);
+        });
+    });
 }
 
 function sendC2CMessage(user, msg, cb) {
@@ -542,7 +581,9 @@ function OnInit() {
  * 反初始化
  */
 function OnUninit() {
-    sdk.unInit();
+    if(g_timer) clearInterval(g_timer);
+    if(g_inRoom) quitRoom(logOut(sdk.unInit));
+    else logOut(sdk.unInit);
 }
 
 function escapeHTML(str) {
