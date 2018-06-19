@@ -204,15 +204,15 @@ export default class HomeRightPanel extends React.Component {
     render() {
         return (
             <div className='homeRightN'>
-                <div className='homeRightN-t'>
+                {/* <div className='homeRightN-t'>
                     <Panel style={{ width: 3685, padding: '20px 25px', height: 1470, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div className='homeRightN-t-title'>今日蛇关</div>
                         <Tab />
                     </Panel>
-                </div>
+                </div> */}
                 <div className='homeRightN-b'>
-                    <Panel style={{ width: 3685, padding: '20px 25px', height: 1160, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
-                        <div className='homeRightN-b-title'>舆情监控</div>
+                    <Panel style={{ width: 3688, height: 2722, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
+                        {/* <div className='homeRightN-b-title'>舆情监控</div> */}
                         <iframe className='homeRightN-b-body' src='http://101.89.80.217:30080/demo/index.html'></iframe>
                     </Panel>
                 </div>

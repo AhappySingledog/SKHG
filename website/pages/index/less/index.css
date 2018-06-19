@@ -697,7 +697,10 @@ body > div:nth-of-type(1) {
 }
 .homeRightN-b-body {
   width: 3623px;
-  height: 984px;
+  height: 2665px;
+  position: relative;
+  top: 20px;
+  border: none;
 }
 .iWarning-yj {
   display: flex;
@@ -2052,7 +2055,6 @@ body > div:nth-of-type(1) {
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  width: 500px;
 }
 .mapbtn-btn1 {
   width: 150px;
@@ -4210,6 +4212,7 @@ body > div:nth-of-type(1) {
   width: 510px;
   text-align: center;
   left: 100px;
+  font-size: 50px;
 }
 .loading {
   width: 95%;

@@ -715,7 +715,7 @@ export default class App extends React.Component {
         }
     }
     iQuery = (flag) => {
-        console.log('iQuery');
+        console.log('智能查询');
         if (flag) this.setState({ myQuery: true }, () => $('.queryBox').addClass('magictime spaceInUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.queryBox').removeClass('magictime spaceInUp animated')));
         else $('.queryBox').addClass('magictime spaceOutUp animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryBox').removeClass('magictime spaceOutUp animated'); this.setState({ myQuery: false }); })
     }
@@ -726,32 +726,31 @@ export default class App extends React.Component {
         else $('.queryCount').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.queryCount').removeClass('magictime spaceOutLeft animated'); this.setState({ iCountBtn: flag }); });
     }
     iCommand = (flag) => {
-        console.log('iCommand');
+        console.log('智能指挥');
         if (flag) this.setState({ iCommand: flag, iCountBtn: false, iWarningNew: false, agingControl: false }, () => $('.ic').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.ic').removeClass('magictime spaceInLeft animated')));
         else $('.ic').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.ic').removeClass('magictime spaceOutLeft animated'); this.setState({ iCommand: flag }); });
     }
     warning = () => {
-        console.log('warning');
         publish('changeLayer', { index: 4, props: {} });
     }
-    warning2 = (flag) => {
-        console.log('warning2');
-        if (flag) this.setState({ iWarningNew: flag, znybj: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
-        else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.iw').removeClass('magictime spaceOutLeft animated'); this.setState({ iWarningNew: flag }); });
-    }
+    // warning2 = (flag) => {
+    //     if (flag) this.setState({ iWarningNew: flag, znybj: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.iw').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.iw').removeClass('magictime spaceInLeft animated')));
+    //     else $('.iw').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.iw').removeClass('magictime spaceOutLeft animated'); this.setState({ iWarningNew: flag }); });
+    // }
     zbybj = (flag) => {
-        console.log(flag);
-        if (flag) this.setState({ znybj: flag, iWarningNew: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.znybj').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.znybj').removeClass('magictime spaceInLeft animated')));
+        console.log('智能预报警');
+        if (flag) this.setState({ znybj: !this.state.znybj, iWarningNew: false, iCommand: false, iCountBtn: false, agingControl: false }, () => $('.znybj').addClass('magictime spaceInLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.znybj').removeClass('magictime spaceInLeft animated')));
         else $('.znybj').addClass('magictime spaceOutLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.znybj').removeClass('magictime spaceOutLeft animated'); this.setState({ znybj: flag }); });
     }
     link = () => {
-        console.log('link');
+        console.log('智能链接');
         let flag = !this.state.warningTip;
         if (flag) this.setState({ warningTip: flag }, () => $('.warningTip').addClass('showAnimete_1 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.warningTip').removeClass('showAnimete_1 animated')));
         else $('.warningTip').addClass('showAnimete_2 animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('.warningTip').removeClass('showAnimete_2 animated'); this.setState({ warningTip: flag }); });
     }
     agingControl = () => {
-        this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false });
+        console.log('时效管控');
+        this.setState({ zbybj: false }, () => {this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
     }
     goBack = () => {
         let index = this.state.index;
