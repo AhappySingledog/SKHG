@@ -24,13 +24,26 @@ class Timer extends React.Component {
     state = { msg: '' }
     componentDidMount() {
         const week = { '1': '星期一', '2': '星期二', '3': '星期三', '4': '星期四', '5': '星期五', '6': '星期六', '7': '星期日' };
-        let tq = '晴';
+        let tq = '';
+        let postData = {
+            key: 'dfb9a576fbcb2c9a13a65ab736e47004',
+            city: '深圳',
+            extensions: 'all',
+        };
+        $.ajax({
+            url: 'http://restapi.amap.com/v3/weather/weatherInfo',
+            type: 'post',
+            data: postData,
+            success: function(status) {
+                tq = status.forecasts[0].casts[0].dayweather;
+            },
+        })
         function initWeather() {
             publish('webAction', { svn: 'sojson', path: 'weather/json.shtml', data: { city: '深圳' } }).then((res) => {
                 if (res[0].message === 'Success !') { tq = res[0].data.forecast[0].type; }
             });
         }
-        //initWeather();
+        // initWeather();
         setInterval(() => {
             let msg = moment().format('YYYY年MM月DD日 ') + week[moment().format('e')] + moment().format(' HH:mm:ss') + '           ' + tq;
             this.setState({ msg });
@@ -50,10 +63,10 @@ class MyLink extends React.Component {
             { name: '整船换装确认', show: false },
             { name: '行政通道系统', show: false },
             { name: '调拨通道系统', show: false },
-            { name: '远程抬闸系统', show: false }
+            { name: '远程抬闸系统', show: false },
         ],
         flds: [],
-        datas: []
+        datas: [],
     }
     clickTitle = (index) => {
         let items = this.state.items;
@@ -185,11 +198,11 @@ class MySelect extends React.Component {
         laydate.render({
             elem: '#dateFromTo',
             range: true,
-            change: (value, date, endDate) => this.setState({ dateFromTo: value })
+            change: (value, date, endDate) => this.setState({ dateFromTo: value }),
         });
     }
     onChange = () => {
-        let val = $('#bjlx option:selected').val();//选中的值
+        let val = $('#bjlx option:selected').val();// 选中的值
         this.setState({ lx: val });
     }
     render() {
@@ -205,7 +218,7 @@ class MySelect extends React.Component {
         let lx2 = {
             jk: [
                 { key: 'IMAP_WARNING_01', name: '国际中转集装箱滞港超90天' },
-                { key: 'IMAP_WARNING_02', name: '国际中转集装箱滞港超180天' }
+                { key: 'IMAP_WARNING_02', name: '国际中转集装箱滞港超180天' },
             ],
             ck: [
                 { key: 'IMAP_WARNING_02', name: '出口提前申报后超3天未抵运' },
@@ -280,17 +293,17 @@ class MyQuery extends React.Component {
         let h = 772;
         if (index === 0) {
             flds = [
-                { "title": "港区", "dataIndex": "TERMINALCODE" },
-                { "title": "船舶类型", "dataIndex": "VESSELTYPE" },
-                { "title": "泊位", "dataIndex": "BERTHNO" },
-                { "title": "船舶编码", "dataIndex": "EVESSELNAME" },
-                { "title": "船舶中文名", "dataIndex": "CVESSELNAME" },
-                { "title": "卸船箱量", "dataIndex": "DISCHARGE" },
-                { "title": "装船箱量", "dataIndex": "LOADING" },
-                { "title": "卸船空箱量", "dataIndex": "DISCHARGE_E" },
-                { "title": "卸船重箱量", "dataIndex": "DISCHARGE_F" },
-                { "title": "装船空箱量", "dataIndex": "LOADING_E" },
-                { "title": "装船重箱量", "dataIndex": "LOADING_F" }
+                { 'title': '港区', 'dataIndex': 'TERMINALCODE' },
+                { 'title': '船舶类型', 'dataIndex': 'VESSELTYPE' },
+                { 'title': '泊位', 'dataIndex': 'BERTHNO' },
+                { 'title': '船舶编码', 'dataIndex': 'EVESSELNAME' },
+                { 'title': '船舶中文名', 'dataIndex': 'CVESSELNAME' },
+                { 'title': '卸船箱量', 'dataIndex': 'DISCHARGE' },
+                { 'title': '装船箱量', 'dataIndex': 'LOADING' },
+                { 'title': '卸船空箱量', 'dataIndex': 'DISCHARGE_E' },
+                { 'title': '卸船重箱量', 'dataIndex': 'DISCHARGE_F' },
+                { 'title': '装船空箱量', 'dataIndex': 'LOADING_E' },
+                { 'title': '装船重箱量', 'dataIndex': 'LOADING_F' },
             ];
             let query = (ops) => {
                 let index = layer.load(1, { shade: [0.5, '#fff'] });
@@ -389,14 +402,14 @@ class MyQuery extends React.Component {
                 <div key={1} style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between', width: '100%', height: height }}>
                     <Table rowNo={true} title={{ name: '集装箱信息', export: false, items: [<QueryBox key={1} name='箱号' query={query} />] }} style={{ width: '100%', height: h }} id={id1} selectedIndex={null} flds={flds} datas={this.state.container.datas1} trClick={null} trDbclick={trClick} />
                     <Table rowNo={true} title={{ name: '集装箱历史轨迹', export: false }} style={{ width: '100%', height: h }} id={id2} selectedIndex={null} flds={flds2} datas={this.state.container.datas2} trClick={null} trDbclick={null} />
-                </div>
+                </div>,
             ];
         }
         else if (index === 2) {
             flds = [
                 { title: '仓库名', dataIndex: 'a' },
                 { title: '当前库存量', dataIndex: 'b' },
-                { title: '所属单位', dataIndex: 'c' }
+                { title: '所属单位', dataIndex: 'c' },
             ];
             content = [
                 <Table key={1} rowNo={true} title={{ name: '仓库信息', export: false, items: [<QueryBox key={1} name='' query={(e) => alert(e)} />] }} style={{ width: '100%', height: height }} id={id1} selectedIndex={null} flds={flds} datas={this.state.wareHouse.datas1} trClick={null} trDbclick={null} />,
@@ -420,7 +433,7 @@ class MyQuery extends React.Component {
                 }
                 else {
                     let index = layer.load(1, { shade: [0.5, '#fff'] });
-                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='" + no + "'" } }).then(res => {
+                    publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_SCCT_RELEASE', where: "Bl_Nbr='" + no + "'" } }).then((res) => {
                         if (res[0].success) {
                             flds = Object.keys(res[0].attr).map((key) => { return { title: res[0].attr[key], dataIndex: key } });
                             this.setState({ list: { datas1: res[0].data } });
@@ -614,7 +627,7 @@ export default class App extends React.Component {
         iWarningNew: false,
         znybj: false,
         agingControl: false,
-        scaleCv: true
+        scaleCv: true,
     }
     layers = {}
     componentDidMount() {
@@ -627,13 +640,13 @@ export default class App extends React.Component {
         publish('changeLayer', { index: 0, props: {} });
         let format = function (date, fmt) {
             var o = {
-                'M+': date.getMonth() + 1,                 //月份 
-                'd+': date.getDate(),                    //日 
-                'h+': date.getHours(),                   //小时 
-                'm+': date.getMinutes(),                 //分 
-                's+': date.getSeconds(),                 //秒 
-                'q+': Math.floor((date.getMonth() + 3) / 3), //季度 
-                'S': date.getMilliseconds()             //毫秒 
+                'M+': date.getMonth() + 1,                 // 月份 
+                'd+': date.getDate(),                    // 日 
+                'h+': date.getHours(),                   // 小时 
+                'm+': date.getMinutes(),                 // 分 
+                's+': date.getSeconds(),                 // 秒 
+                'q+': Math.floor((date.getMonth() + 3) / 3), // 季度 
+                'S': date.getMilliseconds(),             // 毫秒 
             };
             if (/(y+)/.test(fmt)) {
                 fmt = fmt.replace(RegExp.$1, (date.getFullYear() + '').substr(4 - RegExp.$1.length));
@@ -656,7 +669,7 @@ export default class App extends React.Component {
                 if (temp.data.length > 0) {
                     let flds = [
                         { title: '参数名', dataIndex: 'key' },
-                        { title: '参数值', dataIndex: 'value' }
+                        { title: '参数值', dataIndex: 'value' },
                     ];
                     let datas = Object.keys(temp.attr).map((e) => { return { key: temp.attr[e], value: temp.data[0][e] } });
                     this.setState({ warning: { title: '空柜有货', msg: <Table className='mtable-warning' title={null} style={{ width: 2720, height: 1240, overflow: 'auto' }} id={'bb'} selectedIndex={null} flds={flds} datas={datas} trClick={null} trDbclick={null} myTd={null} /> } });
@@ -764,7 +777,7 @@ export default class App extends React.Component {
                 this.setState({ cv: {} }, () => this.setState({ cv: data[7] }));
             }
         } catch (e) {
-            alert("没有接入到视频信息");
+            alert('没有接入到视频信息');
         }
     }
     closeVedio = () => {

@@ -108,11 +108,11 @@ class PortRightCen extends React.Component {
 
         const boxNum = [
             {
-                'name': '查验完毕柜数', 'num': '7856'
+                'name': '查验完毕柜数', 'num': '7856',
             }, {
-                'name': '在场柜数柜数', 'num': '7856'
+                'name': '在场柜数柜数', 'num': '7856',
             }, {
-                'name': '待调拨入场柜数', 'num': '7856'
+                'name': '待调拨入场柜数', 'num': '7856',
             }]
         return (
             <div className="Cen">
@@ -289,7 +289,7 @@ class PortRightBGDL extends React.Component {
 /** 底下的数据展示 */
 class PortRightData extends React.Component {
     componentWillReceiveProps(nextpro) {
-        let { leftGQ, rightGQ } = this.props;
+        let { leftGQ, rightGQ } = nextpro;
         const data = [{ 'value': leftGQ.CLEAREDEFFICIENCY || 0, 'name': '通关效率' }, { 'value': leftGQ.CHECKEFFICIENCY || 0, 'name': '查验时效' }];
         publish('port_pie_xl', { value: data[0] || 0 }).then((res) => {
             if (this.chart1) this.chart1.dispose();
@@ -326,7 +326,7 @@ class PortRightData extends React.Component {
 
     render() {
         let { leftGQ, rightGQ } = this.props;
-        console.log( Number(leftGQ.CHECKNUMOUT).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'));
+        console.log(Number(leftGQ.CHECKNUMOUT).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'));
         // console.info( a.replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){  
         //     return s+','  
         //   }) ) 
@@ -431,7 +431,7 @@ export default class PortRight extends React.Component {
         Promise.all([
             publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5304关区') AND CUSTOMSCODE='5304关区'" } }),
             publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5349关区') AND CUSTOMSCODE='5349关区'" } }),
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: "1=1" } }),
+            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: '1=1' } }),
         ]).then((res) => {
             let leftGQ = res[0][0].data[0];
             let rightGQ = res[1][0].data[0];

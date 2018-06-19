@@ -21,29 +21,29 @@ let textStyle = [{
 {
     color: 'white',
     fontSize: 80,
-}
+},
 ];
 const bgColor = '#051658';
 let axisStyle = [{
     axisLine: {
         lineStyle: {
-            color: 'white'
-        }
+            color: 'white',
+        },
     },
     axisLabel: {
         color: 'white',
-        fontSize: 15
-    }
+        fontSize: 15,
+    },
 }, {
     axisLine: {
         lineStyle: {
-            color: 'white'
-        }
+            color: 'white',
+        },
     },
     axisLabel: {
         color: 'white',
-        fontSize: 50
-    }
+        fontSize: 50,
+    },
 }];
 let legendStyle = [{
     top: 10,
@@ -53,7 +53,7 @@ let legendStyle = [{
     textStyle: {
         color: 'white',
         fontSize: 20,
-    }
+    },
 },
 {
     top: 20,
@@ -63,8 +63,8 @@ let legendStyle = [{
     textStyle: {
         color: 'white',
         fontSize: 40,
-    }
-}
+    },
+},
 ];
 
 let month = ['2017/04', '2017/05', '2017/06', '2017/07', '2017/08', '2017/09', '2017/10', '2017/11', '2017/12', '2018/01', '2018/02', '2018/03'];
@@ -102,7 +102,7 @@ function bd09togcj02(bd_lon, bd_lat) {
     var gg_lat = z * Math.sin(theta);
     return {
         lng: gg_lng,
-        lat: gg_lat
+        lat: gg_lat,
     };
 }
 
@@ -125,7 +125,7 @@ function gcj02towgs84(lng, lat) {
     var mglng = lng + dlng;
     return {
         lng: mglng,
-        lat: mglat
+        lat: mglat,
     };
 }
 
@@ -134,7 +134,7 @@ function bd2wgs84(lng, lat) {
     let p2 = gcj02towgs84(p1.lng, p1.lat);
     return {
         lng: p2.lng,
-        lat: p2.lat
+        lat: p2.lat,
     };
 }
 
@@ -309,8 +309,8 @@ subscribes({
             clock: {
                 interval: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
                 currentTime: '2012-08-04T10:00:00Z',
-                multiplier: 10
-            }
+                multiplier: 10,
+            },
         }, {
             id: 'path',
             name: '',
@@ -329,19 +329,19 @@ subscribes({
                     // }
                     polylineArrow: {
                         color: {
-                            rgba: [230, 33, 41, 255]
-                        }
-                    }
+                            rgba: [230, 33, 41, 255],
+                        },
+                    },
                 },
                 width: 80,
                 leadTime: 0,
                 trailTime: 9999999999999999999999999999,
-                resolution: 5
+                resolution: 5,
             },
             position: {
                 epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data, 3)
-            }
+                cartographicDegrees: getLine(data, 3),
+            },
         }, {
             id: 'path1',
             name: '',
@@ -360,19 +360,19 @@ subscribes({
                     // }
                     polylineArrow: {
                         color: {
-                            rgba: [255, 156, 0, 255]
-                        }
-                    }
+                            rgba: [255, 156, 0, 255],
+                        },
+                    },
                 },
                 width: 80,
                 leadTime: 0,
                 trailTime: 9999999999999999999999999999,
-                resolution: 5
+                resolution: 5,
             },
             position: {
                 epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data2, 12)
-            }
+                cartographicDegrees: getLine(data2, 12),
+            },
         }, {
             id: 'path2',
             name: '',
@@ -391,23 +391,23 @@ subscribes({
                     // }
                     polylineArrow: {
                         color: {
-                            rgba: [255, 156, 0, 255]
-                        }
-                    }
+                            rgba: [255, 156, 0, 255],
+                        },
+                    },
                 },
                 width: 80,
                 leadTime: 0,
                 trailTime: 9999999999999999999999999999,
-                resolution: 5
+                resolution: 5,
             },
             position: {
                 epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data3, 10)
-            }
+                cartographicDegrees: getLine(data3, 10),
+            },
         }];
         return {
             ports: ports,
-            czml: czml
+            czml: czml,
         };
     },
 }, {
@@ -415,115 +415,115 @@ subscribes({
         func: (ops) => {
             let flds = [{
                 name: 'name',
-                title: '港口名称'
+                title: '港口名称',
             },
             {
                 name: 'position',
-                title: '港口位置'
+                title: '港口位置',
             },
             {
                 name: 'teu',
-                title: '港口年吞吐量'
+                title: '港口年吞吐量',
             },
             {
                 name: 'time',
-                title: '招商运营时间'
+                title: '招商运营时间',
             },
             ];
             let datas = [{
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             {
                 name: '北海港',
                 position: '北海港',
                 teu: '345 TEU',
-                time: 1983
+                time: 1983,
             },
             {
                 name: '八所港',
                 position: '八所港',
                 teu: '235 TEU',
-                time: 1982
+                time: 1982,
             },
             ];
             return {
                 flds: flds,
-                datas: datas
+                datas: datas,
             };
         },
     }, {
@@ -540,7 +540,7 @@ subscribes({
                     textStyle: {
                         color: '#58DABC',
                         fontSize: 35,
-                    }
+                    },
                 }, {
                     text: '征收金额(亿元)',
                     x: '56%',
@@ -549,7 +549,7 @@ subscribes({
                     textStyle: {
                         color: '#52BEFC',
                         fontSize: 35,
-                    }
+                    },
                 }, {
                     text: '通关效率(小时)',
                     x: '6%',
@@ -558,7 +558,7 @@ subscribes({
                     textStyle: {
                         color: '#FFB84E',
                         fontSize: 35,
-                    }
+                    },
                 }, {
                     text: '查验时效(小时)',
                     x: '56%',
@@ -567,89 +567,89 @@ subscribes({
                     textStyle: {
                         color: '#FFB84E',
                         fontSize: 35,
-                    }
+                    },
                 }],
                 grid: [{
                     x: '4%',
                     y: '7%',
                     width: '44%',
-                    height: '39%'
+                    height: '39%',
                 },
                 {
                     x2: '2%',
                     y: '7%',
                     width: '44%',
-                    height: '39%'
+                    height: '39%',
                 },
                 {
                     x: '4%',
                     y2: '4%',
                     width: '44%',
-                    height: '39%'
+                    height: '39%',
                 },
                 {
                     x2: '2%',
                     y2: '4%',
                     width: '44%',
-                    height: '39%'
-                }
+                    height: '39%',
+                },
 
                 ],
                 tooltip: {
-                    formatter: '{a}: ({c})'
+                    formatter: '{a}: ({c})',
                 },
                 xAxis: [{
                     gridIndex: 0,
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
+                            color: '#fff',
+                        },
                     },
                     axisLabel: {
                         formatter: '{value}',
                         fontSize: 20,
                     },
-                    data: month
+                    data: month,
                 },
                 {
                     gridIndex: 1,
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
+                            color: '#fff',
+                        },
                     },
                     axisLabel: {
                         formatter: '{value}',
                         fontSize: 20,
                     },
-                    data: month
+                    data: month,
                 },
                 {
                     gridIndex: 2,
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
+                            color: '#fff',
+                        },
                     },
                     axisLabel: {
                         formatter: '{value}',
                         fontSize: 20,
                     },
-                    data: month
+                    data: month,
                 },
                 {
                     gridIndex: 3,
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
+                            color: '#fff',
+                        },
                     },
                     axisLabel: {
                         formatter: '{value}',
                         fontSize: 20,
                     },
-                    data: month
-                }
+                    data: month,
+                },
                 ],
                 yAxis: [{
                     gridIndex: 0,
@@ -659,9 +659,9 @@ subscribes({
                     },
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
-                    }
+                            color: '#fff',
+                        },
+                    },
                 },
                 {
                     gridIndex: 1,
@@ -671,9 +671,9 @@ subscribes({
                     },
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
-                    }
+                            color: '#fff',
+                        },
+                    },
                 },
                 {
                     gridIndex: 2,
@@ -683,9 +683,9 @@ subscribes({
                     },
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
-                    }
+                            color: '#fff',
+                        },
+                    },
                 },
                 {
                     gridIndex: 3,
@@ -695,10 +695,10 @@ subscribes({
                     },
                     axisLine: {
                         lineStyle: {
-                            color: '#fff'
-                        }
-                    }
-                }
+                            color: '#fff',
+                        },
+                    },
+                },
                 ],
                 series: [{
                     name: '报关单量',
@@ -713,8 +713,8 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 {
@@ -730,8 +730,8 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 {
@@ -747,8 +747,8 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 {
@@ -764,8 +764,8 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 {
@@ -781,8 +781,8 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
                 },
                 {
@@ -798,11 +798,11 @@ subscribes({
                             formatter: (params) => {
                                 if (params.value == 0) return '';
                                 return params.value;
-                            }
-                        }
+                            },
+                        },
                     },
-                }
-                ]
+                },
+                ],
             };
             return option;
         },
@@ -813,34 +813,34 @@ subscribes({
             let data1 = data.map((d) => {
                 return {
                     name: d.name + '_',
-                    value: d.value
+                    value: d.value,
                 }
             });
             return {
                 color: ['#FFBD19', '#089CEF'],
                 tooltip: {
                     trigger: 'item',
-                    formatter: '{a} <br/>{b}: {c} ({d}%)'
+                    formatter: '{a} <br/>{b}: {c} ({d}%)',
                 },
                 legend: {
                     itemWidth: 100,
                     itemHeight: 100,
                     textStyle: {
-                        fontSize: 50
+                        fontSize: 50,
                     },
                     orient: 'vertical',
                     x: 'left',
                     data: [{
                         name: '入境',
                         textStyle: {
-                            color: '#ffffff'
+                            color: '#ffffff',
                         },
 
                     }, {
                         name: '出境',
                         textStyle: {
-                            color: '#ffffff'
-                        }
+                            color: '#ffffff',
+                        },
                     }],
                 },
                 series: [{
@@ -853,24 +853,26 @@ subscribes({
                             formatter: '{b}\n{d}%',
                             padding: 100,
                             width: 200,
-                        }
+                        },
                     },
                     data: [{
                         value: 39.05,
-                        name: '入境'
+                        name: '入境',
                     },
                     {
                         value: 60.95,
-                        name: '出境'
+                        name: '出境',
                     },
-                    ]
-                }]
+                    ],
+                }],
             }
         },
     }, {
+
         /** 进出港口箱子饼状图 */
         sub: 'port_pie_gk',
         func: (ops) => {
+
             /**
              * 双层圆环图
              * param1    value值  
@@ -880,7 +882,7 @@ subscribes({
 
             var value = ops.value;
             var min = 0;
-            var max = ops.value  * 1.1;
+            var max = ops.value * 1.1;
             var size = '100%';
             var initcolor = '#30979C';
 
@@ -888,25 +890,25 @@ subscribes({
             var dataStyle = {
                 normal: {
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
+                        show: false,
                     },
                     shadowBlur: 40,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
+                    shadowColor: 'rgba(40, 40, 40, 0.5)',
+                },
             };
             var placeHolderStyle = {
                 normal: {
-                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
+                    color: 'rgba(44,59,70,0)', // 未完成的圆环的颜色
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
-                    }
-                }
+                        show: false,
+                    },
+                },
             };
 
             return {
@@ -917,42 +919,42 @@ subscribes({
                     textStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.6
+                        fontSize: parseInt(size) * 0.6,
                     },
                     subtext: 'TEU',
                     subtextStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.4
-                    }
+                        fontSize: parseInt(size) * 0.4,
+                    },
                 },
                 color: ['#fff', '#313443', '#fff'],
                 tooltip: {
                     show: false,
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    formatter: '{a} <br/>{b} : {c} ({d}%)',
                 },
                 legend: {
                     show: false,
                     itemGap: 12,
-                    data: ['01', '02']
+                    data: ['01', '02'],
                 },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
-                            show: true
+                            show: true,
                         },
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 series: [{
                     name: 'Line 1',
@@ -968,20 +970,20 @@ subscribes({
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
                                     offset: 0,
-                                    color: color
+                                    color: color,
                                 }, {
                                     offset: 1,
-                                    color: color
+                                    color: color,
                                 }]),
                             },
                         },
                     }, {
                         value: max - value,
                         name: 'invisible',
-                        itemStyle: placeHolderStyle
-                    }
+                        itemStyle: placeHolderStyle,
+                    },
 
-                    ]
+                    ],
                 }, {
                     name: 'Line 2',
                     type: 'pie',
@@ -991,7 +993,7 @@ subscribes({
                     itemStyle: dataStyle,
                     hoverAnimation: false,
                     tooltip: {
-                        show: false
+                        show: false,
                     },
                     data: [{
                         value: 0,
@@ -1000,15 +1002,17 @@ subscribes({
                             normal: {
                                 color: color,
                             },
-                        }
-                    }]
-                }]
+                        },
+                    }],
+                }],
             }
-        }
+        },
     }, {
+
         /** 进出闸口箱子斌状图 */
         sub: 'port_pie_zk',
         func: (ops) => {
+
             /**
              * 双层圆环图
              * param1    value值  
@@ -1026,25 +1030,25 @@ subscribes({
             var dataStyle = {
                 normal: {
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
+                        show: false,
                     },
                     shadowBlur: 40,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
+                    shadowColor: 'rgba(40, 40, 40, 0.5)',
+                },
             };
             var placeHolderStyle = {
                 normal: {
-                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
+                    color: 'rgba(44,59,70,0)', // 未完成的圆环的颜色
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
-                    }
-                }
+                        show: false,
+                    },
+                },
             };
 
             return {
@@ -1055,42 +1059,42 @@ subscribes({
                     textStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.6
+                        fontSize: parseInt(size) * 0.6,
                     },
                     subtext: 'TEU',
                     subtextStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.4
-                    }
+                        fontSize: parseInt(size) * 0.4,
+                    },
                 },
                 color: ['#fff', '#313443', '#fff'],
                 tooltip: {
                     show: false,
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    formatter: '{a} <br/>{b} : {c} ({d}%)',
                 },
                 legend: {
                     show: false,
                     itemGap: 12,
-                    data: ['01', '02']
+                    data: ['01', '02'],
                 },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
-                            show: true
+                            show: true,
                         },
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 series: [{
                     name: 'Line 1',
@@ -1106,20 +1110,20 @@ subscribes({
                             normal: {
                                 color: new echarts.graphic.LinearGradient(0, 0, 1, 1, [{
                                     offset: 0,
-                                    color: color
+                                    color: color,
                                 }, {
                                     offset: 1,
-                                    color: color
+                                    color: color,
                                 }]),
                             },
                         },
                     }, {
                         value: max - value,
                         name: 'invisible',
-                        itemStyle: placeHolderStyle
-                    }
+                        itemStyle: placeHolderStyle,
+                    },
 
-                    ]
+                    ],
                 }, {
                     name: 'Line 2',
                     type: 'pie',
@@ -1129,7 +1133,7 @@ subscribes({
                     itemStyle: dataStyle,
                     hoverAnimation: false,
                     tooltip: {
-                        show: false
+                        show: false,
                     },
                     data: [{
                         value: 0,
@@ -1138,15 +1142,17 @@ subscribes({
                             normal: {
                                 color: color,
                             },
-                        }
-                    }]
-                }]
+                        },
+                    }],
+                }],
             }
-        }
+        },
     }, {
+
         /** 第二页右侧圆圈 */
         sub: 'port_pie_xl',
         func: (ops) => {
+
             /**
              * 双层圆环图
              * param1    value值  
@@ -1157,7 +1163,7 @@ subscribes({
             var value = ops.value.value;
             var names = ops.value.name;
             var min = 0;
-            var max = value;
+            var max = value * 1.1;
             var size = '70%';
             var initcolor = '#F26D12';
 
@@ -1165,25 +1171,25 @@ subscribes({
             var dataStyle = {
                 normal: {
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
+                        show: false,
                     },
                     shadowBlur: 40,
-                    shadowColor: 'rgba(40, 40, 40, 0.5)'
-                }
+                    shadowColor: 'rgba(40, 40, 40, 0.5)',
+                },
             };
             var placeHolderStyle = {
                 normal: {
-                    color: 'rgba(44,59,70,0)', //未完成的圆环的颜色
+                    color: 'rgba(44,59,70,0)', // 未完成的圆环的颜色
                     label: {
-                        show: false
+                        show: false,
                     },
                     labelLine: {
-                        show: false
-                    }
-                }
+                        show: false,
+                    },
+                },
             };
 
             return {
@@ -1194,42 +1200,42 @@ subscribes({
                     textStyle: {
                         fontWeight: 'normal',
                         color: '#67F8B3',
-                        fontSize: parseInt(size) * 1
+                        fontSize: parseInt(size) * 1,
                     },
                     subtext: names,
                     subtextStyle: {
                         fontWeight: 'normal',
                         color: 'white',
-                        fontSize: parseInt(size) * 0.8
-                    }
+                        fontSize: parseInt(size) * 0.8,
+                    },
                 },
                 color: ['#fff', '#313443', '#fff'],
                 tooltip: {
                     show: false,
-                    formatter: '{a} <br/>{b} : {c} ({d}%)'
+                    formatter: '{a} <br/>{b} : {c} ({d}%)',
                 },
                 legend: {
                     show: false,
                     itemGap: 12,
-                    data: ['01', '02']
+                    data: ['01', '02'],
                 },
                 toolbox: {
                     show: false,
                     feature: {
                         mark: {
-                            show: true
+                            show: true,
                         },
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 series: [{
                     name: 'Line 1',
@@ -1246,21 +1252,21 @@ subscribes({
                                 'color': '#5886f0',
                                 'borderColor': new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: '#00a2ff'
+                                    color: '#00a2ff',
                                 }, {
                                     offset: 1,
-                                    color: '#70ffac'
+                                    color: '#70ffac',
                                 }]),
-                                'borderWidth': 25
+                                'borderWidth': 25,
                             },
                         },
                     }, {
                         value: max - value,
                         name: 'invisible',
-                        itemStyle: placeHolderStyle
-                    }
+                        itemStyle: placeHolderStyle,
+                    },
 
-                    ]
+                    ],
                 }, {
                     name: 'Line 2',
                     type: 'pie',
@@ -1270,7 +1276,7 @@ subscribes({
                     itemStyle: dataStyle,
                     hoverAnimation: false,
                     tooltip: {
-                        show: false
+                        show: false,
                     },
                     data: [{
                         value: value - min,
@@ -1280,62 +1286,67 @@ subscribes({
                                 'color': '#03A4FD',
                                 'borderColor': new echarts.graphic.LinearGradient(0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: '#00a2ff'
+                                    color: '#00a2ff',
                                 }, {
                                     offset: 1,
-                                    color: '#69FAB1'
+                                    color: '#69FAB1',
                                 }]),
-                                'borderWidth': 1
+                                'borderWidth': 1,
                             },
                         },
                     }, {
                         value: max - value,
                         name: 'invisible',
-                        itemStyle: placeHolderStyle
-                    }
+                        itemStyle: placeHolderStyle,
+                    },
 
-                    ]
-                }]
+                    ],
+                }],
             }
-        }
+        },
     }, {
+
         /** 驳船显示 */
         sub: 'vessel_GetListAsync',
         func: (ops) => {
             return publish('webAction', {
                 svn: 'QUERY_KHSJ',
-                path: '/api/Vessel/GetListAsync'
+                path: '/api/Vessel/GetListAsync',
             }).then((res) => {
                 let data = JSON.parse(res);
                 return data;
             })
 
-        }
+        },
     }, {
+
         /** 大船显示 */
         sub: 'barge_GetListAsync',
         func: (ops) => {
             return publish('webAction', {
                 svn: 'QUERY_KHSJ',
-                path: '/api/Barge/GetListAsync'
+                path: '/api/Barge/GetListAsync',
             }).then((res) => {
                 let data = JSON.parse(res);
                 return data;
             })
-        }
+        },
     }, {
+
         /** 外拖拖车 */
         sub: 'truck_GetListAsync',
         func: (ops) => {
             return truck;
-        }
+        },
     }, {
+
         /** 表格名称 */
         sub: 'tableName_find',
         func: (ops) => {
             return tableName;
-        }
+        },
     }, {
+
         /** 业务数据-雷达图 */
         sub: 'home_right_e_ldt',
         func: (ops) => {
@@ -1344,7 +1355,7 @@ subscribes({
                 tooltip: {
                     textStyle: {
                         fontSize: 40,
-                    }
+                    },
                 },
                 legend: {
                     top: '2%',
@@ -1353,68 +1364,68 @@ subscribes({
                     itemGap: 30,
                     textStyle: {
                         fontSize: 45,
-                        color: 'white'
+                        color: 'white',
                     },
-                    data: ['2017年12月', '2018年1月']
+                    data: ['2017年12月', '2018年1月'],
                 },
                 radar: [{
                     indicator: [{
                         name: '入库税款（亿元）',
-                        max: 15
+                        max: 15,
                     },
                     {
                         name: '报关单量（万票）',
-                        max: 20
+                        max: 20,
                     },
                     {
                         name: '查验时效-进口（小时）',
-                        max: 20
+                        max: 20,
                     },
                     {
                         name: '查验时效-出口（小时）',
-                        max: 10
+                        max: 10,
                     },
                     {
                         name: '通关时效-进口（小时）',
-                        max: 40
+                        max: 40,
                     },
                     {
                         name: '通关时效-出口（小时）',
-                        max: 5
-                    }
+                        max: 5,
+                    },
                     ],
                     center: ['50%', '52%'],
-                    //radius: 200,
+                    // radius: 200,
                     startAngle: 90,
                     splitNumber: 4,
-                    //shape: 'circle',
+                    // shape: 'circle',
                     name: {
                         formatter: '{value}',
                         textStyle: {
                             color: 'white',
-                            fontSize: 40
-                        }
+                            fontSize: 40,
+                        },
                     },
                     splitArea: {
                         areaStyle: {
                             color: ['rgba(173, 245, 164, 0.2)',
                                 'rgba(173, 245, 164, 0.4)', 'rgba(173, 245, 164, 0.6)',
-                                'rgba(173, 245, 164, 0.8)', 'rgba(173, 245, 164, 1)'
+                                'rgba(173, 245, 164, 0.8)', 'rgba(173, 245, 164, 1)',
                             ],
                             shadowColor: 'rgba(0, 0, 0, 0.3)',
-                            shadowBlur: 10
-                        }
+                            shadowBlur: 10,
+                        },
                     },
                     axisLine: {
                         lineStyle: {
-                            color: 'rgba(255, 255, 255, 0.5)'
-                        }
+                            color: 'rgba(255, 255, 255, 0.5)',
+                        },
                     },
                     splitLine: {
                         lineStyle: {
-                            color: 'rgba(255, 255, 255, 0.5)'
-                        }
-                    }
+                            color: 'rgba(255, 255, 255, 0.5)',
+                        },
+                    },
                 }],
                 series: [{
                     name: '业务数据',
@@ -1428,7 +1439,7 @@ subscribes({
                         value: [14.2, 14.3, 3.59, 1.41, 18.45, 1],
                         name: '2017年12月',
                         lineStyle: {
-                            width: 30
+                            width: 30,
                         },
                         symbolSize: 30,
                     },
@@ -1436,16 +1447,17 @@ subscribes({
                         value: [11.4, 14.1, 2.69, 1.85, 19.55, 0.88],
                         name: '2018年1月',
                         lineStyle: {
-                            width: 30
+                            width: 30,
                         },
                         symbolSize: 30,
-                    }
-                    ]
-                }]
+                    },
+                    ],
+                }],
             };
             return option;
-        }
+        },
     }, {
+
         /** 园区今日数量展示图 */
         sub: 'pire_right_yq_axis',
         func: (ops) => {
@@ -1455,7 +1467,7 @@ subscribes({
             }
             if (ops.value.list.length < 9) {
                 for (var b = ops.value.list.length; b < 9; b++) {
-                    barData.push("");
+                    barData.push('');
                 }
             }
             let yAxisMonth = ops.value.list.length;
@@ -1466,26 +1478,26 @@ subscribes({
             for (let i = 0; i < barData.length; i++) {
                 barDataTwo.push(Math.max.apply(Math, barData) + 5000);
                 coordData.push({
-                    'coord': [Number(barData[i]) - 1, i]
+                    'coord': [Number(barData[i]) - 1, i],
                 });
                 coordData2.push({
-                    'coord': [Math.max.apply(Math, barData) + 5000, i]
+                    'coord': [Math.max.apply(Math, barData) + 5000, i],
                 })
             }
             return {
                 backgroundColor: '#051658',
                 title: {
-                    text: ''
+                    text: '',
                 },
                 legend: null,
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
-                        type: 'none'
+                        type: 'none',
                     },
                     formatter: function (params) {
                         return params[0].name + '今日仓库库存: ' + params[0].value;
-                    }
+                    },
                 },
                 grid: {
                     containLabel: true,
@@ -1499,54 +1511,54 @@ subscribes({
                     data: yAxisMonth,
                     inverse: true,
                     axisLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                 },
                 {
                     data: yAxisMonth,
                     inverse: true,
                     axisLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
                     },
                 },
                 ],
                 xAxis: [{
                     type: 'value',
                     splitLine: {
-                        show: false
+                        show: false,
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLine: {
-                        show: false
-                    }
+                        show: false,
+                    },
                 }, {
                     type: 'value',
                     splitLine: {
-                        show: false
+                        show: false,
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLine: {
-                        show: false
-                    }
+                        show: false,
+                    },
                 }],
                 series: [{
                     z: 10,
@@ -1561,9 +1573,9 @@ subscribes({
                             position: 'inside',
                             textStyle: {
                                 fontSize: 50,
-                                color: '#00ffff'
-                            }
-                        }
+                                color: '#00ffff',
+                            },
+                        },
                     },
                     symbolRepeat: false,
                     symbolSize: heightWidth,
@@ -1577,14 +1589,14 @@ subscribes({
                             {
                                 offset: 0.5,
                                 color: '#0272f2',
-                                opacity: 0.7
+                                opacity: 0.7,
                             }, {
                                 offset: 1,
                                 color: '#083e6d',
-                                opacity: 0.5
-                            }
+                                opacity: 0.5,
+                            },
                             ], false),
-                        }
+                        },
                     },
                     symbolClip: true,
                     symbolPosition: 'end',
@@ -1597,12 +1609,12 @@ subscribes({
                         z: 3,
                         label: {
                             normal: {
-                                show: false
-                            }
+                                show: false,
+                            },
                         },
                         symbolClip: true,
                         symbol: 'path://M 300 100 L 100 100 L 100 300 z',
-                    }
+                    },
                 },
                 {
                     z: 6,
@@ -1619,9 +1631,9 @@ subscribes({
                             position: 'inside',
                             textStyle: {
                                 fontSize: 12,
-                                color: '#00ffff'
-                            }
-                        }
+                                color: '#00ffff',
+                            },
+                        },
                     },
                     symbolRepeat: false,
                     symbolSize: heightWidth,
@@ -1629,8 +1641,8 @@ subscribes({
                     itemStyle: {
                         normal: {
                             color: '#00abc5',
-                            opacity: 0.085
-                        }
+                            opacity: 0.085,
+                        },
                     },
                     symbolClip: true,
                     symbol: 'rect',
@@ -1640,41 +1652,42 @@ subscribes({
                         symbolOffset: [-0.5, 0],
                         label: {
                             normal: {
-                                show: false
-                            }
+                                show: false,
+                            },
                         },
                         itemStyle: {
                             normal: {
                                 color: '#00abc5',
-                                opacity: 0.085
-                            }
+                                opacity: 0.085,
+                            },
                         },
                         symbolClip: true,
                         symbol: 'path://M 300 100 L 100 100 L 100 300 z',
 
-                    }
+                    },
                 },
-                ]
+                ],
             }
-        }
+        },
     }, {
+
         /** 散装码头柱形图 */
         sub: 'port_2_bar',
         func: (ops) => {
 
             var xData = [{
                 'name': '船舶进港',
-                'value': 2134
+                'value': 2134,
             }, {
                 'name': '船舶出港',
-                'value': 1327
+                'value': 1327,
             }];
             var yData = [{
                 'name': '船舶进港',
-                'value': 5212
+                'value': 5212,
             }, {
                 'name': '船舶出港',
-                'value': 3213
+                'value': 3213,
             }];
             return {
                 backgroundColor: '#051658',
@@ -1685,29 +1698,29 @@ subscribes({
                     top: '7%',
                     height: '85%',
                     containLabel: true,
-                    z: 22
+                    z: 22,
                 },
                 tooltip: {
                     show: 'true',
                     trigger: 'item',
                     backgroundColor: 'rgba(0,0,0,0.7)', // 背景
-                    padding: [8, 10], //内边距
-                    extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);', //添加阴影
+                    padding: [8, 10], // 内边距
+                    extraCssText: 'box-shadow: 0 0 3px rgba(255, 255, 255, 0.4);', // 添加阴影
                     formatter: function (params) {
                         return params.seriesName + ' ：  ' + params.value;
-                    }
+                    },
                 },
 
                 xAxis: {
                     type: 'category',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLine: {
                         show: true,
                         lineStyle: {
                             color: '#FFFFFF',
-                        }
+                        },
                     },
                     axisLabel: {
                         inside: false,
@@ -1717,7 +1730,7 @@ subscribes({
                             fontSize: '58',
                         },
                     },
-                    data: ['昨日', '今日']
+                    data: ['昨日', '今日'],
                 },
                 yAxis: {
                     type: 'value',
@@ -1728,13 +1741,13 @@ subscribes({
                         show: true,
                         lineStyle: {
                             color: '#FFFFFF',
-                        }
+                        },
                     },
                     splitLine: {
                         show: true,
                         lineStyle: {
                             color: '#363e83 ',
-                        }
+                        },
                     },
                     axisLabel: {
                         textStyle: {
@@ -1754,22 +1767,22 @@ subscribes({
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: '#00feff'
+                                    color: '#00feff',
                                 },
                                 {
                                     offset: 0.5,
-                                    color: '#027eff'
+                                    color: '#027eff',
                                 },
                                 {
                                     offset: 1,
-                                    color: '#0286ff'
-                                }
+                                    color: '#0286ff',
+                                },
                                 ]
-                            )
-                        }
+                            ),
+                        },
                     },
                     barGap: '100%',
-                    data: xData
+                    data: xData,
                 }, {
                     name: '进港船舶',
                     type: 'bar',
@@ -1780,28 +1793,29 @@ subscribes({
                             color: new echarts.graphic.LinearGradient(
                                 0, 0, 0, 1, [{
                                     offset: 0,
-                                    color: '#00feff'
+                                    color: '#00feff',
                                 },
                                 {
                                     offset: 0.5,
-                                    color: '#027eff'
+                                    color: '#027eff',
                                 },
                                 {
                                     offset: 1,
-                                    color: '#0286ff'
-                                }
+                                    color: '#0286ff',
+                                },
                                 ]
-                            )
-                        }
+                            ),
+                        },
                     },
                     barGap: '100%',
-                    data: yData
-                }]
+                    data: yData,
+                }],
 
 
             }
-        }
+        },
     }, {
+
         /** 近12个月码头提单申报情况 */
         sub: 'ICountimg_1',
         func: (ops) => {
@@ -1809,13 +1823,13 @@ subscribes({
                 color: ['#0089fe', '#ffb900', '#00e4ff'],
                 backgroundColor: bgColor,
                 tooltip: {
-                    textStyle: textStyle[ops ? 1 : 0]
+                    textStyle: textStyle[ops ? 1 : 0],
                 },
                 angleAxis: {
                     type: 'category',
                     data: [{
                         value: month[0],
-                        textStyle: textStyle[ops ? 1 : 0]
+                        textStyle: textStyle[ops ? 1 : 0],
                     },
                     month[1],
                     month[2],
@@ -1827,9 +1841,9 @@ subscribes({
                     month[8],
                     month[9],
                     month[10],
-                    month[11]
+                    month[11],
                     ],
-                    z: 10
+                    z: 10,
                 },
                 radiusAxis: {},
                 polar: {},
@@ -1838,28 +1852,29 @@ subscribes({
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'SCT',
-                    stack: 'a'
+                    stack: 'a',
                 }, {
                     type: 'bar',
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'CCT',
-                    stack: 'a'
+                    stack: 'a',
                 }, {
                     type: 'bar',
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'MCT',
-                    stack: 'a'
+                    stack: 'a',
                 }],
                 legend: {
                     show: true,
                     ...legendStyle[ops ? 1 : 0],
-                    data: ['SCT', 'CCT', 'MCT']
-                }
+                    data: ['SCT', 'CCT', 'MCT'],
+                },
             }
-        }
+        },
     }, {
+
         /** 近12个月码头船舶进出港情况 */
         sub: 'ICountimg_2',
         func: (ops) => {
@@ -1867,10 +1882,10 @@ subscribes({
                 color: ['#298aff', '#ffb900'],
                 backgroundColor: bgColor,
                 title: {
-                    text: '雷达图'
+                    text: '雷达图',
                 },
                 tooltip: {
-                    textStyle: textStyle[ops ? 1 : 0]
+                    textStyle: textStyle[ops ? 1 : 0],
                 },
                 legend: {
                     ...legendStyle[ops ? 1 : 0],
@@ -1882,12 +1897,12 @@ subscribes({
                     axisLine: {
                         lineStyle: {
                             color: '#fff',
-                        }
+                        },
                     },
                     splitLine: {
                         lineStyle: {
                             color: '#fff',
-                        }
+                        },
                     },
                     splitArea: {
                         areaStyle: {
@@ -1897,60 +1912,60 @@ subscribes({
                             shadowColor: 'rgba(0,0,0,.5)',
                             shadowOffsetX: 0,
                             shadowOffsetY: 15,
-                        }
+                        },
                     },
                     indicator: [{
                         name: '1月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '2月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '3月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '4月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '5月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '6月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '7月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '8月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '9月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '10月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '11月',
-                        max: 150
+                        max: 150,
                     },
                     {
                         name: '12月',
-                        max: 150
+                        max: 150,
                     },
                     ],
                     name: {
                         formatter: '{value}',
-                        textStyle: textStyle[ops ? 1 : 0]
+                        textStyle: textStyle[ops ? 1 : 0],
                     },
                 },
                 series: [{
@@ -1963,8 +1978,8 @@ subscribes({
                             shadowColor: 'rgba(0,0,0,.2)',
                             shadowOffsetX: 0,
                             shadowOffsetY: 10,
-                            opacity: 1
-                        }
+                            opacity: 1,
+                        },
                     },
                     data: [{
                         value: [92, 130, 83, 55, 54, 48, 75, 56, 59, 103, 86, 58],
@@ -1972,7 +1987,7 @@ subscribes({
                     }, {
                         value: [89, 83, 78, 63, 50, 52, 52, 40, 41, 60, 100, 134],
                         name: '绿色',
-                    }]
+                    }],
                 }],
                 // backgroundColor: {
                 //     type: 'radial',
@@ -1992,8 +2007,9 @@ subscribes({
                 //     globalCoord: false // 缺省为 false
                 // }
             }
-        }
+        },
     }, {
+
         /** 近12个月集装箱申报情况 */
         sub: 'ICountimg_3',
         func: (ops) => {
@@ -2004,7 +2020,7 @@ subscribes({
                     type: 'category',
                     data: [{
                         value: month[0],
-                        textStyle: textStyle[ops ? 1 : 0]
+                        textStyle: textStyle[ops ? 1 : 0],
                     },
                     month[1],
                     month[2],
@@ -2016,42 +2032,43 @@ subscribes({
                     month[8],
                     month[9],
                     month[10],
-                    month[11]
+                    month[11],
                     ],
-                    z: 10
+                    z: 10,
                 },
                 radiusAxis: {},
                 polar: {},
                 tooltip: {
-                    textStyle: textStyle[ops ? 1 : 0]
+                    textStyle: textStyle[ops ? 1 : 0],
                 },
                 series: [{
                     type: 'bar',
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'SCT',
-                    stack: 'a'
+                    stack: 'a',
                 }, {
                     type: 'bar',
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'CCT',
-                    stack: 'a'
+                    stack: 'a',
                 }, {
                     type: 'bar',
                     data: monthData,
                     coordinateSystem: 'polar',
                     name: 'MCT',
-                    stack: 'a'
+                    stack: 'a',
                 }],
                 legend: {
                     show: true,
                     ...legendStyle[ops ? 1 : 0],
-                    data: ['SCT', 'CCT', 'MCT']
-                }
+                    data: ['SCT', 'CCT', 'MCT'],
+                },
             }
-        }
+        },
     }, {
+
         /** 近12个月报关单量统计情况 */
         sub: 'ICountimg_4',
         func: (ops) => {
@@ -2071,64 +2088,64 @@ subscribes({
                     text: '报关单量',
                     textStyle: {
                         color: '#00FFFF',
-                        fontSize: 24
-                    }
+                        fontSize: 24,
+                    },
                 },
                 legend: {
                     textStyle: textStyle[ops ? 1 : 0],
-                    data: ['5349', '总关区']
+                    data: ['5349', '总关区'],
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 tooltip: {
                     show: 'true',
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 yAxis: {
                     type: 'value',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     ...axisStyle[ops ? 1 : 0],
                     splitLine: {
                         show: true,
                         lineStyle: {
                             color: '#aaa',
-                        }
+                        },
                     },
                 },
                 xAxis: [{
                     type: 'category',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }, {
                     type: 'category',
                     axisLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
                     },
                     splitArea: {
-                        show: false
+                        show: false,
                     },
                     splitLine: {
-                        show: false
+                        show: false,
                     },
-                    data: result
+                    data: result,
                 },
 
                 ],
@@ -2142,10 +2159,10 @@ subscribes({
                             color: '#0167ff',
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     barWidth: '20%',
-                    data: maxXData
+                    data: maxXData,
                 }, {
                     name: '总关区',
                     type: 'bar',
@@ -2156,11 +2173,11 @@ subscribes({
                             color: '#0167ff',
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     barWidth: '20%',
                     barGap: '100%',
-                    data: maxyData
+                    data: maxyData,
                 }, {
                     name: '5349',
                     type: 'bar',
@@ -2170,17 +2187,17 @@ subscribes({
                             color: '#2fe384',
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     label: {
                         normal: {
                             show: true,
                             position: 'top',
-                            textStyle: textStyle[ops ? 1 : 0]
-                        }
+                            textStyle: textStyle[ops ? 1 : 0],
+                        },
                     },
                     barWidth: '20%',
-                    data: monthData
+                    data: monthData,
                 }, {
                     name: '总关区',
                     type: 'bar',
@@ -2191,23 +2208,24 @@ subscribes({
                             color: '#008eff',
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     label: {
                         normal: {
                             show: true,
                             position: 'top',
-                            textStyle: textStyle[ops ? 1 : 0]
-                        }
+                            textStyle: textStyle[ops ? 1 : 0],
+                        },
                     },
                     barGap: '100%',
-                    data: monthData
-                }
+                    data: monthData,
+                },
 
-                ]
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月征收税款统计情况 */
         sub: 'ICountimg_5',
         func: (ops) => {
@@ -2222,45 +2240,45 @@ subscribes({
                     axisPointer: {
                         type: 'cross',
                         crossStyle: {
-                            color: '#999'
-                        }
-                    }
+                            color: '#999',
+                        },
+                    },
                 },
                 toolbox: {
                     feature: {
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         magicType: {
                             show: true,
-                            type: ['line', 'bar']
+                            type: ['line', 'bar'],
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 legend: {
                     ...legendStyle[ops ? 1 : 0],
-                    data: ['最新成交价', '征收税款']
+                    data: ['最新成交价', '征收税款'],
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     data: result,
                     axisPointer: {
-                        type: 'shadow'
+                        type: 'shadow',
                     },
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
@@ -2270,21 +2288,21 @@ subscribes({
                     position: 'right',
                     axisLine: {
                         lineStyle: {
-                            color: 'white'
-                        }
+                            color: 'white',
+                        },
                     },
                     axisLabel: {
                         color: 'white',
                         fontSize: 15,
-                        formatter: '{value} %'
-                    }
+                        formatter: '{value} %',
+                    },
                 }, {
                     type: 'value',
                     name: ' ',
                     min: 0,
                     max: 300,
                     position: 'left',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '征收税款',
@@ -2295,17 +2313,18 @@ subscribes({
                     name: '环比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: data1
+                    data: data1,
                 }, {
                     name: '同比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: data2
-                }
-                ]
+                    data: data2,
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月通关效率统计图 */
         sub: 'ICountimg_6',
         func: (ops) => {
@@ -2315,50 +2334,50 @@ subscribes({
                 title: {
                     text: '通关效率',
                     textStyle: {
-                        color: ['#FFFFFF']
-                    }
+                        color: ['#FFFFFF'],
+                    },
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     gridIndex: 0,
                     data: result,
                     axisTick: {
-                        alignWithLabel: true
+                        alignWithLabel: true,
                     },
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
                     gridIndex: 0,
                     splitLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     min: 0,
                     max: 100,
                     axisLine: {
                         lineStyle: {
-                            color: 'white'
-                        }
+                            color: 'white',
+                        },
                     },
                     axisLabel: {
                         color: 'white',
-                        formatter: '{value} %'
-                    }
+                        formatter: '{value} %',
+                    },
                 }],
                 series: [{
                     name: '通关效率',
@@ -2366,14 +2385,15 @@ subscribes({
                     barWidth: '50%',
                     itemStyle: {
                         normal: {
-                            color: '#00a9fe'
-                        }
+                            color: '#00a9fe',
+                        },
                     },
-                    data: monthData
-                }]
+                    data: monthData,
+                }],
             }
-        }
+        },
     }, {
+
         /** 近12个月的查验时效统计情况 */
         sub: 'ICountimg_7',
         func: (ops) => {
@@ -2383,50 +2403,50 @@ subscribes({
                 title: {
                     text: '查验时效',
                     textStyle: {
-                        color: ['#FFFFFF']
-                    }
+                        color: ['#FFFFFF'],
+                    },
                 },
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     gridIndex: 0,
                     data: result,
                     axisTick: {
-                        alignWithLabel: true
+                        alignWithLabel: true,
                     },
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
                     gridIndex: 0,
                     splitLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     min: 0,
                     max: 100,
                     axisLine: {
                         lineStyle: {
-                            color: 'white'
-                        }
+                            color: 'white',
+                        },
                     },
                     axisLabel: {
                         color: 'white',
-                        formatter: '{value} %'
-                    }
+                        formatter: '{value} %',
+                    },
                 }],
                 series: [{
                     name: '查验时效',
@@ -2434,14 +2454,15 @@ subscribes({
                     barWidth: '50%',
                     itemStyle: {
                         normal: {
-                            color: '#5069e7'
-                        }
+                            color: '#5069e7',
+                        },
                     },
-                    data: monthData
-                }]
+                    data: monthData,
+                }],
             }
-        }
+        },
     }, {
+
         /** 近12个月船舶申报情况 */
         sub: 'ICountimg_8',
         func: (ops) => {
@@ -2451,8 +2472,8 @@ subscribes({
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 legend: {
                     data: ['船代三', '船代二', '船代一', '船代进境总量', '其他船代进境量'],
@@ -2462,49 +2483,50 @@ subscribes({
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '船代进境总量',
                     type: 'bar',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代一',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代二',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代三',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '其他船代进境量',
                     type: 'bar',
                     data: monthData,
-                }
-                ]
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月船代申报提单情况 */
         sub: 'ICountimg_9',
         func: (ops) => {
@@ -2514,8 +2536,8 @@ subscribes({
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 legend: {
                     data: ['船代三', '船代二', '船代一', '船代进境总量', '其他船代进境量'],
@@ -2525,57 +2547,58 @@ subscribes({
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '船代进境总量',
                     type: 'bar',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代一',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代二',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '船代三',
                     type: 'bar',
                     stack: '船代',
-                    data: monthData
+                    data: monthData,
                 },
                 {
                     name: '其他船代进境量',
                     type: 'bar',
                     data: monthData,
-                }
-                ]
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月报关行录单情况 */
         sub: 'ICountimg_10',
         func: (ops) => {
             var result = result;
             var datas = [5000, 6000, 3000, 4523, 5870, 3654, 6521];
-            //亮色图片
-            var uploadedDataURL1 = ' '; //黄色五角星
-            var uploadedDataURL2 = ' '; //灰色五角星
+            // 亮色图片
+            var uploadedDataURL1 = ' '; // 黄色五角星
+            var uploadedDataURL2 = ' '; // 灰色五角星
             var grayBar = [1, 1, 1, 1, 1, 1, 1];
             var paiming = [7, 6, 5, 4, 3, 2, 1];
             var zongjine = [7000, 7000, 7000, 7000, 7000, 7000, 7000];
@@ -2588,9 +2611,9 @@ subscribes({
                 backgroundColor: bgColor,
                 title: {
                     text: '本月报关行录入提单排名统计图',
-                    left: 'center'
+                    left: 'center',
                 },
-                color: ['#2e82ff'], //进度条颜色
+                color: ['#2e82ff'], // 进度条颜色
                 /* grid: {
                      left: '-10%',  //如果离左边太远就用这个......
                      //right: '14%',
@@ -2601,63 +2624,63 @@ subscribes({
                 xAxis: [{
                     show: false,
                 },
-                //由于下边X轴已经是百分比刻度了,所以需要在顶部加一个X轴,刻度是金额,也隐藏掉
+                // 由于下边X轴已经是百分比刻度了,所以需要在顶部加一个X轴,刻度是金额,也隐藏掉
                 {
                     show: false,
-                }
+                },
                 ],
                 yAxis: {
                     type: 'category',
                     axisLabel: {
-                        show: false, //让Y轴数据不显示
+                        show: false, // 让Y轴数据不显示
                     },
                     itemStyle: {
 
                     },
                     axisTick: {
-                        show: false, //隐藏Y轴刻度
+                        show: false, // 隐藏Y轴刻度
                     },
                     axisLine: {
-                        show: false, //隐藏Y轴线段
+                        show: false, // 隐藏Y轴线段
                     },
                     data: city,
                 },
                 series: [
-                    //背景色--------------------我是分割线君------------------------------//
+                    // 背景色--------------------我是分割线君------------------------------//
                     {
                         show: true,
                         type: 'bar',
                         barGap: '-100%',
-                        barWidth: '25%', //统计条宽度 
+                        barWidth: '25%', // 统计条宽度 
                         itemStyle: {
                             normal: {
                                 barBorderRadius: 15,
-                                color: 'rgba(102, 102, 102,0.5)'
+                                color: 'rgba(102, 102, 102,0.5)',
                             },
                         },
                         z: 1,
                         data: grayBar,
                     },
-                    //蓝条--------------------我是分割线君------------------------------//
+                    // 蓝条--------------------我是分割线君------------------------------//
                     {
                         show: true,
                         type: 'bar',
                         barGap: '-100%',
-                        barWidth: '25%', //统计条宽度
+                        barWidth: '25%', // 统计条宽度
                         itemStyle: {
                             normal: {
-                                barBorderRadius: 20, //统计条弧度
+                                barBorderRadius: 20, // 统计条弧度
                             },
                         },
                         max: 1,
                         label: {
                             normal: {
                                 show: true,
-                                //百分比格式
+                                // 百分比格式
                                 formatter: function (data) {
                                     return (baifenbi[data.dataIndex] * 100).toFixed(1) + '%';
                                 },
-                            }
+                            },
                         },
                         labelLine: {
                             show: false,
@@ -2665,38 +2688,38 @@ subscribes({
                         z: 2,
                         data: baifenbi,
                     },
-                    //数据条--------------------我是分割线君------------------------------//
+                    // 数据条--------------------我是分割线君------------------------------//
                     {
                         show: true,
                         type: 'bar',
-                        xAxisIndex: 1, //代表使用第二个X轴刻度!!!!!!!!!!!!!!!!!!!!!!!!
+                        xAxisIndex: 1, // 代表使用第二个X轴刻度!!!!!!!!!!!!!!!!!!!!!!!!
                         barGap: '-100%',
-                        barWidth: '25%', //统计条宽度
+                        barWidth: '25%', // 统计条宽度
                         itemStyle: {
                             normal: {
                                 barBorderRadius: 20,
-                                color: 'rgba(22,203,115,0.05)'
+                                color: 'rgba(22,203,115,0.05)',
                             },
                         },
                         label: {
                             normal: {
                                 show: true,
-                                //label 的position位置可以是top bottom left,right,也可以是固定值
-                                //在这里需要上下统一对齐,所以用固定值
+                                // label 的position位置可以是top bottom left,right,也可以是固定值
+                                // 在这里需要上下统一对齐,所以用固定值
                                 position: [0, '-100%'],
-                                rich: { //富文本
-                                    black: { //自定义颜色
+                                rich: { // 富文本
+                                    black: { // 自定义颜色
                                         color: '#000',
                                     },
                                     start2: {
-                                        backgroundColor: { //这里可以添加你想自定义的图片
+                                        backgroundColor: { // 这里可以添加你想自定义的图片
                                             image: uploadedDataURL2,
                                         },
                                     },
                                     start1: {
                                         backgroundColor: {
                                             image: uploadedDataURL1,
-                                        }
+                                        },
                                     },
                                     green: {
                                         color: '#70DDA7',
@@ -2706,18 +2729,19 @@ subscribes({
                                     },
                                 },
                                 formatter: function (data) {
-                                    //富文本固定格式{colorName|这里填你想要写的内容}
+                                    // 富文本固定格式{colorName|这里填你想要写的内容}
                                     return paiming[data.dataIndex] == 1 ? '{start1|}{yellow|第' + paiming[data.dataIndex] + '名:' + city[data.dataIndex] + '}' + '{black|                                                                         总金额:}{yellow|' + zongjine[data.dataIndex] + '}{black|,录入提单量:}' + '{green|' + datas[data.dataIndex] + '}' : '{start2|}{black|第' + paiming[data.dataIndex] + '名:' + city[data.dataIndex] + '}' + '{black|                                                                         总金额:}{yellow|' + zongjine[data.dataIndex] + '}{black|,录入提单量:}' + '{green|' + datas[data.dataIndex] + '}';
                                 },
-                            }
+                            },
                         },
-                        data: zongjine
-                    }
+                        data: zongjine,
+                    },
 
-                ]
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月海关查验情况 */
         sub: 'ICountimg_11',
         func: (ops) => {
@@ -2728,57 +2752,57 @@ subscribes({
                 legend: {
                     bottom: 20,
                     ...legendStyle[ops ? 1 : 0],
-                    data: ['查验箱量', '查验放行箱量']
+                    data: ['查验箱量', '查验放行箱量'],
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '10%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 tooltip: {
                     show: 'true',
                     trigger: 'axis',
                     axisPointer: { // 坐标轴指示器，坐标轴触发有效
-                        type: 'shadow' // 默认为直线，可选为：'line' | 'shadow'
-                    }
+                        type: 'shadow', // 默认为直线，可选为：'line' | 'shadow'
+                    },
                 },
                 xAxis: {
                     type: 'value',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     ...axisStyle[ops ? 1 : 0],
                     splitLine: {
-                        show: false
+                        show: false,
                     },
                 },
                 yAxis: [{
                     type: 'category',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     ...axisStyle[ops ? 1 : 0],
-                    data: result
+                    data: result,
                 },
                 {
                     type: 'category',
                     axisLine: {
-                        show: false
+                        show: false,
                     },
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     axisLabel: {
-                        show: false
+                        show: false,
                     },
                     splitArea: {
-                        show: false
+                        show: false,
                     },
                     splitLine: {
-                        show: false
+                        show: false,
                     },
-                    data: result
+                    data: result,
                 },
 
                 ],
@@ -2794,11 +2818,11 @@ subscribes({
                             barBorderRadius: 50,
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     barGap: '0%',
                     barCategoryGap: '50%',
-                    data: x
+                    data: x,
                 },
                 {
                     name: '查验箱量',
@@ -2810,16 +2834,17 @@ subscribes({
                             barBorderRadius: 50,
                             borderWidth: 0,
                             borderColor: '#333',
-                        }
+                        },
                     },
                     barGap: '0%',
                     barCategoryGap: '50%',
-                    data: y
-                }
-                ]
+                    data: y,
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月集装箱申报情况 */
         sub: 'ICountimg_12',
         func: (ops) => {
@@ -2834,27 +2859,27 @@ subscribes({
                     axisPointer: {
                         type: 'cross',
                         crossStyle: {
-                            color: '#999'
-                        }
-                    }
+                            color: '#999',
+                        },
+                    },
                 },
                 toolbox: {
                     feature: {
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         magicType: {
                             show: true,
-                            type: ['line', 'bar']
+                            type: ['line', 'bar'],
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 legend: {
                     data: ['最新成交价', '征收税款'],
@@ -2864,15 +2889,15 @@ subscribes({
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     data: result,
                     axisPointer: {
-                        type: 'shadow'
+                        type: 'shadow',
                     },
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
@@ -2886,37 +2911,38 @@ subscribes({
                     },
                     axisLine: {
                         lineStyle: {
-                            color: 'white'
-                        }
-                    }
+                            color: 'white',
+                        },
+                    },
                 }, {
                     type: 'value',
                     name: ' ',
                     min: 0,
                     max: 300,
                     position: 'left',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '征收税款',
                     type: 'bar',
-                    data: data
+                    data: data,
                 },
                 {
                     name: '环比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: data1
+                    data: data1,
                 }, {
                     name: '同比',
                     type: 'line',
                     yAxisIndex: 1,
-                    data: data2
-                }
-                ]
+                    data: data2,
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月集装箱申报情况 */
         sub: 'ICountimg_13',
         func: (ops) => {
@@ -2929,7 +2955,7 @@ subscribes({
                     text: '园区车辆情况',
                 },
                 tooltip: {
-                    trigger: 'axis'
+                    trigger: 'axis',
                 },
                 legend: {
                     data: ['进闸车辆', '出闸车辆'],
@@ -2940,35 +2966,35 @@ subscribes({
                     feature: {
                         dataView: {
                             show: true,
-                            readOnly: false
+                            readOnly: false,
                         },
                         magicType: {
                             show: true,
-                            type: ['line', 'bar']
+                            type: ['line', 'bar'],
                         },
                         restore: {
-                            show: true
+                            show: true,
                         },
                         saveAsImage: {
-                            show: true
-                        }
-                    }
+                            show: true,
+                        },
+                    },
                 },
                 calculable: true,
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'category',
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'value',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '出闸车辆',
@@ -2977,20 +3003,20 @@ subscribes({
                     markPoint: {
                         data: [{
                             type: 'max',
-                            name: '最大值'
+                            name: '最大值',
                         },
                         {
                             type: 'min',
-                            name: '最小值'
-                        }
-                        ]
+                            name: '最小值',
+                        },
+                        ],
                     },
                     markLine: {
                         data: [{
                             type: 'average',
-                            name: '平均值'
-                        }]
-                    }
+                            name: '平均值',
+                        }],
+                    },
                 },
                 {
                     name: '进闸车辆',
@@ -3001,27 +3027,28 @@ subscribes({
                             name: '年最高',
                             value: 182.2,
                             xAxis: 7,
-                            yAxis: 183
+                            yAxis: 183,
                         },
                         {
                             name: '年最低',
                             value: 2.3,
                             xAxis: 11,
-                            yAxis: 3
-                        }
-                        ]
+                            yAxis: 3,
+                        },
+                        ],
                     },
                     markLine: {
                         data: [{
                             type: 'average',
-                            name: '平均值'
-                        }]
-                    }
-                }
-                ]
+                            name: '平均值',
+                        }],
+                    },
+                },
+                ],
             }
-        }
+        },
     }, {
+
         /** 近12个月集装箱申报情况 */
         sub: 'ICountimg_14',
         func: (ops) => {
@@ -3047,19 +3074,19 @@ subscribes({
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: [{
                     type: 'value',
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 yAxis: [{
                     type: 'category',
                     axisTick: {
-                        show: false
+                        show: false,
                     },
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 }],
                 series: [{
                     name: '出库',
@@ -3068,10 +3095,10 @@ subscribes({
                     label: {
                         normal: {
                             show: true,
-                            position: 'right'
-                        }
+                            position: 'right',
+                        },
                     },
-                    data: data
+                    data: data,
                 }, {
                     name: '入库',
                     type: 'bar',
@@ -3079,14 +3106,15 @@ subscribes({
                     label: {
                         normal: {
                             show: true,
-                            position: 'left'
-                        }
+                            position: 'left',
+                        },
                     },
-                    data: datas
-                }]
+                    data: datas,
+                }],
             }
-        }
+        },
     }, {
+
         /** 近12个月集装箱申报情况 */
         sub: 'ICountimg_15',
         func: (ops) => {
@@ -3098,25 +3126,25 @@ subscribes({
                 tooltip: {
                     trigger: 'axis',
                     axisPointer: {
-                        type: 'shadow'
+                        type: 'shadow',
                     },
-                    formatter: '{a} <br/>{b} : {c}'
+                    formatter: '{a} <br/>{b} : {c}',
                 },
                 grid: {
                     left: '3%',
                     right: '4%',
                     bottom: '3%',
-                    containLabel: true
+                    containLabel: true,
                 },
                 xAxis: {
                     type: 'value',
                     boundaryGap: [0, 0.01],
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 },
                 yAxis: {
                     type: 'category',
                     data: result,
-                    ...axisStyle[ops ? 1 : 0]
+                    ...axisStyle[ops ? 1 : 0],
                 },
                 series: [{
                     name: '2016年占比',
@@ -3125,10 +3153,10 @@ subscribes({
                     itemStyle: {
                         normal: {
                             barBorderRadius: [0, 15, 15, 0],
-                            color: '#008fff'
-                        }
+                            color: '#008fff',
+                        },
                     },
-                }]
+                }],
             }
-        }
+        },
     });
