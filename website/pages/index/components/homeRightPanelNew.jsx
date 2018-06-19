@@ -62,7 +62,7 @@ class HonorOnline extends React.Component {
             dataType: 'json', url: '../honors.json', async: false, success: (res) => {
                 this.setState({ data: res.data }, work);
                 this.timer = setInterval(work, 20 * 1000);
-            }
+            },
         });
     }
 
@@ -120,7 +120,7 @@ class ClassicCase extends React.Component {
                     this.setState({ data: res[this.props.itemKey] }, this.work);
                     this.timer = setInterval(this.work, 30 * 1000);
                 }
-            }
+            },
         });
     }
     componentWillUnmount() {
@@ -144,7 +144,7 @@ class Tab extends React.Component {
     state = {
         select: null,
         content: null,
-        bar: true
+        bar: true,
     }
     click = (i) => {
         if (this.timer) clearTimeout(this.timer);
@@ -213,7 +213,7 @@ export default class HomeRightPanel extends React.Component {
                 <div className='homeRightN-b'>
                     <Panel style={{ width: 3685, padding: '20px 25px', height: 1160, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
                         <div className='homeRightN-b-title'>舆情监控</div>
-                        <irame className='homeRightN-b-body'></irame>
+                        <iframe className='homeRightN-b-body' src='http://101.89.80.217:30080/demo/index.html'></iframe>
                     </Panel>
                 </div>
             </div>
