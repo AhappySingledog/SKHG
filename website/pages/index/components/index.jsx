@@ -342,7 +342,7 @@ class MyQuery extends React.Component {
                 { title: '卸货港', dataIndex: 'PodAlias' },
                 { title: '目的港', dataIndex: 'Destination' },
                 { title: '海关放行时间', dataIndex: 'CUS' },
-                { title: '国检放行时间', dataIndex: 'CIQ' },
+                // { title: '国检放行时间', dataIndex: 'CIQ' },
                 { title: '集中查验时间', dataIndex: 'CicTime' },
                 { title: '集中查验状态', dataIndex: 'CicStatus' },
                 { title: '海关查验状态、国检查验状态、放行状态', dataIndex: 'ReleaseStatus' },

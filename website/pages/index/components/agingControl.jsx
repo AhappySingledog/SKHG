@@ -596,7 +596,7 @@ class OneRecordTable extends React.Component {
             { title: '海关放行时间', dataIndex: 'CUS' },
             { title: '目的港', dataIndex: 'Destination' },
             { title: '卸货港', dataIndex: 'PodAlias' },
-            { title: '国检放行时间', dataIndex: 'CIQ' },
+            // { title: '国检放行时间', dataIndex: 'CIQ' },
             { title: '集中查验时间', dataIndex: 'CicTime' },
             { title: '集中查验状态', dataIndex: 'CicStatus' },
             { title: '进场时间', dataIndex: 'InTime' },
