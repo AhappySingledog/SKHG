@@ -1,9 +1,7 @@
 import '../less';
 import 'animate.css';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
-import echarts from 'echarts';
 import { publish } from '../../../frame/core/arbiter';
 import { Table } from '../../../frame/componets/index';
 
@@ -42,7 +40,7 @@ let bjsl = {
     WARNING13: { title: '调拨车辆偏离路线', tableName: 'IMAP_WARNING_13', ycl: 0, wcl: 0, width: 7500 },
     WARNING14: { title: '调拨车辆运行超时', tableName: 'IMAP_WARNING_14', ycl: 0, wcl: 0, width: 7500 },
     WARNING15: { title: '散杂货异常堆放', tableName: 'IMAP_WARNING_15', ycl: 0, wcl: 0, width: 7500 },
-    WARNING16: { title: '收到查验指令72小时未调入CIC', tableName: 'IMAP_WARNING_16', ycl: 0, wcl: 0, width: 7500 },
+    // WARNING16: { title: '收到查验指令72小时未调入CIC', tableName: 'IMAP_WARNING_16', ycl: 0, wcl: 0, width: 7500 },
     WARNING17: { title: '查验完毕超24小时未调离CIC', tableName: 'IMAP_WARNING_17', ycl: 0, wcl: 0, width: 7500 },
     WARNING18: { title: '行政通道车辆识别异常', tableName: 'IMAP_WARNING_18', ycl: 0, wcl: 0, width: 7500 },
     WARNING19: { title: '行政通道车辆布控中控', tableName: 'IMAP_WARNING_19', ycl: 0, wcl: 0, width: 7500 },
@@ -85,8 +83,8 @@ export default class ZNYBJ extends React.Component {
                 publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_WARNING_NEW' } }),
             ]).then((res) => {
                 Object.keys(res[0][0].data[0]).map((e) => { yjsl[e] ? yjsl[e].num = res[0][0].data[0][e] : null });
-                Object.keys(res[1][0].data[0]).map((e) => bjsl[e].wcl = res[1][0].data[0][e]);
-                Object.keys(res[1][0].data[1]).map((e) => bjsl[e].ycl = res[1][0].data[1][e]);
+                Object.keys(res[1][0].data[0]).map((e) => { bjsl[e] ? bjsl[e].wcl = res[1][0].data[0][e] : null });
+                Object.keys(res[1][0].data[1]).map((e) => { bjsl[e] ? bjsl[e].ycl = res[1][0].data[1][e] : null });
                 this.setState({ loading: true });
             });
         })
@@ -107,7 +105,7 @@ export default class ZNYBJ extends React.Component {
                 this.setState({
                     ybj: [['ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15',
                     ], ['WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
-                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23',
+                         'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23',
                     ]],
                 })
                 break;
@@ -118,7 +116,7 @@ export default class ZNYBJ extends React.Component {
                     //     'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']]
                     ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
                     ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
-                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
+                         'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
                 })
         }
     }
@@ -142,7 +140,7 @@ export default class ZNYBJ extends React.Component {
                 break;
             case 2:
                 this.setState({
-                    ybj: [['ALTER11', 'ALTER12', 'ALTER13'], ['WARNING16', 'WARNING17']],
+                    ybj: [['ALTER11', 'ALTER12', 'ALTER13'], ['WARNING17']],
                     btn: {
                         mt: false,
                         cic: true,
@@ -195,7 +193,7 @@ export default class ZNYBJ extends React.Component {
                     //     'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']]
                     ybj: [['ALTER01', 'ALTER02', 'ALTER03', 'ALTER04', 'ALTER05', 'ALTER07', 'ALTER08', 'ALTER09', 'ALTER10', 'ALTER11', 'ALTER12', 'ALTER13', 'ALTER14', 'ALTER15'],
                     ['WARNING01', 'WARNING02', 'WARNING03', 'WARNING04', 'WARNING05', 'WARNING06', 'WARNING07', 'WARNING08', 'WARNING09', 'WARNING10', 'WARNING11', 'WARNING12', 'WARNING13', 'WARNING14', 'WARNING15',
-                        'WARNING16', 'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
+                        'WARNING17', 'WARNING18', 'WARNING19', 'WARNING20', 'WARNING21', 'WARNING22', 'WARNING23']],
                 })
         }
     }
