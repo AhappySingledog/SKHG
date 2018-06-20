@@ -483,9 +483,13 @@ class HG extends React.Component {
                 color: ['#70e100', '#0A3C77'],
                 tooltip: {
                     trigger: 'item',
-                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    formatter: (params) => {
+                        console.log(params);
+                        return '海关作业时间占比：' + (params.name == '海关作业时间' ? params.percent : 100 - params.percent).toFixed(2) + '%'
+                    },
                     textStyle: {
-                        fontSize: 40
+                        fontSize: 40,
+                        color: '#70E100',
                     }
                 },
                 series: [
@@ -543,7 +547,7 @@ class HG extends React.Component {
                     <div style={{color: '#70E100'}}><div>{data}</div><div>小时</div></div>
                     <div>
                         <div><div>与平均值比：</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{data > pjz ? '高' : '低'}</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz).toFixed(2)}小时</div></div>
-                        <div><div>与目标值比：</div><div style={{ color: data > pjz / 2 * 3 ? '#FE0000' : '#70E100' }}>{data > pjz / 2 * 3 ? '高' : '低'}</div><div style={{ color: data > pjz / 2 * 3 ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz / 2 * 3).toFixed(2)}小时</div></div>
+                        <div><div>与目标值比：</div><div style={{ color: data > pjz / 3 * 2 ? '#FE0000' : '#70E100' }}>{data > pjz / 3 * 2 ? '高' : '低'}</div><div style={{ color: data > pjz / 3 * 2 ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz / 3 * 2).toFixed(2)}小时</div></div>
                     </div>
                 </div>
                 <div className='ac-hg-r'>

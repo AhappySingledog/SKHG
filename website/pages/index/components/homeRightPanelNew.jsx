@@ -213,7 +213,7 @@ export default class HomeRightPanel extends React.Component {
                 <div className='homeRightN-b'>
                     <Panel style={{ width: 3688, height: 2722, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'space-between' }}>
                         {/* <div className='homeRightN-b-title'>舆情监控</div> */}
-                        <iframe className='homeRightN-b-body' src='http://nebula.yun.pingan.com/#/share/107'></iframe>
+                        <iframe className='homeRightN-b-body' src='http://101.89.80.217:30080/demo/index.html'></iframe>
                     </Panel>
                 </div>
             </div>

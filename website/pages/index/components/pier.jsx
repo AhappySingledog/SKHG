@@ -214,7 +214,8 @@ class MapOperation extends React.Component {
 
     // 绘制大船驳船
     drawShips = (data) => {
-        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW='SCT'" } }).then((res) => {
+        publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where:"SSDW='" + this.props.datas.code + "'" } }).then((res) => {
+            console.log(res);
             let bw = res[0].data;
             data.forEach((e, i) => {
                 let layer = e.VESSELTYPE == '大船' ? 'S_LAYER' : 'B_LAYER';
@@ -597,6 +598,7 @@ class MapOperation extends React.Component {
         }];
         this.handleNbr(e);
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
+            console.log(res);
             let json = {};
             e.colname = 'onyard';
             e.name = [<div className='gjTitle' onClick={() => this.setState({ items: 1 })}>柜子</div>, <div className='gjTitle' onClick={() => this.clickTitle(e)}>柜子轨迹</div>];
