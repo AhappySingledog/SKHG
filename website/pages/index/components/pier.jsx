@@ -64,7 +64,7 @@ class MapOperation extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        //this.drawDefaultLayer(nextProps);
+        // this.drawDefaultLayer(nextProps);
     }
 
     componentDidMount() {
@@ -140,7 +140,7 @@ class MapOperation extends React.Component {
                             symbol.setHeight(100);
                         }
                         g.setSymbol(symbol);
-                    }
+                    },
                 }
                 this.props.map.mapDisplay.image(param);
 
@@ -205,14 +205,14 @@ class MapOperation extends React.Component {
                             symbol.setHeight(100);
                         }
                         g.setSymbol(symbol);
-                    }
+                    },
                 }
                 map.mapDisplay.image(param);
             });
         });
     }
 
-    //绘制大船驳船
+    // 绘制大船驳船
     drawShips = (data) => {
         publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW='SCT'" } }).then((res) => {
             let bw = res[0].data;
@@ -235,7 +235,7 @@ class MapOperation extends React.Component {
                             let temp = e.attributes;
                             if (temp.VESSELTYPE == '大船') {
                                 temp.colname = 'berthShip';
-                                temp.name = '大船详情';
+                                temp.name = '班轮详情';
                             }
                             else {
                                 temp.colname = 'berthShip';
@@ -258,14 +258,14 @@ class MapOperation extends React.Component {
                                 symbol.setHeight(140);
                             }
                             g.setSymbol(symbol);
-                        }
+                        },
                     }
                     this.props.map.mapDisplay.image(param);
                 }
             });
             this.props.map.mapDisplay.hide('S_LAYER');
             this.props.map.mapDisplay.hide('B_LAYER');
-            //this.props.setFatherState({S_LAYER: false, B_LAYER: false});
+            // this.props.setFatherState({S_LAYER: false, B_LAYER: false});
         });
     }
 
@@ -315,12 +315,13 @@ class MapOperation extends React.Component {
                                 props.map.mapDisplay.polygon(params);
                             });
                         });
-                        publish('getVideoAndDisplay', {map: props.map, type: '集装箱', data: {ssdw: this.props.datas.ssdw, lw: result[0].Location.substring(5,8)}});
+                        publish('getVideoAndDisplay', {map: props.map, type: '集装箱', data: {ssdw: this.props.datas.ssdw, lw: result[0].Location.substring(5, 8)}});
                     }
                 });
             }
             if (defaultLayer.ship) {
                 publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_BERTH_GIS', where: "SSDW = '" + defaultLayer.ship.TERMINALCODE + "' and CODE = '" + defaultLayer.ship.BERTHNO + "'" } }).then((res) => {
+
                     /** 去展示船的定位和详细信息 */
                     let json = defaultLayer.ship;
                     this.props.map.mapDisplay.clearLayer('QUERY_LAYER');
@@ -356,7 +357,7 @@ class MapOperation extends React.Component {
                                         symbol.setHeight(140);
                                     }
                                     g.setSymbol(symbol);
-                                }
+                                },
                             };
                             let param2 = {
                                 id: 'BIG_SHIP_LAYER',
@@ -432,7 +433,7 @@ class MapOperation extends React.Component {
                             symbol.setHeight(140);
                         }
                         g.setSymbol(symbol);
-                    }
+                    },
                 };
                 let param2 = {
                     id: 'BIG_SHIP_LAYER',
@@ -506,8 +507,6 @@ class MapOperation extends React.Component {
             // let m = date.getMonth();
             // let d = date.getDate();
             // let dt = '' + y + '-' + (m + 1 > 9 ? m + 1 : '0' + (m + 1)) + '-' + d;
-
-            console.log(ck[datajson.code]);
             // if (ck[datajson.code]) {
 
             // }
@@ -545,7 +544,7 @@ class MapOperation extends React.Component {
         this.props.map.mapDisplay.clearLayer('BARGE_SHIP_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER');
         this.props.map.mapDisplay.clearLayer('CONTAINERVIEW_LAYER_BOX');
-        //this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
+        // this.props.map.mapDisplay.clearLayer('VIDEO_LAYER');
         this.setState({ visible_duiwei: false }, () => this.setState({
             visible_duiwei: true,
             dataSource: e.khsj,
@@ -591,10 +590,10 @@ class MapOperation extends React.Component {
     handleDetails = (e) => {
         let pa = [{
             paramName: 'P_TERMINALCODE',
-            value: this.props.datas.code
+            value: this.props.datas.code,
         }, {
             paramName: 'P_CONTAINERNO',
-            value: e.CONTAINERNO
+            value: e.CONTAINERNO,
         }];
         this.handleNbr(e);
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryPro', data: { proName: 'P_IMAP_SCCTYARD_BYCNTR', parms: JSON.stringify(pa) } }).then((res) => {
@@ -625,8 +624,8 @@ class MapOperation extends React.Component {
             for (let i in ors[0].data) {
                 orsJson[ors[0].data[i].name] = [ors[0].data[i]];
             }
-            js = js.indexOf('*') >= 0 ? js.substring(1,6) + js.substring(7,8) : js;
-            if (orsJson !== "") {
+            js = js.indexOf('*') >= 0 ? js.substring(1, 6) + js.substring(7, 8) : js;
+            if (orsJson !== '') {
                 let dots = orsJson[js][0].geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
                 let points = dots.slice(0, 4);
                 let x = points[0].x + points[1].x + points[2].x + points[3].x;
@@ -655,7 +654,7 @@ class MapOperation extends React.Component {
                 this.props.map.mapDisplay.image(mText);
                 this.props.map.mapDisplay.polygon(params);
             } else {
-                alert("没有地址~");
+                alert('没有地址~');
             }
         })
     }
@@ -722,7 +721,7 @@ class PortMsg extends React.Component {
                 <div className="Msg-title" ></div>
                 <div className="Msg-row">
                     {mtJson.data.map((value, key) =>
-                        <div id={"dsadsadsa" + key} key={key} className="Msg-row-flex">
+                        <div id={'dsadsadsa' + key} key={key} className="Msg-row-flex">
                             <div className="Msg-row-flex-InShip">
                                 <span>{value.harbor}</span>
                                 <div className='number-view'>
@@ -912,7 +911,7 @@ export default class Pier extends React.Component {
     }
     setFatherState = (ops) => this.setState(ops);
     render() {
-        let { tview = [], idx = 0, } = this.state;
+        let { tview = [], idx = 0 } = this.state;
         return (
             <div className='pierMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='pierleft'>
@@ -920,7 +919,7 @@ export default class Pier extends React.Component {
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} defaultLayer={this.props.defaultLayer} /> : null}
                     <div className="mapbtn">
                         {this.state.map ? <div onClick={() => this.showLayer('VIDEO_LAYER')} style={{margin: '20px'}} className={!this.state.VIDEO_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>视频</div> : null}
-                        {this.state.map && this.props.datas.type == 1 ? <div onClick={() => this.showLayer('S_LAYER')} style={{margin: '20px'}} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div> : null}
+                        {this.state.map && this.props.datas.type == 1 ? <div onClick={() => this.showLayer('S_LAYER')} style={{margin: '20px'}} className={!this.state.S_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>班轮</div> : null}
                         {this.state.map && this.props.datas.type == 1 ? <div onClick={() => this.showLayer('B_LAYER')} style={{margin: '20px'}} className={!this.state.B_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div> : null}
                     </div>
                 </div>

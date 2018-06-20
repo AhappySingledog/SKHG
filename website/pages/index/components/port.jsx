@@ -1,19 +1,15 @@
 import '../less';
 import 'animate.css';
-import _ from 'lodash';
 import $ from 'jquery';
-import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
-import bmap from 'echarts/extension/bmap/bmap';
 import PortRightPanel from './portRightPanel';
-import { subscribe, unsubscribe, publish } from '../../../frame/core/arbiter';
-import { ViwePager, NoHornTip, Table, Panel, Dialog, ChartView } from '../../../frame/componets/index';
+import { publish } from '../../../frame/core/arbiter';
+import { NoHornTip } from '../../../frame/componets/index';
 import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.png';
 import BargeIcon from '../../../res/mapIcon/Barge.png';
-import TruckIcon from '../../../res/mapIcon/car.png';
 import yl from '../../../res/mapIcon/游轮.png';
 
 /** 计算数量得到小数点和前面加0 */
@@ -44,20 +40,20 @@ function getNumberArr(num) {
 // 地图操作组件
 class MapOperation extends React.Component {
     state = {
-        showMT: false,      //码头弹出框
-        Amap: false,        //园区、仓库等弹出框
+        showMT: false,      // 码头弹出框
+        Amap: false,        // 园区、仓库等弹出框
         jiasuju: {},
-        //图标点击事件
+        // 图标点击事件
         icon: {
             isShowDes: false,
             desTitle: '显示详情',
             desItem: {},
             desColumns: [],
         },
-        //替补框内容
+        // 替补框内容
         tip: {
-            mtJson: [],     //后台请求的码头数据
-            mapDesc: [],   //勾画出码头页面信息
+            mtJson: [],     // 后台请求的码头数据
+            mapDesc: [],   // 勾画出码头页面信息
         },
         SHIP_CRUISE: true,
         SHIP_LAYER: true,
@@ -78,10 +74,10 @@ class MapOperation extends React.Component {
         /** 港口码头划分 */
         publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: 'LAYER=2' } }).then((res) => {
             let color = {
-                1: [250, 22, 80, 1],       //红色
-                2: [57, 255, 95, 1],       //绿色
-                3: [255, 255, 255, 1],       //蓝色
-                4: [251, 251, 0, 1],       //黄色
+                1: [250, 22, 80, 1],       // 红色
+                2: [57, 255, 95, 1],       // 绿色
+                3: [255, 255, 255, 1],       // 蓝色
+                4: [251, 251, 0, 1],       // 黄色
             };
             res[0].data.forEach((data, i) => {
                 let dots = data.geom.rings[0].map((p) => { return { x: p[0], y: p[1] }; });
@@ -201,10 +197,10 @@ class MapOperation extends React.Component {
                     }
                     g.setSymbol(symbol);
                     that.props.map.mapDisplay.clearLayer('SHIP_CRUISE_HOVERTEXT');
-                }
+                },
             }
             this.props.map.mapDisplay.image(param);
-            this.props.map.mapDisplay.hide("SHIP_CRUISE");
+            this.props.map.mapDisplay.hide('SHIP_CRUISE');
         }
     }
 
@@ -212,8 +208,8 @@ class MapOperation extends React.Component {
         let json = jsons.data;
         let that = this;
         for (let o in json) {
-            json[o]['name'] = '大船详情';
-            json[o]['colname'] = 'bigship';
+            json[o].name = '班轮详情';
+            json[o].colname = 'bigship';
             if (Number(json[o].LONGITUDE) !== 0 && Number(json[o].LATITUDE) !== 0) {
                 let param = {
                     id: 'SHIP_LAYER' + o,
@@ -256,10 +252,10 @@ class MapOperation extends React.Component {
                         }
                         g.setSymbol(symbol);
                         that.props.map.mapDisplay.clearLayer('BIG_SHIP_LAYER_HOVERTEXT');
-                    }
+                    },
                 }
                 this.props.map.mapDisplay.image(param);
-                this.props.map.mapDisplay.hide("SHIP_LAYER");
+                this.props.map.mapDisplay.hide('SHIP_LAYER');
             }
         }
     }
@@ -268,8 +264,8 @@ class MapOperation extends React.Component {
         let json = jsons.data;
         let that = this;
         for (let o in json) {
-            json[o]['name'] = '驳船详情';
-            json[o]['colname'] = 'bargeship';
+            json[o].name = '驳船详情';
+            json[o].colname = 'bargeship';
             if (Number(json[o].LONGITUDE) !== 0 && Number(json[o].LATITUDE) !== 0) {
                 let param = {
                     id: 'BARGE_SHIP_LAYER' + o,
@@ -313,10 +309,10 @@ class MapOperation extends React.Component {
                         }
                         g.setSymbol(symbol);
                         that.props.map.mapDisplay.clearLayer('BARGE_SHIP_HOVERTEXT');
-                    }
+                    },
                 }
                 this.props.map.mapDisplay.image(param);
-                this.props.map.mapDisplay.hide("BARGE_SHIP_LAYER");
+                this.props.map.mapDisplay.hide('BARGE_SHIP_LAYER');
             }
         }
     }
@@ -333,7 +329,7 @@ class MapOperation extends React.Component {
                 desColumns: temp[attr.colname],
                 desTitle: attr.name,
                 desItem: attr,
-                isShowDes: true
+                isShowDes: true,
             });
         });
     }
@@ -383,8 +379,8 @@ class MapOperation extends React.Component {
                 Amap: mapper[code].Amap,
                 tip: {
                     mtJson: mapper[code].showMT ? res[0].features : { data: Object.keys(keys[code]).map((key) => { return { name: keys[code][key], number: res[0].features.length > 0 ? res[0].features[0].attributes[key] : 123456 } }) },
-                    mapDesc: datajson
-                }
+                    mapDesc: datajson,
+                },
             });
         });
 
@@ -410,9 +406,9 @@ class MapOperation extends React.Component {
         return (
             <div>
                 <div className="mapbtn">
-                    <div onClick={() => this.mapItemsDisplay('SHIP_CRUISE')} style={{margin: '20px'}} className={this.state.SHIP_CRUISE ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>客轮</div>
-                    <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} style={{margin: '20px'}} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>大船</div>
-                    <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} style={{margin: '20px'}} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
+                    <div onClick={() => this.mapItemsDisplay('SHIP_CRUISE')} style={{ margin: '20px' }} className={this.state.SHIP_CRUISE ? 'mapbtn-noSelected' : 'mapbtn-btn1'}>客轮</div>
+                    <div onClick={() => this.mapItemsDisplay('SHIP_LAYER')} style={{ margin: '20px' }} className={this.state.SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn2'}>班轮</div>
+                    <div onClick={() => this.mapItemsDisplay('BARGE_SHIP_LAYER')} style={{ margin: '20px' }} className={this.state.BARGE_SHIP_LAYER ? 'mapbtn-noSelected' : 'mapbtn-btn3'}>驳船</div>
                     {/* <div className={this.state.map ? 'mapbtn-btn4' : 'mapbtn-noSelected'}>地图</div> */}
                 </div>
                 {
@@ -500,7 +496,7 @@ class PortMsg extends React.Component {
         for (var o in mtJson) {
             json[mtJson[o].attributes.TYPE1] = mtJson[o].attributes.AMOUNT;
         }
-        json['datas'] = [{ 'harbor': '进港港口', "shipname": "大船驳船" }, { 'harbor': '出港港口', "shipname": "大船驳船" }]
+        json.datas = [{ 'harbor': '进港港口', 'shipname': '班轮驳船' }, { 'harbor': '出港港口', 'shipname': '班轮驳船' }]
         sum.push(getNumberArr((Number(json.BargeIn) || 0) + (Number(json.VesselIn)) || 0));
         sum.push(getNumberArr((Number(json.BargeOut) || 0) + (Number(json.VesselOut)) || 0))
         dc.push(getNumberArr(Number(json.VesselIn) || 0));
@@ -511,7 +507,7 @@ class PortMsg extends React.Component {
             <div id="msgs" className="Msg">
                 {json.datas.map((value, key) =>
                     <div key={key} className="Msg-corner">
-                        <div id={"dsadsadsa" + key} className="Msg-corner-flex">
+                        <div id={'dsadsadsa' + key} className="Msg-corner-flex">
                             <div className="Msg-corner-flex-InShip">
                                 <span>{value.harbor}</span>
                                 <div className='number-view'>
@@ -542,24 +538,24 @@ class PortPie extends React.Component {
             json[mtJson[o].attributes.TYPE1] = mtJson[o].attributes.AMOUNT;
         }
 
-        publish('port_pie_gk', { value: json['Loading'] || 0 }).then((res) => {
+        publish('port_pie_gk', { value: json.Loading || 0 }).then((res) => {
             if (this.chart) this.chart.dispose();
             this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
             this.chart.setOption(res[0]);
         });
 
-        publish('port_pie_gk', { value: json['Discharge'] || 0 }).then((res) => {
+        publish('port_pie_gk', { value: json.Discharge || 0 }).then((res) => {
             if (this.chart2) this.chart2.dispose();
             this.chart2 = echarts.init(ReactDOM.findDOMNode(this.refs.echart2));
             this.chart2.setOption(res[0]);
         });
 
-        publish('port_pie_zk', { value: json['GateIn'] || 0 }).then((res) => {
+        publish('port_pie_zk', { value: json.GateIn || 0 }).then((res) => {
             if (this.chart3) this.chart3.dispose();
             this.chart3 = echarts.init(ReactDOM.findDOMNode(this.refs.echart3));
             this.chart3.setOption(res[0]);
         });
-        publish('port_pie_zk', { value: json['GateOut'] || 0 }).then((res) => {
+        publish('port_pie_zk', { value: json.GateOut || 0 }).then((res) => {
             if (this.chart4) this.chart4.dispose();
             this.chart4 = echarts.init(ReactDOM.findDOMNode(this.refs.echart4));
             this.chart4.setOption(res[0]);
@@ -666,7 +662,7 @@ export default class Port extends React.Component {
         if (this.chart) this.chart.dispose();
     }
     render() {
-        let { tview = [], idx = 0, } = this.state;
+        let { tview = [], idx = 0 } = this.state;
         return (
             <div className='portMap' style={{ overflow: 'hidden', height: '100%' }}>
                 <div className='portleft'>

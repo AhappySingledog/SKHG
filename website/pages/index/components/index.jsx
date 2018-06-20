@@ -750,7 +750,7 @@ export default class App extends React.Component {
     }
     agingControl = () => {
         console.log('时效管控');
-        this.setState({ zbybj: false }, () => {this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
+        this.setState({ znybj: false }, () => {this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
     }
     goBack = () => {
         let index = this.state.index;
