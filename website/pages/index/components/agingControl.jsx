@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import $ from 'jquery';
 import echarts from 'echarts';
-import { publish } from '../../../frame/core/arbiter';
+import { publish, subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import { Table } from '../../../frame/componets/index';
 
 // tip组件
@@ -313,6 +313,24 @@ export default class AgingControl extends React.Component {
             res[0].features.forEach((e) => pjz[e.attributes.CATEGORY == 'E' ? 'ck' : 'jk'] = e.attributes);
             this.setState({ pjz: pjz }, this.update);
         });
+        publish('getData', { svn: 'skhg_stage', tableName: 'imap_skhg_sxfx', data: { where: "EFFECTDATE LIKE to_char(sysdate,'yyyy')-1||'%' OR EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
+            let year = new Date().getFullYear() + '';
+            let thisyear = {};
+            let jk = 0;
+            let ck = 0;
+            let count = 0;
+            let data = res[0].features.forEach((e) => {
+                if (e.attributes.EFFECTDATE.indexOf(year) >= 0) thisyear[e.attributes.EFFECTDATE] = { jk: e.attributes.CUSIN, ck: e.attributes.CUSOUT };
+                else {
+                    count++;
+                    jk = jk + Number(e.attributes.CUSIN);
+                    ck = ck + Number(e.attributes.CUSOUT);
+                }
+            });
+            jk = (jk / count).toFixed(2);
+            ck = (ck / count).toFixed(2);
+            this.setState({ hgpjz: { jk: jk, ck: ck, data: thisyear } });
+        });
     }
     render() {
         return (
@@ -320,7 +338,7 @@ export default class AgingControl extends React.Component {
                 {this.state.layer == 'sy' ? <div className='ac-box'>
                     <div ref='echart1' className='ac-box-t'></div>
                     <div ref='echart2' className='ac-box-b'></div>
-                </div> : <CK layer={this.state.layer} data={this.state.param} pjz={this.state.pjz[this.state.layer]} back={() => this.setState({ layer: 'sy' }, this.update)} />}
+                </div> : <CK layer={this.state.layer} data={this.state.param} hgpjz={this.state.hgpjz} pjz={this.state.pjz[this.state.layer]} back={() => this.setState({ layer: 'sy' }, this.update)} />}
             </div>
         )
     }
@@ -329,20 +347,22 @@ export default class AgingControl extends React.Component {
 // 出口组件
 class CK extends React.Component {
     state = {
-        selectIndex: 1,
-        ck: [],
-        jk: [],
+        selectIndex: 'v_imap_scct_sxfx_e_b',
+        ck: [[], []],
+        jk: [[], []],
         top10: [],
         containerNo: '',
+        dataa: 0,
     }
     componentDidMount() {
         let layer = this.props.layer;
         let month = Number(this.props.data.replace('月', ''));
         let year = new Date().getFullYear();
-        publish('getData', { svn: 'skhg_stage', tableName: 'imap_scct_sxfx_01', data: { where: "category='" + (this.props.layer == 'ck' ? 'E' : 'I') + "' and EFFECTDATE='" + year + (month < 10 ? '0' : '') + month + "'" } }).then((res) => {
+        let time = year + (month < 10 ? '0' : '') + month;
+        publish('getData', { svn: 'skhg_stage', tableName: 'imap_scct_sxfx_01', data: { where: "category='" + (this.props.layer == 'ck' ? 'E' : 'I') + "' and EFFECTDATE='" + time + "'" } }).then((res) => {
             let e = res[0].features[0].attributes;
             e.DATAA = Number(e.DATAA);
-            e.DATAB = Number(e.DATAB);
+            e.DATAB = (Number(e.DATAB) - Number(this.props.hgpjz.data[time][this.props.layer]) / 24).toFixed(2);
             e.DATAC = Number(e.DATAC);
             e.DATAD = Number(e.DATAD);
             e.DATAE = Number(e.DATAE);
@@ -358,31 +378,42 @@ class CK extends React.Component {
             temp.DATAF = Number(temp.DATAF);
             if (this.props.layer == 'ck') {
                 mdata = [
-                    { layer: 'ck', name: '通关准备', top10Table: 'v_imap_scct_sxfx_e_b', style: { width: 646, height: 628 }, type: e.DATAB > temp.DATAB ? 0 : 1, time: e.DATAB, items: [{ name: (e.DATAB > temp.DATAB ? '超' : '低') + '去年均值', value: Math.abs(e.DATAB - temp.DATAB).toFixed(2), rate: (Math.abs(e.DATAB - temp.DATAB) / temp.DATAB * 100).toFixed(0) }, { name: (e.DATAB > data206(temp.DATAB) ? '超' : '低') + '目标值', value: Math.abs(e.DATAB - data206(temp.DATAB)).toFixed(2), rate: (Math.abs(e.DATAB - data206(temp.DATAB)) / data206(temp.DATAB) * 100).toFixed(0) }] },
-                    { layer: 'ck', name: '货物提离', top10Table: 'v_imap_scct_sxfx_e_c', style: { width: 646, height: 628 }, type: e.DATAC > temp.DATAC ? 0 : 1, time: e.DATAC, items: [{ name: (e.DATAC > temp.DATAC ? '超' : '低') + '去年均值', value: Math.abs(e.DATAC - temp.DATAC).toFixed(2), rate: (Math.abs(e.DATAC - temp.DATAC) / temp.DATAC * 100).toFixed(0) }, { name: (e.DATAC > data206(temp.DATAC) ? '超' : '低') + '目标值', value: Math.abs(e.DATAC - data206(temp.DATAC)).toFixed(2), rate: (Math.abs(e.DATAC - data206(temp.DATAC)) / data206(temp.DATAC) * 100).toFixed(0) }] },
-                    { layer: 'ck', name: '通关准备', top10Table: 'v_imap_scct_sxfx_e_d', style: { width: 646, height: 628 }, type: e.DATAD > temp.DATAD ? 0 : 1, time: e.DATAD, items: [{ name: (e.DATAD > temp.DATAD ? '超' : '低') + '去年均值', value: Math.abs(e.DATAD - temp.DATAD).toFixed(2), rate: (Math.abs(e.DATAD - temp.DATAD) / temp.DATAD * 100).toFixed(0) }, { name: (e.DATAD > data206(temp.DATAD) ? '超' : '低') + '目标值', value: Math.abs(e.DATAD - data206(temp.DATAD)).toFixed(2), rate: (Math.abs(e.DATAD - data206(temp.DATAD)) / data206(temp.DATAD) * 100).toFixed(0) }] },
-                    { layer: 'ck', name: '查验作业', top10Table: 'v_imap_scct_sxfx_e_e', style: { width: 646, height: 628 }, type: e.DATAE > temp.DATAE ? 0 : 1, time: e.DATAE, items: [{ name: (e.DATAE > temp.DATAE ? '超' : '低') + '去年均值', value: Math.abs(e.DATAE - temp.DATAE).toFixed(2), rate: (Math.abs(e.DATAE - temp.DATAE) / temp.DATAE * 100).toFixed(0) }, { name: (e.DATAE > data206(temp.DATAE) ? '超' : '低') + '目标值', value: Math.abs(e.DATAE - data206(temp.DATAE)).toFixed(2), rate: (Math.abs(e.DATAE - data206(temp.DATAE)) / data206(temp.DATAE) * 100).toFixed(0) }] },
-                    { layer: 'ck', name: '货物提离', top10Table: 'v_imap_scct_sxfx_e_f', style: { width: 646, height: 628 }, type: e.DATAF > temp.DATAF ? 0 : 1, time: e.DATAF, items: [{ name: (e.DATAF > temp.DATAF ? '超' : '低') + '去年均值', value: Math.abs(e.DATAF - temp.DATAF).toFixed(2), rate: (Math.abs(e.DATAF - temp.DATAF) / temp.DATAF * 100).toFixed(0) }, { name: (e.DATAF > data206(temp.DATAF) ? '超' : '低') + '目标值', value: Math.abs(e.DATAF - data206(temp.DATAF)).toFixed(2), rate: (Math.abs(e.DATAF - data206(temp.DATAF)) / data206(temp.DATAF) * 100).toFixed(0) }] },
+                    [
+                        { layer: 'ck', name: '通关准备', top10Table: 'v_imap_scct_sxfx_e_b', style: { width: 646, height: 628 }, type: e.DATAB > temp.DATAB ? 0 : 1, time: e.DATAB, items: [{ name: (e.DATAB > temp.DATAB ? '超' : '低') + '去年均值', value: Math.abs(e.DATAB - temp.DATAB).toFixed(2), rate: (Math.abs(e.DATAB - temp.DATAB) / temp.DATAB * 100).toFixed(0) }, { name: (e.DATAB > data206(temp.DATAB) ? '超' : '低') + '目标值', value: Math.abs(e.DATAB - data206(temp.DATAB)).toFixed(2), rate: (Math.abs(e.DATAB - data206(temp.DATAB)) / data206(temp.DATAB) * 100).toFixed(0) }] },
+                        { layer: 'ck', name: '货物提离', top10Table: 'v_imap_scct_sxfx_e_c', style: { width: 646, height: 628 }, type: e.DATAC > temp.DATAC ? 0 : 1, time: e.DATAC, items: [{ name: (e.DATAC > temp.DATAC ? '超' : '低') + '去年均值', value: Math.abs(e.DATAC - temp.DATAC).toFixed(2), rate: (Math.abs(e.DATAC - temp.DATAC) / temp.DATAC * 100).toFixed(0) }, { name: (e.DATAC > data206(temp.DATAC) ? '超' : '低') + '目标值', value: Math.abs(e.DATAC - data206(temp.DATAC)).toFixed(2), rate: (Math.abs(e.DATAC - data206(temp.DATAC)) / data206(temp.DATAC) * 100).toFixed(0) }] },
+                    ],
+                    [
+                        { layer: 'ck', name: '查验准备', top10Table: 'v_imap_scct_sxfx_e_d', style: { width: 646, height: 628 }, type: e.DATAD > temp.DATAD ? 0 : 1, time: e.DATAD, items: [{ name: (e.DATAD > temp.DATAD ? '超' : '低') + '去年均值', value: Math.abs(e.DATAD - temp.DATAD).toFixed(2), rate: (Math.abs(e.DATAD - temp.DATAD) / temp.DATAD * 100).toFixed(0) }, { name: (e.DATAD > data206(temp.DATAD) ? '超' : '低') + '目标值', value: Math.abs(e.DATAD - data206(temp.DATAD)).toFixed(2), rate: (Math.abs(e.DATAD - data206(temp.DATAD)) / data206(temp.DATAD) * 100).toFixed(0) }] },
+                        { layer: 'ck', name: '查验作业', top10Table: 'v_imap_scct_sxfx_e_e', style: { width: 646, height: 628 }, type: e.DATAE > temp.DATAE ? 0 : 1, time: e.DATAE, items: [{ name: (e.DATAE > temp.DATAE ? '超' : '低') + '去年均值', value: Math.abs(e.DATAE - temp.DATAE).toFixed(2), rate: (Math.abs(e.DATAE - temp.DATAE) / temp.DATAE * 100).toFixed(0) }, { name: (e.DATAE > data206(temp.DATAE) ? '超' : '低') + '目标值', value: Math.abs(e.DATAE - data206(temp.DATAE)).toFixed(2), rate: (Math.abs(e.DATAE - data206(temp.DATAE)) / data206(temp.DATAE) * 100).toFixed(0) }] },
+                        { layer: 'ck', name: '货物提离', top10Table: 'v_imap_scct_sxfx_e_f', style: { width: 646, height: 628 }, type: e.DATAF > temp.DATAF ? 0 : 1, time: e.DATAF, items: [{ name: (e.DATAF > temp.DATAF ? '超' : '低') + '去年均值', value: Math.abs(e.DATAF - temp.DATAF).toFixed(2), rate: (Math.abs(e.DATAF - temp.DATAF) / temp.DATAF * 100).toFixed(0) }, { name: (e.DATAF > data206(temp.DATAF) ? '超' : '低') + '目标值', value: Math.abs(e.DATAF - data206(temp.DATAF)).toFixed(2), rate: (Math.abs(e.DATAF - data206(temp.DATAF)) / data206(temp.DATAF) * 100).toFixed(0) }] },
+                    ],
                 ];
             }
             else {
                 mdata = [
-                    { layer: 'jk', name: '通关准备', top10Table: 'v_imap_scct_sxfx_i_b', style: { width: 691, height: 628, marginLeft: 75 }, type: e.DATAB > temp.DATAB ? 0 : 1, time: e.DATAB, items: [{ name: (e.DATAB > temp.DATAB ? '超' : '低') + '去年均值', value: Math.abs(e.DATAB - temp.DATAB).toFixed(2), rate: (Math.abs(e.DATAB - temp.DATAB) / temp.DATAB * 100).toFixed(0) }, { name: (e.DATAB > data206(temp.DATAB) ? '超' : '低') + '目标值', value: Math.abs(e.DATAB - data206(temp.DATAB)).toFixed(2), rate: (Math.abs(e.DATAB - data206(temp.DATAB)) / data206(temp.DATAB) * 100).toFixed(0) }] },
-                    { layer: 'jk', name: '货物提离', top10Table: 'v_imap_scct_sxfx_i_c', style: { width: 691, height: 628, marginRight: 130 }, type: e.DATAC > temp.DATAC? 0 : 1, time: e.DATAC, items: [{ name: (e.DATAC > temp.DATAC ? '超' : '低') + '去年均值', value: Math.abs(e.DATAC - temp.DATAC).toFixed(2), rate: (Math.abs(e.DATAC - temp.DATAC) / temp.DATAC * 100).toFixed(0) }, { name: (e.DATAC > data206(temp.DATAC) ? '超' : '低') + '目标值', value: Math.abs(e.DATAC - data206(temp.DATAC)).toFixed(2), rate: (Math.abs(e.DATAC - data206(temp.DATAC)) / data206(temp.DATAC) * 100).toFixed(0) }] },
-                    { layer: 'jk', name: '通关准备', top10Table: 'v_imap_scct_sxfx_i_d', style: { width: 691, height: 628, marginRight: 30 }, type: e.DATAD > temp.DATAD ? 0 : 1, time: e.DATAD, items: [{ name: (e.DATAD > temp.DATAD ? '超' : '低') + '去年均值', value: Math.abs(e.DATAD - temp.DATAD).toFixed(2), rate: (Math.abs(e.DATAD - temp.DATAD) / temp.DATAD * 100).toFixed(0) }, { name: (e.DATAD > data206(temp.DATAD) ? '超' : '低') + '目标值', value: Math.abs(e.DATAD - data206(temp.DATAD)).toFixed(2), rate: (Math.abs(e.DATAD - data206(temp.DATAD)) / data206(temp.DATAD) * 100).toFixed(0) }] },
-                    { layer: 'jk', name: '查验作业', top10Table: 'v_imap_scct_sxfx_i_e', style: { width: 691, height: 628, marginRight: 75 }, type: e.DATAE > temp.DATAE ? 0 : 1, time: e.DATAE, items: [{ name: (e.DATAE > temp.DATAE ? '超' : '低') + '去年均值', value: Math.abs(e.DATAE - temp.DATAE).toFixed(2), rate: (Math.abs(e.DATAE - temp.DATAE) / temp.DATAE * 100).toFixed(0) }, { name: (e.DATAE > data206(temp.DATAE) ? '超' : '低') + '目标值', value: Math.abs(e.DATAE - data206(temp.DATAE)).toFixed(2), rate: (Math.abs(e.DATAE - data206(temp.DATAE)) / data206(temp.DATAE) * 100).toFixed(0) }] },
+                    [
+                        { layer: 'jk', name: '通关准备', top10Table: 'v_imap_scct_sxfx_i_b', style: { width: 646, height: 628, marginRight: 50 }, type: e.DATAB > temp.DATAB ? 0 : 1, time: e.DATAB, items: [{ name: (e.DATAB > temp.DATAB ? '超' : '低') + '去年均值', value: Math.abs(e.DATAB - temp.DATAB).toFixed(2), rate: (Math.abs(e.DATAB - temp.DATAB) / temp.DATAB * 100).toFixed(0) }, { name: (e.DATAB > data206(temp.DATAB) ? '超' : '低') + '目标值', value: Math.abs(e.DATAB - data206(temp.DATAB)).toFixed(2), rate: (Math.abs(e.DATAB - data206(temp.DATAB)) / data206(temp.DATAB) * 100).toFixed(0) }] },
+                        { layer: 'jk', name: '货物提离', top10Table: 'v_imap_scct_sxfx_i_c', style: { width: 646, height: 628 }, type: e.DATAC > temp.DATAC ? 0 : 1, time: e.DATAC, items: [{ name: (e.DATAC > temp.DATAC ? '超' : '低') + '去年均值', value: Math.abs(e.DATAC - temp.DATAC).toFixed(2), rate: (Math.abs(e.DATAC - temp.DATAC) / temp.DATAC * 100).toFixed(0) }, { name: (e.DATAC > data206(temp.DATAC) ? '超' : '低') + '目标值', value: Math.abs(e.DATAC - data206(temp.DATAC)).toFixed(2), rate: (Math.abs(e.DATAC - data206(temp.DATAC)) / data206(temp.DATAC) * 100).toFixed(0) }] },
+                    ],
+                    [
+                        { layer: 'jk', name: '查验准备', top10Table: 'v_imap_scct_sxfx_i_d', style: { width: 646, height: 628 }, type: e.DATAD > temp.DATAD ? 0 : 1, time: e.DATAD, items: [{ name: (e.DATAD > temp.DATAD ? '超' : '低') + '去年均值', value: Math.abs(e.DATAD - temp.DATAD).toFixed(2), rate: (Math.abs(e.DATAD - temp.DATAD) / temp.DATAD * 100).toFixed(0) }, { name: (e.DATAD > data206(temp.DATAD) ? '超' : '低') + '目标值', value: Math.abs(e.DATAD - data206(temp.DATAD)).toFixed(2), rate: (Math.abs(e.DATAD - data206(temp.DATAD)) / data206(temp.DATAD) * 100).toFixed(0) }] },
+                        { layer: 'jk', name: '查验作业', top10Table: 'v_imap_scct_sxfx_i_e', style: { width: 646, height: 628 }, type: e.DATAE > temp.DATAE ? 0 : 1, time: e.DATAE, items: [{ name: (e.DATAE > temp.DATAE ? '超' : '低') + '去年均值', value: Math.abs(e.DATAE - temp.DATAE).toFixed(2), rate: (Math.abs(e.DATAE - temp.DATAE) / temp.DATAE * 100).toFixed(0) }, { name: (e.DATAE > data206(temp.DATAE) ? '超' : '低') + '目标值', value: Math.abs(e.DATAE - data206(temp.DATAE)).toFixed(2), rate: (Math.abs(e.DATAE - data206(temp.DATAE)) / data206(temp.DATAE) * 100).toFixed(0) }] },
+                    ],
                 ];
             }
-            this.setState({ [this.props.layer]: mdata }, () => this.updateTop10(0));
+            this.setState({ [this.props.layer]: mdata, dataa: e.DATAA }, () => this.updateTop10('v_imap_scct_sxfx_e_b'));
         });
-        this.updateTop10 = (i) => {
+        this.updateTop10 = (top10Table) => {
             let month = Number(this.props.data.replace('月', ''));
             let year = new Date().getFullYear();
-            publish('getData', { svn: 'skhg_stage', tableName: this.state[this.props.layer][i].top10Table, data: { pageno: 1, pagesize: 10, where: "EFFECTDATE='" + year + (month < 10 ? '0' : '') + month + "' ORDER BY DIS DESC" } }).then((res) => {
+            publish('getData', { svn: 'skhg_stage', tableName: top10Table, data: { pageno: 1, pagesize: 10, where: "EFFECTDATE='" + year + (month < 10 ? '0' : '') + month + "' ORDER BY DIS DESC" } }).then((res) => {
                 let top10 = res[0].features.map((e) => e.attributes);
                 this.setState({ top10: [], containerNo: null }, () => this.setState({ top10: top10, containerNo: top10[0].CONTAINERNO }));
             });
         }
+    }
+    setPropsState = (selectIndex) => {
+        this.setState({ selectIndex: selectIndex });
     }
     render() {
         let datas = this.state[this.props.layer];
@@ -390,12 +421,24 @@ class CK extends React.Component {
             <div className='ac-ckbox'>
                 <div className='ac-back' onClick={this.props.back}></div>
                 {/* <div className='ac-close' onClick={() => publish('closeAC', false)}></div> */}
-                <div className='ac-ckbox-title'>{this.props.layer == 'ck' ? '出口通关时效分析' : '进口通关时效分析'}</div>
-                <div style={{ width: 3, height: 733, position: 'absolute', top: 257, left: this.props.layer == 'ck' ? 1500 : 1870, background: '#1f9bff' }}></div>
+                <div className='ac-ckbox-title'>{this.props.data + (this.props.layer == 'ck' ? '出口' : '进口') + '通关时效分析'}</div>
+                <div style={{ width: 3, height: 630, position: 'absolute', top: 360, left: 1462, background: '#1f9bff', zIndex: 999 }}></div>
+                <div style={{ width: 3, height: 630, position: 'absolute', top: 360, left: 2882, background: '#1f9bff', zIndex: 999 }}></div>
+                <div style={{ position: 'absolute', top: 180, left: 240, zIndex: 999, color: 'white', fontSize: '65px' }}>{this.props.layer == 'ck' ? '出口' : '进口'}通关整体时效</div>
+                <div style={{ position: 'absolute', top: 180, left: 1675, zIndex: 999, color: 'white', fontSize: '65px' }}>海关作业</div>
+                <div style={{ position: 'absolute', top: 180, left: 3050, zIndex: 999, color: 'white', fontSize: '65px' }}>海关查验</div>
                 <div className='ac-ckbox-t'>
                     <div style={{ background: "url('../agingControl/" + this.props.layer + ".png') no-repeat", backgroundSize: '100% 100%' }}></div>
                     <div>
-                        {datas.map((e, i) => <JD key={i} index={i + 1} datas={e} selected={this.state.selectIndex == i + 1} click={() => { this.setState({ selectIndex: i + 1 }); this.updateTop10(i); }} />)}
+                        <div>
+                            {datas[0].map((e, i) => <JD key={i} index={i + 1} datas={e} selected={this.state.selectIndex == e.top10Table} click={() => { this.setState({ selectIndex: e.top10Table }); this.updateTop10(e.top10Table); publish('noSelectCy'); }} />)}
+                        </div>
+                        <div>
+                            <HG datas={this.props.hgpjz} dataa={this.state.dataa} month={this.props.data} layer={this.props.layer} />
+                        </div>
+                        <div>
+                            <CY datas={datas[1]} setPropsState={this.setPropsState} updateTop10={this.updateTop10} />
+                        </div>
                     </div>
                 </div>
                 <div className='ac-ckbox-c'><div>诊断结论：</div><div>2018年{this.props.data}出口时效......</div></div>
@@ -429,63 +472,184 @@ class JD extends React.Component {
     }
 }
 
+// 海关作业时效
+class HG extends React.Component {
+    componentDidMount() {
+        this.update = (props) => {
+            let month = props.month.replace('月', '');
+            let time = new Date().getFullYear() + (month < 10 ? '0' : '') + month;
+            let data = props.datas ? Number(props.datas.data[time][props.layer]) : 0;
+            let option = {
+                color: ['#70e100', '#0A3C77'],
+                tooltip: {
+                    trigger: 'item',
+                    formatter: "{a} <br/>{b} : {c} ({d}%)",
+                    textStyle: {
+                        fontSize: 40
+                    }
+                },
+                series: [
+                    {
+                        name: '作业时间占比',
+                        type: 'pie',
+                        radius: '90%',
+                        center: ['50%', '50%'],
+                        data: [
+                            { value: data, name: '海关作业时间' },
+                            { value: props.dataa * 24 - data, name: '其他作业时间' }
+                        ],
+                        itemStyle: {
+                            emphasis: {
+                                shadowBlur: 10,
+                                shadowOffsetX: 0,
+                                shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            }
+                        },
+                        label: {
+                            normal: {
+                                textStyle: {
+                                    fontSize: 23
+                                }
+                            }
+                        },
+                        labelLine: {
+                            normal: {
+                                lineStyle: {
+                                    width: 2
+                                }
+                            }
+                        },
+                    }
+                ]
+            };
+            if (this.chart) this.chart.dispose();
+            this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
+            this.chart.setOption(option);
+        }
+        this.update(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.update(nextProps);
+    }
+    render() {
+        let month = this.props.month.replace('月', '');
+        let time = new Date().getFullYear() + (month < 10 ? '0' : '') + month;
+        let data = this.props.datas ? this.props.datas.data[time][this.props.layer] : 0;
+        let pjz = this.props.datas ? this.props.datas[this.props.layer] : 0;
+        return (
+            <div className='ac-hg'>
+                <div className='ac-hg-l'>
+                    <div>申报到放行</div>
+                    <div style={{color: '#70E100'}}><div>{data}</div><div>小时</div></div>
+                    <div>
+                        <div><div>与平均值比：</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{data > pjz ? '高' : '低'}</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz).toFixed(2)}小时</div></div>
+                        <div><div>与目标值比：</div><div style={{ color: data > pjz / 2 * 3 ? '#FE0000' : '#70E100' }}>{data > pjz / 2 * 3 ? '高' : '低'}</div><div style={{ color: data > pjz / 2 * 3 ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz / 2 * 3).toFixed(2)}小时</div></div>
+                    </div>
+                </div>
+                <div className='ac-hg-r'>
+                    <div ref='echart'></div>
+                    <div>海关作业时间在货物通关时间中的占比</div>
+                </div>
+            </div>
+        )
+    }
+}
+
+// 查验时效
+class CY extends React.Component {
+    state = {
+        index: 0,
+        selected: false,
+        data: null
+    }
+    componentDidMount() {
+        this.sub_noSelectCy = subscribe('noSelectCy', () => this.setState({ selected: false }));
+    }
+    componentWillUnmount() {
+        if (this.sub_noSelectCy) unsubscribe(this.sub_noSelectCy);
+    }
+    onClick = () => {
+        let index = this.state.index;
+        if (this.state.selected) index++;
+        if (index >= this.props.datas.length) index = 0;
+        this.setState({ index: index, selected: true }, () => {
+            let data = this.props.datas[this.state.index];
+            this.props.setPropsState(data.top10Table); this.props.updateTop10(data.top10Table);
+        });
+    }
+    render() {
+        let data = this.props.datas.length > 0 ? this.props.datas[this.state.index] : null;
+        return (
+            <div>
+                {data ? <JD datas={data} selected={this.state.selected} click={this.onClick} /> : null}
+            </div>
+        )
+    }
+}
+
 // echarts组件
 class JDEC extends React.Component {
     state = {
         color: '#70e100'
     }
     componentDidMount() {
-        let data = Number(this.props.datas.rate);
-        data = data <= 100 ? data : 100;
-        let color = this.props.datas.name == '超目标值' ? '#ff0000' : this.props.datas.name == '低目标值' ? '#70e100' : this.props.type == 1 ? '#70e100' : '#ff0000';
-        this.setState({color: color});
-        let ops = {
-            series: [
-                {
-                    name: '访问来源',
-                    type: 'pie',
-                    radius: ['70%', '90%'],
-                    avoidLabelOverlap: false,
-                    labelLine: {
-                        normal: {
-                            show: false
-                        }
-                    },
-                    data: [
-                        {
-                            value: data,
-                            itemStyle: {
-                                normal: {
-                                    color: color,
-                                }
-                            },
-                            label: {
-                                normal: {
-                                    formatter: () => Number(this.props.datas.rate) + '%',
-                                    position: 'center',
-                                    show: true,
-                                    textStyle: {
-                                        fontSize: '50',
-                                        fontWeight: 'normal',
+        this.update = (props) => {
+            let data = Number(props.datas.rate);
+            data = data <= 100 ? data : 100;
+            let color = props.datas.name == '超目标值' ? '#ff0000' : props.datas.name == '低目标值' ? '#70e100' : props.type == 1 ? '#70e100' : '#ff0000';
+            this.setState({ color: color });
+            let ops = {
+                series: [
+                    {
+                        name: '访问来源',
+                        type: 'pie',
+                        radius: ['70%', '90%'],
+                        avoidLabelOverlap: false,
+                        labelLine: {
+                            normal: {
+                                show: false
+                            }
+                        },
+                        data: [
+                            {
+                                value: data,
+                                itemStyle: {
+                                    normal: {
                                         color: color,
                                     }
-                                }
+                                },
+                                label: {
+                                    normal: {
+                                        formatter: () => Number(props.datas.rate) + '%',
+                                        position: 'center',
+                                        show: true,
+                                        textStyle: {
+                                            fontSize: '50',
+                                            fontWeight: 'normal',
+                                            color: color,
+                                        }
+                                    }
+                                },
                             },
-                        },
-                        {
-                            value: 100 - data, itemStyle: {
-                                normal: {
-                                    color: '#ccc'
+                            {
+                                value: 100 - data, itemStyle: {
+                                    normal: {
+                                        color: '#ccc'
+                                    }
                                 }
                             }
-                        }
-                    ]
-                }
-            ]
-        };
-        if (this.chart) this.chart.dispose();
-        this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
-        this.chart.setOption(ops);
+                        ]
+                    }
+                ]
+            };
+            if (this.chart) this.chart.dispose();
+            this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart));
+            this.chart.setOption(ops);
+        }
+        this.update(this.props);
+    }
+    componentWillReceiveProps(nextProps) {
+        this.update(nextProps);
     }
     render() {
         let type = this.props.type;

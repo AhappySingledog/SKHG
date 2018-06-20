@@ -230,7 +230,7 @@
                 },
                 {
                     "title": "目的地",
-                    "dataIndex": "FINALPORT"
+                    "dataIndex": "DESTIANATION"
                 },
                 {
                     "title": "海关铅封",
