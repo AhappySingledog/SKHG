@@ -6,7 +6,7 @@
 .content ul {
   top: -50px;
   display: block;
-  width: 8000px;
+  width: 99999px;
   height: 100%;
   float: left;
   position: absolute;
@@ -51,6 +51,28 @@
   z-index: 999;
   cursor: pointer;
 }
+.fullScreen {
+  width: 20px;
+  height: 20px;
+  background: url('../images/max.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 99;
+  cursor: pointer;
+}
+.closeImgs {
+  width: 50px;
+  height: 50px;
+  background: url('../images/关闭.png') no-repeat;
+  background-size: 100% 100%;
+  position: absolute;
+  right: 30px;
+  top: 30px;
+  z-index: 99;
+  cursor: pointer;
+}
 .changeImg {
   display: flex;
   flex-direction: row;
@@ -64,24 +86,47 @@
   width: 14px;
   height: 14px;
   background: url('../images/圆形.png');
-  z-index: 999;
+  z-index: 99;
   margin: 10px;
   cursor: pointer;
 }
 .changeImg-item:hover {
   opacity: 1;
 }
+.tip {
+  z-index: 3;
+}
 .tip-top {
   height: 122px;
   background: url('../images/上.png') no-repeat;
   background-size: 100% 100%;
   padding-left: 71px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }
 .tip-top-title {
   text-align: center;
   line-height: 122px;
   color: white;
   font-size: 50px;
+  width: fit-content;
+  height: fit-content;
+  cursor: pointer;
+}
+.tip-top-title:hover {
+  font-size: 60px;
+}
+.tip-top-close {
+  position: absolute;
+  right: 40px;
+  top: 40px;
+  width: 42px;
+  height: 42px;
+  background: url('../images/关闭.png') no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
 }
 .tip-center {
   background: url('../images/中.png') no-repeat;
@@ -96,6 +141,105 @@
   background: url('../images/下.png') no-repeat;
   background-size: 100% 100%;
 }
+.trSelected {
+  background: rgba(255, 189, 77, 0.7);
+}
+.tableExport {
+  width: 60px;
+  height: 60px;
+  background: url('../images/导出.png');
+  background-size: 100% 100%;
+  margin: 0px 20px 20px 20px;
+  cursor: pointer;
+}
+.tableClose {
+  width: 60px;
+  height: 60px;
+  background: url('../images/关闭表格.png');
+  background-size: 100% 100%;
+  margin: 0px 20px 20px 20px;
+  cursor: pointer;
+}
+.qb {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 20px 20px 20px;
+}
+.qb > div:nth-of-type(1) {
+  color: white;
+  font-size: 40px;
+  margin: 0px 10px;
+  height: 50px;
+}
+.qb > div:nth-of-type(1) > span {
+  white-space: nowrap;
+  height: 50px;
+}
+.qb > div:nth-of-type(2) {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 3px solid #1f9bff;
+  border-radius: 3px;
+  height: 66px;
+}
+.qb > div:nth-of-type(2) > input {
+  width: 430px;
+  height: 49px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 35px;
+  padding: 8px 10px;
+}
+.qb > div:nth-of-type(2) > div {
+  width: 50px;
+  height: 50px;
+  background: url('../images/搜索.png') no-repeat;
+  background-size: 100% 100%;
+  margin: 0 10px;
+  cursor: pointer;
+}
+.qbs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+.qbs > span {
+  white-space: nowrap;
+  height: 50px;
+  color: white;
+  font-size: 40px;
+  margin: 0px 10px;
+}
+.qbs > input {
+  width: 430px;
+  height: 49px;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  color: white;
+  font-size: 35px;
+  padding: 8px 10px;
+  border: 3px solid #1f9bff;
+  border-radius: 3px;
+}
+.qbs > div {
+  width: 50px;
+  height: 50px;
+  background: url('../images/搜索.png') no-repeat;
+  background-size: 100% 100%;
+  margin: 0 10px;
+  cursor: pointer;
+}
 .mtable {
   display: flex;
   flex-direction: column;
@@ -104,30 +248,159 @@
   width: fit-content;
   height: fit-content;
   padding: 2px 2px;
+  position: relative;
 }
-.mtable > table {
+.mtable > .mttitle {
+  background-size: 100% 100%;
+  height: 129px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.mtable > .mttitle > div:nth-of-type(1) {
+  width: 1157px;
+  height: 129px;
+  background: url('../images/th-left.png') no-repeat;
+  background-size: 100% 100%;
+  line-height: 129px;
+  color: white;
+  font-size: 50px;
+  padding-left: 55px;
+}
+.mtable > .mttitle > div:nth-of-type(2) {
+  flex-grow: 1;
+  height: 129px;
+  background: url('../images/th-right.png') no-repeat;
+  background-size: 100% 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+.mtable > .tmhead {
+  width: 100%;
+  overflow: hidden;
+}
+.mtable > .tmhead > .mhead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 94px;
+  font-size: 40px;
+  color: white;
+  position: relative;
+}
+.mtable > .tmhead > .mhead > div {
+  word-wrap: break-word;
+  white-space: nowrap;
+  text-indent: 50px;
+}
+.mtable > .mttable {
+  flex-grow: 1;
+  overflow: auto;
+}
+.mtable > .mttable > table {
   width: 100%;
 }
-.mtable > table > thead > tr > td {
-  height: 92px;
+.mtable > .mttable > table > thead > tr > td {
+  height: 0;
   background: rgba(255, 255, 255, 0);
   border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  color: white;
+  font-size: 40px;
+  word-wrap: break-word;
+  white-space: nowrap;
+  opacity: 0;
+  border: none;
+}
+.mtable > .mttable > table > thead > tr > td > div {
+  word-wrap: break-word;
+  white-space: nowrap;
+  text-indent: 50px;
+}
+.mtable > .mttable > table > tbody > tr {
+  cursor: pointer;
+}
+.mtable > .mttable > table > tbody > tr > td {
+  height: 92px;
+  line-height: 92px;
+  color: white;
+  font-size: 45px;
+  word-wrap: break-word;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  text-indent: 50px;
+}
+.mtable > .mttable > table > tbody > tr:nth-of-type(2n) {
+  background: #002e73;
+}
+.mtable > .mttable > table > tbody > tr:nth-of-type(2n) > td:nth-of-type(1) {
+  background: #0a6ec8;
+}
+.mtable > .mttable > table > tbody > tr:hover {
+  background: rgba(255, 189, 77, 0.8);
+}
+.mtable-warning {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  height: fit-content;
+  padding: 2px 2px;
+  border: 2px solid red;
+}
+.mtable-warning > .mttitle {
+  background-size: 100% 100%;
+  height: 100px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.mtable-warning > .mttitle > div:nth-of-type(1) {
+  width: 500px;
+  height: 100px;
+  background: url('../images//th-left.png') no-repeat 100% 100%;
+}
+.mtable-warning > .mhead {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  height: 94px;
+  font-size: 40px;
   color: #5caeff;
+}
+.mtable-warning > .mhead > div {
+  padding: 0 20px;
+}
+.mtable-warning > .mttable {
+  flex-grow: 1;
+  overflow: auto;
+}
+.mtable-warning > .mttable > table {
+  width: 100%;
+}
+.mtable-warning > .mttable > table > thead > tr > td {
+  height: 0;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  color: red;
   font-size: 40px;
   padding-left: 25px;
+  padding-right: 25px;
 }
-.mtable > table > tbody > tr > td {
+.mtable-warning > .mttable > table > tbody > tr > td {
   height: 92px;
+  line-height: 92px;
   color: white;
   font-size: 45px;
   padding-left: 25px;
-}
-.mtable > table > tbody > tr:nth-of-type(2n) {
-  background: #002e73;
-}
-.mtable > table > tbody > tr:nth-of-type(2n) > td:nth-of-type(1) {
-  width: 200px;
-  background: #0a6ec8;
+  padding-right: 25px;
+  word-wrap: break-word;
 }
 .panel {
   display: flex;
@@ -181,4 +454,144 @@
   width: fit-content;
   height: fit-content;
   padding: 2px 2px;
+}
+@keyframes showAnimete {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+.cv {
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  animation: showAnimete 0.5s ease;
+  transform-origin: left center;
+}
+.cv-top {
+  height: 5%;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding-right: 30px;
+  background: url('../images/底块.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.cv-mid {
+  height: 90%;
+  padding: 0 30px;
+  background: url('../images/底块中.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.cv-mid-iframe {
+  width: 100%;
+  height: 100%;
+  border: 1px solid #5AA4F7;
+}
+.cv-bottom {
+  height: 5%;
+  background: url('../images/底块下.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+.closeCv {
+  width: 30px;
+  height: 30px;
+  background: url('../images/关闭.png');
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  cursor: pointer;
+}
+.cv-title {
+  display: flex;
+  flex-direction: row;
+  flex-grow: 1;
+  padding-left: 70px;
+}
+.cv-name {
+  color: white;
+  font-size: 30px;
+  margin-right: 20px;
+}
+.cv-liveID {
+  color: white;
+  font-size: 20px;
+  margin-right: 20px;
+}
+.cv-liveName {
+  color: white;
+  font-size: 20px;
+  margin-right: 20px;
+}
+.vs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  border: 2px solid #5AA4F7;
+}
+.vs-t {
+  flex-grow: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.vs-t > iframe {
+  flex-grow: 1;
+  width: 100%;
+  border: none;
+}
+.vs-b {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+.vs-b > div {
+  flex-grow: 1;
+}
+.vs-b-v {
+  display: flex;
+  flex-direction: column;
+}
+.vs-b-v-name {
+  color: white;
+  font-size: 60px;
+  padding-left: 40px;
+}
+.imgDisplay {
+  position: absolute;
+  top: 460px;
+  left: 100px;
+  z-index: 9999999;
+}
+.imgDisplay > img {
+  width: 7564px;
+  height: 2684px;
+}
+.scrollerbar::horizontal {
+  width: 16px;
+  height: 100px;
+  background-color: #eee;
+}
+.scrollbar::-webkit-scrollbar {
+  width: 16px;
+  height: 100px;
+  background-color: #eee;
+}
+.scrollbar::-webkit-scrollbar-track {
+  background-color: #eee;
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background: #C1C1C1;
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #787878;
 }

@@ -484,7 +484,6 @@ class HG extends React.Component {
                 tooltip: {
                     trigger: 'item',
                     formatter: (params) => {
-                        console.log(params);
                         return '海关作业时间占比：' + (params.name == '海关作业时间' ? params.percent : 100 - params.percent).toFixed(2) + '%'
                     },
                     textStyle: {
