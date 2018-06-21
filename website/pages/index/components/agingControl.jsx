@@ -319,7 +319,7 @@ export default class AgingControl extends React.Component {
             let jk = 0;
             let ck = 0;
             let count = 0;
-            let data = res[0].features.forEach((e) => {
+            res[0].features.forEach((e) => {
                 if (e.attributes.EFFECTDATE.indexOf(year) >= 0) thisyear[e.attributes.EFFECTDATE] = { jk: e.attributes.CUSIN, ck: e.attributes.CUSOUT };
                 else {
                     count++;
