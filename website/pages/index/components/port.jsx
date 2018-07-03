@@ -68,7 +68,6 @@ class MapOperation extends React.Component {
             ymax: 22.49214402,
             ymin: 22.44131873,
         };
-        // console.log(this.props.map);
         this.props.map.mapOper.setMapExtent(mapExtent);
 
         /** 港口码头划分 */
@@ -125,9 +124,7 @@ class MapOperation extends React.Component {
         //                     geom: e.geometry
         //                 };
         //             });
-        //             console.log(a);
         //             publish('webAction', { svn: 'skhg_service', type: 'post', path: 'insertArea', data: { datas: JSON.stringify(a) } }).then((res) => {
-        //                 console.log(res);
         //             });
         //         }
         //     });
@@ -285,7 +282,6 @@ class MapOperation extends React.Component {
                             symbol.setHeight(140 + 36);
                         }
                         g.setSymbol(symbol);
-                        console.log(g);
                         let param2 = {
                             id: 'BARGE_SHIP_LAYER',
                             layerId: 'BARGE_SHIP_HOVERTEXT',
@@ -378,7 +374,7 @@ class MapOperation extends React.Component {
                 showMT: mapper[code].showMT,
                 Amap: mapper[code].Amap,
                 tip: {
-                    mtJson: mapper[code].showMT ? res[0].features : { data: Object.keys(keys[code]).map((key) => { return { name: keys[code][key], number: res[0].features.length > 0 ? res[0].features[0].attributes[key] : 123456 } }) },
+                    mtJson: mapper[code].showMT ? res[0].features : { data: Object.keys(keys[code]).map((key) => { return { name: keys[code][key], number: res[0].features.length > 0 ? res[0].features[0].attributes[key] : 0 } }) },
                     mapDesc: datajson,
                 },
             });

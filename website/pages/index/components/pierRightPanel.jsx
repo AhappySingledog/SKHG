@@ -99,7 +99,6 @@ export default class PierRightPanel extends React.Component {
                             publish('getData', { svn: 'skhg_loader', tableName: 'V_IMAP_ALERTING_12', data: { pageno: 1, pagesize: 10000, where: '1=1' } }),
                             publish('getData', { svn: 'skhg_loader', tableName: 'V_IMAP_ALERTING_13', data: { pageno: 1, pagesize: 10000, where: '1=1' } }),
                         ]).then((res) => {
-                            console.log(res);
                             res.forEach((r, i) => {
                                 this.setState({['cic' + i]: {
                                     flds: res[i][0].fields.map((e) => {return {title: e.alias, dataIndex: e.name}}),
@@ -109,11 +108,11 @@ export default class PierRightPanel extends React.Component {
                         });
                     }
                     else {
-                        publish('pire_right_yq_axis', { value: Nowdata }).then((res) => {
-                            if (this.chart) this.chart.dispose();
-                            this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
-                            this.chart.setOption(res[0]);
-                        });
+                        // publish('pire_right_yq_axis', { value: Nowdata }).then((res) => {
+                        //     if (this.chart) this.chart.dispose();
+                        //     this.chart = echarts.init(ReactDOM.findDOMNode(this.refs.echart1));
+                        //     this.chart.setOption(res[0]);
+                        // });
                         this.setState({ vedios: vedios[this.props.datas.code.toLowerCase()], vediosHeight: 930 });
                     }
                 } else if (this.props.datas.type == 2) {

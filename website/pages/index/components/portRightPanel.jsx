@@ -326,7 +326,6 @@ class PortRightData extends React.Component {
 
     render() {
         let { leftGQ, rightGQ } = this.props;
-        console.log(Number(leftGQ.CHECKNUMOUT).toString().replace(/(\d)(?=(?:\d{3})+$)/g, '$1,'));
         // console.info( a.replace(/\d{1,3}(?=(\d{3})+$)/g,function(s){  
         //     return s+','  
         //   }) ) 

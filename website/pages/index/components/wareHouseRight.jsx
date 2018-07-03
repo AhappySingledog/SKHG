@@ -5,13 +5,12 @@ import moment from 'moment';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import echarts from 'echarts';
-import { publish } from '../../../frame/core/arbiter';
+import { publish,subscribe, unsubscribe } from '../../../frame/core/arbiter';
 import { Panel, WordsContent, Table, Vedios } from '../../../frame/componets/index';
 import { table2Excel } from '../../../frame/core/table2Excel';
 
 class MapOperation extends React.Component {
     componentDidMount() {
-        console.log(this.props);
     }
     render() {
         return (<div></div>)
@@ -20,7 +19,6 @@ class MapOperation extends React.Component {
 
 class Title extends React.Component {
     export = () => {
-        console.log(this.props.id);
         table2Excel(this.props.id);
     }
     render() {
@@ -92,11 +90,12 @@ export default class WareHouseRight extends React.Component {
         }
     }
     componentDidMount() {
-        if (this.props.datas.ckIndex < 1) {
-            this.handleWare(this.props.datas.ckIndex + 1);
-        } else {
-            alert((this.props.datas.ckIndex + 1) + "号仓库暂无数据");
-        }
+        this.handleWare(this.props.datas.ckIndex + 1);
+        this.su_handleWare = subscribe('handleWare', this.handleWare);
+    }
+
+    componentWillMount() {
+        if (this.su_handleWare) unsubscribe(this.su_handleWare);
     }
 
     /** 查询仓库库位列表数据 */
@@ -104,7 +103,7 @@ export default class WareHouseRight extends React.Component {
         let index = layer.load(1, { shade: [0.5, '#fff'] });
         publish('webAction',
             {
-                svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'CMBL_4RD_LOCATIONLIST', where: " LOCATION_TS like '" + e + "0%' and trunc(RECORDDATE) = trunc(sysdate)" }
+                svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'CMBL_4RD_LOCATIONLIST', where: " LOCATION_TS like '" + e + "0%' and trunc(RECORDDATE) = trunc(sysdate) order by LOCATION_TS" }
             }).then(res => {
                 let flds = Object.keys(res[0].attr).map(e => { return { dataIndex: e, title: res[0].attr[e] } });
                 let table = <Table
@@ -121,6 +120,8 @@ export default class WareHouseRight extends React.Component {
                     if (res[0].data.length > 0) {
                         layer.close(index);
                         this.handelGoods(res[0].data[0]);
+                    }else{
+                        this.setState({  table: null,   GoodsNum: null,  Goodsflds: [], GoddsDatas: [], libraryTitle: [], Inlibrary: [], Outlibrary: []} ,() => {layer.close(index);publish('find_kwh', '00');});
                     }
                 });
             })

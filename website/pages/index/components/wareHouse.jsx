@@ -12,7 +12,6 @@ import VideoIcon from '../images/视频监控.png';
 
 class MapOperation extends React.Component {
     componentDidMount() {
-        console.log(this.props);
         let datas = this.props.datas;
         let mapExtent = {
             xmin: Number(datas.xmin),
@@ -22,7 +21,6 @@ class MapOperation extends React.Component {
         }
         this.props.map.mapOper.setMapExtent(mapExtent);
         let drawVideos = (datas) => {
-            console.log(datas.code);
             Promise.all([
                 publish('webAction', { svn: 'skhg_stage_service', path: 'queryTableByWhere', data: { tableName: 'IMAP_VIDEO', where: "ENTERPRISENAME='" + datas.ssdw + "'" } }),
                 publish('webAction', { svn: 'skhg_service', path: 'queryGeomTable', data: { tableName: 'SK_MONITOR_GIS_N', where: "SSDW='" + datas.ssdw + "'" } }),
@@ -139,12 +137,11 @@ class CkList extends React.Component {
         this.sub_getVideosAndDisplayForHouse = subscribe('getVideosAndDisplayForHouse', this.getVideosAndDisplayForHouse);
     }
     getVideosAndDisplayForHouse = (kw) => {
-        // console.log(this.state);
         let ck = this.state.ckList[this.state.ckIndex];
         // let cs = ck[this.state.itemIndex];
-        publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND CS='" + (this.state.itemIndex  + 1) + "'" } }).then((res) => {
-            let videos = res[0].data.map((e) => {return {name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL}});
-            this.setState({videos: videos});
+        publish('webAction', { svn: 'skhg_service', path: 'queryTableByWhere', data: { tableName: 'SK_MONITOR_HOUSE', where: "CK='" + ck.name + "' AND CS='" + (this.state.itemIndex + 1) + "'" } }).then((res) => {
+            let videos = res[0].data.map((e) => { return { name: e.CODE, top: e.TOP, left: e.LEFT, url: e.URL } });
+            this.setState({ videos: videos });
         });
     }
     componentDidUpdate() {
@@ -156,33 +153,35 @@ class CkList extends React.Component {
         let index = this.state.itemIndex;
         let length = this.state.ckList[this.state.ckIndex].items.length;
         index = index - 1 < 0 ? length - 1 : index - 1;
-        $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
+        $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => { $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated')); this.getVideosAndDisplayForHouse({}); }); });
     }
     right = () => {
         let index = this.state.itemIndex;
         let length = this.state.ckList[this.state.ckIndex].items.length;
         index = index + 1 >= length ? 0 : index + 1;
-        $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
+        $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => { $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated')); this.getVideosAndDisplayForHouse({}); }); });
     }
     goItemIndex = (index) => {
         let indexs = layer.load(1, { shade: [0.5, '#fff'] });
         let itemIndex = this.state.itemIndex;
-        if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
-        if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => {$('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated'));this.getVideosAndDisplayForHouse({});}); });
-    
-        setTimeout( ()=>{layer.close(indexs);},2500 );
-    }
-    goCkIndex = (index) => {
-        let indexs = layer.load(1, { shade: [0.5, '#fff'] });
-        if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => {$('#house').removeClass('magictime swashIn animated');this.getVideosAndDisplayForHouse({});})); });
+        if (index < itemIndex) $('#house').addClass('magictime slideLeft animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideLeft animated'); this.setState({ itemIndex: index }, () => { $('#house').addClass('magictime slideRightRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideRightRetourn animated')); this.getVideosAndDisplayForHouse({}); }); });
+        if (index > itemIndex) $('#house').addClass('magictime slideRight animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime slideRight animated'); this.setState({ itemIndex: index }, () => { $('#house').addClass('magictime slideLeftRetourn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('#house').removeClass('magictime slideLeftRetourn animated')); this.getVideosAndDisplayForHouse({}); }); });
 
         setTimeout(() => { layer.close(indexs); }, 2500);
+    }
+    goCkIndex = (index) => {
+
+
+        let indexs = layer.load(1, { shade: [0.5, '#fff'] });
+        if (this.state.ckIndex !== index) $('#house').addClass('magictime swashOut animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashOut animated'); this.setState({ itemIndex: 0, ckIndex: index }, () => $('#house').addClass('magictime swashIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => { $('#house').removeClass('magictime swashIn animated'); this.getVideosAndDisplayForHouse({}); })); });
+
+        setTimeout(() => { layer.close(indexs); publish('handleWare', index + 1); }, 2500);
     }
     render() {
         let ckList = this.state.ckList;
         return (
             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                {this.state.videos.map((e, i) => <div style={{ top: e.top, left: e.left }} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
+                {this.state.videos.map((e, i) => <div style={{ top: "'" + e.top + "'px", left: "'" + e.left + "'px", width: "'" + e.width + "'px", height: "'" + e.height + "'px" }} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
                 <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
@@ -207,8 +206,10 @@ export default class WareHouse extends React.Component {
         map: null,
         ckList: false,
         show: 'none',
-        top: null,
-        left: null,
+        top: 0,
+        left: 0,
+        width: 0,
+        height: 0,
     }
     componentDidMount() {
         this.sub_find_kwh = subscribe('find_kwh', this.find_kwh);
@@ -225,19 +226,77 @@ export default class WareHouse extends React.Component {
 
     find_kwh = (e) => {
         const sbjson = {
-            101: { top: 996, left: 670 },
-            102: { top: 996, left: 1490 },
-            103: { top: 996, left: 2300 },
-            104: { top: 996, left: 3110 },
-            105: { top: 996, left: 4150 },
-            106: { top: 996, left: 4960 },
-            107: { top: 996, left: 5770 },
-            108: { top: 996, left: 6580 }
+            101: { top: 996, left: 670, width: 817, height: 1589 },
+            102: { top: 996, left: 1490, width: 817, height: 1589 },
+            103: { top: 996, left: 2300, width: 817, height: 1589 },
+            104: { top: 996, left: 3110, width: 817, height: 1589 },
+            105: { top: 996, left: 4150, width: 817, height: 1589 },
+            106: { top: 996, left: 4960, width: 817, height: 1589 },
+            107: { top: 996, left: 5770, width: 817, height: 1589 },
+
+            201: { top: 545, left: 1387, width: 1030, height: 1520 },
+            202: { top: 545, left: 2423, width: 1300, height: 1535 },
+            203: { top: 545, left: 3747, width: 1300, height: 1535 },
+            204: { top: 545, left: 5060, width: 1300, height: 1535 },
+            208: { top: 1285, left: 1145, width: 2735, height: 805 },
+            209: { top: 1285, left: 3878, width: 2735, height: 805 },
+
+            304: { top: 920, left: 650, width: 1275, height: 1285 },
+            303: { top: 920, left: 1950, width: 1520, height: 1285 },
+            302: { top: 920, left: 3495, width: 1520, height: 1285 },
+            301: { top: 920, left: 5035, width: 1520, height: 1285 },
+            305: { top: 880, left: 5085, width: 1330, height: 1340 },
+            306: { top: 880, left: 3485, width: 1590, height: 1340 },
+            307: { top: 880, left: 1870, width: 1590, height: 1340 },
+            308: { top: 880, left: 520, width: 1330, height: 1340 },
+
+            401: { top: 1000, left: 1195, width: 1210, height: 1223 },
+            402: { top: 1000, left: 2405, width: 1195, height: 1223 },
+            403: { top: 1000, left: 3605, width: 1195, height: 1223 },
+            404: { top: 1000, left: 4805, width: 1195, height: 1223 },
+            405: { top: 1000, left: 6015, width: 1195, height: 1223 },
+            407: { top: 1000, left: 1250, width: 1150, height: 1170 },
+            408: { top: 1000, left: 2410, width: 1150, height: 1170 },
+            409: { top: 1000, left: 3570, width: 1150, height: 1170 },
+            410: { top: 1000, left: 4730, width: 1150, height: 1170 },
+            411: { top: 1000, left: 5890, width: 1150, height: 1170 },
+
+            501: { top: 788, left: 4850, width: 1285, height: 1295 },
+            502: { top: 788, left: 3565, width: 1285, height: 1295 },
+            503: { top: 788, left: 2275, width: 1285, height: 1295 },
+            504: { top: 788, left: 988, width: 1285, height: 1295 },
+
+            611: { top: 1611, left: 2161, width: 1880, height: 620 },
+            612: { top: 785, left: 2164, width: 1880, height: 820 },
+            613: { top: 1611, left: 4050, width: 1880, height: 620 },
+            614: { top: 785, left: 4050, width: 1880, height: 820 },
+
+            621: { top: 1680, left: 1830, width: 2195, height: 975 },
+            622: { top: 697, left: 1830, width: 2195, height: 975 },
+            623: { top: 1680, left: 4046, width: 2195, height: 975 },
+            624: { top: 697, left: 4046, width: 2195, height: 975 },
+
+            631: { top: 1680, left: 1830, width: 2195, height: 975 },
+            632: { top: 697, left: 1830, width: 2195, height: 975 },
+            633: { top: 1680, left: 4046, width: 2195, height: 975 },
+            634: { top: 697, left: 4046, width: 2195, height: 975 },
+
+            641: { top: 1680, left: 1830, width: 2195, height: 975 },
+            642: { top: 697, left: 1830, width: 2195, height: 975 },
+            643: { top: 1680, left: 4046, width: 2195, height: 975 },
+            644: { top: 697, left: 4046, width: 2195, height: 975 },
+
+            651: { top: 1680, left: 1830, width: 2195, height: 975 },
+            652: { top: 697, left: 1830, width: 2195, height: 975 },
+            653: { top: 1680, left: 4046, width: 2195, height: 975 },
+            654: { top: 697, left: 4046, width: 2195, height: 975 },
         };
-        let ms = e['LOCATION_TS'].match(/\d+/g);
+        let ms = e['LOCATION_TS'] ? e['LOCATION_TS'].match(/\d+/g) : e;
         this.setState({
-            top: sbjson[ms].top,
-            left: sbjson[ms].left,
+            top: sbjson[ms] ? sbjson[ms].top : 0,
+            left:sbjson[ms] ? sbjson[ms].left : 0,
+            width: sbjson[ms] ? sbjson[ms].width : 0,
+            height: sbjson[ms] ? sbjson[ms].height : 0,
             show: null
         })
     }
@@ -310,7 +369,7 @@ export default class WareHouse extends React.Component {
                     </div>
                     {this.state.map ? <MapOperation map={this.state.map} datas={this.props.datas} reso={this.props.res} /> : null}
                 </div>
-                <div style={{ width: 817, height: 1589, 'position': 'absolute', background: 'rgba(0,0,0,0.6)', display: this.state.show, top: 996, left: Number(this.state.left) }}></div>
+                <div style={{ width: Number(this.state.width), height: Number(this.state.height), 'position': 'absolute', background: 'rgba(0,0,0,0.6)', display: this.state.show, top: Number(this.state.top), left: Number(this.state.left) }}></div>
                 <div className='houseRight' style={{ marginLeft: 30 }}>
                     <WareHouseRight datas={this.props.datas} type={this.props.datas.type} />
                 </div>
