@@ -427,22 +427,23 @@ export default class PortRight extends React.Component {
     }
 
     componentDidMount() {
-        Promise.all([
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5304关区') AND CUSTOMSCODE='5304关区'" } }),
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5349关区') AND CUSTOMSCODE='5349关区'" } }),
-            publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: '1=1' } }),
-        ]).then((res) => {
-            let leftGQ = res[0][0].data[0];
-            let rightGQ = res[1][0].data[0];
-            let temp = res[2][0].data[0];
-            leftGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5304;
-            leftGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5304;
-            leftGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5304;
-            rightGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5349;
-            rightGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5349;
-            rightGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5349;
-            this.setState({ leftGQ: leftGQ, rightGQ: rightGQ });
-        });
+        // Promise.all([
+        //     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5304关区') AND CUSTOMSCODE='5304关区'" } }),
+        //     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'HZ2011', where: "EFFECTDATE=(SELECT MAX(EFFECTDATE) FROM HZ2011 WHERE CUSTOMSCODE='5349关区') AND CUSTOMSCODE='5349关区'" } }),
+        //     publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'V_IMAP_CIC', where: '1=1' } }),
+        // ]).then((res) => {
+        //     console.log(res);
+        //     let leftGQ = res[0][0].data[0];
+        //     let rightGQ = res[1][0].data[0];
+        //     let temp = res[2][0].data[0];
+        //     leftGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5304;
+        //     leftGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5304;
+        //     leftGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5304;
+        //     rightGQ.CHECKNUMINCOME = temp.INCOMINGCOUNT_5349;
+        //     rightGQ.CHECKNUMYARD = temp.CHECKINGCOUNT_5349;
+        //     rightGQ.CHECKNUMOUT = temp.OUTINGCOUNT_5349;
+        //     this.setState({ leftGQ: leftGQ, rightGQ: rightGQ });
+        // });
     }
 
     render() {

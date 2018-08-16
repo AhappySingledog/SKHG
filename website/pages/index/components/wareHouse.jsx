@@ -179,9 +179,10 @@ class CkList extends React.Component {
     }
     render() {
         let ckList = this.state.ckList;
+        console.log(this.state.videos);
         return (
             <div style={{ width: '100%', height: '100%', overflow: 'hidden' }}>
-                {this.state.videos.map((e, i) => <div style={{ top: "'" + e.top + "'px", left: "'" + e.left + "'px", width: "'" + e.width + "'px", height: "'" + e.height + "'px" }} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
+                {this.state.videos.map((e, i) => <div style={{ top: Number(e.top), left: Number(e.left) }} className='houseVideo' key={i} onClick={() => publish('playVedio', e)}></div>)}
                 <div id='house' style={{ background: "url('../portImages/" + (ckList.length > 0 ? ckList[this.state.ckIndex].items[this.state.itemIndex].key : 'Warehouse') + ".png') no-repeat", width: '100%', height: '100%' }}>
                 </div>
                 <div className='ckList'>
@@ -294,7 +295,7 @@ export default class WareHouse extends React.Component {
         let ms = e['LOCATION_TS'] ? e['LOCATION_TS'].match(/\d+/g) : e;
         this.setState({
             top: sbjson[ms] ? sbjson[ms].top : 0,
-            left:sbjson[ms] ? sbjson[ms].left : 0,
+            left: sbjson[ms] ? sbjson[ms].left : 0,
             width: sbjson[ms] ? sbjson[ms].width : 0,
             height: sbjson[ms] ? sbjson[ms].height : 0,
             show: null

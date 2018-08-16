@@ -64,7 +64,7 @@ export default class PierRightPanel extends React.Component {
             cmbl: [
                 [[{name: '招商保税101库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.12'}], [{name: '招商保税102库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.16'}]],
                 [[{name: '招商保税103库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.19'}], [{name: '招商保税104库球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.22'}]], 
-                [data, data]
+                [[{name: '园区内正对闸口球机', url: 'http://172.28.1.65:8020/?ip=10.131.16.189'}], [{name: '闸口行人通道', url: 'http://172.28.1.65:8020/?ip=10.131.15.57'}]], 
             ],
             cic: [],
             yth: [[data, data], [data, data]],

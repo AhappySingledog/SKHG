@@ -1604,7 +1604,6 @@ body > div:nth-of-type(1) {
 .ac {
   background: #000000;
   z-index: 9999;
-  position: absolute;
   top: 433px;
   left: 7711px;
 }

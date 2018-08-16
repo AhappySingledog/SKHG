@@ -140,7 +140,8 @@ export default class AgingControl extends React.Component {
                                     value: e,
                                     itemStyle: {
                                         normal: {
-                                            color: e < mbckData[0] ? '#1890ff' : e < ckData[0] ? '#dbcf01' : '#f00',
+                                            color: Number(e) < Number(mbckData[0]) ? '#1890ff' : Number(e) < Number(ckData[0]) ? '#dbcf01' : '#f00',
+
                                             label: {
                                                 textStyle: {
                                                     color: '#fff',
@@ -282,7 +283,7 @@ export default class AgingControl extends React.Component {
                                     value: e,
                                     itemStyle: {
                                         normal: {
-                                            color: e < mbjkData[0] ? '#1890ff' : e < jkData[0] ? '#dbcf01' : '#f00',
+                                            color: Number(e) < Number(mbjkData[0]) ? '#1890ff' : Number(e) < Number(jkData[0]) ? '#dbcf01' : '#f00',
                                             label: {
                                                 textStyle: {
                                                     color: '#fff',
@@ -309,11 +310,14 @@ export default class AgingControl extends React.Component {
             });
         }
         publish('getData', { svn: 'skhg_stage', tableName: 'imap_scct_sxfx', data: { where: "EFFECTYEAR=to_char(sysdate,'yyyy')-1" } }).then((res) => {
+            console.log(res);
             let pjz = {};
             res[0].features.forEach((e) => pjz[e.attributes.CATEGORY == 'E' ? 'ck' : 'jk'] = e.attributes);
             this.setState({ pjz: pjz }, this.update);
         });
-        publish('getData', { svn: 'skhg_stage', tableName: 'imap_skhg_sxfx', data: { where: "EFFECTDATE LIKE to_char(sysdate,'yyyy')-1||'%' OR EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
+        publish('getData', { svn: 'skhg_loader', tableName: 'imap_skhg_sxfx', data: { where: "EFFECTDATE LIKE to_char(sysdate,'yyyy')-1||'%' OR EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
+            // publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'imap_skhg_sxfx', where: "EFFECTDATE LIKE to_char(sysdate,'yyyy')-1||'%' OR EFFECTDATE LIKE to_char(sysdate,'yyyy')||'%'" } }).then((res) => {
+            console.log(res);
             let year = new Date().getFullYear() + '';
             let thisyear = {};
             let jk = 0;
@@ -334,7 +338,7 @@ export default class AgingControl extends React.Component {
     }
     render() {
         return (
-            <div className='ac'>
+            <div className='ac' style={{ position : this.props.stl }}>
                 {this.state.layer == 'sy' ? <div className='ac-box'>
                     <div ref='echart1' className='ac-box-t'></div>
                     <div ref='echart2' className='ac-box-b'></div>
@@ -543,7 +547,7 @@ class HG extends React.Component {
             <div className='ac-hg'>
                 <div className='ac-hg-l'>
                     <div>申报到放行</div>
-                    <div style={{color: '#70E100'}}><div>{data}</div><div>小时</div></div>
+                    <div style={{ color: '#70E100' }}><div>{data}</div><div>小时</div></div>
                     <div>
                         <div><div>与平均值比：</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{data > pjz ? '高' : '低'}</div><div style={{ color: data > pjz ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz).toFixed(2)}小时</div></div>
                         <div><div>与目标值比：</div><div style={{ color: data > pjz / 3 * 2 ? '#FE0000' : '#70E100' }}>{data > pjz / 3 * 2 ? '高' : '低'}</div><div style={{ color: data > pjz / 3 * 2 ? '#FE0000' : '#70E100' }}>{Math.abs(data - pjz / 3 * 2).toFixed(2)}小时</div></div>

@@ -695,18 +695,23 @@ export default class App extends React.Component {
             switch (index) {
                 case 1:
                     curLayer = <Port {...curProps} />;
+                    this.setState({ agingControl :true })
                     break;
                 case 2:
                     curLayer = <Pier {...curProps} />;
+                    this.setState({ agingControl :false })
                     break;
                 case 3:
                     curLayer = <WareHouse {...curProps} />;
+                    this.setState({ agingControl :false })
                     break;
                 case 4:
                     curLayer = <IWarning {...curProps} />;
+                    this.setState({ agingControl :false })
                     break;
                 default:
                     curLayer = <Home {...curProps} />;
+                    this.setState({ agingControl :true })
             }
             this.layers[index] = { layerIndex: index, props: curProps };
             $('.mbody-content').addClass('zoomIn animated').one('webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend', () => $('.mbody-content').removeClass('zoomIn animated'));
@@ -750,7 +755,8 @@ export default class App extends React.Component {
     }
     agingControl = () => {
         console.log('时效管控');
-        this.setState({ znybj: false }, () => {this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
+        // this.setState({ znybj: false }, () => {this.setState({ agingControl: !this.state.agingControl, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
+        this.setState({ znybj: false }, () => {this.setState({ agingControl: true, iWarningNew: false, iCommand: false, iCountBtn: false })}); 
     }
     goBack = () => {
         let index = this.state.index;
@@ -830,7 +836,7 @@ export default class App extends React.Component {
                 {this.state.iCommand ? <ICommand close={() => this.iCommand(false)} /> : null}
                 {this.state.iWarningNew ? <IWarningNew /> : null}
                 {this.state.znybj ? <ZNYBJ /> : null}
-                {this.state.agingControl ? <AgingControl /> : null}
+                {this.state.agingControl ? <AgingControl stl = 'absolute' /> : null}
             </div>
         )
     }

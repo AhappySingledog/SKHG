@@ -11,6 +11,7 @@ import { Desc, Details } from '../../../frame/componets/details/index';
 import BigShipIcon from '../../../res/mapIcon/bigShip.png';
 import BargeIcon from '../../../res/mapIcon/Barge.png';
 import yl from '../../../res/mapIcon/游轮.png';
+import AgingControl from './agingControl';
 
 /** 计算数量得到小数点和前面加0 */
 function toArray(str) {
@@ -63,15 +64,16 @@ class MapOperation extends React.Component {
 
     componentDidMount() {
         let mapExtent = {
-            xmax: 113.96063309,
-            xmin: 113.81710400,
-            ymax: 22.49214402,
-            ymin: 22.44131873,
+            xmin: 113.821099658,
+            ymin: 22.444926626,
+            xmax: 113.963486604,
+            ymax: 22.495485413
         };
         this.props.map.mapOper.setMapExtent(mapExtent);
 
         /** 港口码头划分 */
-        publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: 'LAYER=2' } }).then((res) => {
+        publish('webAction', { svn: 'skhg_service', path: 'getAreaByWhere', data: { where: "LAYER= '2' " } }).then((res) => {
+            console.log(res);
             let color = {
                 1: [250, 22, 80, 1],       // 红色
                 2: [57, 255, 95, 1],       // 绿色
@@ -137,12 +139,12 @@ class MapOperation extends React.Component {
             this.handleBigship(res[0]);
         })
 
-        /** 驳船显示 */
+        // /** 驳船显示 */
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'SKHG_BARGE', where: '1=1' } }).then((res) => {
             this.handleBarge(res[0]);
         })
 
-        /** 游轮显示 */
+        // /** 游轮显示 */
         publish('webAction', { svn: 'skhg_loader_service', path: 'queryTableByWhere', data: { tableName: 'YLMG_SHIP', where: '1=1' } }).then((res) => {
             this.handleCruise(res[0].data);
         })
@@ -665,7 +667,8 @@ export default class Port extends React.Component {
                     <div ref="iframe"></div>
                     {this.state.map ? <MapOperation map={this.state.map} /> : null}
                 </div>
-                <PortRightPanel></PortRightPanel>
+                {/* <PortRightPanel></PortRightPanel> */}
+                {/* <AgingControl stl = '' /> */}
                 {/* <div className='portRight'></div> */}
                 {/* <div className='portRight' style={{ marginLeft: 30 }}>
                     <div className='portRight-1' onClick={() => publish('playVedio')}></div>
