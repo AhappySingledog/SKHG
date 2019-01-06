@@ -62,14 +62,14 @@ export default class Home extends React.Component {
                 geocoder: false, //是否显示搜索按钮
                 fullscreenButton: false, //是否显示全屏按钮
                 baseLayerPicker: false, //关闭图层选择器，不然还怎么指定呢
-                // imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-                //     url: "http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles",
-                //     layer: "tdtBasicLayer",
-                //     style: "default",
-                //     format: "image/jpeg",
-                //     tileMatrixSetID: "GoogleMapsCompatible",
-                //     show: false
-                // })
+                imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+                    url: "http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles",
+                    layer: "tdtBasicLayer",
+                    style: "default",
+                    format: "image/jpeg",
+                    tileMatrixSetID: "GoogleMapsCompatible",
+                    show: false
+                })
             });
             // viewer.imageryLayers.addImageryProvider(new Cesium.WebMapTileServiceImageryProvider({ //地图标注
             //     url: "http://t0.tianditu.com/cia_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg",

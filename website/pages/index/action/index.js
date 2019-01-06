@@ -598,258 +598,258 @@ subscribes({
                 cartographicDegrees: getLine(data3, 10),
             },
         },
-        {
-            id: 'path3',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data4, 10),
-            },
-        }, {
-            id: 'path4',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data5, 10),
-            },
-        }, {
-            id: 'path5',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data6, 10),
-            },
-        }, {
-            id: 'path6',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data7, 10),
-            },
-        }, {
-            id: 'path7',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data8, 10),
-            },
-        },
-        {
-            id: 'path8',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data9, 10),
-            },
-        },
-        {
-            id: 'path9',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data10, 10),
-            },
-        },
-        {
-            id: 'path10',
-            name: '',
-            description: '',
-            availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
-            path: {
-                material: {
-                    // polylineOutline: {
-                    //     color: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineColor: {
-                    //         rgba: [230, 33, 41, 255]
-                    //     },
-                    //     outlineWidth: 0
-                    // }
-                    polylineArrow: {
-                        color: {
-                            rgba: [255, 255, 0, 255],
-                        },
-                    },
-                },
-                width: 30,
-                leadTime: 0,
-                trailTime: 9999999999999999999999999999,
-                resolution: 5,
-            },
-            position: {
-                epoch: '2012-08-04T10:00:00Z',
-                cartographicDegrees: getLine(data11, 10),
-            },
-        },
+        // {
+        //     id: 'path3',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data4, 10),
+        //     },
+        // }, {
+        //     id: 'path4',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data5, 10),
+        //     },
+        // }, {
+        //     id: 'path5',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data6, 10),
+        //     },
+        // }, {
+        //     id: 'path6',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data7, 10),
+        //     },
+        // }, {
+        //     id: 'path7',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data8, 10),
+        //     },
+        // },
+        // {
+        //     id: 'path8',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data9, 10),
+        //     },
+        // },
+        // {
+        //     id: 'path9',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data10, 10),
+        //     },
+        // },
+        // {
+        //     id: 'path10',
+        //     name: '',
+        //     description: '',
+        //     availability: '2012-08-04T10:00:00Z/2032-08-04T15:00:00Z',
+        //     path: {
+        //         material: {
+        //             // polylineOutline: {
+        //             //     color: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineColor: {
+        //             //         rgba: [230, 33, 41, 255]
+        //             //     },
+        //             //     outlineWidth: 0
+        //             // }
+        //             polylineArrow: {
+        //                 color: {
+        //                     rgba: [255, 255, 0, 255],
+        //                 },
+        //             },
+        //         },
+        //         width: 30,
+        //         leadTime: 0,
+        //         trailTime: 9999999999999999999999999999,
+        //         resolution: 5,
+        //     },
+        //     position: {
+        //         epoch: '2012-08-04T10:00:00Z',
+        //         cartographicDegrees: getLine(data11, 10),
+        //     },
+        // },
         ];
         return {
             ports: ports,

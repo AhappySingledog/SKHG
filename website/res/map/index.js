@@ -225,8 +225,8 @@ require([
                     var ydotIndex = py.indexOf('.');
                     // 保留小数点后四位
                     var html = '<span><b>' +
-                        xPrefix + ':</b>' + px.substring(0, xdotIndex + 5) + '<br/><b>' +
-                        yPrefix + ':</b>' + py.substring(0, ydotIndex + 5) + '</span>';
+                        xPrefix + ':</b>' + px.substring(0, xdotIndex + 10) + '<br/><b>' +
+                        yPrefix + ':</b>' + py.substring(0, ydotIndex + 10) + '</span>';
                     $positionSpan.empty().html(html);
                 })
             }

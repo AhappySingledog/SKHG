@@ -39,7 +39,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SCT_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -65,7 +65,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SMC_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -143,7 +143,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/MCT_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -169,7 +169,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/ZSBS_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -184,7 +184,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/CIC_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -226,7 +226,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/SZCWH_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -242,7 +242,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/YLMG_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
@@ -258,7 +258,7 @@
             "maps": [
                 {
                     "id": "tianimage",
-                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/ZSGW_TIF/MapServer",
+                    "url": "http://172.28.1.101:6080/arcgis/rest/services/skhg/skdt/MapServer",
                     "type": "tiled",
                     "name": "天地图影像",
                     "params": {
